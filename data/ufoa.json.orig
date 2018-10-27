@@ -1,0 +1,2723 @@
+{
+  "entities": [
+    {
+      "e_id": "e0",
+      "e_type": "kind",
+      "e_name": "Person"
+    },
+    {
+      "e_id": "e1",
+      "e_type": "role",
+      "e_name": "Aspirant Donor"
+    },
+    {
+      "e_id": "e2",
+      "e_type": "role",
+      "e_name": "Patient"
+    },
+    {
+      "e_id": "e3",
+      "e_type": "role",
+      "e_name": "Courier"
+    },
+    {
+      "e_id": "e4",
+      "e_type": "role",
+      "e_name": "Donor"
+    },
+    {
+      "e_id": "e5",
+      "e_type": "phase",
+      "e_name": "Available Donor"
+    },
+    {
+      "e_id": "e6",
+      "e_type": "phase",
+      "e_name": "Temporary\nDeferred\nDonor"
+    },
+    {
+      "e_id": "e7",
+      "e_type": "phase",
+      "e_name": "Permanently\nDeferred\nDonor"
+    },
+    {
+      "e_id": "e8",
+      "e_type": "role",
+      "e_name": "Potential Donor"
+    },
+    {
+      "e_id": "e9",
+      "e_type": "phase",
+      "e_name": "Selected and Available\nfor Verification"
+    },
+    {
+      "e_id": "e10",
+      "e_type": "phase",
+      "e_name": "Selected and Available\nfor Extended Typing"
+    },
+    {
+      "e_id": "e11",
+      "e_type": "phase",
+      "e_name": "not Selected\nfor Examination"
+    },
+    {
+      "e_id": "e12",
+      "e_type": "phase",
+      "e_name": "Unavailable\nfor Examination"
+    },
+    {
+      "e_id": "e13",
+      "e_type": "role",
+      "e_name": "Verified\nDonor"
+    },
+    {
+      "e_id": "e14",
+      "e_type": "role",
+      "e_name": "Reserved\nDonor"
+    },
+    {
+      "e_id": "e15",
+      "e_type": "role",
+      "e_name": "Donor Chosen\nfor Donation"
+    },
+    {
+      "e_id": "e16",
+      "e_type": "phase",
+      "e_name": "Donor Available\nfor Workup"
+    },
+    {
+      "e_id": "e17",
+      "e_type": "role",
+      "e_name": "Final Cleared\nDonor"
+    },
+    {
+      "e_id": "e18",
+      "e_type": "role",
+      "e_name": "Donor Accepted\nfor Collection"
+    },
+    {
+      "e_id": "e19",
+      "e_type": "role",
+      "e_name": "PBSC Prepared\nDonor"
+    },
+    {
+      "e_id": "e20",
+      "e_type": "role",
+      "e_name": "BM\nDonor"
+    },
+    {
+      "e_id": "e21",
+      "e_type": "role",
+      "e_name": "PBSC Donor"
+    },
+    {
+      "e_id": "e22",
+      "e_type": "role",
+      "e_name": "Donor Chosen for\nSubsequent Donation"
+    },
+    {
+      "e_id": "e23",
+      "e_type": "phase",
+      "e_name": "Donor Available\nfor Subsequent Workup"
+    },
+    {
+      "e_id": "e24",
+      "e_type": "role",
+      "e_name": "Final Cleared\nDonor\nfor Subsequent Donation"
+    },
+    {
+      "e_id": "e25",
+      "e_type": "role",
+      "e_name": "Donor Accepted\nfor Subsequent Collection"
+    },
+    {
+      "e_id": "e26",
+      "e_type": "role",
+      "e_name": "Subsequent\nHSC Donor"
+    },
+    {
+      "e_id": "e27",
+      "e_type": "mode",
+      "e_name": "Person's Genotype"
+    },
+    {
+      "e_id": "e28",
+      "e_type": "phase",
+      "e_name": "Unknown Genotype"
+    },
+    {
+      "e_id": "e29",
+      "e_type": "phase",
+      "e_name": "Evaluated Genotype"
+    },
+    {
+      "e_id": "e30",
+      "e_type": "relator",
+      "e_name": "Examination"
+    },
+    {
+      "e_id": "e31",
+      "e_type": "relator",
+      "e_name": "Initial Examination"
+    },
+    {
+      "e_id": "e32",
+      "e_type": "relator",
+      "e_name": "Extended Typing\nwithin New Blood Sample"
+    },
+    {
+      "e_id": "e33",
+      "e_type": "relator",
+      "e_name": "Verification Examination"
+    },
+    {
+      "e_id": "e34",
+      "e_type": "relator",
+      "e_name": "Workup Examination"
+    },
+    {
+      "e_id": "e35",
+      "e_type": "role",
+      "e_name": "PBSC\nRecipient"
+    },
+    {
+      "e_id": "e36",
+      "e_type": "role",
+      "e_name": "BM\nRecipient"
+    },
+    {
+      "e_id": "e37",
+      "e_type": "role",
+      "e_name": "Subsequent HSC\nRecipient"
+    },
+    {
+      "e_id": "e38",
+      "e_type": "relator",
+      "e_name": "HSC Donation"
+    },
+    {
+      "e_id": "e39",
+      "e_type": "relator",
+      "e_name": "PBSC Donation"
+    },
+    {
+      "e_id": "e40",
+      "e_type": "relator",
+      "e_name": "BM Donation"
+    },
+    {
+      "e_id": "e41",
+      "e_type": "relator",
+      "e_name": "DLI Donation"
+    },
+    {
+      "e_id": "e42",
+      "e_type": "relator",
+      "e_name": "Collection"
+    },
+    {
+      "e_id": "e43",
+      "e_type": "relator",
+      "e_name": "PBSC Collection"
+    },
+    {
+      "e_id": "e44",
+      "e_type": "relator",
+      "e_name": "BM Collection"
+    },
+    {
+      "e_id": "e45",
+      "e_type": "relator",
+      "e_name": "DLI Collection"
+    },
+    {
+      "e_id": "e46",
+      "e_type": "relator",
+      "e_name": "Transplantation"
+    },
+    {
+      "e_id": "e47",
+      "e_type": "relator",
+      "e_name": "PBSC Transplantation"
+    },
+    {
+      "e_id": "e48",
+      "e_type": "relator",
+      "e_name": "BM Transplantation"
+    },
+    {
+      "e_id": "e49",
+      "e_type": "relator",
+      "e_name": "Infection Markers\nDisease Testing"
+    },
+    {
+      "e_id": "e50",
+      "e_type": "relator",
+      "e_name": "Verification\nInfection Markers\nDisease Testing"
+    },
+    {
+      "e_id": "e51",
+      "e_type": "relator",
+      "e_name": "Workup\nInfection Markers\nDisease Testing"
+    },
+    {
+      "e_id": "e52",
+      "e_type": "relator",
+      "e_name": "Medical\nAssessment"
+    },
+    {
+      "e_id": "e53",
+      "e_type": "relator",
+      "e_name": "Initial\nMedical\nAssessment"
+    },
+    {
+      "e_id": "e54",
+      "e_type": "relator",
+      "e_name": "Verification\nMedical\nAssessment"
+    },
+    {
+      "e_id": "e55",
+      "e_type": "relator",
+      "e_name": "Workup\nMedical\nAssessment"
+    },
+    {
+      "e_id": "e56",
+      "e_type": "mode",
+      "e_name": "Medical\nAssessment\nResults"
+    },
+    {
+      "e_id": "e57",
+      "e_type": "mode",
+      "e_name": "Initial\nMedical\nAssessment\nResults"
+    },
+    {
+      "e_id": "e58",
+      "e_type": "mode",
+      "e_name": "Verification\nMedical\nAssessment\nResults"
+    },
+    {
+      "e_id": "e59",
+      "e_type": "mode",
+      "e_name": "Workup\nMedical\nAssessment\nResults"
+    },
+    {
+      "e_id": "e60",
+      "e_type": "quantity",
+      "e_name": "Blood Sample"
+    },
+    {
+      "e_id": "e61",
+      "e_type": "phase",
+      "e_name": "Fresh BS"
+    },
+    {
+      "e_id": "e62",
+      "e_type": "phase",
+      "e_name": "Stored BS"
+    },
+    {
+      "e_id": "e63",
+      "e_type": "phase",
+      "e_name": "Disposed BS"
+    },
+    {
+      "e_id": "e64",
+      "e_type": "quantity",
+      "e_name": "DNA Sample"
+    },
+    {
+      "e_id": "e65",
+      "e_type": "phase",
+      "e_name": "Fresh DS"
+    },
+    {
+      "e_id": "e66",
+      "e_type": "phase",
+      "e_name": "Stored DS"
+    },
+    {
+      "e_id": "e67",
+      "e_type": "phase",
+      "e_name": "Disposed DS"
+    },
+    {
+      "e_id": "e68",
+      "e_type": "quantity",
+      "e_name": "PBSC"
+    },
+    {
+      "e_id": "e69",
+      "e_type": "role",
+      "e_name": "Collected PBSC"
+    },
+    {
+      "e_id": "e70",
+      "e_type": "quantity",
+      "e_name": "BM"
+    },
+    {
+      "e_id": "e71",
+      "e_type": "role",
+      "e_name": "Collected BM"
+    },
+    {
+      "e_id": "e72",
+      "e_type": "role",
+      "e_name": "Delivered PBSC"
+    },
+    {
+      "e_id": "e73",
+      "e_type": "role",
+      "e_name": "Delivered BM"
+    },
+    {
+      "e_id": "e74",
+      "e_type": "role",
+      "e_name": "Transplanted PBSC"
+    },
+    {
+      "e_id": "e75",
+      "e_type": "role",
+      "e_name": "Transplanted BM"
+    },
+    {
+      "e_id": "e76",
+      "e_type": "quantity",
+      "e_name": "Hematopoietic\nStem Cells"
+    },
+    {
+      "e_id": "e77",
+      "e_type": "quantity",
+      "e_name": "DLI"
+    },
+    {
+      "e_id": "e78",
+      "e_type": "role",
+      "e_name": "Collected HSC"
+    },
+    {
+      "e_id": "e79",
+      "e_type": "role",
+      "e_name": "Delivered HSC"
+    },
+    {
+      "e_id": "e80",
+      "e_type": "role",
+      "e_name": "Transplanted HSC"
+    },
+    {
+      "e_id": "e81",
+      "e_type": "mode",
+      "e_name": "Donor's Infection\nDisease Markers\nResults\nfor Verification"
+    },
+    {
+      "e_id": "e82",
+      "e_type": "mode",
+      "e_name": "Donor's Infection\nDisease Markers\nResults\nfor Workup"
+    },
+    {
+      "e_id": "e83",
+      "e_type": "phase",
+      "e_name": "Donor Activated\nfor Workup"
+    },
+    {
+      "e_id": "e84",
+      "e_type": "phase",
+      "e_name": "Donor Unavailable\nfor Workup"
+    },
+    {
+      "e_id": "e85",
+      "e_type": "phase",
+      "e_name": "Donor Activated\nforSubsequent Workup"
+    },
+    {
+      "e_id": "e86",
+      "e_type": "phase",
+      "e_name": "Donor Unavailable\nfor Subsequent Workup"
+    },
+    {
+      "e_id": "e87",
+      "e_type": "role",
+      "e_name": "Follow-up Donor"
+    },
+    {
+      "e_id": "e88",
+      "e_type": "relator",
+      "e_name": "Gene Assignment"
+    },
+    {
+      "e_id": "e89",
+      "e_type": "relator",
+      "e_name": "Recruitment"
+    },
+    {
+      "e_id": "e90",
+      "e_type": "kind",
+      "e_name": "Donor Centre"
+    },
+    {
+      "e_id": "e91",
+      "e_type": "relator",
+      "e_name": "Blood Sample Draw"
+    },
+    {
+      "e_id": "e92",
+      "e_type": "relator",
+      "e_name": "DNA Isolation"
+    },
+    {
+      "e_id": "e93",
+      "e_type": "kind",
+      "e_name": "HLA Laboratory"
+    },
+    {
+      "e_id": "e94",
+      "e_type": "mode",
+      "e_name": "Donor's\nTyping Results"
+    },
+    {
+      "e_id": "e95",
+      "e_type": "quality",
+      "e_name": "Genotype value"
+    },
+    {
+      "e_id": "e96",
+      "e_type": "relator",
+      "e_name": "Patient Registration"
+    },
+    {
+      "e_id": "e97",
+      "e_type": "kind",
+      "e_name": "TransplantCentre"
+    },
+    {
+      "e_id": "e98",
+      "e_type": "relator",
+      "e_name": "Search"
+    },
+    {
+      "e_id": "e99",
+      "e_type": "collective",
+      "e_name": "Found Donors"
+    },
+    {
+      "e_id": "e100",
+      "e_type": "kind",
+      "e_name": "Donor Registry"
+    },
+    {
+      "e_id": "e101",
+      "e_type": "relator",
+      "e_name": "HLA Typing"
+    },
+    {
+      "e_id": "e102",
+      "e_type": "relator",
+      "e_name": "Collection Request"
+    },
+    {
+      "e_id": "e103",
+      "e_type": "relator",
+      "e_name": "Donor\nReservation"
+    },
+    {
+      "e_id": "e104",
+      "e_type": "mode",
+      "e_name": "Donor\nClearance"
+    },
+    {
+      "e_id": "e105",
+      "e_type": "mode",
+      "e_name": "Donor Clearance\nfor Subsequent Donation"
+    },
+    {
+      "e_id": "e106",
+      "e_type": "relator",
+      "e_name": "Donor Clearance\nAcceptance"
+    },
+    {
+      "e_id": "e107",
+      "e_type": "mode",
+      "e_name": "Reasoning\nof Collection\nof Noneligible\nDonor"
+    },
+    {
+      "e_id": "e108",
+      "e_type": "relator",
+      "e_name": "PBSC Donation\nPreparation"
+    },
+    {
+      "e_id": "e109",
+      "e_type": "kind",
+      "e_name": "Collection\nCentre"
+    },
+    {
+      "e_id": "e110",
+      "e_type": "mode",
+      "e_name": "Schedule"
+    },
+    {
+      "e_id": "e111",
+      "e_type": "mode",
+      "e_name": "Donor Clereance\nSpecification"
+    },
+    {
+      "e_id": "e112",
+      "e_type": "relator",
+      "e_name": "Collection Request\nfor Subsequent Donation"
+    },
+    {
+      "e_id": "e113",
+      "e_type": "mode",
+      "e_name": "Schedule\nfor Subsequent Donation"
+    },
+    {
+      "e_id": "e114",
+      "e_type": "mode",
+      "e_name": "Donor Clereance\nSpecification\nfor Subsequent Donation"
+    },
+    {
+      "e_id": "e115",
+      "e_type": "relator",
+      "e_name": "Donor Clearance\nfor Subsequent Donation\nAcceptance"
+    },
+    {
+      "e_id": "e116",
+      "e_type": "relator",
+      "e_name": "Courier Training"
+    },
+    {
+      "e_id": "e117",
+      "e_type": "mode",
+      "e_name": "Courier Training Record"
+    },
+    {
+      "e_id": "e118",
+      "e_type": "relator",
+      "e_name": "Transport"
+    },
+    {
+      "e_id": "e119",
+      "e_type": "mode",
+      "e_name": "Expert Statement"
+    },
+    {
+      "e_id": "e120",
+      "e_type": "relator",
+      "e_name": "Follow-up"
+    },
+    {
+      "e_id": "e121",
+      "e_type": "mode",
+      "e_name": "Follow-up Results"
+    },
+    {
+      "e_id": "e122",
+      "e_type": "relator",
+      "e_name": "Registration"
+    }
+  ],
+  "generalisations": [
+    {
+      "g_set_id": "gs0",
+      "g_sup_e_id": "e0",
+      "g_sub_e_id": "e1",
+      "g_id": "g0"
+    },
+    {
+      "g_set_id": "gs0",
+      "g_sup_e_id": "e0",
+      "g_sub_e_id": "e2",
+      "g_id": "g1"
+    },
+    {
+      "g_set_id": "gs0",
+      "g_sup_e_id": "e0",
+      "g_sub_e_id": "e3",
+      "g_id": "g2"
+    },
+    {
+      "g_set_id": "gs1",
+      "g_sup_e_id": "e1",
+      "g_sub_e_id": "e4",
+      "g_meta": "disjoint",
+      "g_id": "g3"
+    },
+    {
+      "g_set_id": "gs3",
+      "g_sup_e_id": "e4",
+      "g_sub_e_id": "e5",
+      "g_meta": "disjoint-complete",
+      "g_id": "g4"
+    },
+    {
+      "g_set_id": "gs3",
+      "g_sup_e_id": "e4",
+      "g_sub_e_id": "e6",
+      "g_meta": "disjoint-complete",
+      "g_id": "g5"
+    },
+    {
+      "g_set_id": "gs3",
+      "g_sup_e_id": "e4",
+      "g_sub_e_id": "e7",
+      "g_meta": "disjoint-complete",
+      "g_id": "g6"
+    },
+    {
+      "g_set_id": "gs6",
+      "g_sup_e_id": "e5",
+      "g_sub_e_id": "e8",
+      "g_id": "g7"
+    },
+    {
+      "g_set_id": "gs24",
+      "g_sup_e_id": "e8",
+      "g_sub_e_id": "e9",
+      "g_meta": "disjoint-complete",
+      "g_id": "g8"
+    },
+    {
+      "g_set_id": "gs24",
+      "g_sup_e_id": "e8",
+      "g_sub_e_id": "e10",
+      "g_meta": "disjoint-complete",
+      "g_id": "g9"
+    },
+    {
+      "g_set_id": "gs24",
+      "g_sup_e_id": "e8",
+      "g_sub_e_id": "e11",
+      "g_meta": "disjoint-complete",
+      "g_id": "g10"
+    },
+    {
+      "g_set_id": "gs24",
+      "g_sup_e_id": "e8",
+      "g_sub_e_id": "e12",
+      "g_meta": "disjoint-complete",
+      "g_id": "g11"
+    },
+    {
+      "g_set_id": "gs7",
+      "g_sup_e_id": "e9",
+      "g_sub_e_id": "e13",
+      "g_id": "g12"
+    },
+    {
+      "g_set_id": "gs8a",
+      "g_sup_e_id": "e13",
+      "g_sub_e_id": "e14",
+      "g_id": "g13"
+    },
+    {
+      "g_set_id": "gs8b",
+      "g_sup_e_id": "e14",
+      "g_sub_e_id": "e15",
+      "g_id": "g14"
+    },
+    {
+      "g_set_id": "gs8c",
+      "g_sup_e_id": "e16",
+      "g_sub_e_id": "e17",
+      "g_id": "g15"
+    },
+    {
+      "g_set_id": "gs8d",
+      "g_sup_e_id": "e17",
+      "g_sub_e_id": "e18",
+      "g_id": "g16"
+    },
+    {
+      "g_set_id": "gs11",
+      "g_sup_e_id": "e18",
+      "g_sub_e_id": "e19",
+      "g_meta": "disjoint-complete",
+      "g_id": "g17"
+    },
+    {
+      "g_set_id": "gs11",
+      "g_sup_e_id": "e18",
+      "g_sub_e_id": "e20",
+      "g_meta": "disjoint-complete",
+      "g_id": "g18"
+    },
+    {
+      "g_set_id": "gs11b",
+      "g_sup_e_id": "e19",
+      "g_sub_e_id": "e21",
+      "g_id": "g19"
+    },
+    {
+      "g_set_id": "gs16_1",
+      "g_sup_e_id": "e21",
+      "g_sub_e_id": "e22",
+      "g_id": "g20"
+    },
+    {
+      "g_set_id": "gs16_2",
+      "g_sup_e_id": "e20",
+      "g_sub_e_id": "e22",
+      "g_id": "g21"
+    },
+    {
+      "g_set_id": "gs17",
+      "g_sup_e_id": "e23",
+      "g_sub_e_id": "e24",
+      "g_id": "g22"
+    },
+    {
+      "g_set_id": "gs18",
+      "g_sup_e_id": "e24",
+      "g_sub_e_id": "e25",
+      "g_id": "g23"
+    },
+    {
+      "g_set_id": "gs25",
+      "g_sup_e_id": "e25",
+      "g_sub_e_id": "e26",
+      "g_id": "g24"
+    },
+    {
+      "g_set_id": "gs5",
+      "g_sup_e_id": "e27",
+      "g_sub_e_id": "e28",
+      "g_meta": "disjoint-complete",
+      "g_id": "g25"
+    },
+    {
+      "g_set_id": "gs5",
+      "g_sup_e_id": "e27",
+      "g_sub_e_id": "e29",
+      "g_meta": "disjoint-complete",
+      "g_id": "g26"
+    },
+    {
+      "g_set_id": "gs4",
+      "g_sup_e_id": "e30",
+      "g_sub_e_id": "e31",
+      "g_meta": "disjoint-complete",
+      "g_id": "g27"
+    },
+    {
+      "g_set_id": "gs4",
+      "g_sup_e_id": "e30",
+      "g_sub_e_id": "e32",
+      "g_meta": "disjoint-complete",
+      "g_id": "g28"
+    },
+    {
+      "g_set_id": "gs4",
+      "g_sup_e_id": "e30",
+      "g_sub_e_id": "e33",
+      "g_meta": "disjoint-complete",
+      "g_id": "g29"
+    },
+    {
+      "g_set_id": "gs4",
+      "g_sup_e_id": "e30",
+      "g_sub_e_id": "e34",
+      "g_meta": "disjoint-complete",
+      "g_id": "g30"
+    },
+    {
+      "g_set_id": "gs9a",
+      "g_sup_e_id": "e2",
+      "g_sub_e_id": "e35",
+      "g_meta": "disjoint-complete",
+      "g_id": "g31"
+    },
+    {
+      "g_set_id": "gs9a",
+      "g_sup_e_id": "e2",
+      "g_sub_e_id": "e36",
+      "g_meta": "disjoint-complete",
+      "g_id": "g32"
+    },
+    {
+      "g_set_id": "gs26",
+      "g_sup_e_id": "e35",
+      "g_sub_e_id": "e37",
+      "g_id": "g33"
+    },
+    {
+      "g_set_id": "gs27",
+      "g_sup_e_id": "e36",
+      "g_sub_e_id": "e37",
+      "g_id": "g34"
+    },
+    {
+      "g_set_id": "gs10",
+      "g_sup_e_id": "e38",
+      "g_sub_e_id": "e39",
+      "g_meta": "disjoint-complete",
+      "g_id": "g35"
+    },
+    {
+      "g_set_id": "gs10",
+      "g_sup_e_id": "e38",
+      "g_sub_e_id": "e40",
+      "g_meta": "disjoint-complete",
+      "g_id": "g36"
+    },
+    {
+      "g_set_id": "gs10",
+      "g_sup_e_id": "e38",
+      "g_sub_e_id": "e41",
+      "g_meta": "disjoint-complete",
+      "g_id": "g37"
+    },
+    {
+      "g_set_id": "gs12",
+      "g_sup_e_id": "e42",
+      "g_sub_e_id": "e43",
+      "g_meta": "disjoint-complete",
+      "g_id": "g38"
+    },
+    {
+      "g_set_id": "gs12",
+      "g_sup_e_id": "e42",
+      "g_sub_e_id": "e44",
+      "g_meta": "disjoint-complete",
+      "g_id": "g39"
+    },
+    {
+      "g_set_id": "gs12",
+      "g_sup_e_id": "e42",
+      "g_sub_e_id": "e45",
+      "g_meta": "disjoint-complete",
+      "g_id": "g40"
+    },
+    {
+      "g_set_id": "gs13",
+      "g_sup_e_id": "e46",
+      "g_sub_e_id": "e47",
+      "g_meta": "disjoint-complete",
+      "g_id": "g41"
+    },
+    {
+      "g_set_id": "gs13",
+      "g_sup_e_id": "e46",
+      "g_sub_e_id": "e48",
+      "g_meta": "disjoint-complete",
+      "g_id": "g42"
+    },
+    {
+      "g_set_id": "gs19",
+      "g_sup_e_id": "e49",
+      "g_sub_e_id": "e50",
+      "g_meta": "disjoint-complete",
+      "g_id": "g43"
+    },
+    {
+      "g_set_id": "gs19",
+      "g_sup_e_id": "e49",
+      "g_sub_e_id": "e51",
+      "g_meta": "disjoint-complete",
+      "g_id": "g44"
+    },
+    {
+      "g_set_id": "gs20",
+      "g_sup_e_id": "e52",
+      "g_sub_e_id": "e53",
+      "g_meta": "disjoint-complete",
+      "g_id": "g45"
+    },
+    {
+      "g_set_id": "gs20",
+      "g_sup_e_id": "e52",
+      "g_sub_e_id": "e54",
+      "g_meta": "disjoint-complete",
+      "g_id": "g46"
+    },
+    {
+      "g_set_id": "gs20",
+      "g_sup_e_id": "e52",
+      "g_sub_e_id": "e55",
+      "g_meta": "disjoint-complete",
+      "g_id": "g47"
+    },
+    {
+      "g_set_id": "gs21",
+      "g_sup_e_id": "e56",
+      "g_sub_e_id": "e57",
+      "g_meta": "disjoint-complete",
+      "g_id": "g48"
+    },
+    {
+      "g_set_id": "gs21",
+      "g_sup_e_id": "e56",
+      "g_sub_e_id": "e58",
+      "g_meta": "disjoint-complete",
+      "g_id": "g49"
+    },
+    {
+      "g_set_id": "gs21",
+      "g_sup_e_id": "e56",
+      "g_sub_e_id": "e59",
+      "g_meta": "disjoint-complete",
+      "g_id": "g50"
+    },
+    {
+      "g_set_id": "gs22",
+      "g_sup_e_id": "e60",
+      "g_sub_e_id": "e61",
+      "g_meta": "disjoint-complete",
+      "g_id": "g51"
+    },
+    {
+      "g_set_id": "gs22",
+      "g_sup_e_id": "e60",
+      "g_sub_e_id": "e62",
+      "g_meta": "disjoint-complete",
+      "g_id": "g52"
+    },
+    {
+      "g_set_id": "gs22",
+      "g_sup_e_id": "e60",
+      "g_sub_e_id": "e63",
+      "g_meta": "disjoint-complete",
+      "g_id": "g53"
+    },
+    {
+      "g_set_id": "gs23",
+      "g_sup_e_id": "e64",
+      "g_sub_e_id": "e65",
+      "g_meta": "disjoint-complete",
+      "g_id": "g54"
+    },
+    {
+      "g_set_id": "gs23",
+      "g_sup_e_id": "e64",
+      "g_sub_e_id": "e66",
+      "g_meta": "disjoint-complete",
+      "g_id": "g55"
+    },
+    {
+      "g_set_id": "gs23",
+      "g_sup_e_id": "e64",
+      "g_sub_e_id": "e67",
+      "g_meta": "disjoint-complete",
+      "g_id": "g56"
+    },
+    {
+      "g_set_id": "gs28a",
+      "g_sup_e_id": "e68",
+      "g_sub_e_id": "e69",
+      "g_id": "g57"
+    },
+    {
+      "g_set_id": "gs28b",
+      "g_sup_e_id": "e70",
+      "g_sub_e_id": "e71",
+      "g_id": "g58"
+    },
+    {
+      "g_set_id": "gs29a",
+      "g_sup_e_id": "e69",
+      "g_sub_e_id": "e72",
+      "g_id": "g59"
+    },
+    {
+      "g_set_id": "gs29b",
+      "g_sup_e_id": "e71",
+      "g_sub_e_id": "e73",
+      "g_id": "g60"
+    },
+    {
+      "g_set_id": "gs30a",
+      "g_sup_e_id": "e72",
+      "g_sub_e_id": "e74",
+      "g_id": "g61"
+    },
+    {
+      "g_set_id": "gs30b",
+      "g_sup_e_id": "e73",
+      "g_sub_e_id": "e75",
+      "g_id": "g62"
+    },
+    {
+      "g_set_id": "gs31",
+      "g_sup_e_id": "e76",
+      "g_sub_e_id": "e68",
+      "g_meta": "disjoint",
+      "g_id": "g63"
+    },
+    {
+      "g_set_id": "gs31",
+      "g_sup_e_id": "e76",
+      "g_sub_e_id": "e70",
+      "g_meta": "disjoint",
+      "g_id": "g64"
+    },
+    {
+      "g_set_id": "gs31",
+      "g_sup_e_id": "e76",
+      "g_sub_e_id": "e77",
+      "g_meta": "disjoint",
+      "g_id": "g65"
+    },
+    {
+      "g_set_id": "gs32",
+      "g_sup_e_id": "e76",
+      "g_sub_e_id": "e78",
+      "g_id": "g66"
+    },
+    {
+      "g_set_id": "gs33",
+      "g_sup_e_id": "e78",
+      "g_sub_e_id": "e79",
+      "g_id": "g67"
+    },
+    {
+      "g_set_id": "gs34",
+      "g_sup_e_id": "e79",
+      "g_sub_e_id": "e80",
+      "g_id": "g68"
+    },
+    {
+      "g_set_id": "gs35",
+      "g_sup_e_id": "e81",
+      "g_sub_e_id": "e82",
+      "g_id": "g69"
+    },
+    {
+      "g_set_id": "gs36",
+      "g_sup_e_id": "e15",
+      "g_sub_e_id": "e83",
+      "g_meta": "disjoint-complete",
+      "g_id": "g70"
+    },
+    {
+      "g_set_id": "gs36",
+      "g_sup_e_id": "e15",
+      "g_sub_e_id": "e16",
+      "g_meta": "disjoint-complete",
+      "g_id": "g71"
+    },
+    {
+      "g_set_id": "gs36",
+      "g_sup_e_id": "e15",
+      "g_sub_e_id": "e84",
+      "g_meta": "disjoint-complete",
+      "g_id": "g72"
+    },
+    {
+      "g_set_id": "gs37",
+      "g_sup_e_id": "e22",
+      "g_sub_e_id": "e85",
+      "g_meta": "disjoint-complete",
+      "g_id": "g73"
+    },
+    {
+      "g_set_id": "gs37",
+      "g_sup_e_id": "e22",
+      "g_sub_e_id": "e23",
+      "g_meta": "disjoint-complete",
+      "g_id": "g74"
+    },
+    {
+      "g_set_id": "gs37",
+      "g_sup_e_id": "e22",
+      "g_sub_e_id": "e86",
+      "g_meta": "disjoint-complete",
+      "g_id": "g75"
+    },
+    {
+      "g_set_id": "gs38",
+      "g_sup_e_id": "e21",
+      "g_sub_e_id": "e87",
+      "g_id": "g76"
+    },
+    {
+      "g_set_id": "gs39",
+      "g_sup_e_id": "e20",
+      "g_sub_e_id": "e87",
+      "g_id": "g77"
+    },
+    {
+      "g_set_id": "gs40",
+      "g_sup_e_id": "e26",
+      "g_sub_e_id": "e87",
+      "g_id": "g78"
+    }
+  ],
+  "associations": [
+    {
+      "a_id": "a0",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e88",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e4",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a1",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e89",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e90",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a2",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e91",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e60",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a3",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e60",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e92",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a4",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e93",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e92",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a5",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e92",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e64",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a6",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e93",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e88",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a7",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e94",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e88",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a8",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e95",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e88",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a9",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e4",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e95",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a10",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e0",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e27",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a11",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e29",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e95",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a12",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e10",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e32",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a13",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e13",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e33",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a14",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e2",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e96",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a15",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e96",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a16",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e2",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e98",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a17",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e99",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e98",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a18",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e98",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e100",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a19",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e90",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e30",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a20",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e101",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e64",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a21",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e101",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e94",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a22",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e1",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e89",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a23",
+      "a_type": "",
+      "a_label": "<<material>>\n/belongs",
+      "a_connection1": {
+        "e_id": "e1",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e60",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a24",
+      "a_type": "",
+      "a_label": "<<material>>\n/belongs",
+      "a_connection1": {
+        "e_id": "e4",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e64",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a25",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e101",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e93",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a26",
+      "a_type": "",
+      "a_label": "<<material>>\nregisters",
+      "a_connection1": {
+        "e_id": "e90",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e60",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a27",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e49",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e60",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a28",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e50",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e81",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a29",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e51",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e82",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a30",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e53",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e57",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a31",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e54",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e58",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a32",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e55",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e59",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a33",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e15",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e102",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a34",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e102",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a35",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e103",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e14",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a36",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e103",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a37",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e17",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e34",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a38",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e17",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e104",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a39",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e24",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e105",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a40",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e18",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e106",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a41",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e106",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a42",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e106",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e107",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a43",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e43",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e69",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a44",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e43",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e21",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a45",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e44",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e20",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a46",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e44",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e71",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a47",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e108",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e19",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a48",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e108",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e90",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a49",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e42",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e109",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a50",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e46",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a51",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e47",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e74",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a52",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e47",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e35",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a53",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e48",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e75",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a54",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e48",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e36",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a55",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e46",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e37",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a56",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e15",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e110",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a57",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e15",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e111",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a58",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e22",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e112",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a59",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e112",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a60",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e112",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e100",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a61",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e22",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e113",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a62",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e22",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e114",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a63",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e24",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e34",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a64",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e25",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e115",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a65",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e115",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e97",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a66",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e26",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e42",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a67",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e3",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e116",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a68",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e3",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e117",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a69",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e116",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e100",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a70",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e3",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e118",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a71",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e118",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e72",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a72",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e118",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e73",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a73",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e118",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e79",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a74",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e78",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e42",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a75",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e79",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e118",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a76",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e80",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e46",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a77",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e76",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e38",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a78",
+      "a_type": "containment",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e0",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e76",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a79",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e112",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e119",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a80",
+      "a_type": "characterization",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e120",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e121",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a81",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e90",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e120",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    },
+    {
+      "a_id": "a82",
+      "a_type": "mediation",
+      "a_label": "",
+      "a_connection1": {
+        "e_id": "e120",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e87",
+        "mult": {
+          "lower": 1,
+          "upper": 1
+        }
+      }
+    }
+  ]
+}
