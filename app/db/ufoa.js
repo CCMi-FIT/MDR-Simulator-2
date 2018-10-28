@@ -28,6 +28,10 @@ export function loadModel(): Promise<any> {
 
 // Entities
 
+export function newEntity(): UfoaEntity {
+  return ufoaModel.newEntity(model);
+}
+
 export function getEntities(): Array<UfoaEntity> {
   return model.entities;
 }

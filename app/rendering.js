@@ -2,6 +2,7 @@
 
 import type {Id, UfoaEntity, Generalisation, Association, Model} from "./metamodel/ufoa";
 import * as ufoaMeta from "./metamodel/ufoa";
+import * as ufoaDB from "./db/ufoa";
 
 type VisId = string;
 type VisLabel = string;
@@ -85,6 +86,10 @@ export function model2vis(model: Model): VisModel {
   };
 }
 
+function addNodeHandler(nodeData, callback) {
+  callback(entity2vis(ufoaDB.newEntity()));
+}
+
 const options = {
   nodes: {
     shape: "box"
@@ -109,6 +114,10 @@ const options = {
       damping: 0.1,
       avoidOverlap: 1
     }
+  },
+  manipulation: {
+    enabled: true,
+    addNode: addNodeHandler
   }
 };
   

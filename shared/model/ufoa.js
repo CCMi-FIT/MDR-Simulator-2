@@ -5,7 +5,33 @@ import type { Id, UfoaEntity, Generalisation, GSet, Association, Model } from '.
 import type { ValidationResult } from "../metamodel/ufoa";
 import * as ufoaMeta from "../metamodel/ufoa";
 
+// Common
+
+function getLastIdNo(ids: Array<Id>): number {
+  return ids.reduce((maxNum: number, id: Id) => {
+    const idNumStr = id.match(/\d/g);
+    if (!idNumStr) {
+      console.error(`Something is wrong: id ${id} does not contain a number.`);
+      return -1;
+    } else {
+      const idNum = parseInt(idNumStr.join(""), 10);
+      return idNum > maxNum ? idNum : maxNum;
+    }
+  }, -1);
+}
+
 // Entities
+
+export function newEntity(model: Model): UfoaEntity {
+  const lastIdNo = getLastIdNo(model.entities.map((e) => e.e_id));
+  const newEntity = {
+    e_id: `e${lastIdNo+1}`,
+    e_type: "kind",
+    e_name: "New Entity"
+  };
+  model.entities.push(newEntity);
+  return newEntity;
+}
 
 export function getEntity(model: Model, e_id: Id): ?UfoaEntity {
   return model.entities.find(e => e.e_id === e_id);
