@@ -8,19 +8,6 @@ import * as panels from './panels';
 import * as generalisationDialog from "./ufoa/generalisationDialog";
 import * as associationDialog from "./ufoa/associationDialog";
 
-export function fitPanes() {
-  const wh = $(window).innerHeight();
-  const ww = $(".tab-content").innerWidth();
-  const fh = $("footer").height();
-  const nh = $("nav").height();
-  const th = $(".nav-tabs").height();
-  const h = wh - fh - nh - th;
-
-  $("#ufob-box").height(h);
-  $("#ufoa-inst-box").height(h);
-  $("#ufoa-box").height(h);
-}
-
 function dispatchNode(nodeId: Id, ufoaVisModel: VisModel) {
   let ufoaEntity = ufoaDB.getEntity(nodeId);
   if (!ufoaEntity) {

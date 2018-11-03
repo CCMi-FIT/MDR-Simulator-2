@@ -4,26 +4,75 @@ import * as ReactDOM from 'react-dom';
 
 const dialogId = "dialog-box";
 const messageId = "message-box";
+const modalId = "modal";
 
-export function getContainer(): ?Element {
-  let container = document.getElementById(dialogId);
-  if (!container) {
-    console.error("container #" + dialogId + " does not exist");
-  }
-  return container;
+export function fitPanes() {
+  const wh = $(window).innerHeight();
+  const ww = $(".tab-content").innerWidth();
+  const fh = $("footer").height();
+  const nh = $("nav").height();
+  const th = $(".nav-tabs").height();
+  const h = wh - fh - nh - th;
+
+  $("#ufob-box").height(h);
+  $("#ufoa-inst-box").height(h);
+  $("#ufoa-box").height(h);
 }
 
-export function hideDialog(): void {
-  let container = getContainer();
-  if (container) {
-    ReactDOM.unmountComponentAtNode(container);
-    $(container).hide();
+// Getting
+
+function getPanel(panelId: string): ?Element {
+  let panel = document.getElementById(panelId);
+  if (!panel) {
+    console.error("panel #" + panelId + " does not exist");
+  }
+  return panel;
+}
+
+export function getDialog(): ?Element {
+  return getPanel(dialogId);
+}
+
+export function getModal(): ?Element {
+  return getPanel(modalId);
+}
+
+// Showing
+
+function showPanel(panelId: string): void {
+  let panel = getPanel(panelId);
+  if (panel) {
+    $(panel).show();
   }
 }
 
 export function showDialog(): void {
-  $("#" + dialogId).show();
+  showPanel(dialogId);
 }
+
+export function showModal(): void {
+  showPanel(modalId);
+}
+
+// Hiding
+
+function hidePanel(panelId: string): void {
+  let panel = getPanel(panelId);
+  if (panel) {
+    ReactDOM.unmountComponentAtNode(panel);
+    $(panel).hide();
+  }
+}
+
+export function hideDialog(): void {
+  hidePanel(dialogId);
+}
+
+export function hideModal(): void {
+  hidePanel(modalId);
+}
+
+// Message
 
 const closeButton = `
   <button type="button" class="close" aria-label="Close" onclick="$('#${messageId}').hide()"}>
@@ -46,7 +95,6 @@ export function displayMsg(msg: string, style: "alert-success"|"alert-danger", f
 export function hideMsg(): void {
   $("#" + messageId).hide();
 }
-
 
 export function displayInfo(msg: string): void {
   displayMsg(msg, "alert-success", true);

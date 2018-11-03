@@ -1327,6 +1327,15 @@
       },
       "g_sup_e_id": "e26",
       "g_sub_e_id": "e87"
+    },
+    {
+      "g_id": "g79",
+      "g_set": {
+        "g_set_id": "gs164",
+        "g_meta": "complete"
+      },
+      "g_sup_e_id": "e115",
+      "g_sub_e_id": "e34"
     }
   ],
   "associations": [
@@ -2690,18 +2699,18 @@
       "a_id": "a69",
       "a_type": "characterization",
       "a_meta": "",
-      "a_label": "",
+      "a_label": "kuku\nnest",
       "a_connection1": {
         "e_id": "e116",
         "mult": {
-          "lower": 0
+          "lower": 2,
+          "upper": 3
         }
       },
       "a_connection2": {
         "e_id": "e100",
         "mult": {
-          "lower": 1,
-          "upper": 1
+          "lower": 4
         }
       }
     },

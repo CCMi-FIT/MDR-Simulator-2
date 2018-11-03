@@ -1,6 +1,6 @@
 // @flow
 
-import type { Id, UfoaEntity, Generalisation, GSet, Association, Model } from '../metamodel/ufoa';
+import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, Model } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
@@ -72,6 +72,10 @@ export function deleteEntity(e_id: Id): Promise<any> {
 
 // Generalisations
 
+export function newGeneralisation(g_sup_e_id: Id, g_sub_e_id: Id): Generalisation {
+  return ufoaModel.newGeneralisation(model, g_sup_e_id, g_sub_e_id);
+}
+
 export function getGeneralisation(g_id: Id): ?Generalisation {
   return ufoaModel.getGeneralisation(model, g_id);
 }
@@ -115,6 +119,10 @@ export function deleteGeneralisation(g_id: Id): Promise<any> {
 }
 
 // Associations
+
+export function newAssociation(e_id_1: Id, e_id_2: Id): Association {
+  return ufoaModel.newAssociation(model, e_id_1, e_id_2);
+}
 
 export function getAssociation(g_id: Id): ?Association {
   return ufoaModel.getAssociation(model, g_id);

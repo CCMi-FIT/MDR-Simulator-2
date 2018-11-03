@@ -1,7 +1,7 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, UfoaEntity, Generalisation, GSet, Association, Model } from '../metamodel/ufoa';
+import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, Model } from '../metamodel/ufoa';
 import type { ValidationResult } from "../metamodel/ufoa";
 import * as ufoaMeta from "../metamodel/ufoa";
 
@@ -59,6 +59,22 @@ export function deleteEntity(model: Model, e_id: Id): void {
 
 // Generalisations
 
+export function newGeneralisation(model: Model, g_sup_e_id: Id, g_sub_e_id: Id): Generalisation {
+  const lastGIdNo = getLastIdNo(model.generalisations.map((g) => g.g_id));
+  const lastGSIdNo = getLastIdNo(getGeneralisationSets(model).map((gs) => gs.g_set_id));
+  const newGeneralisation = {
+    g_id: `g${lastGIdNo+1}`,
+    g_set: {
+      g_set_id: `gs${lastGSIdNo+1}`,
+      g_meta: ""
+    },
+    g_sup_e_id,
+    g_sub_e_id
+  };
+  model.generalisations.push(newGeneralisation);
+  return newGeneralisation;
+}
+
 export function getGeneralisation(model: Model, g_id: Id): ?Generalisation {
   return model.generalisations.find(g => g.g_id === g_id);
 }
@@ -106,6 +122,26 @@ export function deleteGeneralisation(model: Model, g_id: Id): void {
 }
 
 // Associations
+
+export function newAssociation(model: Model, e_id_1: Id, e_id_2: Id): Association {
+  const lastIdNo = getLastIdNo(model.associations.map((a) => a.a_id));
+  const newAssociation = {
+    a_id: `a${lastIdNo+1}`,
+    a_type: "",
+    a_meta: "",
+    a_connection1: {
+      e_id: e_id_1,
+      mult: { lower: 1 }
+    },
+    a_connection2: {
+      e_id: e_id_2,
+      mult: { lower: 1 }
+    },
+    a_label: ""
+  };
+  model.associations.push(newAssociation);
+  return newAssociation;
+}
 
 export function getAssociation(model: Model, a_id: Id): ?Association {
   return model.associations.find(g => g.a_id === a_id);

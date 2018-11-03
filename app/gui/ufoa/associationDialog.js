@@ -52,24 +52,35 @@ class AssociationForm extends React.Component<Props, State> {
 
   setAttr = (attr: string, event: any) => {
     let val = event.currentTarget.value;
-    this.setState((state, props) => {
+    this.setState((state: State, props: Props) => {
+      let stateCopy = Object.assign({}, state); // Just because Flow bitches about state in R.dissocPath
       let aOrig = props.association;
-      let stateNew;
-      switch (attr) {
-        case "a_type":
-          this.setState({ showMeta: val === "member of" });
-          stateNew = R.mergeDeepRight(state, { association2: { a_type: val }});
-          break;
-        case "a_meta":
-          stateNew = R.mergeDeepRight(state, { association2: { a_meta: val }});
-          break;
-        case "a_label":
-          stateNew = R.mergeDeepRight(state, { association2: { a_label: val }});
-          break;
-        default: 
-          stateNew = R.mergeDeepRight(state, {});
-          console.error(`AssociationForm: setAttr of ${attr} not implemented`);
-      }
+      let stateNew = 
+          attr === "a_type" ?
+            R.mergeDeepRight(state, {
+              showMeta: val === "member of",
+              association2: { a_type: val }
+            }) 
+        : attr === "a_meta" ?
+          R.mergeDeepRight(state, { association2: { a_meta: val }})
+        : attr === "a_connection1.lower" ? 
+          R.mergeDeepRight(state, { association2: { a_connection1: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}}})
+        : attr === "a_connection1.upper" ? (
+            val ? R.mergeDeepRight(state, { association2: { a_connection1: { mult: { upper: parseInt(val, 10)}}}})
+                : R.dissocPath(["association2", "a_connection1", "mult", "upper"], stateCopy)
+          )
+        : attr === "a_connection2.lower" ? 
+          R.mergeDeepRight(state, { association2: { a_connection2: { mult: { lower: !val || val < 0 ? 0 :parseInt(val,10)}}}})
+        : attr === "a_connection2.upper" ? (
+            val ? R.mergeDeepRight(state, { association2: { a_connection1: { mult: { upper: parseInt(val, 10)}}}})
+                : R.dissocPath(["association2", "a_connection2", "mult", "upper"], stateCopy)
+          )
+        : attr === "a_label" ?
+          R.mergeDeepRight(state, { association2: { a_label: val }})
+        : (() => {
+            console.error(`AssociationForm: setAttr of ${attr} not implemented`);
+            return R.mergeDeepRight(state, {});
+          })();
       return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(aOrig, stateNew.association2) });
     });
   }
@@ -117,6 +128,50 @@ class AssociationForm extends React.Component<Props, State> {
       </div>);
   }
 
+  renderMultiplicity(connection: string) {
+    const e = ufoaDB.getEntity(this.state.association2[connection].e_id);
+    const upper = this.state.association2[connection].mult.upper;
+    if (!e) { 
+      return (<span>Internal error: entity not found</span>);
+    } else {
+      return (
+        <Panel>
+          <Panel.Heading><strong>{ufoaMeta.entityNameLine(e)}</strong></Panel.Heading>
+          <Panel.Body collapsible={false}>
+            <div className="row">
+              <div className="col-sm-5">
+                <input className="form-control" 
+                  type="number"
+                  value={this.state.association2[connection].mult.lower}
+                  onChange={(e) => this.setAttr(`${connection}.lower`, e)}
+                />
+              </div>
+              <div className="col-sm-1">..</div>
+              <div className="col-sm-5">
+                <input className="form-control"
+                  type="number"
+                  value={upper ? upper : ""}
+                  onChange={(e) => this.setAttr(`${connection}.upper`, e)}
+                />
+              </div>
+            </div>
+          </Panel.Body>
+        </Panel>);
+    }
+  }
+
+  renderMultiplicities() {
+    return (
+      <div className="form-group row">
+        <div className="col-sm-6">
+          {this.renderMultiplicity("a_connection1")}
+        </div>
+        <div className="col-sm-6">
+          {this.renderMultiplicity("a_connection2")}
+        </div>
+      </div>);
+  }
+    
   renderLabel() {
     return (
       <div className="form-group row">
@@ -157,6 +212,7 @@ class AssociationForm extends React.Component<Props, State> {
         <Panel.Body collapsible={false}>
           {this.renderType()}
           {this.state.showMeta ? this.renderMeta() : null }
+          {this.renderMultiplicities()}
           {this.renderLabel()}
           {this.renderButtons()}
         </Panel.Body>
@@ -165,9 +221,9 @@ class AssociationForm extends React.Component<Props, State> {
 }
 
 export function render(association: Association, ufoaVisModel: VisModel) {
-  let container = panels.getContainer();
-  if (container) {
-    ReactDOM.render(<AssociationForm association={association} visModel={ufoaVisModel}/>, container);
+  let panel = panels.getDialog();
+  if (panel) {
+    ReactDOM.render(<AssociationForm association={association} visModel={ufoaVisModel}/>, panel);
     panels.showDialog();
   }
 }

@@ -127,7 +127,7 @@ export type Upper = number
 
 export type Mult = {
   lower: Lower,
-  upper: Upper
+  upper?: Upper
 }
 
 export type Connection = {

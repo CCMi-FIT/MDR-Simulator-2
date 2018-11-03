@@ -3,6 +3,7 @@
 import type {Id, UfoaEntity, Generalisation, Association, Model} from "./metamodel/ufoa";
 import * as ufoaMeta from "./metamodel/ufoa";
 import * as ufoaDB from "./db/ufoa";
+import * as newEdgeDialog from "./gui/ufoa/newEdgeDialog";
 
 type VisId = string;
 type VisLabel = string;
@@ -90,6 +91,18 @@ function addNodeHandler(nodeData, callback) {
   callback(entity2vis(ufoaDB.newEntity()));
 }
 
+function addEdgeHandler(edgeData, callback) {
+  newEdgeDialog.render(edgeData, (edgeType: string) => {
+    callback(
+        edgeType === "generalisation" ? 
+          generalisation2vis(ufoaDB.newGeneralisation(edgeData.from, edgeData.to))
+      : edgeType === "association" ? 
+          assoc2vis(ufoaDB.newAssociation(edgeData.from, edgeData.to))
+      : console.error("Attempt to add an unknown edge type: " + edgeType), edgeData
+    );
+  });
+}
+
 const options = {
   nodes: {
     shape: "box"
@@ -117,7 +130,8 @@ const options = {
   },
   manipulation: {
     enabled: true,
-    addNode: addNodeHandler
+    addNode: addNodeHandler,
+    addEdge: addEdgeHandler
   }
 };
   

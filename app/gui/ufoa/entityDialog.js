@@ -126,9 +126,9 @@ class UfoaNodeForm extends React.Component<Props, State> {
 }
 
 export function render(ufoaEntity: UfoaEntity, ufoaVisModel: VisModel) {
-  let container = panels.getContainer();
-  if (container) {
-    ReactDOM.render(<UfoaNodeForm ufoaEntity={ufoaEntity} visModel={ufoaVisModel}/>, container);
+  let panel = panels.getDialog();
+  if (panel) {
+    ReactDOM.render(<UfoaNodeForm ufoaEntity={ufoaEntity} visModel={ufoaVisModel}/>, panel);
     panels.showDialog();
   }
 }

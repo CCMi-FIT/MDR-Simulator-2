@@ -217,9 +217,9 @@ class GeneralisationsForm extends React.Component<Props, State> {
 }
 
 export function render(generalisation: Generalisation, ufoaVisModel: VisModel) {
-  let container = panels.getContainer();
-  if (container) {
-    ReactDOM.render(<GeneralisationsForm generalisation={generalisation} visModel={ufoaVisModel}/>, container);
+  let panel = panels.getDialog();
+  if (panel) {
+    ReactDOM.render(<GeneralisationsForm generalisation={generalisation} visModel={ufoaVisModel}/>, panel);
     panels.showDialog();
   }
 }
