@@ -1,9 +1,10 @@
 //@flow
 
-import type {Id, UfoaEntity, Generalisation, Association, Model} from "./metamodel/ufoa";
-import * as ufoaMeta from "./metamodel/ufoa";
-import * as ufoaDB from "./db/ufoa";
-import * as newEdgeDialog from "./gui/ufoa/newEdgeDialog";
+import type { Id, UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel/ufoa";
+import type { Element } from './elements'; 
+import * as ufoaMeta from "../metamodel/ufoa";
+import * as ufoaDB from "../db/ufoa";
+import * as newEdgeDialog from "../gui/ufoa/newEdgeDialog";
 
 type VisId = string;
 type VisLabel = string;

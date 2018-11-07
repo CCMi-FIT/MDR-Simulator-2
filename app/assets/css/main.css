@@ -234,6 +234,12 @@ footer {
   height: 600px;
 }
 
+.float-button {
+  left: 100px;
+  position: fixed;
+  top: 100px;
+}
+
 .close {
   font-size: 24px;
   margin-left: 10px;

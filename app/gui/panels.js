@@ -2,13 +2,22 @@
 
 import * as ReactDOM from 'react-dom';
 
+const ufoaBoxId = "ufoa-box";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal";
 
+export function getWindowHeight(): number {
+  return $(window).innerHeight();
+}
+
+export function getWindowWidth(): number {
+  return $(".tab-content").innerWidth();
+}
+
 export function fitPanes() {
-  const wh = $(window).innerHeight();
-  const ww = $(".tab-content").innerWidth();
+  const wh = getWindowHeight();
+  const ww = getWindowWidth();
   const fh = $("footer").height();
   const nh = $("nav").height();
   const th = $(".nav-tabs").height();
@@ -21,7 +30,7 @@ export function fitPanes() {
 
 // Getting
 
-function getPanel(panelId: string): ?Element {
+export function getPanel(panelId: string): ?Element {
   let panel = document.getElementById(panelId);
   if (!panel) {
     console.error("panel #" + panelId + " does not exist");
@@ -35,6 +44,10 @@ export function getDialog(): ?Element {
 
 export function getModal(): ?Element {
   return getPanel(modalId);
+}
+
+export function getToolbarTop(): number {
+  return $(`#${ufoaBoxId}`).offset().top;
 }
 
 // Showing

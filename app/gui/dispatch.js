@@ -2,7 +2,7 @@
 
 import type { Id } from '../metamodel/ufoa';
 import * as ufoaDB from '../db/ufoa';
-import type { VisModel } from '../rendering';
+import type { VisModel } from '../view/rendering';
 import * as entityDialog from "./ufoa/entityDialog";
 import * as panels from './panels';
 import * as generalisationDialog from "./ufoa/generalisationDialog";

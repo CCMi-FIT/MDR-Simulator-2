@@ -8,7 +8,7 @@ import { Confirm } from 'react-confirm-bootstrap';
 import type { UfoaEntity } from '../../metamodel/ufoa';
 import * as ufoaMeta from '../../metamodel/ufoa';
 import * as ufoaDB from '../../db/ufoa';
-import type { VisModel } from '../../rendering.js';
+import type { VisModel } from '../../view/rendering';
 import * as panels from '../panels';
 
 type Props = {
