@@ -5,7 +5,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Id, Name, EntityType, UfoaEntity, Model } from '../../metamodel/ufoa';
+import type { UfoaEntity } from '../../metamodel/ufoa';
 import * as ufoaMeta from '../../metamodel/ufoa';
 import * as ufoaDB from '../../db/ufoa';
 import type { VisModel } from '../../rendering.js';

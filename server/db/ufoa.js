@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import * as fs from 'fs';
 import { lock } from 'proper-lockfile';
-import type { Id, EntityType, UfoaEntity, Generalisation, Model } from '../metamodel/ufoa';
+import type { Id, EntityType, UfoaEntity, Generalisation, UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as ufoaModel from '../model/ufoa';
 
@@ -32,7 +32,7 @@ export function getModel(): Promise<any> {
 
 type RestResult = { result: string } | { error: string};
 
-export function writeModel(model: Model) {
+export function writeModel(model: UfoaModel) {
   fs.writeFileSync(ufoaFname, JSON.stringify(model, null, 2), 'utf8');
 }
 

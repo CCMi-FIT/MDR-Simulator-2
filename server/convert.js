@@ -1,6 +1,6 @@
 //@flow
 
-import type { UfoaEntity, Generalisation, Association, Model } from './metamodel/ufoa';
+import type { UfoaEntity, Generalisation, Association, UfoaModel } from './metamodel/ufoa';
 import * as ufoaDB from './db/ufoa';
 
 var e_id_counter = 0;
@@ -37,7 +37,7 @@ export function convertModel():void {
     let entities = model.entities.map(convertEntity);
     let generalisations = model.generalisations.map(convertGeneralisation);
     let associations = model.associations.map(convertAssociation);
-    let model2: Model = {
+    let model2: UfoaModel = {
       entities,
       generalisations,
       associations

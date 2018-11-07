@@ -74,7 +74,7 @@ function assoc2vis(a: Association) :VisEdge {
   };
 }
 
-export function model2vis(model: Model): VisModel {
+export function model2vis(model: UfoaModel): VisModel {
   const gEdges = model.generalisations.map(generalisation2vis);
   const aEdges = model.associations.map(assoc2vis);
   let nodesDataSet = new vis.DataSet();

@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Id, Name, Generalisation, GSet, Model } from '../../metamodel/ufoa';
+import type { Generalisation } from '../../metamodel/ufoa';
 import * as ufoaMeta from '../../metamodel/ufoa';
 import * as ufoaDB from '../../db/ufoa';
 import type { VisModel } from '../../rendering.js';

@@ -1,7 +1,7 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, Model } from '../metamodel/ufoa';
+import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, UfoaModel } from '../metamodel/ufoa';
 import type { ValidationResult } from "../metamodel/ufoa";
 import * as ufoaMeta from "../metamodel/ufoa";
 
@@ -22,7 +22,7 @@ function getLastIdNo(ids: Array<Id>): number {
 
 // Entities
 
-export function newEntity(model: Model): UfoaEntity {
+export function newEntity(model: UfoaModel): UfoaEntity {
   const lastIdNo = getLastIdNo(model.entities.map((e) => e.e_id));
   const newEntity = {
     e_id: `e${lastIdNo+1}`,
@@ -33,11 +33,11 @@ export function newEntity(model: Model): UfoaEntity {
   return newEntity;
 }
 
-export function getEntity(model: Model, e_id: Id): ?UfoaEntity {
+export function getEntity(model: UfoaModel, e_id: Id): ?UfoaEntity {
   return model.entities.find(e => e.e_id === e_id);
 }
 
-export function updateEntity(model: Model, updatedEntity: UfoaEntity): ValidationResult {
+export function updateEntity(model: UfoaModel, updatedEntity: UfoaEntity): ValidationResult {
   const validity = ufoaMeta.validateEntity(updatedEntity);
   if (validity.errors) {
     return validity;
@@ -52,14 +52,14 @@ export function updateEntity(model: Model, updatedEntity: UfoaEntity): Validatio
   }
 }
 
-export function deleteEntity(model: Model, e_id: Id): void {
+export function deleteEntity(model: UfoaModel, e_id: Id): void {
   let i = model.entities.findIndex(e => e.e_id === e_id);
   model.entities.splice(i, 1);
 }
 
 // Generalisations
 
-export function newGeneralisation(model: Model, g_sup_e_id: Id, g_sub_e_id: Id): Generalisation {
+export function newGeneralisation(model: UfoaModel, g_sup_e_id: Id, g_sub_e_id: Id): Generalisation {
   const lastGIdNo = getLastIdNo(model.generalisations.map((g) => g.g_id));
   const lastGSIdNo = getLastIdNo(getGeneralisationSets(model).map((gs) => gs.g_set_id));
   const newGeneralisation = {
@@ -75,19 +75,19 @@ export function newGeneralisation(model: Model, g_sup_e_id: Id, g_sub_e_id: Id):
   return newGeneralisation;
 }
 
-export function getGeneralisation(model: Model, g_id: Id): ?Generalisation {
+export function getGeneralisation(model: UfoaModel, g_id: Id): ?Generalisation {
   return model.generalisations.find(g => g.g_id === g_id);
 }
 
-export function getGeneralisationSets(model: Model): Array<GSet> {
+export function getGeneralisationSets(model: UfoaModel): Array<GSet> {
   return ufoaMeta.getGeneralisationSets(model);
 }
 
-export function getGSet(model: Model, g_set_id: Id): ?GSet {
+export function getGSet(model: UfoaModel, g_set_id: Id): ?GSet {
   return getGeneralisationSets(model).find(gs => gs.g_set_id === g_set_id);
 }
 
-function updateGSet(model: Model, g_set_id: Id, gSetNew: GSet): void {
+function updateGSet(model: UfoaModel, g_set_id: Id, gSetNew: GSet): void {
   model.generalisations.forEach(g => {
     if (g.g_set.g_set_id === g_set_id) {
       Object.assign(g.g_set, R.mergeDeepRight({}, gSetNew));
@@ -95,7 +95,7 @@ function updateGSet(model: Model, g_set_id: Id, gSetNew: GSet): void {
   });
 }
 
-export function updateGeneralisation(model: Model, updatedGeneralisation: Generalisation): ValidationResult {
+export function updateGeneralisation(model: UfoaModel, updatedGeneralisation: Generalisation): ValidationResult {
   const validity = ufoaMeta.validateGeneralisation(updatedGeneralisation);
   if (validity.errors) {
     return validity;
@@ -116,14 +116,14 @@ export function updateGeneralisation(model: Model, updatedGeneralisation: Genera
   }
 }
 
-export function deleteGeneralisation(model: Model, g_id: Id): void {
+export function deleteGeneralisation(model: UfoaModel, g_id: Id): void {
   let i = model.generalisations.findIndex(e => e.g_id === g_id);
   model.generalisations.splice(i, 1);
 }
 
 // Associations
 
-export function newAssociation(model: Model, e_id_1: Id, e_id_2: Id): Association {
+export function newAssociation(model: UfoaModel, e_id_1: Id, e_id_2: Id): Association {
   const lastIdNo = getLastIdNo(model.associations.map((a) => a.a_id));
   const newAssociation = {
     a_id: `a${lastIdNo+1}`,
@@ -143,11 +143,11 @@ export function newAssociation(model: Model, e_id_1: Id, e_id_2: Id): Associatio
   return newAssociation;
 }
 
-export function getAssociation(model: Model, a_id: Id): ?Association {
+export function getAssociation(model: UfoaModel, a_id: Id): ?Association {
   return model.associations.find(g => g.a_id === a_id);
 }
 
-export function updateAssociation(model: Model, updatedAssociation: Association): ValidationResult {
+export function updateAssociation(model: UfoaModel, updatedAssociation: Association): ValidationResult {
   const validity = ufoaMeta.validateAssociation(updatedAssociation);
   if (validity.errors) {
     return validity;
@@ -162,7 +162,7 @@ export function updateAssociation(model: Model, updatedAssociation: Association)
   }
 }
 
-export function deleteAssociation(model: Model, a_id: Id): void {
+export function deleteAssociation(model: UfoaModel, a_id: Id): void {
   let i = model.associations.findIndex(e => e.a_id === a_id);
   model.associations.splice(i, 1);
 }

@@ -1,11 +1,11 @@
 // @flow
 
-import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, Model } from '../metamodel/ufoa';
+import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
 
-var model: Model = ufoaMeta.emptyModel;
+var model: UfoaModel = ufoaMeta.emptyModel;
 
 const requestFailedMsg = "Request to server failed";
 
@@ -14,7 +14,7 @@ const requestFailedMsg = "Request to server failed";
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
     console.log("Loading UFO-A model...");
-    $.get(urls.baseURL + urls.ufoaGetModel, (data: Model, status: String) => {
+    $.get(urls.baseURL + urls.ufoaGetModel, (data: UfoaModel, status: String) => {
       if (status !== "success") {
         console.error(status);
         reject(status);

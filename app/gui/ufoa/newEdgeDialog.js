@@ -4,10 +4,6 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Modal,  Button } from 'react-bootstrap';
-import type { Id, Name, EntityType, UfoaEntity, Model } from '../../metamodel/ufoa';
-import * as ufoaMeta from '../../metamodel/ufoa';
-import * as ufoaDB from '../../db/ufoa';
-import type { VisModel } from '../../rendering.js';
 import * as panels from '../panels';
 
 type Props = {

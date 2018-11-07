@@ -184,7 +184,7 @@ export function validateAssociation(assoc: Association): ValidationResult {
 
 // Model
 
-export type Model = {
+export type UfoaModel = {
   entities: Array<UfoaEntity>,
   generalisations: Array<Generalisation>,
   associations: Array<Association>
@@ -192,16 +192,16 @@ export type Model = {
 
 export const emptyModel = { entities: [], generalisations: [], associations: [] };
 
-export function isEmpty(model: Model) {
+export function isEmpty(model: UfoaModel) {
   return !model || model.entities.length === 0;
 }
 
-export function getGeneralisationSets(model: Model): Array<GSet> {
+export function getGeneralisationSets(model: UfoaModel): Array<GSet> {
   let gss = model.generalisations.map(g => g.g_set);
   return R.uniq(gss);
 }               
 
-export function validateModel(model: Model): ValidationResult {
+export function validateModel(model: UfoaModel): ValidationResult {
   return validateElement(model, "ufoa-meta#/model"); 
 }
 
