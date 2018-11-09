@@ -1,9 +1,9 @@
 // @flow
 
-import * as r from "./view/rendering";
-import * as dispatch from "./gui/dispatch";
-import * as panels from "./gui/panels";
-import * as ufoaSaveLayout from './gui/ufoa/saveLayoutButton';
+import * as r from "./view/ufoa/canvas/rendering";
+import * as dispatch from "./view/dispatch";
+import * as panels from "./view/panels";
+import * as ufoaSaveLayout from './view/ufoa/saveLayoutButton';
 import * as ufoaDB from "./db/ufoa";
 
 $(window).resize(function() {
