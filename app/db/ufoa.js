@@ -18,7 +18,7 @@ export function loadModel(): Promise<any> {
         console.error(status);
         reject(status);
       } else {
-        const model = data;
+        model = data;
         resolve(model);
       }
     }).fail(() => reject(requestFailedMsg));

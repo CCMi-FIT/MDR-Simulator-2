@@ -84,7 +84,6 @@ export function model2vis(model: UfoaModel, entityGraphics: any): VisModel {
   let edgesDataSet = new vis.DataSet();
   nodesDataSet.add(model.entities.map(e => entity2vis(e, entityGraphics[e.e_id])));
   edgesDataSet.add(gEdges.concat(aEdges));
-  console.log(nodesDataSet);
   return {
     nodes: nodesDataSet,
     edges: edgesDataSet
