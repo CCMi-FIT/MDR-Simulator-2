@@ -31,6 +31,23 @@ export function getModel(): Promise<any> {
   });
 }
 
+export function getEntityGraphics(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    fs.readFile(ufoaEntityGraphicsFname, (err, data) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        try {
+          let entityGraphics = JSON.parse(data);
+          resolve(entityGraphics);
+        } catch (SyntaxError) { 
+          reject("UFO-A entity graphics file corrupted");
+        }
+      }
+    });
+  });
+}
+
 type RestResult = { result: string } | { error: string};
 
 export function writeModel(model: UfoaModel) {

@@ -12,13 +12,13 @@ $(window).resize(function() {
 
 $(document).ready(function() {
   panels.fitPanes();
-  ufoaDB.loadModel().then(
-    (ufoaModel) => {
-      if (ufoaModel.error) {
-        panels.displayError(ufoaModel.error);
+  Promise.all([ufoaDB.loadModel(), ufoaDB.loadEntityGraphics()]).then(([ufoaModel, ufoaEntityGraphics]) => {
+      let error = ufoaModel.error || ufoaEntityGraphics.error;
+      if (error) {
+        panels.displayError(error);
       } else {
         panels.hideMsg();
-        let ufoaVisModel  = r.model2vis(ufoaModel);
+        let ufoaVisModel  = r.model2vis(ufoaModel, ufoaEntityGraphics);
         let network       = r.renderUfoa(ufoaVisModel);
         ufoaSaveLayout.render(network);
         network.on("click", params => dispatch.handleClick(ufoaVisModel, params));

@@ -13,7 +13,9 @@ type VisColor = string;
 export type VisNode = { 
   id: VisId,
   label: VisLabel,
-  color: VisColor
+  color: VisColor,
+  x?: number,
+  y?: number
 };
 
 export type VisEdge = {
@@ -30,12 +32,12 @@ export type VisModel = {
   edges: any
 };
 
-function entity2vis(e: UfoaEntity): VisNode {
-  return {
+function entity2vis(e: UfoaEntity, coords: any): VisNode {
+  return Object.assign({
     id: e.e_id,
     label: ufoaMeta.entityStr(e),
     color: ufoaMeta.entityColor(e)
-  };
+  }, coords);
 }
 
 function generalisation2vis(g: Generalisation): VisEdge {
@@ -75,13 +77,14 @@ function assoc2vis(a: Association) :VisEdge {
   };
 }
 
-export function model2vis(model: UfoaModel): VisModel {
+export function model2vis(model: UfoaModel, entityGraphics: any): VisModel {
   const gEdges = model.generalisations.map(generalisation2vis);
   const aEdges = model.associations.map(assoc2vis);
   let nodesDataSet = new vis.DataSet();
   let edgesDataSet = new vis.DataSet();
-  nodesDataSet.add(model.entities.map(entity2vis));
+  nodesDataSet.add(model.entities.map(e => entity2vis(e, entityGraphics[e.e_id])));
   edgesDataSet.add(gEdges.concat(aEdges));
+  console.log(nodesDataSet);
   return {
     nodes: nodesDataSet,
     edges: edgesDataSet
@@ -89,7 +92,7 @@ export function model2vis(model: UfoaModel): VisModel {
 }
 
 function addNodeHandler(nodeData, callback) {
-  callback(entity2vis(ufoaDB.newEntity()));
+  callback(entity2vis(ufoaDB.newEntity(), null));
 }
 
 function addEdgeHandler(edgeData, callback) {

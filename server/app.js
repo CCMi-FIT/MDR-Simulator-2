@@ -26,7 +26,7 @@ app.get('/', (req, res: any) => {
 // Model
 
 app.get(urls.ufoaGetModel, (req, res: any) => {
-  ufoaDB.getModel().then((model) => {
+  ufoaDB.getModel().then(model => {
     res.setHeader('Content-Type', 'application/json');
     res.json(model);
   }, (error) => {
@@ -34,6 +34,15 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
   });
 });
 
+ app.get(urls.ufoaGetEntityGraphics, (req, res: any) => {
+   ufoaDB.getEntityGraphics().then(entityGraphics => {
+     res.setHeader('Content-Type', 'application/json');
+     res.json(entityGraphics);
+  }, (error) => {
+    res.json( {error: `Server error in loading UFO-A model: ${error}` });
+  });
+ });
+ 
 // Entities
 
  app.post(urls.ufoaEntityUpdate, (req, res: any) => {
@@ -47,8 +56,7 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
         res.json(result);
       });
     }
-  }
-  catch (SyntaxError) { 
+  } catch (SyntaxError) { 
     res.json({error: "Unable to parse `entity` object"});
   }
 });
@@ -70,14 +78,11 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
     ufoaDB.saveEntityGraphics(entityGraphics, (result) => {
       res.json(result);
     });
-  }
-  catch (SyntaxError) { 
+  } catch (SyntaxError) { 
     res.json({ error: "Unable to parse `entityGraphics` object" });
   }
 });
 
-
- 
 // Generalisations
 
 app.post(urls.generalisationUpdate, (req, res: any) => {
@@ -92,8 +97,7 @@ app.post(urls.generalisationUpdate, (req, res: any) => {
         res.json(result);
       });
     }
-  }
-  catch (SyntaxError) { 
+  } catch (SyntaxError) { 
     res.json({error: "Unable to parse `generalisation` object"});
   }
 });
@@ -122,8 +126,7 @@ app.post(urls.associationUpdate, (req, res: any) => {
         res.json(result);
       });
     }
-  }
-  catch (SyntaxError) { 
+  } catch (SyntaxError) { 
     res.json({error: "Unable to parse `association` object"});
   }
 });

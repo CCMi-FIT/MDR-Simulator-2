@@ -13,14 +13,27 @@ const requestFailedMsg = "Request to server failed";
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
-    console.log("Loading UFO-A model...");
     $.get(urls.baseURL + urls.ufoaGetModel, (data: UfoaModel, status: String) => {
       if (status !== "success") {
         console.error(status);
         reject(status);
       } else {
-        model = data;
+        const model = data;
         resolve(model);
+      }
+    }).fail(() => reject(requestFailedMsg));
+  });
+}
+
+export function loadEntityGraphics(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    $.get(urls.baseURL + urls.ufoaGetEntityGraphics, (data: UfoaModel, status: String) => {
+      if (status !== "success") {
+        console.error(status);
+        reject(status);
+      } else {
+        const entityGraphics = data;
+        resolve(entityGraphics);
       }
     }).fail(() => reject(requestFailedMsg));
   });
