@@ -7,7 +7,8 @@ import type { Id, EntityType, UfoaEntity, Generalisation, UfoaModel } from '../m
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as ufoaModel from '../model/ufoa';
 
-const ufoaFname = '../data/ufoa.json';
+const ufoaFname = "../data/ufoa.json";
+const ufoaEntityGraphicsFname = "../data/ufoa-entity-graphics.json";
 
 // Model
 
@@ -42,6 +43,19 @@ export function updateEntity(updatedEntity: any, next: (RestResult) => void) {
   lock(ufoaFname).then((release) => {
     loadSetSaveEntity(updatedEntity, next);
     return release();
+  });
+}
+
+export function saveEntityGraphics(entityGraphics: any, next: (RestResult) => void) {
+  lock(ufoaFname).then((release) => {
+    fs.writeFile(ufoaEntityGraphicsFname, JSON.stringify(entityGraphics, null, 2), (err) => {
+      if (err) {
+        next({ "error": err.message });
+      } else {
+        next({"result": "ok"});
+      }
+      return release();
+    });
   });
 }
 

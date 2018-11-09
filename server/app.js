@@ -6,6 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ufoaMeta = require('./metamodel/ufoa');
+var entityGraphics = require('./metamodel/entityGraphics');
 var ufoaDB = require('./db/ufoa');
 var urls = require('./urls');
 
@@ -62,6 +63,20 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
      });
    }
 });
+
+ app.post(urls.ufoaEntityGraphicsSave, (req, res: any) => {
+  try {
+    const entityGraphics = JSON.parse(req.body.entityGraphics);
+    ufoaDB.saveEntityGraphics(entityGraphics, (result) => {
+      res.json(result);
+    });
+  }
+  catch (SyntaxError) { 
+    res.json({ error: "Unable to parse `entityGraphics` object" });
+  }
+});
+
+
  
 // Generalisations
 

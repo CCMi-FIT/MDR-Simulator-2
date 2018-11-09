@@ -57,6 +57,18 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
   });
 }
 
+export function saveEntityGraphics(entityGraphics: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    $.post(urls.baseURL + urls.ufoaEntityGraphicsSave, { entityGraphics: JSON.stringify(entityGraphics) }, (response) => {
+      if (response.error) {
+        reject(response.error);
+      } else {
+        resolve(response.result);
+      }
+    }).fail(() => reject(requestFailedMsg));
+  });
+}
+
 export function deleteEntity(e_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteEntity(model, e_id);
