@@ -39,6 +39,18 @@ export function loadEntityGraphics(): Promise<any> {
   });
 }
 
+export function deleteEntityGraphics(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    $.post(urls.baseURL + urls.ufoaEntityGraphicsDelete, "", (response) => {
+      if (response.error) {
+        reject(response.error);
+      } else {
+        resolve(response.result);
+      }
+    }).fail(() => reject(requestFailedMsg));
+  });
+}
+
 // Entities
 
 export function newEntity(): UfoaEntity {

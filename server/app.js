@@ -27,7 +27,6 @@ app.get('/', (req, res: any) => {
 
 app.get(urls.ufoaGetModel, (req, res: any) => {
   ufoaDB.getModel().then(model => {
-    res.setHeader('Content-Type', 'application/json');
     res.json(model);
   }, (error) => {
     res.json( {error: `Server error in loading UFO-A model: ${error}` });
@@ -39,7 +38,15 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
      res.setHeader('Content-Type', 'application/json');
      res.json(entityGraphics);
   }, (error) => {
-    res.json( {error: `Server error in loading UFO-A model: ${error}` });
+    res.json( {error: `Server error in loading UFO-A model layout: ${error}` });
+  });
+ });
+ 
+ app.post(urls.ufoaEntityGraphicsDelete, (req, res: any) => {
+   ufoaDB.entityGraphicsDelete().then((result) => {
+     res.json(result);
+  }, (error) => {
+    res.json( {error: `Server error in deleting UFO-A model layout: ${error}` });
   });
  });
  

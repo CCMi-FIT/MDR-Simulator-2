@@ -116,20 +116,20 @@ const options = {
     //solver: "forceAtlas2Based",
     barnesHut: {
       gravitationalConstant: -7000,
-      centralGravity: 0.3,
+      centralGravity: 0,
       springLength: 300,
       springConstant: 0.01,
       damping: 0.15,
       avoidOverlap: 1
     },
-    forceAtlas2Based: {
-      gravitationalConstant: -100,
-      centralGravity: 0.01,
-      springConstant: 0.1,
-      springLength: 400,
-      damping: 0.1,
-      avoidOverlap: 1
-    }
+    //forceAtlas2Based: {
+      //gravitationalConstant: -100,
+      //centralGravity: 0,
+      //springConstant: 0.1,
+      //springLength: 400,
+      //damping: 0.1,
+      //avoidOverlap: 1
+    //}
   },
   manipulation: {
     enabled: true,

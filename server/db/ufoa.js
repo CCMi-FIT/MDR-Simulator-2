@@ -10,6 +10,8 @@ import * as ufoaModel from '../model/ufoa';
 const ufoaFname = "../data/ufoa.json";
 const ufoaEntityGraphicsFname = "../data/ufoa-entity-graphics.json";
 
+type RestResult = { result: string } | { error: string};
+
 // Model
 
 export function getModel(): Promise<any> {
@@ -48,7 +50,17 @@ export function getEntityGraphics(): Promise<any> {
   });
 }
 
-type RestResult = { result: string } | { error: string};
+export function entityGraphicsDelete(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(ufoaEntityGraphicsFname, "{}", (err) => {
+      if (err) {
+        reject({ "error": err.message });
+      } else {
+        resolve({ "result": "success" });
+      }
+    });
+  });
+}
 
 export function writeModel(model: UfoaModel) {
   fs.writeFileSync(ufoaFname, JSON.stringify(model, null, 2), 'utf8');
