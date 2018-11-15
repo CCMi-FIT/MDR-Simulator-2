@@ -21,7 +21,7 @@ export class UfoaSaveLayout extends React.Component<Props> {
 
   render() {
     return ( 
-      <Button onClick={this.save}>Save diagram layout</Button>);
+      <Button title="Save diagram layout" onClick={this.save}><i className="glyphicon glyphicon-save"></i></Button>);
   }
 }
 

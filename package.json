@@ -10,6 +10,7 @@
     "server:run": "cd dist; node server",
     "client:watch": "brunch watch --server",
     "client:build": "brunch build --production",
+    "client:browserify": "browserify app/main.js -o public/main.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react @babel/preset-flow] --plugins [ transform-class-properties ] ] -g uglifyify --no-sourcemap",
     "clean": "npm cache clean --force"
   },
   "devDependencies": {

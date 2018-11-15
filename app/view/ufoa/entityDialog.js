@@ -112,6 +112,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </Confirm>);
   }
 
+  //TODO render associations 
   render() {
     return ( 
       <Panel className="dialog">

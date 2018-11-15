@@ -26,7 +26,7 @@ export function fitPanes() {
   $("#ufob-box").height(h);
   $("#ufoa-inst-box").height(h);
   $("#ufoa-box").height(h);
-  $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 150}px`);
+  $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
 }
 
 // Getting

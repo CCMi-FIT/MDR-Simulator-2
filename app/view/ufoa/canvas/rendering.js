@@ -50,9 +50,10 @@ function generalisation2vis(g: Generalisation): VisEdge {
     title: ufoaMeta.genMetaStr(g.g_set.g_meta),
     arrows: "from",
     width: 5,
-    smooth: {
-      type: "straightCross"
-    }
+    smooth: false
+    //smooth: {
+    //  type: "straightCross"
+    // }
   };
 }
 
@@ -71,9 +72,10 @@ function assoc2vis(a: Association) :VisEdge {
       }
     },
     width: 2,
-    smooth: {
-      type: "cubicBezier"
-    }
+    smooth: false
+    //smooth: {
+    //  type: "cubicBezier"
+    // }
   };
 }
 
@@ -115,11 +117,11 @@ const options = {
     solver: "barnesHut",
     //solver: "forceAtlas2Based",
     barnesHut: {
-      gravitationalConstant: -7000,
+      gravitationalConstant: -2000,
       centralGravity: 0,
-      springLength: 300,
-      springConstant: 0.01,
-      damping: 0.15,
+      springLength: 100,
+      springConstant: 0,
+      damping: 0.3,
       avoidOverlap: 1
     },
     //forceAtlas2Based: {
@@ -130,6 +132,9 @@ const options = {
       //damping: 0.1,
       //avoidOverlap: 1
     //}
+  },
+  interaction: {
+    multiselect: true
   },
   manipulation: {
     enabled: true,

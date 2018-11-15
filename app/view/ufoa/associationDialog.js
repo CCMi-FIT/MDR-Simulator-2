@@ -3,7 +3,6 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Typeahead } from 'react-bootstrap-typeahead';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { Association } from '../../metamodel/ufoa';

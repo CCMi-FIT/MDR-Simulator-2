@@ -20,8 +20,8 @@ $(document).ready(function() {
       panels.hideMsg();
       let ufoaVisModel  = r.model2vis(ufoaModel, ufoaEntityGraphics);
       let network       = r.renderUfoa(ufoaVisModel);
-      networkToolbar.render(network);
       network.on("click", params => dispatch.handleClick(ufoaVisModel, params));
+      networkToolbar.render(ufoaModel, network);
     }
   }, (error) => panels.displayError("Error loading UFO-A model: " + error));
 });
