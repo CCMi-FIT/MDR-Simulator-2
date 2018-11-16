@@ -147,6 +147,26 @@ export function getAssociation(model: UfoaModel, a_id: Id): ?Association {
   return model.associations.find(g => g.a_id === a_id);
 }
 
+export function getEntity1OfAssoc(model: UfoaModel, a: Association): ?UfoaEntity {
+  const e = getEntity(model, a.a_connection1.e_id);
+  if (!e) {
+    console.error("UFO-A model internal inconsistency: `connection1.e_id` refers to non-existent entity in association " + a.a_id);
+    return null;
+  } else {
+    return e;
+  }
+}
+
+export function getEntity2OfAssoc(model: UfoaModel, a: Association): ?UfoaEntity {
+  const e = getEntity(model, a.a_connection2.e_id);
+  if (!e) {
+    console.error("UFO-A model internal inconsistency: `connection2.e_id` refers to non-existent entity in association " + a.a_id);
+    return null;
+  } else {
+    return e;
+  }
+}
+
 export function updateAssociation(model: UfoaModel, updatedAssociation: Association): ValidationResult {
   const validity = ufoaMeta.validateAssociation(updatedAssociation);
   if (validity.errors) {
@@ -166,3 +186,14 @@ export function deleteAssociation(model: UfoaModel, a_id: Id): void {
   let i = model.associations.findIndex(e => e.a_id === a_id);
   model.associations.splice(i, 1);
 }
+
+// Querying
+
+export function isAssocOfEntity(a: Association, e: UfoaEntity): boolean {
+  return a.a_connection1.e_id === e.e_id || a.a_connection2.e_id === e.e_id;
+}
+
+export function getAssocsOfEntity(model: UfoaModel, e: UfoaEntity): Array<Association> {
+  return model.associations.filter(a => isAssocOfEntity(a, e));
+}
+  

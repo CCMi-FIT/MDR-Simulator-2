@@ -165,6 +165,14 @@ export function getAssociation(g_id: Id): ?Association {
   return ufoaModel.getAssociation(model, g_id);
 }
 
+export function getEntity1OfAssoc(a: Association): ?UfoaEntity {
+  return ufoaModel.getEntity1OfAssoc(model, a);
+}
+
+export function getEntity2OfAssoc(a: Association): ?UfoaEntity {
+  return ufoaModel.getEntity2OfAssoc(model, a);
+}
+
 export function updateAssociation(updatedAssociation: Association): Promise<any> {
   return new Promise((resolve, reject) => {
     let validity = ufoaModel.updateAssociation(model, updatedAssociation);
@@ -195,3 +203,8 @@ export function deleteAssociation(a_id: Id): Promise<any> {
   });
 }
 
+// Querying
+
+export function getAssocsOfEntity(e: UfoaEntity): Array<Association> {
+  return ufoaModel.getAssocsOfEntity(model, e);
+}

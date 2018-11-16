@@ -5,15 +5,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { UfoaEntity } from '../../metamodel/ufoa';
+import type { UfoaEntity, Association, Connection } from '../../metamodel/ufoa';
 import * as ufoaMeta from '../../metamodel/ufoa';
 import * as ufoaDB from '../../db/ufoa';
 import type { VisModel } from './canvas/rendering';
 import * as panels from '../panels';
+import * as associationDialog from "./associationDialog";
 
 type Props = {
   ufoaEntity: UfoaEntity,
-  visModel: VisModel
+  ufoaVisModel: VisModel
 };
 
 type State = {
@@ -57,14 +58,14 @@ class UfoaNodeForm extends React.Component<Props, State> {
   save = (event) => {
     let ufoaEntityOriginal = this.props.ufoaEntity;
     let ufoaEntityNew = this.state.ufoaEntity2;
-    let nodes: any = this.props.visModel.nodes;
+    let nodes: any = this.props.ufoaVisModel.nodes;
     if (!R.equals(ufoaEntityOriginal, ufoaEntityNew)) {
       commitEntity(nodes, ufoaEntityNew);
     }
   };
 
   delete = (event) => {
-    let nodes: any = this.props.visModel.nodes;
+    let nodes: any = this.props.ufoaVisModel.nodes;
     let e_id = this.props.ufoaEntity.e_id;
     ufoaDB.deleteEntity(e_id).then((response) => {
       nodes.remove({ id: e_id });
@@ -89,6 +90,98 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </div>);
   }
 
+  // AssocPane ----------------------------------------------- 
+
+  renderEntity(e: UfoaEntity) {
+    return (
+      <div className="entity-box" style={{backgroundColor: ufoaMeta.entityColor(e)}}>
+        {ufoaMeta.entityTypeStr(e)}
+        <br/>
+        {e.e_name}
+      </div>);
+  }
+
+  renderConnection(a: Association, c: Connection, align: string) {
+    const prefix =
+      R.equals(a.a_connection1, c) ?
+        a.a_type === "member of" ?
+          !a.a_connection1.mult.upper || a.a_connection1.mult.upper > 1 ? "\u2662" : "\u2666"
+        : ""
+      : ""
+    return (
+      <div className="col-xs-6" style={{textAlign: align}}>
+        <span style={{fontSize: "22px"}}>{align === "left" ? prefix : ""}</span>
+        {c.mult.lower}..{c.mult.upper ? c.mult.upper : "*"}
+        <span style={{fontSize: "22px"}}>{align === "right" ? prefix : ""}</span>
+      </div>
+    );
+  }
+
+  renderAssocDetails(a: Association, c1: Connection, c2: Connection) {
+    return (
+      <div className="container-fluid nopadding">
+        <div className="row" style={{textAlign: "center"}}>
+          {ufoaMeta.assocTypeStr(a.a_type)} 
+        </div>
+        <div className="row" style={{textAlign: "center"}}>
+          {a.a_label} 
+        </div>
+        <div className="row nopadding" style={{borderTop: "1px solid gray"}}>
+        </div>
+        <div className="row">
+          <div className="container-fluid nopadding">
+            <div className="row nopadding">
+              {this.renderConnection(a, c1, "left")}
+              {this.renderConnection(a, c2, "right")}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderAssoc = (assoc: Association) => {
+    const e = this.props.ufoaEntity;
+    let e1 = ufoaDB.getEntity1OfAssoc(assoc);
+    let c1 = assoc.a_connection1;
+    let e2 = ufoaDB.getEntity2OfAssoc(assoc);
+    let c2 = assoc.a_connection2;
+    if (e1 && e2) {
+      console.assert(R.equals(e, e1) || R.equals(e, e2));
+      if (e1.e_id !== e.e_id) {
+        [e1, e2] = [e2, e1];
+        [c1, c2] = [c2, c1];
+      }
+      return (
+        <div className="row clickable" style={{marginBottom: "15px"}} key={assoc.a_id}
+          onClick={(e) => associationDialog.render(assoc, this.props.ufoaVisModel)}>
+          <div className="col-xs-4 nopadding">
+            {e1 ? this.renderEntity(e1) : ""}
+          </div>
+          <div className="col-xs-4 nopadding">
+            {this.renderAssocDetails(assoc, c1, c2)}
+          </div>
+          <div className="col-xs-4 nopadding">
+            {e2 ? this.renderEntity(e2) : ""}
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderAssocPane() {
+    return ( 
+      <Panel>
+        <Panel.Heading>Associations</Panel.Heading>
+        <Panel.Body collapsible={false}>
+          <div className="container-fluid">
+            {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
+          </div>
+        </Panel.Body>
+      </Panel>);
+  }
+  // --------------------------------------------------------
+
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
@@ -112,7 +205,6 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </Confirm>);
   }
 
-  //TODO render associations 
   render() {
     return ( 
       <Panel className="dialog">
@@ -120,16 +212,21 @@ class UfoaNodeForm extends React.Component<Props, State> {
         <Panel.Body collapsible={false}>
           {this.renderEntityType()}
           {this.renderEntityName()}
+          {this.renderAssocPane()}
           {this.renderButtons()}
         </Panel.Body>
       </Panel>);
+  }
+
+  componentDidMount() {
+    panels.fitPanes();
   }
 }
 
 export function render(ufoaEntity: UfoaEntity, ufoaVisModel: VisModel) {
   let panel = panels.getDialog();
   if (panel) {
-    ReactDOM.render(<UfoaNodeForm ufoaEntity={ufoaEntity} visModel={ufoaVisModel}/>, panel);
+    ReactDOM.render(<UfoaNodeForm ufoaEntity={ufoaEntity} ufoaVisModel={ufoaVisModel}/>, panel);
     panels.showDialog();
   }
 }

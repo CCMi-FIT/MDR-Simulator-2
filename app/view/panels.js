@@ -27,6 +27,16 @@ export function fitPanes() {
   $("#ufoa-inst-box").height(h);
   $("#ufoa-box").height(h);
   $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
+
+  const dbox = $("#dialog-box");
+  const dboxh = dbox.height();
+  if (dboxh > h-10) {
+    dbox.css("height", `${h-10}px`);
+    dbox.css("overflow-y", "scroll");
+  } else {
+    dbox.css("height", "auto");
+    dbox.css("overflow-y", "hidden");
+  }
 }
 
 // Getting

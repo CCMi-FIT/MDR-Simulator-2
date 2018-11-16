@@ -25,3 +25,4 @@ $(document).ready(function() {
     }
   }, (error) => panels.displayError("Error loading UFO-A model: " + error));
 });
+

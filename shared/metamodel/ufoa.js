@@ -48,12 +48,12 @@ export function entityNameLine(e: UfoaEntity): string {
   return e.e_name.replace("\n", " ");
 }
 
-export function e_typeStr(e: UfoaEntity): string {
+export function entityTypeStr(e: UfoaEntity): string {
   return "<<" + e.e_type + ">>";
 }
 
 export function entityStr(e: UfoaEntity): string {
-  return e_typeStr(e) + "\n" + e.e_name;
+  return entityTypeStr(e) + "\n" + e.e_name;
 }
 
 export function entityColor(e: UfoaEntity) {
@@ -204,4 +204,5 @@ export function getGeneralisationSets(model: UfoaModel): Array<GSet> {
 export function validateModel(model: UfoaModel): ValidationResult {
   return validateElement(model, "ufoa-meta#/model"); 
 }
+
 

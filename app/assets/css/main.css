@@ -261,6 +261,27 @@ footer {
   z-index: 100;
 }
 
+.entity-box {
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 3px;
+  text-align: center;
+}
+
+.clickable:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.nopadding {
+  margin: 0;
+  padding: 0;
+}
+
+.assoc-box {
+  text-align: center;
+}
+
 .diag-ufob {
   overflow: scroll;
   height: 100%;

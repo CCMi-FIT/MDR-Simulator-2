@@ -62,16 +62,16 @@ class AssociationForm extends React.Component<Props, State> {
             }) 
         : attr === "a_meta" ?
           R.mergeDeepRight(state, { association2: { a_meta: val }})
-        : attr === "a_connection1.lower" ? 
+        : attr === "a_connection1.mult.lower" ? 
           R.mergeDeepRight(state, { association2: { a_connection1: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}}})
-        : attr === "a_connection1.upper" ? (
+        : attr === "a_connection1.mult.upper" ? (
             val ? R.mergeDeepRight(state, { association2: { a_connection1: { mult: { upper: parseInt(val, 10)}}}})
                 : R.dissocPath(["association2", "a_connection1", "mult", "upper"], stateCopy)
           )
-        : attr === "a_connection2.lower" ? 
+        : attr === "a_connection2.mult.lower" ? 
           R.mergeDeepRight(state, { association2: { a_connection2: { mult: { lower: !val || val < 0 ? 0 :parseInt(val,10)}}}})
-        : attr === "a_connection2.upper" ? (
-            val ? R.mergeDeepRight(state, { association2: { a_connection1: { mult: { upper: parseInt(val, 10)}}}})
+        : attr === "a_connection2.mult.upper" ? (
+            val ? R.mergeDeepRight(state, { association2: { a_connection2: { mult: { upper: parseInt(val, 10)}}}})
                 : R.dissocPath(["association2", "a_connection2", "mult", "upper"], stateCopy)
           )
         : attr === "a_label" ?
@@ -142,7 +142,7 @@ class AssociationForm extends React.Component<Props, State> {
                 <input className="form-control" 
                   type="number"
                   value={this.state.association2[connection].mult.lower}
-                  onChange={(e) => this.setAttr(`${connection}.lower`, e)}
+                  onChange={(e) => this.setAttr(`${connection}.mult.lower`, e)}
                 />
               </div>
               <div className="col-sm-1">..</div>
@@ -150,7 +150,7 @@ class AssociationForm extends React.Component<Props, State> {
                 <input className="form-control"
                   type="number"
                   value={upper ? upper : ""}
-                  onChange={(e) => this.setAttr(`${connection}.upper`, e)}
+                  onChange={(e) => this.setAttr(`${connection}.mult.upper`, e)}
                 />
               </div>
             </div>

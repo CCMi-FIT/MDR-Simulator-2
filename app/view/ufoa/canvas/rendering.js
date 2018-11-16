@@ -66,7 +66,7 @@ function assoc2vis(a: Association) :VisEdge {
     label: a.a_label,
     title: ufoaMeta.assocMetaStr(a.a_meta),
     arrows: {
-      to: {
+      from: {
         enabled: a.a_type === "member of",
         type: "circle"
       }

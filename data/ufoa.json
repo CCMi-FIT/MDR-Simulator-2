@@ -2774,26 +2774,6 @@
       }
     },
     {
-      "a_id": "a73",
-      "a_type": "mediation",
-      "a_meta": "",
-      "a_label": "",
-      "a_connection1": {
-        "e_id": "e118",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      },
-      "a_connection2": {
-        "e_id": "e79",
-        "mult": {
-          "lower": 0,
-          "upper": 1
-        }
-      }
-    },
-    {
       "a_id": "a74",
       "a_type": "mediation",
       "a_meta": "",
