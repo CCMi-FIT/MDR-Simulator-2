@@ -25,7 +25,8 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "brunch": "^2.10.17",
-    "flow-brunch": "^0.2.4"
+    "flow-brunch": "^0.2.4",
+    "uglify-js-brunch": "^2.10.0"
   },
   "repository": {
     "type": "git",

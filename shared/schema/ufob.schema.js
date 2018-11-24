@@ -6,82 +6,56 @@ export const ufobSchema = {
   "title": "UFO-B metamodel",
   
   "definitions": {
+    "event": {
+      "type": "object",
+      "properties": {
+        "ev_id":           { "type": "string" },
+        "ev_name":         { "type": "string" },
+        "ev_to_situation": { "type": "string" },
+      },
+      "required": ["ev_id", "ev_name", "ev_to_situation"]
+    },
     "disposition": {
       "type": "object",
       "properties": {
-        "e_id":     { "type": "string" },
-        "e_type": { "type": "string", "pattern": "kind|subkind|role|phase|mode|relator|quantity|quality|collective" },
-        "e_name":   { "type": "string" }
+        "d_text":       { "type": "string" },
+        "d_events_ids": { 
+          "type":        "array",
+          "items":       { "type": "string" },
+          "uniqueItems": true
+        },
       },
-      "required": ["e_id", "e_type", "e_name"]
+      "required": ["d_text", "d_events_ids"]
     },
-    "gset": {
+    "situation": {
       "type": "object",
       "properties": {
-        "g_set_id":   { "type": "string" },
-        "g_meta":     { "type": "string", "pattern": "^$|disjoint|complete|disjoint-complete" }
+        "s_id":           { "type": "string" }, 
+        "s_name":         { "type": "string" },
+        "s_dispositions": { 
+          "type":        "array",
+          "items":       {"$ref": "#/definitions/disposition" },
+          "uniqueItems": true
+        },
       },
-      "required": ["g_set_id", "g_meta"]
-    },
-    "generalisation": {
-      "type": "object",
-      "properties": {
-        "g_id":       { "type": "string" },
-        "g_set":      { "$ref": "#/definitions/gset" },
-        "g_sup_e_id": { "type": "string" },
-        "g_sub_e_id": { "type": "string" },
-      },
-      "required": ["g_id", "g_set", "g_sup_e_id", "g_sub_e_id"]
-    },
-    "multiplicity": {
-      "type": "object",
-      "properties": {
-        "lower": { "type": "number" },
-        "upper": { "type": "number" }
-      },
-      "required": ["lower"]
-    },
-    "connection": {
-      "type": "object",
-      "properties": {
-        "e_id": { "type": "string" },
-        "mult": { "$ref": "#/definitions/multiplicity" } 
-      },
-      "required": ["e_id", "mult"]
-    },
-    "association": {
-      "type": "object",
-      "properties": {
-        "a_id":          { "type": "string" },
-        "a_type":        { "type": "string", "pattern": "^$|mediation|characterization|containment|member of" },
-        "a_meta":        { "type": "string", "pattern": "^$|essential|inseparable|essential-inseparable "},
-        "a_connection1": { "$ref": "#/definitions/connection" },
-        "a_connection2": { "$ref": "#/definitions/connection" },
-        "a_label":       { "type": "string" }
-      },
-      "required": ["a_id", "a_type", "a_connection1", "a_connection2", "a_label"]
+      "required": ["s_id", "s_name", "s_dispositions"]
     }
   },
 
   "model": {
     "type": "object",
     "properties": {
-      "entities": {
+      "events": {
         "type": "array",
-        "items": { "$ref": "#/definitions/entity" },
+        "items": { "$ref": "#/definitions/event" },
         "uniqueItems": true
       },
-      "generalisations": {
+      "situations": {
         "type": "array",
-        "items": { "$ref": "#/definitions/generalisation" },
-        "uniqueItems": true
-      },
-      "associations": {
-        "type": "array",
-        "items": { "$ref": "#/definitions/association" },
+        "items": { "$ref": "#/definitions/situation" },
         "uniqueItems": true
       }
     },
-    "required": ["entities", "generalisations", "associations"]
+    "required": ["events", "situations"]
   }
 };

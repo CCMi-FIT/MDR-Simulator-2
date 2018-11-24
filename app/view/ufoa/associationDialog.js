@@ -185,7 +185,7 @@ class AssociationForm extends React.Component<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6 text-center"> 
-          <Button className="btn-default" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
+          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}

@@ -1,6 +1,7 @@
 var debug = require('debug')('http');
 var http = require('http');
 var app = require('./app');
+var urls = require('./urls');
 
 //import { convertModel } from './convert';
 //console.log("converting model");
@@ -68,12 +69,13 @@ function onListening() {
 
 // Setup and go
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+var portx = urls.port;
+app.set('port', portx);
 
 var server = http.createServer(app);
 
-server.listen(port);
+server.listen(portx);
+console.log("MDR Simulator 2 server is listening on " + portx);
 server.on('error', onError);
 server.on('listening', onListening);
 

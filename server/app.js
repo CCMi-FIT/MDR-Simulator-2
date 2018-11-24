@@ -8,6 +8,7 @@ var logger = require('morgan');
 var ufoaMeta = require('./metamodel/ufoa');
 var entityGraphics = require('./metamodel/entityGraphics');
 var ufoaDB = require('./db/ufoa');
+var ufobDB = require('./db/ufob');
 var urls = require('./urls');
 
 var app = express();
@@ -23,7 +24,7 @@ app.get('/', (req, res: any) => {
   res.render('index.html');
 });
 
-// Model
+// UFO-A
 
 app.get(urls.ufoaGetModel, (req, res: any) => {
   ufoaDB.getModel().then(model => {
@@ -148,5 +149,16 @@ app.post(urls.associationUpdate, (req, res: any) => {
      });
    }
 });
+
+// UFO-B
+
+app.get(urls.ufobGetModel, (req, res: any) => {
+  ufobDB.getModel().then(model => {
+    res.json(model);
+  }, (error) => {
+    res.json( {error: `Server error in loading UFO-B model: ${error}` });
+  });
+});
+
 
 module.exports = app;

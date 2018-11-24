@@ -1,13 +1,11 @@
 //@flow
 
 import * as vis from 'vis';
-import type { Id, UfoaEntity, Generalisation, Association, UfoaModel } from "../../../metamodel/ufoa";
-import * as ufoaMeta from "../../../metamodel/ufoa";
-import * as ufoaDB from "../../../db/ufoa";
-import * as newEdgeDialog from "../newEdgeDialog";
-import * as entityDialog from "../entityDialog";
-import * as generalisationDialog from "../generalisationDialog";
-import * as associationDialog from "../associationDialog";
+import type { EventB, Situation } from "../../../metamodel/ufob";
+import * as ufobMeta from "../../../metamodel/ufob";
+import * as ufobDB from "../../../db/ufob";
+
+// TODO: vytknout
 
 type VisId = string;
 type VisLabel = string;
@@ -22,7 +20,6 @@ export type VisNode = {
 };
 
 export type VisEdge = {
-  type: "generalisation" | "association",
   from: VisId,
   to: VisId,
   label: VisLabel,
@@ -35,11 +32,13 @@ export type VisModel = {
   edges: any
 };
 
-function entity2vis(e: UfoaEntity, coords: any): VisNode {
+// TODO: pokracovat
+
+function event2vis(e: EventB, coords: any): VisNode {
   return Object.assign({
     id: e.e_id,
-    label: ufoaMeta.entityStr(e),
-    color: ufoaMeta.entityColor(e)
+    label: ufobMeta.entityStr(e),
+    color: ufobMeta.entityColor(e)
   }, coords);
 }
 
@@ -50,7 +49,7 @@ function generalisation2vis(g: Generalisation): VisEdge {
     from: g.g_sup_e_id,
     to: g.g_sub_e_id,
     label: g.g_set.g_set_id,
-    title: ufoaMeta.genMetaStr(g.g_set.g_meta),
+    title: ufobMeta.genMetaStr(g.g_set.g_meta),
     arrows: "from",
     width: 5,
     smooth: false
@@ -67,7 +66,7 @@ function assoc2vis(a: Association) :VisEdge {
     from: a.a_connection1.e_id,
     to: a.a_connection2.e_id,
     label: a.a_label,
-    title: ufoaMeta.assocMetaStr(a.a_meta),
+    title: ufobMeta.assocMetaStr(a.a_meta),
     arrows: {
       from: {
         enabled: a.a_type === "member of",
@@ -82,7 +81,7 @@ function assoc2vis(a: Association) :VisEdge {
   };
 }
 
-export function model2vis(model: UfoaModel, entityGraphics: any): VisModel {
+export function model2vis(model: UfobModel, entityGraphics: any): VisModel {
   const gEdges = model.generalisations.map(generalisation2vis);
   const aEdges = model.associations.map(assoc2vis);
   let nodesDataSet = new vis.DataSet();
@@ -95,34 +94,34 @@ export function model2vis(model: UfoaModel, entityGraphics: any): VisModel {
   };
 }
 
-function addNodeHandler(ufoaVisModel: VisModel, visNetwork, nodeData, callback) {
-  const newEntity = ufoaDB.newEntity();
+function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) {
+  const newEntity = ufobDB.newEntity();
   callback(entity2vis(newEntity, null));
   visNetwork.fit({ 
     nodes: [newEntity.e_id],
     animation: true
   });
-  entityDialog.render(newEntity, ufoaVisModel);
+  entityDialog.render(newEntity, ufobVisModel);
 }
 
-function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
+function addEdgeHandler(ufobVisModel: VisModel, edgeData, callback) {
   newEdgeDialog.render(edgeData, (edgeType: string) => {
     if (edgeType === "generalisation") {
-      let newGen: Generalisation = ufoaDB.newGeneralisation(edgeData.from, edgeData.to);
+      let newGen: Generalisation = ufobDB.newGeneralisation(edgeData.from, edgeData.to);
       callback(generalisation2vis(newGen));
-      generalisationDialog.render(newGen, ufoaVisModel);
+      generalisationDialog.render(newGen, ufobVisModel);
     } else if (edgeType === "association") {
-      let newAssoc: Association = ufoaDB.newAssociation(edgeData.from, edgeData.to);
+      let newAssoc: Association = ufobDB.newAssociation(edgeData.from, edgeData.to);
       callback(assoc2vis(newAssoc));
-      associationDialog.render(newAssoc, ufoaVisModel);
+      associationDialog.render(newAssoc, ufobVisModel);
     } else {
       console.error("Attempt to add an unknown edge type: " + edgeType)
     }
   });
 }
 
-export function renderUfoa(ufoaVisModel: VisModel): any {
-  const container = document.getElementById("ufoa-box");
+export function renderUfob(ufobVisModel: VisModel): any {
+  const container = document.getElementById("ufob-box");
   let visNetwork;
   const options = {
     nodes: {
@@ -154,16 +153,16 @@ export function renderUfoa(ufoaVisModel: VisModel): any {
     },
     manipulation: {
       enabled: true,
-      addNode: (nodeData, callback) => addNodeHandler(ufoaVisModel, visNetwork, nodeData, callback),
-      addEdge: (edgeData, callback) => addEdgeHandler(ufoaVisModel, edgeData, callback)
+      addNode: (nodeData, callback) => addNodeHandler(ufobVisModel, visNetwork, nodeData, callback),
+      addEdge: (edgeData, callback) => addEdgeHandler(ufobVisModel, edgeData, callback)
     }
   };
   
   if (container == null) {
-    console.log("#ufoa-box missing");
+    console.log("#ufob-box missing");
     return null;
   } else {
-    visNetwork = new vis.Network(container, ufoaVisModel, options);
+    visNetwork = new vis.Network(container, ufobVisModel, options);
     return visNetwork;
   }
 }
