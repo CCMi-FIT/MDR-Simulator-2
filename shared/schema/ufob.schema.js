@@ -11,9 +11,9 @@ export const ufobSchema = {
       "properties": {
         "ev_id":           { "type": "string" },
         "ev_name":         { "type": "string" },
-        "ev_to_situation": { "type": "string" },
+        "ev_to_situation_id": { "type": "string" },
       },
-      "required": ["ev_id", "ev_name", "ev_to_situation"]
+      "required": ["ev_id", "ev_name", "ev_to_situation_id"]
     },
     "disposition": {
       "type": "object",

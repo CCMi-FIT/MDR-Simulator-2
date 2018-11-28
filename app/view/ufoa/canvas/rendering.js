@@ -2,38 +2,13 @@
 
 import * as vis from 'vis';
 import type { Id, UfoaEntity, Generalisation, Association, UfoaModel } from "../../../metamodel/ufoa";
+import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufoaMeta from "../../../metamodel/ufoa";
 import * as ufoaDB from "../../../db/ufoa";
 import * as newEdgeDialog from "../newEdgeDialog";
 import * as entityDialog from "../entityDialog";
 import * as generalisationDialog from "../generalisationDialog";
 import * as associationDialog from "../associationDialog";
-
-type VisId = string;
-type VisLabel = string;
-type VisColor = string;
-
-export type VisNode = { 
-  id: VisId,
-  label: VisLabel,
-  color: VisColor,
-  x?: number,
-  y?: number
-};
-
-export type VisEdge = {
-  type: "generalisation" | "association",
-  from: VisId,
-  to: VisId,
-  label: VisLabel,
-  width: number,
-  arrows?: any
-};
-
-export type VisModel = {
-  nodes: any,
-  edges: any
-};
 
 function entity2vis(e: UfoaEntity, coords: any): VisNode {
   return Object.assign({
@@ -82,12 +57,12 @@ function assoc2vis(a: Association) :VisEdge {
   };
 }
 
-export function model2vis(model: UfoaModel, entityGraphics: any): VisModel {
+export function model2vis(model: UfoaModel, graphics: any): VisModel {
   const gEdges = model.generalisations.map(generalisation2vis);
   const aEdges = model.associations.map(assoc2vis);
   let nodesDataSet = new vis.DataSet();
   let edgesDataSet = new vis.DataSet();
-  nodesDataSet.add(model.entities.map(e => entity2vis(e, entityGraphics[e.e_id])));
+  nodesDataSet.add(model.entities.map(e => entity2vis(e, graphics[e.e_id])));
   edgesDataSet.add(gEdges.concat(aEdges));
   return {
     nodes: nodesDataSet,

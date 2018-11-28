@@ -3,18 +3,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
-import * as panels from '../../panels';
-import * as ufoaDB from '../../../db/ufoa';
+import * as panels from '../panels';
 
 type Props = {
-  network: any
+  network: any,
+  db: any
 };
 
-export class UfoaSaveLayout extends React.Component<Props> {
+export class SaveLayout extends React.Component<Props> {
 
   save = () => {
-    var entityGraphics = this.props.network.getPositions();
-    ufoaDB.saveEntityGraphics(entityGraphics).then(() => {
+    var graphics = this.props.network.getPositions();
+    this.props.db.saveGraphics(graphics).then(() => {
       panels.displayInfo("Diagram layout saved.");
     }, (error) => panels.displayError("Diagram layout saving failed: " + error));
   }

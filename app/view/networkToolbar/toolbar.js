@@ -3,27 +3,25 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
-import type { UfoaModel } from '../../../metamodel/ufoa';
-import * as panels from '../../panels';
-import { FindEntity } from './findButton';
-import { UfoaNewLayout } from './newLayoutButton';
-import { UfoaSaveLayout } from './saveLayoutButton';
+import type { UfoaModel } from '../../metamodel/ufoa';
+import * as ufoaDB from '../../db/ufoa';
+import * as panels from '../panels';
+import { FindElement } from './findButton';
+import { SaveLayout } from './saveLayoutButton';
 
 type Props = {
   ufoaModel: UfoaModel,
   network: any
 };
 
-        //<UfoaNewLayout ufoaModel={this.props.ufoaModel} network={this.props.network}/>
-        //&nbsp;
 class UfoaNetworkToolbar extends React.Component<Props> {
 
   render() {
     return ( 
       <div className="btn-toolbar" role="toolbar">
-        <FindEntity network={this.props.network}/>
+        <FindElement network={this.props.network} elements={ufoaDB.getEntities()} labelKey="e_name" />
         <div className="btn-group" role="group">
-          <UfoaSaveLayout network={this.props.network}/>
+          <SaveLayout network={this.props.network} db={ufoaDB}/>
         </div>
       </div>);
   }

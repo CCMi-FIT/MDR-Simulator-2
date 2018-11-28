@@ -4,44 +4,23 @@ import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, Asso
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
+import { loadData, requestFailedMsg } from './general';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
-
-const requestFailedMsg = "Request to server failed";
 
 // Model
 
 export function loadModel(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.get(urls.baseURL + urls.ufoaGetModel, (data: UfoaModel, status: String) => {
-      if (status !== "success") {
-        console.error(status);
-        reject(status);
-      } else {
-        model = data;
-        resolve(model);
-      }
-    }).fail(() => reject(requestFailedMsg));
-  });
+  return loadData(urls.baseURL + urls.ufoaGetModel);
 }
 
-export function loadEntityGraphics(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.get(urls.baseURL + urls.ufoaGetEntityGraphics, (data: UfoaModel, status: String) => {
-      if (status !== "success") {
-        console.error(status);
-        reject(status);
-      } else {
-        const entityGraphics = data;
-        resolve(entityGraphics);
-      }
-    }).fail(() => reject(requestFailedMsg));
-  });
+export function loadGraphics(): Promise<any> {
+  return loadData(urls.baseURL + urls.ufoaGetGraphics);
 }
 
 export function deleteEntityGraphics(): Promise<any> {
   return new Promise((resolve, reject) => {
-    $.post(urls.baseURL + urls.ufoaEntityGraphicsDelete, "", (response) => {
+    $.post(urls.baseURL + urls.ufoaGraphicsDelete, "", (response) => {
       if (response.error) {
         reject(response.error);
       } else {
@@ -82,9 +61,9 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
   });
 }
 
-export function saveEntityGraphics(entityGraphics: any): Promise<any> {
+export function saveGraphics(graphics: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    $.post(urls.baseURL + urls.ufoaEntityGraphicsSave, { entityGraphics: JSON.stringify(entityGraphics) }, (response) => {
+    $.post(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) }, (response) => {
       if (response.error) {
         reject(response.error);
       } else {

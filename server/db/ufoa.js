@@ -3,67 +3,31 @@
 import * as R from 'ramda';
 import * as fs from 'fs';
 import { lock } from 'proper-lockfile';
+import type { RestResult } from './general';
+import * as db from './general';
 import type { Id, EntityType, UfoaEntity, Generalisation, UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as ufoaModel from '../model/ufoa';
 
 const ufoaFname = "../data/ufoa.json";
-const ufoaEntityGraphicsFname = "../data/ufoa-entity-graphics.json";
-
-type RestResult = { result: string } | { error: string};
+const ufoaGraphicsFname = "../data/ufoa-graphics.json";
 
 // Model
 
 export function getModel(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const model  = JSON.parse(fs.readFileSync(ufoaFname, 'utf8'));
-    const validity  = ufoaMeta.validateModel(model);
-    //const validity = true;
-    //console.warn("Validation disabled");
-    if (!model) {
-      console.error("Error reading UFO-A model.");
-      reject();
-    } else if (validity.errors) {
-      console.error("UFO-A model not valid:");
-      console.error(validity.errors);
-      reject(validity.errors);
-    } else {
-      resolve(model);
-    }
-  });
+  return db.getModel(ufoaFname, ufoaMeta);
 }
 
-export function getEntityGraphics(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    fs.readFile(ufoaEntityGraphicsFname, (err, data) => {
-      if (err) {
-        reject(err.message);
-      } else {
-        try {
-          let entityGraphics = JSON.parse(data);
-          resolve(entityGraphics);
-        } catch (SyntaxError) { 
-          reject("UFO-A entity graphics file corrupted");
-        }
-      }
-    });
-  });
+export function getGraphics(): Promise<any> {
+  return db.getGraphics(ufoaGraphicsFname);
 }
 
-export function entityGraphicsDelete(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(ufoaEntityGraphicsFname, "{}", (err) => {
-      if (err) {
-        reject({ "error": err.message });
-      } else {
-        resolve({ "result": "success" });
-      }
-    });
-  });
+export function graphicsDelete(): Promise<any> {
+  return db.graphicsDelete(ufoaGraphicsFname);
 }
 
 export function writeModel(model: UfoaModel) {
-  fs.writeFileSync(ufoaFname, JSON.stringify(model, null, 2), 'utf8');
+  db.writeModel(model, ufoaFname);
 }
 
 // Entities
@@ -75,9 +39,9 @@ export function updateEntity(updatedEntity: any, next: (RestResult) => void) {
   });
 }
 
-export function saveEntityGraphics(entityGraphics: any, next: (RestResult) => void) {
+export function saveGraphics(graphics: any, next: (RestResult) => void) {
   lock(ufoaFname).then((release) => {
-    fs.writeFile(ufoaEntityGraphicsFname, JSON.stringify(entityGraphics, null, 2), (err) => {
+    fs.writeFile(ufoaGraphicsFname, JSON.stringify(graphics, null, 2), (err) => {
       if (err) {
         next({ "error": err.message });
       } else {

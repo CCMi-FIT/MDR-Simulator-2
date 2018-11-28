@@ -1,11 +1,12 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, UfoaEntity } from './ufoa';
+import type { UfoaEntity } from './ufoa';
 import type { EntityInst } from './ufoa-inst';
 import { ufobSchema } from '../schema/ufob.schema.js';
 var Ajv = require('ajv');
 
+export type Id = string;
 
 // Validation
 
@@ -48,13 +49,15 @@ export type Situation = {
 export type EventB = {
   ev_id: Id,
   ev_name: string,
-  ev_to_situation: Situation
+  ev_to_situation_id: Id
 };
 
 export type UfobModel = {
-  events: Array<Event>,
+  events: Array<EventB>,
   situations: Array<Situation>
 };
+
+export const emptyModel = { events: [], situations: [] };
 
 export function validateModel(model: UfobModel): ValidationResult {
   return validateElement(model, "ufob-meta#/model"); 

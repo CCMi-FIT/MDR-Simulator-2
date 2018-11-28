@@ -3,6 +3,7 @@
 import * as ReactDOM from 'react-dom';
 
 const ufoaBoxId = "ufoa-box";
+const ufobBoxId = "ufob-box";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal";
@@ -23,10 +24,11 @@ export function fitPanes() {
   const th = $(".nav-tabs").height();
   const h = wh - fh - nh - th;
 
-  $("#ufob-box").height(h);
   $("#ufoa-inst-box").height(h);
-  $("#ufoa-box").height(h);
+  $(`#${ufoaBoxId}`).height(h);
+  $(`#${ufobBoxId}`).height(h);
   $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
+  $("#ufob-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
 
   const dbox = $("#dialog-box");
   const dboxh = dbox.height();
@@ -96,7 +98,7 @@ export function hideModal(): void {
   hidePanel(modalId);
 }
 
-// Message
+// Messages
 
 const closeButton = `
   <button type="button" class="close" aria-label="Close" onclick="$('#${messageId}').hide()"}>

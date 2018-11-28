@@ -6,7 +6,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ufoaMeta = require('./metamodel/ufoa');
-var entityGraphics = require('./metamodel/entityGraphics');
 var ufoaDB = require('./db/ufoa');
 var ufobDB = require('./db/ufob');
 var urls = require('./urls');
@@ -19,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
+
+// Home
 
 app.get('/', (req, res: any) => {
   res.render('index.html');
@@ -34,26 +35,25 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
   });
 });
 
- app.get(urls.ufoaGetEntityGraphics, (req, res: any) => {
-   ufoaDB.getEntityGraphics().then(entityGraphics => {
-     res.setHeader('Content-Type', 'application/json');
-     res.json(entityGraphics);
+app.get(urls.ufoaGetGraphics, (req, res: any) => {
+  ufoaDB.getGraphics().then(graphics => {
+    res.json(graphics);
   }, (error) => {
     res.json( {error: `Server error in loading UFO-A model layout: ${error}` });
   });
- });
- 
- app.post(urls.ufoaEntityGraphicsDelete, (req, res: any) => {
-   ufoaDB.entityGraphicsDelete().then((result) => {
-     res.json(result);
+});
+
+app.post(urls.ufoaGraphicsDelete, (req, res: any) => {
+  ufoaDB.graphicsDelete().then((result) => {
+    res.json(result);
   }, (error) => {
     res.json( {error: `Server error in deleting UFO-A model layout: ${error}` });
   });
- });
- 
+});
+
 // Entities
 
- app.post(urls.ufoaEntityUpdate, (req, res: any) => {
+app.post(urls.ufoaEntityUpdate, (req, res: any) => {
   try {
     const entity = JSON.parse(req.body.entity);
     const validity = ufoaMeta.validateEntity(entity);
@@ -69,25 +69,25 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
   }
 });
 
- app.post(urls.ufoaEntityDelete, (req, res: any) => {
-   let e_id = req.body.e_id;
-   if (!e_id) {
-     res.json({error: "Missing `e_id`"});
-   } else { 
-     ufoaDB.deleteEntity(e_id, (result) => {
-       res.json(result);
-     });
-   }
+app.post(urls.ufoaEntityDelete, (req, res: any) => {
+  let e_id = req.body.e_id;
+  if (!e_id) {
+    res.json({error: "Missing `e_id`"});
+  } else { 
+    ufoaDB.deleteEntity(e_id, (result) => {
+      res.json(result);
+    });
+  }
 });
 
- app.post(urls.ufoaEntityGraphicsSave, (req, res: any) => {
+app.post(urls.ufoaGraphicsSave, (req, res: any) => {
   try {
-    const entityGraphics = JSON.parse(req.body.entityGraphics);
-    ufoaDB.saveEntityGraphics(entityGraphics, (result) => {
+    const graphics = JSON.parse(req.body.graphics);
+    ufoaDB.saveGraphics(graphics, (result) => {
       res.json(result);
     });
   } catch (SyntaxError) { 
-    res.json({ error: "Unable to parse `entityGraphics` object" });
+    res.json({ error: "Unable to parse `graphics` object" });
   }
 });
 
@@ -110,17 +110,17 @@ app.post(urls.generalisationUpdate, (req, res: any) => {
   }
 });
 
- app.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
-   const g_id = req.body.g_id;
-   if (!g_id) {
-     res.json({error: "Missing `g_id`"});
-   } else { 
-     ufoaDB.deleteGeneralisation(g_id, (result) => {
-       res.json(result);
-     });
-   }
+app.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
+  const g_id = req.body.g_id;
+  if (!g_id) {
+    res.json({error: "Missing `g_id`"});
+  } else { 
+    ufoaDB.deleteGeneralisation(g_id, (result) => {
+      res.json(result);
+    });
+  }
 });
- 
+
 // Associations
 
 app.post(urls.associationUpdate, (req, res: any) => {
@@ -139,15 +139,15 @@ app.post(urls.associationUpdate, (req, res: any) => {
   }
 });
 
- app.post(urls.ufoaAssociationDelete, (req, res: any) => {
-   const a_id = req.body.a_id;
-   if (!a_id) {
-     res.json({error: "Missing `a_id`"});
-   } else { 
-     ufoaDB.deleteAssociation(a_id, (result) => {
-       res.json(result);
-     });
-   }
+app.post(urls.ufoaAssociationDelete, (req, res: any) => {
+  const a_id = req.body.a_id;
+  if (!a_id) {
+    res.json({error: "Missing `a_id`"});
+  } else { 
+    ufoaDB.deleteAssociation(a_id, (result) => {
+      res.json(result);
+    });
+  }
 });
 
 // UFO-B
@@ -159,6 +159,15 @@ app.get(urls.ufobGetModel, (req, res: any) => {
     res.json( {error: `Server error in loading UFO-B model: ${error}` });
   });
 });
+
+app.get(urls.ufobGetGraphics, (req, res: any) => {
+  ufobDB.getGraphics().then(graphics => {
+    res.json(graphics);
+  }, (error) => {
+    res.json( {error: `Server error in loading UFO-B model layout: ${error}` });
+  });
+});
+
 
 
 module.exports = app;

@@ -4,20 +4,19 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import type { UfoaEntity} from '../../../metamodel/ufoa';
-import * as ufoaMeta from '../../../metamodel/ufoa';
-import * as ufoaDB from '../../../db/ufoa';
 
 type Props = {
   network: any,
+  elements: Array<any>,
+  labelKey: string
 };
 
-export class FindEntity extends React.Component<Props> {
+export class FindElement extends React.Component<Props> {
   
-  find = (entity: ?UfoaEntity) => {
-    if (entity) {
+  find = (element: any) => {
+    if (element) {
       this.props.network.fit({ 
-        nodes: [entity.e_id],
+        nodes: [element.e_id],
         animation: true
       });
     }
@@ -28,8 +27,8 @@ export class FindEntity extends React.Component<Props> {
       <div className="btn-group" role="group">
         <div style={{float: "left"}}>
           <Typeahead
-            options={ufoaDB.getEntities()}
-            labelKey={"e_name"}
+            options={this.props.elements}
+            labelKey={this.props.labelKey}
             onChange={entities => { 
               if (entities.length) { 
                 this.find(entities[0]);
