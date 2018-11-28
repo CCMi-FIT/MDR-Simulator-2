@@ -4,7 +4,7 @@ import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, Asso
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
-import { loadData, requestFailedMsg } from './general';
+import { loadData, saveData, requestFailedMsg } from './general';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
 
@@ -18,16 +18,8 @@ export function loadGraphics(): Promise<any> {
   return loadData(urls.baseURL + urls.ufoaGetGraphics);
 }
 
-export function deleteEntityGraphics(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.post(urls.baseURL + urls.ufoaGraphicsDelete, "", (response) => {
-      if (response.error) {
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
-  });
+export function saveGraphics(graphics: any): Promise<any> {
+  return saveData(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) });
 }
 
 // Entities
@@ -58,18 +50,6 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
         }
       }).fail(() => reject(requestFailedMsg));
     }
-  });
-}
-
-export function saveGraphics(graphics: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.post(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) }, (response) => {
-      if (response.error) {
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
   });
 }
 

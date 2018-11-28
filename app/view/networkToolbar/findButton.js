@@ -8,7 +8,8 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 type Props = {
   network: any,
   elements: Array<any>,
-  labelKey: string
+  labelKey: string,
+  identifier: string
 };
 
 export class FindElement extends React.Component<Props> {
@@ -16,7 +17,7 @@ export class FindElement extends React.Component<Props> {
   find = (element: any) => {
     if (element) {
       this.props.network.fit({ 
-        nodes: [element.e_id],
+        nodes: [element[this.props.identifier]],
         animation: true
       });
     }
@@ -25,13 +26,13 @@ export class FindElement extends React.Component<Props> {
   render() {
     return ( 
       <div className="btn-group" role="group">
-        <div style={{float: "left"}}>
+        <div style={{float: "left", width: "300px"}}>
           <Typeahead
             options={this.props.elements}
             labelKey={this.props.labelKey}
-            onChange={entities => { 
-              if (entities.length) { 
-                this.find(entities[0]);
+            onChange={elements => { 
+              if (elements.length) { 
+                this.find(elements[0]);
               }
             }}
           />

@@ -15,3 +15,16 @@ export function loadData(url: string): Promise<any> {
   });
 }
 
+export function saveData(url: string, data: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    $.post(url, data, (response) => {
+      if (response.error) {
+        reject(response.error);
+      } else {
+        resolve(response.result);
+      }
+    }).fail(() => reject(requestFailedMsg));
+  });
+}
+
+

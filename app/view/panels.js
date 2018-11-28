@@ -27,8 +27,8 @@ export function fitPanes() {
   $("#ufoa-inst-box").height(h);
   $(`#${ufoaBoxId}`).height(h);
   $(`#${ufobBoxId}`).height(h);
-  $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
-  $("#ufob-float-toolbar").css("left", `${getWindowWidth() - 300}px`);
+  $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 400}px`);
+  $("#ufob-float-toolbar").css("left", `${getWindowWidth() - 400}px`);
 
   const dbox = $("#dialog-box");
   const dboxh = dbox.height();

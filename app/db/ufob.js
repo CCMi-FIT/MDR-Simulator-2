@@ -4,7 +4,7 @@ import type { Situation, EventB, Disposition, UfobModel } from '../metamodel/ufo
 import * as ufobMeta from '../metamodel/ufob';
 import * as urls from "../urls";
 import * as ufobModel from '../model/ufob';
-import { loadData } from './general';
+import { loadData, saveData } from './general';
 
 var model: UfobModel = ufobMeta.emptyModel;
 
@@ -18,4 +18,7 @@ export function loadGraphics(): Promise<any> {
   return loadData(urls.baseURL + urls.ufobGetGraphics);
 }
 
+export function saveGraphics(graphics: any): Promise<any> {
+  return saveData(urls.baseURL + urls.ufobGraphicsSave, { graphics: JSON.stringify(graphics) });
+}
 

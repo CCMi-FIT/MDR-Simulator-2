@@ -4,7 +4,7 @@ import * as ra from "./view/ufoa/canvas/rendering";
 import * as rb from "./view/ufob/canvas/rendering";
 import * as dispatch from "./view/dispatch";
 import * as panels from "./view/panels";
-import * as ufoaNetworkToolbar from './view/networkToolbar/toolbar';
+import * as networkToolbar from './view/networkToolbar/toolbar';
 import * as ufoaDB from "./db/ufoa";
 import * as ufobDB from "./db/ufob";
 
@@ -29,7 +29,8 @@ $(document).ready(function() {
         let ufobVisModel = rb.model2vis(ufobModel, ufobGraphics);
         let ufobNetwork  = rb.renderUfob(ufobVisModel);
         ufoaNetwork.on("click", params => dispatch.handleClick(ufoaVisModel, params));
-        ufoaNetworkToolbar.render(ufoaModel, ufoaNetwork);
+        networkToolbar.render("ufoa-float-toolbar", ufoaModel.entities, "e_name", "e_id", ufoaDB, ufoaNetwork);
+        networkToolbar.render("ufob-float-toolbar", ufobModel.events, "ev_name" , "ev_id", ufobDB, ufobNetwork);
       }
     }, (error) => panels.displayError("Error loading model: " + error));
 });
