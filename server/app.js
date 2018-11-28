@@ -43,6 +43,17 @@ app.get(urls.ufoaGetGraphics, (req, res: any) => {
   });
 });
 
+app.post(urls.ufoaGraphicsSave, (req, res: any) => {
+  try {
+    const graphics = JSON.parse(req.body.graphics);
+    ufoaDB.saveGraphics(graphics, (result) => {
+      res.json(result);
+    });
+  } catch (SyntaxError) { 
+    res.json({ error: "Unable to parse `graphics` object" });
+  }
+});
+
 app.post(urls.ufoaGraphicsDelete, (req, res: any) => {
   ufoaDB.graphicsDelete().then((result) => {
     res.json(result);
@@ -77,17 +88,6 @@ app.post(urls.ufoaEntityDelete, (req, res: any) => {
     ufoaDB.deleteEntity(e_id, (result) => {
       res.json(result);
     });
-  }
-});
-
-app.post(urls.ufoaGraphicsSave, (req, res: any) => {
-  try {
-    const graphics = JSON.parse(req.body.graphics);
-    ufoaDB.saveGraphics(graphics, (result) => {
-      res.json(result);
-    });
-  } catch (SyntaxError) { 
-    res.json({ error: "Unable to parse `graphics` object" });
   }
 });
 
@@ -166,6 +166,17 @@ app.get(urls.ufobGetGraphics, (req, res: any) => {
   }, (error) => {
     res.json( {error: `Server error in loading UFO-B model layout: ${error}` });
   });
+});
+
+app.post(urls.ufobGraphicsSave, (req, res: any) => {
+  try {
+    const graphics = JSON.parse(req.body.graphics);
+    ufobDB.saveGraphics(graphics, (result) => {
+      res.json(result);
+    });
+  } catch (SyntaxError) { 
+    res.json({ error: "Unable to parse `graphics` object" });
+  }
 });
 
 

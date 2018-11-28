@@ -26,6 +26,10 @@ export function graphicsDelete(): Promise<any> {
   return db.graphicsDelete(ufoaGraphicsFname);
 }
 
+export function saveGraphics(graphics: any, next: (RestResult) => void): Promise<any> {
+  return db.saveGraphics(ufoaGraphicsFname, graphics, next);
+}
+
 export function writeModel(model: UfoaModel) {
   db.writeModel(model, ufoaFname);
 }
@@ -36,19 +40,6 @@ export function updateEntity(updatedEntity: any, next: (RestResult) => void) {
   lock(ufoaFname).then((release) => {
     loadSetSaveEntity(updatedEntity, next);
     return release();
-  });
-}
-
-export function saveGraphics(graphics: any, next: (RestResult) => void) {
-  lock(ufoaFname).then((release) => {
-    fs.writeFile(ufoaGraphicsFname, JSON.stringify(graphics, null, 2), (err) => {
-      if (err) {
-        next({ "error": err.message });
-      } else {
-        next({"result": "ok"});
-      }
-      return release();
-    });
   });
 }
 

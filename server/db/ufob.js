@@ -22,6 +22,10 @@ export function getGraphics(): Promise<any> {
   return db.getGraphics(ufobGraphicsFname);
 }
 
+export function saveGraphics(graphics: any, next: (RestResult) => void): Promise<any> {
+  return db.saveGraphics(ufobGraphicsFname, graphics, next);
+}
+
 export function graphicsDelete(): Promise<any> {
   return db.graphicsDelete(ufobGraphicsFname);
 }

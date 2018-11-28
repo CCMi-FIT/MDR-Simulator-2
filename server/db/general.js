@@ -2,6 +2,7 @@
 
 import * as R from 'ramda';
 import * as fs from 'fs';
+import { lock } from 'proper-lockfile';
 
 export type RestResult = { result: string } | { error: string};
 
@@ -27,7 +28,7 @@ export function getModel(fname: string, meta: any): Promise<any> {
   });
 }
 
-export function getGraphics(fname): Promise<any> {
+export function getGraphics(fname: string): Promise<any> {
   return new Promise((resolve, reject) => {
     fs.readFile(fname, (err, data) => {
       if (err) {
@@ -40,6 +41,19 @@ export function getGraphics(fname): Promise<any> {
           reject(fname + ": graphics file corrupted");
         }
       }
+    });
+  });
+}
+
+export function saveGraphics(fname: string, graphics: any, next: (RestResult) => void) {
+  lock(fname).then((release) => {
+    fs.writeFile(fname, JSON.stringify(graphics, null, 2), (err) => {
+      if (err) {
+        next({ "error": err.message });
+      } else {
+        next({"result": "ok"});
+      }
+      return release();
     });
   });
 }
