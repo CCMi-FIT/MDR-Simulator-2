@@ -26,7 +26,7 @@ function event2vis(ev: EventB, coords: any): VisNode {
 }
 
 function mkEdge(from: Id, to: Id, label: string = "") {
-  return { from, to, label, width: 2, smooth: false, arrows: "to" };
+  return { from, to, label, width: 2, arrows: "to" };
 }
 
 function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, ev_id: Id): VisEdge {
@@ -56,19 +56,22 @@ export function renderUfob(ufobVisModel: VisModel): any {
   const container = document.getElementById("ufob-box");
   let visNetwork;
   const options = {
-    layout: {
-      hierarchical: {
-        enabled: true,
-        sortMethod: "directed"
-      }
+    edges: {
+      smooth: false
     },
+    //layout: {
+      //hierarchical: {
+        //enabled: true,
+        //sortMethod: "directed"
+      //}
+    //},
     physics: {
       enabled: true,
       solver: "barnesHut",
       barnesHut: {
-        gravitationalConstant: -2000,
+        gravitationalConstant: -500,
         centralGravity: 0,
-        springLength: 100,
+        springLength: 50,
         springConstant: 0,
         damping: 0.3,
         avoidOverlap: 1

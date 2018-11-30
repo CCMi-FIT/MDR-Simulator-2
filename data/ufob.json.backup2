@@ -26,6 +26,11 @@
       "ev_to_situation_id": "s19"
     },
     {
+      "ev_id": "e6",
+      "ev_name": "Donor\nBecomes\nPermanently\nUnavailable",
+      "ev_to_situation_id": "s20"
+    },
+    {
       "ev_id": "e7",
       "ev_name": "Subsequent Donation Request",
       "ev_to_situation_id": "s30"
@@ -102,7 +107,7 @@
     },
     {
       "ev_id": "e22",
-      "ev_name": "Donor\nBecomes\nPermanently\nUnavailable",
+      "ev_name": "nDonor\nBecomes\nPermanently\nUnavailable",
       "ev_to_situation_id": "s20"
     },
     {
@@ -247,7 +252,7 @@
         {
           "d_text": "Permament\nUnavailability\nReasons\nOccured",
           "d_events_ids": [
-            "e22"
+            "e6"
           ]
         },
         {
