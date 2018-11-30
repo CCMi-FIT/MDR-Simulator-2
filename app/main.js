@@ -2,7 +2,8 @@
 
 import * as ra from "./view/ufoa/canvas/rendering";
 import * as rb from "./view/ufob/canvas/rendering";
-import * as dispatch from "./view/dispatch";
+import * as dispatchA from "./view/ufoa/dispatch";
+import * as dispatchB from "./view/ufob/dispatch";
 import * as panels from "./view/panels";
 import * as networkToolbar from './view/networkToolbar/toolbar';
 import * as ufoaDB from "./db/ufoa";
@@ -28,7 +29,8 @@ $(document).ready(function() {
         let ufoaNetwork  = ra.renderUfoa(ufoaVisModel);
         let ufobVisModel = rb.model2vis(ufobModel, ufobGraphics);
         let ufobNetwork  = rb.renderUfob(ufobVisModel);
-        ufoaNetwork.on("click", params => dispatch.handleClick(ufoaVisModel, params));
+        ufoaNetwork.on("click", params => dispatchA.handleClick(ufoaVisModel, params));
+        ufobNetwork.on("click", params => dispatchB.handleClick(ufobVisModel, params));
         networkToolbar.render("ufoa-float-toolbar", ufoaModel.entities, "e_name", "e_id", ufoaDB, ufoaNetwork);
         networkToolbar.render("ufob-float-toolbar", ufobModel.events, "ev_name" , "ev_id", ufobDB, ufobNetwork);
       }

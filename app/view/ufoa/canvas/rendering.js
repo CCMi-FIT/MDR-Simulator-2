@@ -5,10 +5,10 @@ import type { Id, UfoaEntity, Generalisation, Association, UfoaModel } from "../
 import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufoaMeta from "../../../metamodel/ufoa";
 import * as ufoaDB from "../../../db/ufoa";
-import * as newEdgeDialog from "../newEdgeDialog";
-import * as entityDialog from "../entityDialog";
-import * as generalisationDialog from "../generalisationDialog";
-import * as associationDialog from "../associationDialog";
+import * as newEdgeDialog from "../dialogs/newEdgeDialog";
+import * as entityDialog from "../dialogs/entityDialog";
+import * as generalisationDialog from "../dialogs/generalisationDialog";
+import * as associationDialog from "../dialogs/associationDialog";
 
 function entity2vis(e: UfoaEntity, coords: any): VisNode {
   return Object.assign({

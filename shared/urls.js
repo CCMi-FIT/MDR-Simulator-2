@@ -26,3 +26,7 @@ export const ufoaAssociationDelete = "/ufoa/association/delete";
 export const ufobGetModel = "/ufob/getModel";
 export const ufobGetGraphics = "/ufob/getGraphics";
 export const ufobGraphicsSave = "/ufob/saveGraphics";
+export const ufobEventUpdate = "/ufoa/event/update";
+export const ufobSituationUpdate = "/ufoa/situation/update";
+export const ufobEventDelete = "/ufob/event/delete";
+export const ufobSituationDelete = "/ufob/situation/delete";

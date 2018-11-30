@@ -6,11 +6,11 @@ import * as ReactDOM from 'react-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Generalisation } from '../../metamodel/ufoa';
-import * as ufoaMeta from '../../metamodel/ufoa';
-import * as ufoaDB from '../../db/ufoa';
-import type { VisModel } from '../rendering';
-import * as panels from '../panels';
+import type { Generalisation } from '../../../metamodel/ufoa';
+import * as ufoaMeta from '../../../metamodel/ufoa';
+import * as ufoaDB from '../../../db/ufoa';
+import type { VisModel } from '../../rendering';
+import * as panels from '../../panels';
 
 type Props = {
   generalisation: Generalisation,

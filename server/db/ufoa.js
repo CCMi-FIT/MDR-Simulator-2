@@ -68,8 +68,6 @@ export function deleteEntity(e_id: Id, next: (RestResult) => void) {
   });
 }
 
-//TODO zkusit abstrahovat lock na withLock
-
 // Generalisations
 
 export function updateGeneralisation(updatedGeneralisation: any, next: (RestResult) => void) {

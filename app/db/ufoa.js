@@ -4,22 +4,27 @@ import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, Asso
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
-import { loadData, saveData, requestFailedMsg } from './general';
+import { getData, postData, requestFailedMsg } from './general';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
 
 // Model
 
 export function loadModel(): Promise<any> {
-  return loadData(urls.baseURL + urls.ufoaGetModel);
+  return new Promise((resolve, reject) => {
+    getData(urls.baseURL + urls.ufoaGetModel).then(data => {
+      model = data;
+      resolve(data);
+    }, (error) => reject(error));
+  });
 }
 
 export function loadGraphics(): Promise<any> {
-  return loadData(urls.baseURL + urls.ufoaGetGraphics);
+  return getData(urls.baseURL + urls.ufoaGetGraphics);
 }
 
 export function saveGraphics(graphics: any): Promise<any> {
-  return saveData(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) });
+  return postData(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) });
 }
 
 // Entities

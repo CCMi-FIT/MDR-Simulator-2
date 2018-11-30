@@ -29,8 +29,6 @@ var ajv = new Ajv();
 ajv.addSchema(ufobSchema); 
 
 
-// Situation
-
 export type SituationCombinator = (Array<EntityInst>, EntityInst) => Array<EntityInst>;
 
 export type SituationOperation = (Array<EntityInst>) => Array<EntityInst>;
@@ -46,11 +44,19 @@ export type Situation = {
   s_dispositions: Array<Disposition>,
 };
 
+export function validateSituation(situation: Situation): ValidationResult {
+  return validateElement(situation, "ufob-meta#/definitions/situation"); 
+}
+
 export type EventB = {
   ev_id: Id,
   ev_name: string,
   ev_to_situation_id: Id
 };
+
+export function validateEvent(event: EventB): ValidationResult {
+  return validateElement(event, "ufob-meta#/definitions/event"); 
+}
 
 export type UfobModel = {
   events: Array<EventB>,

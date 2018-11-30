@@ -6,6 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var ufoaMeta = require('./metamodel/ufoa');
+var ufobMeta = require('./metamodel/ufob');
 var ufoaDB = require('./db/ufoa');
 var ufobDB = require('./db/ufob');
 var urls = require('./urls');
@@ -152,6 +153,8 @@ app.post(urls.ufoaAssociationDelete, (req, res: any) => {
 
 // UFO-B
 
+// Model
+
 app.get(urls.ufobGetModel, (req, res: any) => {
   ufobDB.getModel().then(model => {
     res.json(model);
@@ -171,11 +174,69 @@ app.get(urls.ufobGetGraphics, (req, res: any) => {
 app.post(urls.ufobGraphicsSave, (req, res: any) => {
   try {
     const graphics = JSON.parse(req.body.graphics);
-    ufobDB.saveGraphics(graphics, (result) => {
+    ufoaDB.saveGraphics(graphics, (result) => {
       res.json(result);
     });
   } catch (SyntaxError) { 
     res.json({ error: "Unable to parse `graphics` object" });
+  }
+});
+
+// Event
+
+app.post(urls.ufobEventUpdate, (req, res: any) => {
+  try {
+    const event = JSON.parse(req.body.event);
+    const validity = ufobMeta.validateEvent(event);
+    if (validity.errors) {
+      res.json(validity);
+    } else { 
+      ufobDB.updateEvent(event, (result) => {
+        res.json(result);
+      });
+    }
+  } catch (SyntaxError) { 
+    res.json({error: "Unable to parse `event` object"});
+  }
+});
+
+app.post(urls.ufobEventDelete, (req, res: any) => {
+  let ev_id = req.body.ev_id;
+  if (!ev_id) {
+    res.json({error: "Missing `ev_id`"});
+  } else { 
+    ufobDB.deleteEvent(ev_id, (result) => {
+      res.json(result);
+    });
+  }
+});
+
+// Situation
+
+app.post(urls.ufobSituationUpdate, (req, res: any) => {
+  try {
+    const situation = JSON.parse(req.body.situation);
+    const validity = ufobMeta.validateSituation(situation);
+    if (validity.errors) {
+      res.json(validity);
+    } else { 
+      ufobDB.updateSituation(situation, (result) => {
+        res.json(result);
+      });
+    }
+  } catch (SyntaxError) { 
+    res.json({error: "Unable to parse `situation` object"});
+  }
+});
+
+app.post(urls.ufobSituationDelete, (req, res: any) => {
+  let ev_id = req.body.ev_id;
+  if (!ev_id) {
+    res.json({error: "Missing `ev_id`"});
+  } else { 
+    ufobDB.deleteSituation(ev_id, (result) => {
+      res.json(result);
+    });
   }
 });
 

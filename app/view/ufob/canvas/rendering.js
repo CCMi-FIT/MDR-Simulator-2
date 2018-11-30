@@ -12,6 +12,7 @@ import * as rendering from '../../rendering';
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
     id: s.s_id,
+    type: "situation",
     label: s.s_name,
     shape: "box"
   }, coords);
@@ -20,6 +21,7 @@ function situation2vis(s: Situation, coords: any): VisNode {
 function event2vis(ev: EventB, coords: any): VisNode {
   return Object.assign({
     id: ev.ev_id,
+    type: "event",
     label: ev.ev_name,
     shape: "ellipse"
   }, coords);

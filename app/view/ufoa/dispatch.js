@@ -1,12 +1,12 @@
 //@flow
 
-import type { Id } from '../metamodel/ufoa';
-import * as ufoaDB from '../db/ufoa';
-import type { VisModel } from './rendering';
-import * as entityDialog from "./ufoa/entityDialog";
-import * as panels from './panels';
-import * as generalisationDialog from "./ufoa/generalisationDialog";
-import * as associationDialog from "./ufoa/associationDialog";
+import type { Id } from '../../metamodel/ufoa';
+import * as ufoaDB from '../../db/ufoa';
+import type { VisModel } from '../rendering';
+import * as entityDialog from './dialogs/entityDialog';
+import * as panels from '../panels';
+import * as generalisationDialog from "./dialogs/generalisationDialog";
+import * as associationDialog from "./dialogs/associationDialog";
 
 function dispatchNode(nodeId: Id, ufoaVisModel: VisModel) {
   let ufoaEntity = ufoaDB.getEntity(nodeId);
@@ -37,7 +37,7 @@ function dispatchEdge(edgeId: Id, ufoaVisModel: VisModel) {
       }
       break; 
     default:
-      console.error("ui/ui.handleClick: invalid edge type " + edge.type + " appeared in the UFO-A graph.");
+      console.error("Invalid edge type " + edge.type + " appeared in the UFO-A graph.");
       break;
   }
 }
