@@ -1,4 +1,4 @@
 #!/bin/bash
 
-~/bin/terminal.sh -e "npm run server:watch" &
-~/bin/terminal.sh -e "npm run client:watch" &
+~/bin/terminal.sh -- "npm run server:watch" &
+~/bin/terminal.sh -- "npm run client:watch" &

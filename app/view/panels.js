@@ -112,7 +112,7 @@ export function displayMsg(msg: string, style: "alert-success"|"alert-danger", f
   msgBox.addClass("message-box alert");
   msgBox.addClass(style);
   if (fade) {
-    msgBox.fadeIn().delay(5000).fadeOut();
+    msgBox.fadeIn().delay(3000).fadeOut();
   } else {
     msgBox.fadeIn();
   }

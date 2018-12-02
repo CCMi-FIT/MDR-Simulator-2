@@ -2,7 +2,7 @@
   "events": [
     {
       "ev_id": "e1",
-      "ev_name": "Donor\nRecruitment",
+      "ev_name": "Donor Recruitment",
       "ev_to_situation_id": "s3"
     },
     {
@@ -194,7 +194,7 @@
   "situations": [
     {
       "s_id": "s1",
-      "s_name": "A Person\nwants to\nbecome a Donor2",
+      "s_name": "A Person\nwants to\nbecome a Donor",
       "s_dispositions": [
         {
           "d_text": "",

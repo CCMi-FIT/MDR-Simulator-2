@@ -39,7 +39,9 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
     if (validity.errors) {
       reject("Event update failed: " + validity.errors);
     } else {
-      return postData(urls.baseURL + urls.ufobEventUpdate, { event: JSON.stringify(updatedEvent)});
+      postData(urls.baseURL + urls.ufobEventUpdate, { event: JSON.stringify(updatedEvent)}).then(result =>
+        resolve(result)
+      ), error => reject(error);
     }
   });
 }
@@ -63,7 +65,9 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
     if (validity.errors) {
       reject("Situation update failed: " + validity.errors);
     } else {
-      return postData(urls.baseURL + urls.ufobSituationUpdate, { situation: JSON.stringify(updatedSituation)});
+      postData(urls.baseURL + urls.ufobSituationUpdate, { situation: JSON.stringify(updatedSituation)}).then(result =>
+        resolve(result)
+      ), error => reject(error);
     }
   });
 }
