@@ -1,6 +1,7 @@
 // @flow
 
-import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, UfoaModel } from '../metamodel/ufoa';
+import type { Id, Label } from '../metamodel/general';
+import type { UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';

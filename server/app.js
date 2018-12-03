@@ -230,11 +230,11 @@ app.post(urls.ufobSituationUpdate, (req, res: any) => {
 });
 
 app.post(urls.ufobSituationDelete, (req, res: any) => {
-  let ev_id = req.body.ev_id;
-  if (!ev_id) {
-    res.json({error: "Missing `ev_id`"});
+  let s_id = req.body.s_id;
+  if (!s_id) {
+    res.json({error: "Missing `s_id`"});
   } else { 
-    ufobDB.deleteSituation(ev_id, (result) => {
+    ufobDB.deleteSituation(s_id, (result) => {
       res.json(result);
     });
   }

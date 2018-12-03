@@ -1,3 +1,2 @@
-- refactor updateEntity (a prip. dalsi) na postData 
-- vytknout z metamodelu spolecne casti
+- refactor update a delete v UFO-A na postData 
 - zkusit abstrahovat lock na withLock

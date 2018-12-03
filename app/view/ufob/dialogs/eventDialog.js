@@ -5,7 +5,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Id, EventB } from '../../../metamodel/ufob';
+import type { EventB } from '../../../metamodel/ufob';
 import * as ufobMeta from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';

@@ -1,31 +1,10 @@
 // @flow
 
 import * as R from 'ramda';
+import type { Id, Name, Label } from './general';
+import { validateElement } from './general';
 import { ufoaSchema } from '../schema/ufoa.schema.js';
 var Ajv = require('ajv');
-
-// Common types
-
-export type Id = string;
-export type Name = string;
-export type Label = string;
-
-// Validation
-
-export type ValidationResult = {
-  errors?: string
-}
-
-export const validationResultOK = {};
-
-function validateElement(elem: any, uri: string): ValidationResult {
-  ajv.validate(uri, elem); 
-  if (!ajv.errors) {
-    return {};
-  } else {
-    return { errors: ajv.errorsText() };
-  }
-}
 
 var ajv = new Ajv();
 ajv.addSchema(ufoaSchema); 
@@ -72,7 +51,7 @@ export function entityColor(e: UfoaEntity) {
 }
 
 export function validateEntity(entity: UfoaEntity): ValidationResult {
-  return validateElement(entity, "ufoa-meta#/definitions/entity"); 
+  return validateElement(ajv, entity, "ufoa-meta#/definitions/entity"); 
 }
 
 // Generalisation Set
@@ -117,7 +96,7 @@ export function generalisationStr(gen: Generalisation): string {
 }
 
 export function validateGeneralisation(generalisation: Generalisation): ValidationResult {
-  return validateElement(generalisation, "ufoa-meta#/definitions/generalisation"); 
+  return validateElement(ajv, generalisation, "ufoa-meta#/definitions/generalisation"); 
 }
 
 // Association
@@ -179,7 +158,7 @@ export function assocStr(a: Association): string {
 }
 
 export function validateAssociation(assoc: Association): ValidationResult {
-  return validateElement(assoc, "ufoa-meta#/definitions/association"); 
+  return validateElement(ajv, assoc, "ufoa-meta#/definitions/association"); 
 }
 
 // Model
@@ -202,7 +181,7 @@ export function getGeneralisationSets(model: UfoaModel): Array<GSet> {
 }               
 
 export function validateModel(model: UfoaModel): ValidationResult {
-  return validateElement(model, "ufoa-meta#/model"); 
+  return validateElement(ajv, model, "ufoa-meta#/model"); 
 }
 
 

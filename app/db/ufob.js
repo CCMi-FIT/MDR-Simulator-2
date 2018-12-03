@@ -1,6 +1,7 @@
 // @flow
 
-import type { Id, Situation, EventB, Disposition, UfobModel } from '../metamodel/ufob';
+import type { Id } from '../metamodel/general';
+import type { Situation, EventB, Disposition, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from '../metamodel/ufob';
 import * as urls from "../urls";
 import * as ufobModel from '../model/ufob';
@@ -33,6 +34,10 @@ export function getEventById(ev_id: Id): ?EventB {
   return ufobModel.getEventById(model, ev_id);
 }
 
+export function newEvent(ev_name: string, s_id: Id): EventB {
+  return ufobModel.newEvent(model, ev_name, s_id);
+}
+
 export function updateEvent(updatedEvent: EventB): Promise<any> {
   return new Promise((resolve, reject) => {
     let validity = ufobModel.updateEvent(model, updatedEvent);
@@ -49,7 +54,7 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
 export function deleteEvent(ev_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteEvent(model, ev_id);
-    return postData(urls.baseURL + urls.ufobEventDelete, { ev_id });
+    postData(urls.baseURL + urls.ufobEventDelete, { ev_id }).then(result => resolve(result)), error => reject(error);
   });
 }
 
@@ -57,6 +62,10 @@ export function deleteEvent(ev_id: Id): Promise<any> {
 
 export function getSituationById(s_id: Id): ?Situation {
   return ufobModel.getSituationById(model, s_id);
+}
+
+export function newSituation(): Situation {
+  return ufobModel.newSituation(model);
 }
 
 export function updateSituation(updatedSituation: Situation): Promise<any> {
@@ -75,6 +84,6 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
 export function deleteSituation(s_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteSituation(model, s_id);
-    return postData(urls.baseURL + urls.ufobSituationDelete, { s_id });
+    postData(urls.baseURL + urls.ufobSituationDelete, { s_id }).then(result => resolve(result)), error => reject(error);
   });
 }

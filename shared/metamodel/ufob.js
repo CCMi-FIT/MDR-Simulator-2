@@ -1,33 +1,15 @@
 // @flow
 
 import * as R from 'ramda';
+import type { Id, ValidationResult } from './general';
+import { validateElement } from './general';
 import type { UfoaEntity } from './ufoa';
 import type { EntityInst } from './ufoa-inst';
 import { ufobSchema } from '../schema/ufob.schema.js';
 var Ajv = require('ajv');
 
-export type Id = string;
-
-// Validation
-
-export type ValidationResult = {
-  errors?: string
-}
-
-export const validationResultOK = {};
-
-function validateElement(elem: any, uri: string): ValidationResult {
-  ajv.validate(uri, elem); 
-  if (!ajv.errors) {
-    return {};
-  } else {
-    return { errors: ajv.errorsText() };
-  }
-}
-
 var ajv = new Ajv();
 ajv.addSchema(ufobSchema); 
-
 
 export type SituationCombinator = (Array<EntityInst>, EntityInst) => Array<EntityInst>;
 
@@ -45,7 +27,7 @@ export type Situation = {
 };
 
 export function validateSituation(situation: Situation): ValidationResult {
-  return validateElement(situation, "ufob-meta#/definitions/situation"); 
+  return validateElement(ajv, situation, "ufob-meta#/definitions/situation"); 
 }
 
 export type EventB = {
@@ -55,7 +37,7 @@ export type EventB = {
 };
 
 export function validateEvent(event: EventB): ValidationResult {
-  return validateElement(event, "ufob-meta#/definitions/event"); 
+  return validateElement(ajv, event, "ufob-meta#/definitions/event"); 
 }
 
 export type UfobModel = {
@@ -66,7 +48,7 @@ export type UfobModel = {
 export const emptyModel = { events: [], situations: [] };
 
 export function validateModel(model: UfobModel): ValidationResult {
-  return validateElement(model, "ufob-meta#/model"); 
+  return validateElement(ajv, model, "ufob-meta#/model"); 
 }
 
 // Combinators

@@ -2,12 +2,16 @@
 
 import * as R from 'ramda';
 import * as vis from 'vis';
-import type { Id, EventB, Situation, Disposition, UfobModel } from "../../../metamodel/ufob";
+import type { Id } from '../../../metamodel/general';
+import type { EventB, Situation, Disposition, UfobModel } from "../../../metamodel/ufob";
 import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufobMeta from "../../../metamodel/ufob";
 import * as ufobModel from "../../../model/ufob";
 import * as ufobDB from "../../../db/ufob";
 import * as rendering from '../../rendering';
+import * as newNodeDialog from "../dialogs/newNodeDialog";
+import * as situationDialog from '../dialogs/situationDialog.js';
+import * as eventDialog from '../dialogs/eventDialog';
 
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
@@ -54,6 +58,16 @@ export function model2vis(model: UfobModel, elementGraphics: any): VisModel {
   };
 }
 
+function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) {
+  const newSituation: Situation = ufobDB.newSituation();
+  callback(situation2vis(newSituation, null));
+  visNetwork.fit({ 
+    nodes: [newSituation.s_id],
+    animation: true
+  });
+  situationDialog.render(newSituation, ufobVisModel);
+}
+
 export function renderUfob(ufobVisModel: VisModel): any {
   const container = document.getElementById("ufob-box");
   let visNetwork;
@@ -84,7 +98,7 @@ export function renderUfob(ufobVisModel: VisModel): any {
     },
     manipulation: {
       enabled: true,
-      //addNode: (nodeData, callback) => addNodeHandler(ufobVisModel, visNetwork, nodeData, callback),
+      addNode: (nodeData, callback) => addNodeHandler(ufobVisModel, visNetwork, nodeData, callback),
       //addEdge: (edgeData, callback) => addEdgeHandler(ufobVisModel, edgeData, callback)
     }
   };

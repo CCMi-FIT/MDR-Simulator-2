@@ -1,13 +1,27 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, EventB, Situation, UfobModel } from '../metamodel/ufob';
+import type { Id, Name, Label, ValidationResult } from '../metamodel/general';
+import * as meta from '../metamodel/general';
+import type { EventB, Situation, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from "../metamodel/ufob";
+import { getLastIdNo } from './general.js';
 
 // Event
 
 export function getEventById(model: UfobModel, ev_id: Id): ?EventB {
   return model.events.find(ev => ev.ev_id === ev_id);
+}
+
+export function newEvent(model: UfobModel, ev_name: string, s_id: Id): EventB {
+  const lastIdNo = getLastIdNo(model.events.map((ev) => ev.ev_id));
+  const newEvent = {
+    ev_id: `ev${lastIdNo+1}`,
+    ev_name,
+    ev_to_situation_id: s_id
+  };
+  model.events.push(newEvent);
+  return newEvent;
 }
 
 export function updateEvent(model: UfobModel, updatedEvent: EventB): ValidationResult {
@@ -21,7 +35,7 @@ export function updateEvent(model: UfobModel, updatedEvent: EventB): ValidationR
     } else {
       model.events.push(updatedEvent); // added a new one to the model
     }
-    return ufobMeta.validationResultOK;
+    return meta.validationResultOK;
   }
 }
 
@@ -36,6 +50,17 @@ export function getSituationById(model: UfobModel, s_id: Id): ?Situation {
   return model.situations.find(s => s.s_id === s_id);
 }
 
+export function newSituation(model: UfobModel): Situation {
+  const lastIdNo = getLastIdNo(model.situations.map((s) => s.s_id));
+  const newSituation = {
+    s_id: `s${lastIdNo+1}`,
+    s_name: "New Situation",
+    s_dispositions: []
+  };
+  model.situations.push(newSituation);
+  return newSituation;
+}
+
 export function updateSituation(model: UfobModel, updatedSituation: Situation): ValidationResult {
   const validity = ufobMeta.validateSituation(updatedSituation);
   if (validity.errors) {
@@ -47,7 +72,7 @@ export function updateSituation(model: UfobModel, updatedSituation: Situation): 
     } else {
       model.situations.push(updatedSituation); // added a new one to the model
     }
-    return ufobMeta.validationResultOK;
+    return meta.validationResultOK;
   }
 }
 

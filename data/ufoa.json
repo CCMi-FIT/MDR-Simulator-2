@@ -609,11 +609,6 @@
       "e_id": "e121",
       "e_type": "mode",
       "e_name": "Follow-up Results"
-    },
-    {
-      "e_id": "e122",
-      "e_type": "relator",
-      "e_name": "Registration"
     }
   ],
   "generalisations": [

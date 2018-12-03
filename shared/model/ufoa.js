@@ -1,24 +1,11 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, Label, UfoaModel } from '../metamodel/ufoa';
-import type { ValidationResult } from "../metamodel/ufoa";
+import type { Id, Label } from '../metamodel/general';
+import type { UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, UfoaModel } from '../metamodel/ufoa';
+import type { ValidationResult } from "../metamodel/general";
 import * as ufoaMeta from "../metamodel/ufoa";
-
-// Common
-
-function getLastIdNo(ids: Array<Id>): number {
-  return ids.reduce((maxNum: number, id: Id) => {
-    const idNumStr = id.match(/\d/g);
-    if (!idNumStr) {
-      console.error(`Something is wrong: id ${id} does not contain a number.`);
-      return -1;
-    } else {
-      const idNum = parseInt(idNumStr.join(""), 10);
-      return idNum > maxNum ? idNum : maxNum;
-    }
-  }, -1);
-}
+import { getLastIdNo } from './general.js';
 
 // Entities
 

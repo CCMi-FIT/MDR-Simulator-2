@@ -1,6 +1,6 @@
 //@flow
 
-import type { Id } from '../../metamodel/ufob';
+import type { Id } from '../../metamodel/general';
 import * as ufobDB from '../../db/ufob';
 import type { VisModel } from '../rendering';
 import * as situationDialog from './dialogs/situationDialog';

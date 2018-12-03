@@ -1,7 +1,8 @@
 //@flow
 
 import * as vis from 'vis';
-import type { Id, UfoaEntity, Generalisation, Association, UfoaModel } from "../../../metamodel/ufoa";
+import type { Id } from '../../../metamodel/general';
+import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../../../metamodel/ufoa";
 import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufoaMeta from "../../../metamodel/ufoa";
 import * as ufoaDB from "../../../db/ufoa";
