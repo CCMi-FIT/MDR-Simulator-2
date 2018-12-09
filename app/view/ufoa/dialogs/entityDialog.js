@@ -35,7 +35,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      ufoaEntity2: Object.assign({}, props.ufoaEntity),
+      ufoaEntity2: R.clone(props.ufoaEntity),
       saveDisabled: true
     };
     //console.dir(this.props);

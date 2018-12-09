@@ -84,7 +84,7 @@ class AssociationForm extends React.Component<Props, State> {
     });
   }
 
-  save = (event) => {
+  save = () => {
     let aOriginal = this.props.association;
     let aNew = this.state.association2;
     let edges: any = this.props.visModel.edges;

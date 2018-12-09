@@ -6,7 +6,7 @@ const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
 const dialogId = "dialog-box";
 const messageId = "message-box";
-const modalId = "modal";
+const modalId = "modal-box";
 
 export function getWindowHeight(): number {
   return $(window).innerHeight();
@@ -27,8 +27,8 @@ export function fitPanes() {
   $("#ufoa-inst-box").height(h);
   $(`#${ufoaBoxId}`).height(h);
   $(`#${ufobBoxId}`).height(h);
-  $("#ufoa-float-toolbar").css("left", `${getWindowWidth() - 400}px`);
-  $("#ufob-float-toolbar").css("left", `${getWindowWidth() - 400}px`);
+  $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
+  $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
   const dbox = $("#dialog-box");
   const dboxh = dbox.height();

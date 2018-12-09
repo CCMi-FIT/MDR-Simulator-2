@@ -77,7 +77,7 @@ export function getGSet(model: UfoaModel, g_set_id: Id): ?GSet {
 function updateGSet(model: UfoaModel, g_set_id: Id, gSetNew: GSet): void {
   model.generalisations.forEach(g => {
     if (g.g_set.g_set_id === g_set_id) {
-      Object.assign(g.g_set, R.mergeDeepRight({}, gSetNew));
+      Object.assign(g.g_set, R.clone(gSetNew));
     }
   });
 }

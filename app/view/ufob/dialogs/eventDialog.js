@@ -34,7 +34,7 @@ class EventForm extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      eventB2: Object.assign({}, props.eventB),
+      eventB2: R.clone(props.eventB),
       saveDisabled: true
     };
     //console.dir(this.props);

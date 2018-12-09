@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import type { Id, Name, Label, ValidationResult } from '../metamodel/general';
 import * as meta from '../metamodel/general';
-import type { EventB, Situation, UfobModel } from '../metamodel/ufob';
+import type { EventB, Situation, Disposition, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from "../metamodel/ufob";
 import { getLastIdNo } from './general.js';
 
@@ -75,6 +75,17 @@ export function updateSituation(model: UfobModel, updatedSituation: Situation): 
     return meta.validationResultOK;
   }
 }
+
+export function withUpdatedDisposition(situation: Situation, dText: string, newD: Disposition): Situation  {
+  const oldD = situation.s_dispositions.find((d) => d.d_text === dText);
+  if (oldD) {
+    let newDs = R.append(newD, situation.s_dispositions.filter((d) => d.d_text !== dText));
+    return R.mergeDeepRight(situation, { s_dispositions: newDs });
+  } else {
+    return situation;
+  }
+}
+
 
 export function deleteSituation(model: UfobModel, s_id: Id): void {
   let i = model.situations.findIndex(s => s.s_id === s_id);

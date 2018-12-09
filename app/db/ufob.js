@@ -1,5 +1,6 @@
 // @flow
 
+import * as R from 'ramda';
 import type { Id } from '../metamodel/general';
 import type { Situation, EventB, Disposition, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from '../metamodel/ufob';
@@ -31,7 +32,11 @@ export function saveGraphics(graphics: any): Promise<any> {
 // Events
 
 export function getEventById(ev_id: Id): ?EventB {
-  return ufobModel.getEventById(model, ev_id);
+  const res = ufobModel.getEventById(model, ev_id);
+  if (!res) {
+    console.error(`UFO-B database inconsistency: ev_id ${ev_id} not found.`);
+  }
+  return res; 
 }
 
 export function newEvent(ev_name: string, s_id: Id): EventB {
