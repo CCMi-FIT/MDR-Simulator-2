@@ -321,6 +321,22 @@ footer {
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
 
+.badge-item {
+  margin-bottom: 5px;
+}
+
+.badge-info {
+  background-color: #3a87ad;
+}
+
+.badge-error {
+  background-color: #b94a48;
+}
+
+.badge-error:hover {
+  background-color: #953b39;
+}
+
 /*  Loading spinner */
 
 .loader,

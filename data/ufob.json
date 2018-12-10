@@ -197,7 +197,7 @@
       "s_name": "A Person wants to\nbecome a Donor",
       "s_dispositions": [
         {
-          "d_text": "yyy",
+          "d_text": "",
           "d_events_ids": [
             "e1"
           ]

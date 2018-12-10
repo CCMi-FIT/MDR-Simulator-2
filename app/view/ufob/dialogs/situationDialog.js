@@ -108,15 +108,15 @@ class SituationForm extends React.Component<Props, State> {
   renderEvent = (ev_id: Id) => {
     const ev = ufobDB.getEventById(ev_id);
     return (
-      <span key={ev_id}>
+      <div key={ev_id}>
         <i className="glyphicon glyphicon-arrow-right"></i>
         <span>{ev ? ev.ev_name : ""}</span>
-      </span>
+      </div>
     );
   }
 
   editDisposition = (d: Disposition) => {
-    dispositionModal.render(d).then((dNew) => {
+    dispositionModal.render(this.state.situation2, d).then((dNew) => {
       let newS = ufobModel.withUpdatedDisposition(this.state.situation2, d.d_text, dNew);
       this.setState({ situation2: newS, saveDisabled: false });
     });
@@ -145,6 +145,9 @@ class SituationForm extends React.Component<Props, State> {
   renderDispositions = () => {
     return ( 
       <table className="table table-striped">
+        <thead>
+          <tr colSpan="2"><th>Dispositions</th></tr>
+        </thead>
         <tbody>
           {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
         </tbody>

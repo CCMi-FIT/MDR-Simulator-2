@@ -31,6 +31,10 @@ export function saveGraphics(graphics: any): Promise<any> {
 
 // Events
 
+export function getEvents(): Array<EventB> {
+  return model.events;
+}
+
 export function getEventById(ev_id: Id): ?EventB {
   const res = ufobModel.getEventById(model, ev_id);
   if (!res) {
