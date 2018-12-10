@@ -31,7 +31,7 @@ function event2vis(ev: EventB, coords: any): VisNode {
   }, coords);
 }
 
-function mkEdge(from: Id, to: Id, label: string = "") {
+export function mkEdge(from: Id, to: Id, label: string = "") {
   return { from, to, label, width: 2, arrows: "to" };
 }
 

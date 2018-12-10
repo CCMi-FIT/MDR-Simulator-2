@@ -10,6 +10,7 @@ import type { Id } from '../../../metamodel/general.js';
 import * as ufobModel from '../../../model/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
+import * as rendering from '../canvas/rendering';
 import * as panels from '../../panels';
 import * as dispositionModal from './dispositionModal';
 
@@ -23,15 +24,6 @@ type State = {
   saveDisabled: boolean
 };
 
-function commitSituation(nodes: any, s: Situation) {
-  ufobDB.updateSituation(s).then((response) => {
-    nodes.update({ id: s.s_id, label: s.s_name });
-    //TODO bude asi potreba prekreslit celou sit: musi se aktualizovat hrany dispozic a vysledne eventy...
-    panels.hideDialog();
-    panels.displayInfo("Situation saved.");
-  }, (error) => panels.displayError("Situation save failed: " + error));
-}
-  
 class SituationForm extends React.Component<Props, State> {
 
   constructor(props) {
@@ -44,6 +36,33 @@ class SituationForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
+  updateEdges = () => {
+    const nodes = this.props.ufobVisModel.nodes;
+    const edges = this.props.ufobVisModel.edges;
+    const sId = nodes.get().find(node => node.id === this.state.situation2.s_id).id;
+    if (!sId) { 
+      console.error("Internal inconsistency in situationDialog/updateEdges");
+    } else {
+      const edgesIds = edges.get({ filter: edge => edge.from === sId }).map(edge => edge.id);
+      edges.remove(edgesIds);
+      this.state.situation2.s_dispositions.forEach(d => {
+        d.d_events_ids.forEach(evId => {
+          const newEdge = rendering.mkEdge(sId, evId, d.d_text);
+          edges.add(newEdge);
+        });
+      });
+    }
+  }
+
+  commitSituation = (nodes: any, s: Situation) => {
+    ufobDB.updateSituation(s).then(() => {
+      nodes.update({ id: s.s_id, label: s.s_name });
+      this.updateEdges();
+      panels.hideDialog();
+      panels.displayInfo("Situation saved.");
+    }, (error) => panels.displayError("Situation save failed: " + error));
+  }
+  
   setAttr = (attr: string, event: any) => {
     let val = event.currentTarget.value;
     this.setState((state: State, props: Props) => {
@@ -65,7 +84,7 @@ class SituationForm extends React.Component<Props, State> {
     let situationNew = this.state.situation2;
     let nodes: any = this.props.ufobVisModel.nodes;
     if (!R.equals(situationOriginal, situationNew)) {
-      commitSituation(nodes, situationNew);
+      this.commitSituation(nodes, situationNew);
     }
   };
 

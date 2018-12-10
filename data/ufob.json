@@ -272,18 +272,12 @@
     },
     {
       "s_id": "s6",
-      "s_name": "Potential\nDonor(s)\nFound",
+      "s_name": "Potential Donor(s) Found",
       "s_dispositions": [
         {
           "d_text": "Extended HLA\nTyping not Required",
           "d_events_ids": [
             "e8"
-          ]
-        },
-        {
-          "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample\nAvailable",
-          "d_events_ids": [
-            "e9"
           ]
         },
         {
@@ -296,6 +290,12 @@
           "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample/DNA\nnot Available",
           "d_events_ids": [
             "e11"
+          ]
+        },
+        {
+          "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample\nAvailable",
+          "d_events_ids": [
+            "e9"
           ]
         }
       ]
