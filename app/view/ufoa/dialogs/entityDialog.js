@@ -42,10 +42,9 @@ class UfoaNodeForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
-  setAttr = (attr: string, event: any) => {
+  setAttr = (attr: string, val: any) => {
     let ufoaEntityOriginal = this.props.ufoaEntity;
-    let val = event.currentTarget.value;
-    this.setState((state, props) => {
+    this.setState((state) => {
       let ufoaEntityNew = state.ufoaEntity2;
       ufoaEntityNew[attr] = val;
       return {
@@ -77,7 +76,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
   renderEntityType() {
     return (
       <div className="form-group">
-        <select className="form-control" value={this.state.ufoaEntity2.e_type} onChange={(e) => this.setAttr("e_type", e)}>
+        <select className="form-control" value={this.state.ufoaEntity2.e_type} onChange={(e) => this.setAttr("e_type", e.currentTarget.value)}>
           {ufoaMeta.entityTypes.map(et => <option key={et}>{et}</option>)}
         </select>
       </div>);
@@ -86,7 +85,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
   renderEntityName() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.ufoaEntity2.e_name} onChange={(e) => this.setAttr("e_name", e)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.ufoaEntity2.e_name} onChange={(e) => this.setAttr("e_name", e.currentTarget.value)} rows="5" cols="30"/>
       </div>);
   }
 

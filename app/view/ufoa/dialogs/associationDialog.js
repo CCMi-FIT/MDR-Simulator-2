@@ -49,8 +49,7 @@ class AssociationForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
-  setAttr = (attr: string, event: any) => {
-    let val = event.currentTarget.value;
+  setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
       let stateCopy = Object.assign({}, state); // Just because Flow bitches about state in R.dissocPath
       let aOrig = props.association;
@@ -108,7 +107,7 @@ class AssociationForm extends React.Component<Props, State> {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Type</label>
         <div className="col-sm-10">
-          <select className="form-control" value={this.state.association2.a_type} onChange={(ev) => this.setAttr("a_type", ev)}>
+          <select className="form-control" value={this.state.association2.a_type} onChange={(e) => this.setAttr("a_type", e.currentTarget.value)}>
             {ufoaMeta.assocTypes.map(t => <option key={t}>{t}</option>)}
           </select>
         </div>
@@ -120,7 +119,7 @@ class AssociationForm extends React.Component<Props, State> {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Meta</label>
         <div className="col-sm-10">
-          <select className="form-control" value={this.state.association2.a_meta} onChange={(ev) => this.setAttr("a_meta", ev)}>
+          <select className="form-control" value={this.state.association2.a_meta} onChange={(e) => this.setAttr("a_meta", e.currentTarget.value)}>
             {ufoaMeta.assocMetas.map(meta => <option key={meta}>{meta}</option>)}
           </select>
         </div>
@@ -142,7 +141,7 @@ class AssociationForm extends React.Component<Props, State> {
                 <input className="form-control" 
                   type="number"
                   value={this.state.association2[connection].mult.lower}
-                  onChange={(e) => this.setAttr(`${connection}.mult.lower`, e)}
+                  onChange={(e) => this.setAttr(`${connection}.mult.lower`, e.currentTarget.value)}
                 />
               </div>
               <div className="col-sm-1">..</div>
@@ -150,7 +149,7 @@ class AssociationForm extends React.Component<Props, State> {
                 <input className="form-control"
                   type="number"
                   value={upper ? upper : ""}
-                  onChange={(e) => this.setAttr(`${connection}.mult.upper`, e)}
+                  onChange={(e) => this.setAttr(`${connection}.mult.upper`, e.currentTarget.value)}
                 />
               </div>
             </div>
@@ -176,7 +175,7 @@ class AssociationForm extends React.Component<Props, State> {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Label</label>
         <div className="col-sm-10">
-          <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e)} rows="2" cols="30"/>
+          <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows="2" cols="30"/>
         </div>
       </div>);
   }

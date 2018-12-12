@@ -64,8 +64,7 @@ class SituationForm extends React.Component<Props, State> {
     }, (error) => panels.displayError("Situation save failed: " + error));
   }
   
-  setAttr = (attr: string, event: any) => {
-    let val = event.currentTarget.value;
+  setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
       //let stateCopy = R.clone(state); // Just because Flow bitches about state in R.dissocPath
       let sOrig = props.situation;
@@ -102,7 +101,7 @@ class SituationForm extends React.Component<Props, State> {
   renderSituationName = () => {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.situation2.s_name} onChange={(e) => this.setAttr("s_name", e)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.situation2.s_name} onChange={(e) => this.setAttr("s_name", e.currentTarget.value)} rows="5" cols="30"/>
       </div>);
   }
 

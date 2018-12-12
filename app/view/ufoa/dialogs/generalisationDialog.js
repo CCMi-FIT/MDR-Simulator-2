@@ -47,8 +47,7 @@ class GeneralisationsForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
-  setAttr = (attr: string, event: any) => {
-    let val = event.currentTarget.value;
+  setAttr = (attr: string, val: any) => {
     this.setState((state, props) => {
       let gOrig = props.generalisation;
       let stateNew;
@@ -118,7 +117,7 @@ class GeneralisationsForm extends React.Component<Props, State> {
             labelKey={"g_set_id"}
             onChange={gSets => { 
               if (gSets.length) { 
-                this.setAttr("g_set.g_set_id", { currentTarget: { value: gSets[0].g_set_id }}); 
+                this.setAttr("g_set.g_set_id", gSets[0].g_set_id); 
               }
             }}
             selected={[this.state.generalisation2.g_set]}
@@ -133,7 +132,7 @@ class GeneralisationsForm extends React.Component<Props, State> {
       <div className="form-group row">
         <label className="col-sm-2 col-form-label">Meta</label>
         <div className="col-sm-10">
-          <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(ev) => this.setAttr("g_set.g_meta", ev)}>
+          <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
             {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
           </select>
         </div>
@@ -151,7 +150,7 @@ class GeneralisationsForm extends React.Component<Props, State> {
             selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
             onChange={(entities) => {
               if (entities.length) {
-                this.setAttr("g_sup_e_id", { currentTarget: { value: entities[0].e_id }});
+                this.setAttr("g_sup_e_id", entities[0].e_id);
               }
             }}
           />
@@ -170,7 +169,7 @@ class GeneralisationsForm extends React.Component<Props, State> {
             selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}
             onChange={(entities) => {
               if (entities.length) {
-                this.setAttr("g_sub_e_id", { currentTarget: { value: entities[0].e_id }});
+                this.setAttr("g_sub_e_id", entities[0].e_id);
               }
             }}
           />
