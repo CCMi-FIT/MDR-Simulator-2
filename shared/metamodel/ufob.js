@@ -20,6 +20,8 @@ export type Disposition = {
   d_events_ids: Array<Id>
 };
 
+export const emptyDisposition = { d_text: "", d_events_ids: [] };
+
 export type Situation = {
   s_id: Id,
   s_name: string,

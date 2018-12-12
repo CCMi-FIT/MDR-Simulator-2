@@ -76,6 +76,11 @@ export function updateSituation(model: UfobModel, updatedSituation: Situation): 
   }
 }
 
+export function addDisposition(situation: Situation, newD: Disposition): Situation {
+  const newDs = R.append(newD, situation.s_dispositions);
+  return R.mergeDeepRight(situation, { s_dispositions: newDs });
+}
+
 export function withUpdatedDisposition(situation: Situation, dText: string, newD: Disposition): Situation  {
   const oldD = situation.s_dispositions.find((d) => d.d_text === dText);
   if (oldD) {
@@ -86,6 +91,10 @@ export function withUpdatedDisposition(situation: Situation, dText: string, newD
   }
 }
 
+export function deleteDisposition(situation: Situation, dText: string): Situation {
+  const newDs = situation.s_dispositions.filter(d => d.d_text !== dText);
+  return R.mergeDeepRight(situation, { s_dispositions: newDs });
+}
 
 export function deleteSituation(model: UfobModel, s_id: Id): void {
   let i = model.situations.findIndex(s => s.s_id === s_id);

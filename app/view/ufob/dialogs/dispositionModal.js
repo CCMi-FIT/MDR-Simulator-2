@@ -72,7 +72,6 @@ class DispositionForm extends React.Component<Props, State> {
     const disableSave = newDisposition.d_events_ids.length === 0;
     this.setState({ 
       disposition2: newDisposition, 
-      updateHint: disableSave ? "There must be at least one caused event" : "", 
       saveDisabled: disableSave
     });
   }
@@ -83,12 +82,10 @@ class DispositionForm extends React.Component<Props, State> {
     this.setState({ disposition2: newDisposition, saveDisabled: false });
   }
   
-  //delete = () => {
-    //ufobDB.deleteDisposition(this.props.situation.s_id, d.d_text).then(() => {
-      //panels.hideDialog();
-      //panels.displayInfo("Disposition deleted.");
-    //}, (error) => panels.displayError("Disposition delete failed: " + error));
-  //}
+  delete = () => {
+    this.props.resolve(null);
+    panels.hideModal();
+  }
 
   renderDispositionText() {
     return (
@@ -140,11 +137,11 @@ class DispositionForm extends React.Component<Props, State> {
         </Panel.Body>
       </Panel>);
   }
-
+  
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           <Button 
             className="btn-primary" 
             onClick={this.save} 
@@ -153,25 +150,14 @@ class DispositionForm extends React.Component<Props, State> {
             Update disposition
           </Button>
         </div>
-        <div className="col-sm-6">
-          <Button className="btn-danger" onClick={() => panels.hideModal()}>Cancel</Button>
+        <div className="col-sm-4">
+          <Button className="btn-danger" onClick={() => this.delete()}>Delete disposition</Button>
         </div>
-        {/*<div className="col-sm-6 text-right">
-          {this.renderButtonDelete()}
-        </div>*/}
+        <div className="col-sm-4">
+          <Button className="btn-warning" onClick={() => panels.hideModal()}>Cancel</Button>
+        </div>
       </div>);
   }
-
-  //renderButtonDelete() {
-    //return (
-      //<Confirm
-        //onConfirm={this.delete}
-        //body={`Are you sure you want to delete "${this.props.disposition.d_text}"?`}
-        //confirmText="Confirm Delete"
-        //title="Deleting Disposition">
-        //<Button className="btn-danger">Delete disposition</Button>
-      //</Confirm>);
-  //}
 
   render() {
     return ( 

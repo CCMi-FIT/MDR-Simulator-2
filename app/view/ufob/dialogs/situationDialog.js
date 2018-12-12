@@ -7,6 +7,7 @@ import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { Situation, Disposition } from '../../../metamodel/ufob';
 import type { Id } from '../../../metamodel/general.js';
+import * as ufobMeta from '../../../metamodel/ufob';
 import * as ufobModel from '../../../model/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
@@ -117,7 +118,19 @@ class SituationForm extends React.Component<Props, State> {
 
   editDisposition = (d: Disposition) => {
     dispositionModal.render(this.state.situation2, d).then((dNew) => {
-      let newS = ufobModel.withUpdatedDisposition(this.state.situation2, d.d_text, dNew);
+      if (!dNew) {
+        const newS = ufobModel.deleteDisposition(this.state.situation2, d.d_text);
+        this.setState({ situation2: newS, saveDisabled: false });
+      } else {
+        const newS = ufobModel.withUpdatedDisposition(this.state.situation2, d.d_text, dNew);
+        this.setState({ situation2: newS, saveDisabled: false });
+      }
+    });
+  }
+
+  addDisposition = () => {
+    dispositionModal.render(this.state.situation2, ufobMeta.emptyDisposition).then((dNew) => {
+      let newS = ufobModel.addDisposition(this.state.situation2, dNew);
       this.setState({ situation2: newS, saveDisabled: false });
     });
   }
@@ -131,25 +144,23 @@ class SituationForm extends React.Component<Props, State> {
           <td>
             {d.d_events_ids.map(this.renderEvent)}
           </td>
-          {/*<td>
-            <Button className="btn-danger btn-sm">
-              <i className="glyphicon glyphicon-trash"></i>
-            </Button>
-          </td>*/}
         </tr>
     );
   }
-
-        //<textarea className="form-control" type="text" value={d.d_text} onChange={(e) => this.setAttr("d_text", e)} rows="5" cols="30"/>
 
   renderDispositions = () => {
     return ( 
       <table className="table table-striped">
         <thead>
-          <tr colSpan="2"><th>Dispositions</th></tr>
+          <tr><th colSpan="2">Dispositions</th></tr>
         </thead>
         <tbody>
           {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
+          <tr>
+            <td colSpan="2">
+              <Button className="btn-primary btn-sm" onClick={this.addDisposition}><i className="glyphicon glyphicon-plus"></i></Button>
+            </td>
+          </tr>
         </tbody>
       </table>
     );
