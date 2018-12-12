@@ -69,6 +69,10 @@ export function deleteEvent(ev_id: Id): Promise<any> {
 
 //Situations
 
+export function getSituations(): Array<Situation> {
+  return model.situations;
+}
+
 export function getSituationById(s_id: Id): ?Situation {
   return ufobModel.getSituationById(model, s_id);
 }

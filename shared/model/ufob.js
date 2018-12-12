@@ -40,8 +40,12 @@ export function updateEvent(model: UfobModel, updatedEvent: EventB): ValidationR
 }
 
 export function deleteEvent(model: UfobModel, ev_id: Id): void {
-  let i = model.events.findIndex(ev => ev.ev_id === ev_id);
-  model.events.splice(i, 1);
+  const iEvent = model.events.findIndex(ev => ev.ev_id === ev_id);
+  model.events.splice(iEvent, 1);
+  model.situations.forEach(s => {
+    const newDs = s.s_dispositions.filter((d: Disposition) => d.d_events_ids.includes(ev_id));
+    s.s_dispositions = newDs;
+  });
 }
 
 // Situation

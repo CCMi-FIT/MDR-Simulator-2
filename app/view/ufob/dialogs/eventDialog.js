@@ -5,8 +5,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import type { EventB } from '../../../metamodel/ufob';
-import * as ufobMeta from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
 import * as panels from '../../panels';
@@ -22,7 +22,7 @@ type State = {
 };
 
 function commitEventB(nodes: any, ev: EventB) {
-  ufobDB.updateEvent(ev).then((response) => {
+  ufobDB.updateEvent(ev).then(() => {
     nodes.update({ id: ev.ev_id, label: ev.ev_name });
     panels.hideDialog();
     panels.displayInfo("Event saved.");
@@ -41,10 +41,9 @@ class EventForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
-  setAttr = (attr: string, event: any) => {
+  setAttr = (attr: string, val: any) => {
     let eventBOriginal = this.props.eventB;
-    let val = event.currentTarget.value;
-    this.setState((state, props) => {
+    this.setState((state) => {
       let eventBNew = state.eventB2;
       eventBNew[attr] = val;
       return {
@@ -54,7 +53,7 @@ class EventForm extends React.Component<Props, State> {
     });
   }
 
-  save = (event) => {
+  save = () => {
     let eventBOriginal = this.props.eventB;
     let eventBNew = this.state.eventB2;
     let nodes: any = this.props.ufobVisModel.nodes;
@@ -63,10 +62,10 @@ class EventForm extends React.Component<Props, State> {
     }
   };
 
-  delete = (event) => {
+  delete = () => {
     let nodes: any = this.props.ufobVisModel.nodes;
     let ev_id = this.props.eventB.ev_id;
-    ufobDB.deleteEvent(ev_id).then((response) => {
+    ufobDB.deleteEvent(ev_id).then(() => {
       nodes.remove({ id: ev_id });
       panels.hideDialog();
       panels.displayInfo("Event deleted.");
@@ -76,8 +75,27 @@ class EventForm extends React.Component<Props, State> {
   renderEventName() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={(e) => this.setAttr("ev_name", e)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={(e) => this.setAttr("ev_name", e.currentTarget.value)} rows="5" cols="30"/>
       </div>);
+  }
+
+  renderToSituation = () => {
+    const toSituation = ufobDB.getSituationById(this.state.eventB2.ev_to_situation_id);
+    return (
+      <div className="form-group">
+        <label>To situation:</label>
+        <Typeahead
+          options={ufobDB.getSituations()}
+          labelKey={"s_name"}
+          selected={[toSituation]}
+          onChange={ss => { 
+            if (ss.length > 0) {
+              this.setAttr("ev_to_situation_id", ss[0].s_id);
+            }
+          }}
+        />
+      </div>
+    );
   }
 
   renderButtons() {
@@ -109,6 +127,7 @@ class EventForm extends React.Component<Props, State> {
         <Panel.Heading><strong>{this.props.eventB.ev_name}</strong></Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderEventName()}
+          {this.renderToSituation()}
           {this.renderButtons()}
         </Panel.Body>
       </Panel>);
