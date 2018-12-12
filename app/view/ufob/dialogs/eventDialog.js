@@ -9,6 +9,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import type { EventB } from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
+import * as rendering from '../canvas/rendering';
 import * as panels from '../../panels';
 
 type Props = {
@@ -21,14 +22,6 @@ type State = {
   saveDisabled: boolean
 };
 
-function commitEventB(nodes: any, ev: EventB) {
-  ufobDB.updateEvent(ev).then(() => {
-    nodes.update({ id: ev.ev_id, label: ev.ev_name });
-    panels.hideDialog();
-    panels.displayInfo("Event saved.");
-  }, (error) => panels.displayError("Event save failed: " + error));
-}
-  
 class EventForm extends React.Component<Props, State> {
 
   constructor(props) {
@@ -53,12 +46,25 @@ class EventForm extends React.Component<Props, State> {
     });
   }
 
+  commit = () => {
+    const ev = this.state.eventB2;
+    const nodes = this.props.ufobVisModel.nodes;
+    const edges = this.props.ufobVisModel.edges;
+    ufobDB.updateEvent(ev).then(() => {
+      nodes.update({ id: ev.ev_id, label: ev.ev_name });
+      const edgesIds = edges.get().filter(e => e.from === ev.ev_id).map(e => e.id); //Effectively, there should be just one edge
+      edges.remove(edgesIds);
+      edges.add(rendering.mkEdge(ev.ev_id, ev.ev_to_situation_id));
+      panels.hideDialog();
+      panels.displayInfo("Event saved.");
+    }, (error) => panels.displayError("Event save failed: " + error));
+  }
+  
   save = () => {
     let eventBOriginal = this.props.eventB;
     let eventBNew = this.state.eventB2;
-    let nodes: any = this.props.ufobVisModel.nodes;
     if (!R.equals(eventBOriginal, eventBNew)) {
-      commitEventB(nodes, eventBNew);
+      this.commit();
     }
   };
 
