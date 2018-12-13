@@ -4,14 +4,11 @@ import * as R from 'ramda';
 import * as vis from 'vis';
 import type { Id } from '../../../metamodel/general';
 import type { EventB, Situation, Disposition, UfobModel } from "../../../metamodel/ufob";
-import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
-import * as ufobMeta from "../../../metamodel/ufob";
+import type { VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufobModel from "../../../model/ufob";
 import * as ufobDB from "../../../db/ufob";
 import * as rendering from '../../rendering';
-import * as newNodeDialog from "../dialogs/newNodeDialog";
 import * as situationDialog from '../dialogs/situationDialog.js';
-import * as eventDialog from '../dialogs/eventDialog';
 
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
