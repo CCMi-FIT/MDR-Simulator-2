@@ -337,6 +337,11 @@ footer {
   background-color: #953b39;
 }
 
+.error-hint{
+  color: #ff6b51;
+  font-style: italic;
+}
+
 /*  Loading spinner */
 
 .loader,

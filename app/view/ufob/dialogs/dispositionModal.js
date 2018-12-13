@@ -19,7 +19,7 @@ type Props = {
 
 type State = {
   disposition2: Disposition,
-  updateHint: string,
+  duplicityError: boolean,
   saveDisabled: boolean
 };
 
@@ -29,7 +29,7 @@ class DispositionForm extends React.Component<Props, State> {
     super(props);
     this.state = {
       disposition2: R.clone(props.disposition),
-      updateHint: "",
+      duplicityError: false,
       saveDisabled: true
     };
     //console.dir(this.props);
@@ -43,12 +43,12 @@ class DispositionForm extends React.Component<Props, State> {
       if (props.situation.s_dispositions.find(d => d.d_text === val)) {
         return R.mergeDeepRight(state, { 
           disposition2: newD,
-          updateHint: "Disposition already exists",
+          duplicityError: true,
           saveDisabled: true });
       } else {
         return R.mergeDeepRight(state, { 
           disposition2: newD,
-          updateHint: "",
+          duplicityError: false,
           saveDisabled: false });
       }
     });
@@ -69,10 +69,10 @@ class DispositionForm extends React.Component<Props, State> {
   deleteEvent = (ev_id: Id) => {
     const newIds = this.state.disposition2.d_events_ids.filter(eId => eId !== ev_id);
     const newDisposition = R.mergeDeepRight(this.state.disposition2, { d_events_ids: newIds });
-    const disableSave = newDisposition.d_events_ids.length === 0;
+    const hasError = newDisposition.d_events_ids.length === 0;
     this.setState({ 
       disposition2: newDisposition, 
-      saveDisabled: disableSave
+      saveDisabled: hasError
     });
   }
 
@@ -91,6 +91,9 @@ class DispositionForm extends React.Component<Props, State> {
     return (
       <div className="form-group">
         <textarea className="form-control" type="text" value={this.state.disposition2.d_text} onChange={e => this.setTextHandler(e)} rows="5" cols="30"/>
+        {this.state.duplicityError ? 
+            <span className="error-hint">Duplicate disposition</span>
+          : ""}
       </div>);
   }
 
@@ -110,9 +113,7 @@ class DispositionForm extends React.Component<Props, State> {
 
   renderEventsEmpty() {
     return (
-      <div className="badge-item">
-        <span className="badge badge-error clickable" title="There must be at least one caused event">!</span>
-      </div>
+      <span className="error-hint">There must be at least one caused event.</span>
     );
   }
 
@@ -145,7 +146,6 @@ class DispositionForm extends React.Component<Props, State> {
           <Button 
             className="btn-primary" 
             onClick={this.save} 
-            title={this.state.updateHint}
             disabled={this.state.saveDisabled}>
             Update disposition
           </Button>
