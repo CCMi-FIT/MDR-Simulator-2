@@ -92,7 +92,7 @@ function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
       callback(assoc2vis(newAssoc));
       associationDialog.render(newAssoc, ufoaVisModel);
     } else {
-      console.error("Attempt to add an unknown edge type: " + edgeType)
+      console.error("Attempt to add an unknown edge type: " + edgeType);
     }
   });
 }

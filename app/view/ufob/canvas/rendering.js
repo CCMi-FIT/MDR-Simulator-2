@@ -8,7 +8,9 @@ import type { VisNode, VisEdge, VisModel } from '../../rendering';
 import * as ufobModel from "../../../model/ufob";
 import * as ufobDB from "../../../db/ufob";
 import * as rendering from '../../rendering';
-import * as situationDialog from '../dialogs/situationDialog.js';
+import * as newNodeDialog from "../dialogs/newNodeDialog";
+import * as situationDialog from '../dialogs/situationDialog';
+import * as eventDialog from '../dialogs/eventDialog';
 
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
@@ -56,13 +58,28 @@ export function model2vis(model: UfobModel, elementGraphics: any): VisModel {
 }
 
 function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) {
-  const newSituation: Situation = ufobDB.newSituation();
-  callback(situation2vis(newSituation, null));
-  visNetwork.fit({ 
-    nodes: [newSituation.s_id],
-    animation: true
+  newNodeDialog.render(nodeData, (res: any) => {
+    if (res.selection === "situation") {
+      let newS: Situation = ufobDB.newSituation();
+      callback(situation2vis(newS));
+      visNetwork.fit({ 
+        nodes: [newS.s_id],
+        animation: true
+      });
+      situationDialog.render(newS, ufobVisModel);
+    } else if (res.selection === "event") {
+      let newEv: EventB = ufobDB.newEvent("New event", res.ev_to_situation_id);
+      callback(event2vis(newEv));
+      visNetwork.fit({ 
+        nodes: [newEv.ev_id],
+        animation: true
+      });
+      eventDialog.render(newEv, ufobVisModel);
+    } else {
+      console.error("Attempt to add an unknown node type: " + res.selection);
+    }
   });
-  situationDialog.render(newSituation, ufobVisModel);
+
 }
 
 export function renderUfob(ufobVisModel: VisModel): any {
