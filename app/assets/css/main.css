@@ -221,6 +221,15 @@ footer {
   top: 91px;
 }
 
+.cover-toolbar {
+  background-color: white;
+  height: 29px;
+  left: 125px;
+  position: fixed;
+  top: 93px;
+  width: 399px;
+}
+
 .close {
   font-size: 24px;
   margin-left: 10px;
