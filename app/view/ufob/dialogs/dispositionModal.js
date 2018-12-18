@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { Modal, Panel, Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { Id } from '../../../metamodel/general';
-import type { Situation, Disposition } from '../../../metamodel/ufob';
+import type { Situation, EventB, Disposition } from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import * as panels from '../../panels';
 
@@ -24,6 +24,8 @@ type State = {
 };
 
 class DispositionForm extends React.Component<Props, State> {
+
+  typeahead: any = null;
 
   constructor(props) {
     super(props);
@@ -79,7 +81,9 @@ class DispositionForm extends React.Component<Props, State> {
   addEvent = (ev_id: Id) => {
     const newIds = R.append(ev_id, this.state.disposition2.d_events_ids);
     const newDisposition = R.mergeDeepRight(this.state.disposition2, { d_events_ids: newIds });
-    this.setState({ disposition2: newDisposition, saveDisabled: false });
+    this.setState({ 
+      disposition2: newDisposition, 
+      saveDisabled: false });
   }
   
   delete = () => {
@@ -127,11 +131,13 @@ class DispositionForm extends React.Component<Props, State> {
               this.renderEventsEmpty()
             : esIds.map(this.renderEvent)}
           <Typeahead
+            ref={(typeahead) => this.typeahead = typeahead}
             options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
             labelKey={"ev_name"}
             onChange={evs => { 
               if (evs.length > 0) { 
                 this.addEvent(evs[0].ev_id);
+                this.typeahead.getInstance().clear();
               }
             }}
           />

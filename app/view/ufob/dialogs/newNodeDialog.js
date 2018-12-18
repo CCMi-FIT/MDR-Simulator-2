@@ -56,16 +56,19 @@ class NewNodeForm extends React.Component<Props, State> {
     const ets = this.state.ev_to_situation_id;
     const toSituation = ets ? [ufobDB.getSituationById(ets)] : [];
     return (
-      <Typeahead
-        options={ufobDB.getSituations()}
-        labelKey={"s_name"}
-        selected={toSituation}
-        onChange={ss => { 
-          if (ss.length > 0) {
-            this.setState({ ev_to_situation_id: ss[0].s_id });
-          }
-        }}
-      />
+      <div className="form-group"> 
+        <label>Resulting Situation:</label>
+        <Typeahead
+          options={ufobDB.getSituations()}
+          labelKey={"s_name"}
+          selected={toSituation}
+          onChange={ss => { 
+            if (ss.length > 0) {
+              this.setState({ ev_to_situation_id: ss[0].s_id });
+            }
+          }}
+        />
+      </div>
     );
   }
 

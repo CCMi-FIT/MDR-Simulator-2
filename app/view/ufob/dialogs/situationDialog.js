@@ -79,7 +79,7 @@ class SituationForm extends React.Component<Props, State> {
     });
   }
 
-  save = (situation) => {
+  save = () => {
     let situationOriginal = this.props.situation;
     let situationNew = this.state.situation2;
     let nodes: any = this.props.ufobVisModel.nodes;
@@ -88,10 +88,10 @@ class SituationForm extends React.Component<Props, State> {
     }
   };
 
-  delete = (situation) => {
+  delete = () => {
     let nodes: any = this.props.ufobVisModel.nodes;
     let s_id = this.props.situation.s_id;
-    ufobDB.deleteSituation(s_id).then((response) => {
+    ufobDB.deleteSituation(s_id).then(() => {
       nodes.remove({ id: s_id });
       panels.hideDialog();
       panels.displayInfo("Situation deleted.");
