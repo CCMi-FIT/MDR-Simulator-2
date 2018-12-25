@@ -1,15 +1,30 @@
 //@flow
 
-var express = require('express');
-var cors = require('cors');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var ufoaMeta = require('./metamodel/ufoa');
-var ufobMeta = require('./metamodel/ufob');
-var ufoaDB = require('./db/ufoa');
-var ufobDB = require('./db/ufob');
-var urls = require('./urls');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const ufoaMeta = require('./metamodel/ufoa');
+const ufobMeta = require('./metamodel/ufob');
+const ufoaDB = require('./db/ufoa');
+const ufobDB = require('./db/ufob');
+const urls = require('./urls');
+
+function clientErrRes(res: any, msg: string): void {
+  res.status(400);
+  res.send(msg);
+}
+
+function serverErrRes(res: any, msg: string): void {
+  res.status(500);
+  res.send(msg);
+}
+
+function okRes(res: any, result: any): void {
+  res.status(200);
+  res.json(result);
+}
 
 var app = express();
 
@@ -23,44 +38,16 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Home
 
 app.get('/', (req, res: any) => {
-  res.render('index.html');
+  res.status(200).render('index.html');
 });
 
 // UFO-A
 
 app.get(urls.ufoaGetModel, (req, res: any) => {
-  ufoaDB.getModel().then(model => {
-    res.json(model);
-  }, (error) => {
-    res.json( {error: `Server error in loading UFO-A model: ${error}` });
-  });
-});
-
-app.get(urls.ufoaGetGraphics, (req, res: any) => {
-  ufoaDB.getGraphics().then(graphics => {
-    res.json(graphics);
-  }, (error) => {
-    res.json( {error: `Server error in loading UFO-A model layout: ${error}` });
-  });
-});
-
-app.post(urls.ufoaGraphicsSave, (req, res: any) => {
-  try {
-    const graphics = JSON.parse(req.body.graphics);
-    ufoaDB.saveGraphics(graphics, (result) => {
-      res.json(result);
-    });
-  } catch (SyntaxError) { 
-    res.json({ error: "Unable to parse `graphics` object" });
-  }
-});
-
-app.post(urls.ufoaGraphicsDelete, (req, res: any) => {
-  ufoaDB.graphicsDelete().then((result) => {
-    res.json(result);
-  }, (error) => {
-    res.json( {error: `Server error in deleting UFO-A model layout: ${error}` });
-  });
+  ufoaDB.getModel().then(
+    model => okRes(res, model),
+    error => serverErrRes(res, `Error in loading UFO-A model: ${error}`)
+  );
 });
 
 // Entities
@@ -70,55 +57,58 @@ app.post(urls.ufoaEntityUpdate, (req, res: any) => {
     const entity = JSON.parse(req.body.entity);
     const validity = ufoaMeta.validateEntity(entity);
     if (validity.errors) {
-      res.json(validity);
+      serverErrRes(res, "Error in entity update (validity violation)");
     } else { 
-      ufoaDB.updateEntity(entity, (result) => {
-        res.json(result);
-      });
+      ufoaDB.updateEntity(entity).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, `Error in updating entity: ${error}`)
+      );
     }
   } catch (SyntaxError) { 
-    res.json({error: "Unable to parse `entity` object"});
+    clientErrRes(res, "Unable to parse `entity` object");
   }
 });
 
 app.post(urls.ufoaEntityDelete, (req, res: any) => {
   let e_id = req.body.e_id;
   if (!e_id) {
-    res.json({error: "Missing `e_id`"});
+    clientErrRes(res, "Missing `e_id`");
   } else { 
-    ufoaDB.deleteEntity(e_id, (result) => {
-      res.json(result);
-    });
+    ufoaDB.deleteEntity(e_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, `Error in deleting entity: ${error}`)
+    );
   }
 });
 
 // Generalisations
 
 app.post(urls.generalisationUpdate, (req, res: any) => {
-  let generalisation = {};
   try {
     const generalisation = JSON.parse(req.body.generalisation);
     const validity = ufoaMeta.validateGeneralisation(generalisation);
     if (validity.errors) {
-      res.json(validity);
+      serverErrRes(res, "Validity error on generalisation update");
     } else { 
-      ufoaDB.updateGeneralisation(generalisation, (result) => {
-        res.json(result);
-      });
+      ufoaDB.updateGeneralisation(generalisation).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, `Error in updating generalisation: ${error}`) 
+      );
     }
   } catch (SyntaxError) { 
-    res.json({error: "Unable to parse `generalisation` object"});
+    clientErrRes(res, "Unable to parse `generalisation` object");
   }
 });
 
 app.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
   const g_id = req.body.g_id;
   if (!g_id) {
-    res.json({error: "Missing `g_id`"});
+    clientErrRes(res, "Missing `g_id`");
   } else { 
-    ufoaDB.deleteGeneralisation(g_id, (result) => {
-      res.json(result);
-    });
+    ufoaDB.deleteGeneralisation(g_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, `Error in deleting generalisation: ${error}`)
+    );
   }
 });
 
@@ -129,26 +119,56 @@ app.post(urls.associationUpdate, (req, res: any) => {
     const assoc = JSON.parse(req.body.association);
     const validity = ufoaMeta.validateAssociation(assoc);
     if (validity.errors) {
-      res.json(validity);
+      serverErrRes(res, "Validity error on association update");
     } else { 
-      ufoaDB.updateAssociation(assoc, (result) => {
-        res.json(result);
-      });
+      ufoaDB.updateAssociation(assoc).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, `Error in updating association: ${error}`)
+      );
     }
   } catch (SyntaxError) { 
-    res.json({error: "Unable to parse `association` object"});
+    clientErrRes(res, "Unable to parse `association` object");
   }
 });
 
 app.post(urls.ufoaAssociationDelete, (req, res: any) => {
   const a_id = req.body.a_id;
   if (!a_id) {
-    res.json({error: "Missing `a_id`"});
+    clientErrRes(res, "Missing `a_id`");
   } else { 
-    ufoaDB.deleteAssociation(a_id, (result) => {
-      res.json(result);
-    });
+    ufoaDB.deleteAssociation(a_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, `Error in deleting association: ${error}`)
+    );
   }
+});
+
+// Graphics 
+
+app.get(urls.ufoaGetGraphics, (req, res: any) => {
+  ufoaDB.getGraphics().then(
+    graphics => okRes(res, graphics),
+    error    => serverErrRes(res, `Error in loading UFO-A model layout: ${error}`)
+  );
+});
+
+app.post(urls.ufoaGraphicsSave, (req, res: any) => {
+  try {
+    const graphics = JSON.parse(req.body.graphics);
+    ufoaDB.saveGraphics(graphics).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, error)
+    );
+  } catch (SyntaxError) { 
+    clientErrRes(res, "Unable to parse `graphics` object");
+  }
+});
+
+app.post(urls.ufoaGraphicsDelete, (req, res: any) => {
+  ufoaDB.graphicsDelete().then(
+    result => okRes(res, result),
+    error  => serverErrRes(res, `Error in deleting UFO-A model layout: ${error}`)
+  );
 });
 
 // UFO-B
@@ -156,30 +176,10 @@ app.post(urls.ufoaAssociationDelete, (req, res: any) => {
 // Model
 
 app.get(urls.ufobGetModel, (req, res: any) => {
-  ufobDB.getModel().then(model => {
-    res.json(model);
-  }, (error) => {
-    res.json( {error: `Server error in loading UFO-B model: ${error}` });
-  });
-});
-
-app.get(urls.ufobGetGraphics, (req, res: any) => {
-  ufobDB.getGraphics().then(graphics => {
-    res.json(graphics);
-  }, (error) => {
-    res.json( {error: `Server error in loading UFO-B model layout: ${error}` });
-  });
-});
-
-app.post(urls.ufobGraphicsSave, (req, res: any) => {
-  try {
-    const graphics = JSON.parse(req.body.graphics);
-    ufoaDB.saveGraphics(graphics, (result) => {
-      res.json(result);
-    });
-  } catch (SyntaxError) { 
-    res.json({ error: "Unable to parse `graphics` object" });
-  }
+  ufobDB.getModel().then(
+    model => okRes(res, model),
+    error => serverErrRes(res, `Error in loading UFO-B model: ${error}`)
+  );
 });
 
 // Event
@@ -189,14 +189,15 @@ app.post(urls.ufobEventUpdate, (req, res: any) => {
     const event = JSON.parse(req.body.event);
     const validity = ufobMeta.validateEvent(event);
     if (validity.errors) {
-      res.json(validity);
+      serverErrRes(res, "Validity error on Event update");
     } else { 
-      ufobDB.updateEvent(event, (result) => {
-        res.json(result);
-      });
+      ufobDB.updateEvent(event).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, `Error in updating event: ${error}`)
+      );
     }
   } catch (SyntaxError) { 
-    res.json({error: "Unable to parse `event` object"});
+    clientErrRes(res, "Unable to parse `event` object");
   }
 });
 
@@ -240,6 +241,25 @@ app.post(urls.ufobSituationDelete, (req, res: any) => {
   }
 });
 
+// Graphics
 
+app.get(urls.ufobGetGraphics, (req, res: any) => {
+  ufobDB.getGraphics().then(graphics => {
+    res.json(graphics);
+  }, error => res.json( {error: `Server error in loading UFO-B model layout: ${error}` }));
+});
+
+app.post(urls.ufobGraphicsSave, (req, res: any) => {
+  try {
+    const graphics = JSON.parse(req.body.graphics);
+    ufobDB.saveGraphics(graphics, (result) => {
+      res.json(result);
+    });
+  } catch (SyntaxError) { 
+    res.json({ error: "Unable to parse `graphics` object" });
+  }
+});
+
+//
 
 module.exports = app;

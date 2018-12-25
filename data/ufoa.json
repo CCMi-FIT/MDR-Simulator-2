@@ -607,8 +607,8 @@
     },
     {
       "e_id": "e121",
-      "e_type": "mode",
-      "e_name": "Follow-up Results"
+      "e_type": "kind",
+      "e_name": "xxx"
     }
   ],
   "generalisations": [
@@ -2885,25 +2885,6 @@
         "mult": {
           "lower": 2,
           "upper": 3
-        }
-      }
-    },
-    {
-      "a_id": "a80",
-      "a_type": "characterization",
-      "a_meta": "",
-      "a_label": "",
-      "a_connection1": {
-        "e_id": "e120",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      },
-      "a_connection2": {
-        "e_id": "e121",
-        "mult": {
-          "lower": 1
         }
       }
     },

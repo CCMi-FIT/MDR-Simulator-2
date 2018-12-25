@@ -1,11 +1,11 @@
 // @flow
 
-import type { Id, Label } from '../metamodel/general';
-import type { UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, UfoaModel } from '../metamodel/ufoa';
+import type { Id } from '../metamodel/general';
+import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
-import { getData, postData, requestFailedMsg } from './general';
+import { getData, postData } from './general';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
 
@@ -13,10 +13,12 @@ var model: UfoaModel = ufoaMeta.emptyModel;
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
-    getData(urls.baseURL + urls.ufoaGetModel).then(data => {
-      model = data;
-      resolve(data);
-    }, (error) => reject(error));
+    getData(urls.baseURL + urls.ufoaGetModel).then(
+      data => {
+        model = data;
+        resolve(data);
+      },
+      error => reject(error));
   });
 }
 
@@ -48,27 +50,21 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
     if (validity.errors) {
       reject("Entity update failed: " + validity.errors);
     } else {
-      $.post(urls.baseURL + urls.ufoaEntityUpdate, { entity: JSON.stringify(updatedEntity) }, (response) => {
-        if (response.error) {
-          reject(response.error);
-        } else {
-          resolve(response.result);
-        }
-      }).fail(() => reject(requestFailedMsg));
+      postData(urls.baseURL + urls.ufoaEntityUpdate, { entity: JSON.stringify(updatedEntity) }).then(
+        ()    => resolve(),
+        error => reject(error)
+      );
     }
   });
 }
 
 export function deleteEntity(e_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
-    ufoaModel.deleteEntity(model, e_id);
-    $.post(urls.baseURL + urls.ufoaEntityDelete, { e_id }, (response) => {
-      if (response.error) {
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
+    model = ufoaModel.deleteEntity(model, e_id);
+    postData(urls.baseURL + urls.ufoaEntityDelete, { e_id }).then(
+      ()    => resolve(),
+      error => reject(error)
+    );
   });
 }
 
@@ -96,13 +92,10 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
     if (validity.errors) {
       console.error("Generalisation update failed: " + validity.errors);
     } else {
-      $.post(urls.baseURL + urls.generalisationUpdate, { generalisation: JSON.stringify(updatedGeneralisation) }, (response) => {
-        if (response.error) {
-          reject(response.error);
-        } else {
-          resolve(response.result);
-        }
-      }).fail(() => reject(requestFailedMsg));
+      postData(urls.baseURL + urls.generalisationUpdate, { generalisation: JSON.stringify(updatedGeneralisation) }).then(
+        ()    => resolve(),
+        error => reject(error)
+      );
     }
   });
 }
@@ -110,13 +103,10 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
 export function deleteGeneralisation(g_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteGeneralisation(model, g_id);
-    $.post(urls.baseURL + urls.ufoaGeneralisationDelete, { g_id }, (response) => {
-      if (response.error) {
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
+    postData(urls.baseURL + urls.ufoaGeneralisationDelete, { g_id }).then(
+      ()    => resolve(),
+      error => reject(error)
+    );
   });
 }
 
@@ -144,13 +134,10 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
     if (validity.errors) {
       console.error("Association update failed: " + validity.errors);
     } else {
-      $.post(urls.baseURL + urls.associationUpdate, { association: JSON.stringify(updatedAssociation) }, (response) => {
-        if (response.error) {
-          reject(response.error);
-        } else {
-          resolve(response.result);
-        }
-      }).fail(() => reject(requestFailedMsg));
+      postData(urls.baseURL + urls.associationUpdate, { association: JSON.stringify(updatedAssociation) }).then(
+        ()    => resolve(),
+        error => reject(error)
+      );
     }
   });
 }
@@ -158,13 +145,10 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
 export function deleteAssociation(a_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteAssociation(model, a_id);
-    $.post(urls.baseURL + urls.ufoaAssociationDelete, { a_id }, (response) => {
-      if (response.error) {
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
+    postData(urls.baseURL + urls.ufoaAssociationDelete, { a_id }).then(
+      ()    => resolve(),
+      error => reject(error)
+    );
   });
 }
 

@@ -1,3 +1,5 @@
-- refactor update a delete v UFO-A na postData 
-- zkusit abstrahovat lock na withLock
+- opravit mazani entit na serveru
+- mazani grafiky entit
+- UFO-B mazani elementu: pridat mazani grafiky
+
 - refactor to https://www.primefaces.org/primereact

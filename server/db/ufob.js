@@ -1,13 +1,11 @@
 //@flow
 
-import * as R from 'ramda';
-import * as fs from 'fs';
-import { lock } from 'proper-lockfile';
 import * as db from './general';
-import type { RestResult } from './general';
-import type { Id, Situation, EventB, UfobModel } from '../metamodel/ufob';
+import type { Id } from '../metamodel/general';
+import type { UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from '../metamodel/ufob';
 import * as ufobModel from '../model/ufob';
+import { error } from '../logging';
 
 const ufobFname = "../data/ufob.json";
 const ufobGraphicsFname = "../data/ufob-graphics.json";
@@ -22,83 +20,99 @@ export function getGraphics(): Promise<any> {
   return db.getGraphics(ufobGraphicsFname);
 }
 
-export function saveGraphics(graphics: any, next: (RestResult) => void): Promise<any> {
-  return db.saveGraphics(ufobGraphicsFname, graphics, next);
+export function saveGraphics(graphics: any): Promise<any> {
+  return db.saveGraphics(ufobGraphicsFname, graphics);
 }
 
 export function graphicsDelete(): Promise<any> {
   return db.graphicsDelete(ufobGraphicsFname);
 }
 
-export function writeModel(model: UfobModel) {
-  db.writeModel(model, ufobFname);
+export function writeModel(model: UfobModel): Promise<any> {
+  return db.writeModel(model, ufobFname);
 }
 
 // Event
 
-export function updateEvent(updatedEvent: any, next: (RestResult) => void) {
-  lock(ufobFname).then((release) => {
-    loadSetSaveEvent(updatedEvent, next);
-    return release();
-  });
+export function updateEvent(updatedEvent: any): Promise<any> {
+  return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
+    getModel().then(
+      model => {
+        ufobModel.updateEvent(model, updatedEvent);
+        const validity = ufobMeta.validateModel(model);
+        if (validity.errors) {
+          error("Consistency error: updating of event " + updatedEvent.ev_id + " with " + JSON.stringify(updatedEvent) + " would brake the model.");
+          reject("Error on UFOB-B event updating.");
+        } else {
+          writeModel(model).then(
+            ()    => resolve(),
+            error => reject(error)
+          );
+        }
+      },
+      error => reject(error)
+    );
+  }));
 }
 
-function loadSetSaveEvent(updatedEvent: any, next: (RestResult) => void) {
-  getModel().then((model) => {
-    ufobModel.updateEvent(model, updatedEvent);
-    const validity = ufobMeta.validateModel(model);
-    if (validity.errors) {
-      console.error("Consistency error: updating of event " + updatedEvent.ev_id + " with " + JSON.stringify(updatedEvent) + " would brake the model.");
-      next({"error": "Internal server error on UFOB-B event updating."});
-    } else {
-      writeModel(model);
-      next({"result": "ok"});
-    }
-  }, (error) => { next({ "error": error, "ev_id": updatedEvent.ev_id }); });
-}
-
-export function deleteEvent(ev_id: Id, next: (RestResult) => void) {
-  lock(ufobFname).then((release) => {
-    getModel().then((model) => {
-      ufobModel.deleteEvent(model, ev_id);
-      writeModel(model);
-      next({"result": "ok"});
-    });
-    return release();
-  });
+export function deleteEvent(ev_id: Id): Promise<any> {
+  return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
+    getModel().then(
+      model => {
+        ufobModel.deleteEvent(model, ev_id);
+      writeModel(model).then(
+        () => deleteElementGraphics(ev_id).then(
+          ()    => resolve(),
+          error => reject(error)
+        ),
+        error => reject(error)
+      );
+   });
+  }));
 }
 
 // Situation
 
-export function updateSituation(updatedSituation: any, next: (RestResult) => void) {
-  lock(ufobFname).then((release) => {
-    loadSetSaveSituation(updatedSituation, next);
-    return release();
-  });
+export function updateSituation(updatedSituation: any): Promise<any> {
+  return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
+    getModel().then(
+      model => {
+        ufobModel.updateSituation(model, updatedSituation);
+        const validity = ufobMeta.validateModel(model);
+        if (validity.errors) {
+          error("Consistency error: updating of situation " + updatedSituation.s_id + " with " + JSON.stringify(updatedSituation) + " would brake the model.");
+          reject("Error on UFOB-B situation updating.");
+        } else {
+          writeModel(model).then(
+            ()    => resolve(),
+            error => reject(error)
+          );
+        }
+      }, 
+      error => reject(error)
+    );
+  }));
 }
 
-function loadSetSaveSituation(updatedSituation: any, next: (RestResult) => void) {
-  getModel().then((model) => {
-    ufobModel.updateSituation(model, updatedSituation);
-    const validity = ufobMeta.validateModel(model);
-    if (validity.errors) {
-      console.error("Consistency error: updating of situation " + updatedSituation.s_id + " with " + JSON.stringify(updatedSituation) + " would brake the model.");
-      next({"error": "Internal server error on UFOB-B situation updating."});
-    } else {
-      writeModel(model);
-      next({"result": "ok"});
-    }
-  }, (error) => { next({ "error": error, "s_id": updatedSituation.s_id }); });
+export function deleteSituation(s_id: Id): Promise<any> {
+  return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
+    getModel().then(
+      model => {
+        ufobModel.deleteSituation(model, s_id);
+      writeModel(model).then(
+        () => deleteElementGraphics(s_id).then(
+          ()    => resolve(),
+          error => reject(error)
+        ),
+        error => reject(error)
+      );
+   });
+  }));
 }
 
-export function deleteSituation(s_id: Id, next: (RestResult) => void) {
-  lock(ufobFname).then((release) => {
-    getModel().then((model) => {
-      ufobModel.deleteSituation(model, s_id);
-      writeModel(model);
-      next({"result": "ok"});
-    });
-    return release();
-  });
+// Graphics
+
+function deleteElementGraphics(elId: Id): Promise<any> {
+  return db.graphicsElementDelete(ufobGraphicsFname, elId);
 }
 

@@ -23,11 +23,13 @@ type State = {
 };
 
 function commitEntity(nodes: any, e: UfoaEntity) {
-  ufoaDB.updateEntity(e).then((response) => {
-    nodes.update({ id: e.e_id, label: ufoaMeta.entityStr(e) });
-    panels.hideDialog();
-    panels.displayInfo("Entity saved.");
-  }, (error) => panels.displayError("Entity save failed: " + error));
+  ufoaDB.updateEntity(e).then(
+    () => {
+      nodes.update({ id: e.e_id, label: ufoaMeta.entityStr(e) });
+      panels.hideDialog();
+      panels.displayInfo("Entity saved.");
+    },
+    error => panels.displayError("Entity save failed: " + error));
 }
   
 class UfoaNodeForm extends React.Component<Props, State> {
@@ -66,11 +68,13 @@ class UfoaNodeForm extends React.Component<Props, State> {
   delete = (event) => {
     let nodes: any = this.props.ufoaVisModel.nodes;
     let e_id = this.props.ufoaEntity.e_id;
-    ufoaDB.deleteEntity(e_id).then((response) => {
-      nodes.remove({ id: e_id });
-      panels.hideDialog();
-      panels.displayInfo("Entity deleted.");
-    }, (error) => panels.displayError("Entity delete failed: " + error));
+    ufoaDB.deleteEntity(e_id).then(
+      () => {
+        nodes.remove({ id: e_id });
+        panels.hideDialog();
+        panels.displayInfo("Entity deleted.");
+      },
+      error => panels.displayError("Entity delete failed: " + error));
   }
 
   renderEntityType() {

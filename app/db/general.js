@@ -1,31 +1,40 @@
 // @flow
 
-export const requestFailedMsg = "Request to server failed";
+export function ajax(url: string, method: "POST" | "GET", data: any): Promise<any> {
+  const params = {
+    method,
+    body: data ? JSON.stringify(data) : null,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  };
+
+  return new Promise((resolve, reject) => {
+    fetch(url, params).then(
+      response => {
+        if (response.status !== 200) {
+          reject(response.statusText);
+        } else {
+          if (method === "GET") {
+            resolve(response.json());
+          } else {
+            resolve();
+          }
+        }
+      },
+      error => reject(error.message)
+    );
+  });
+}
 
 export function getData(url: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.get(url, (data: any, status: String) => {
-      if (status !== "success") {
-        console.error(status);
-        reject(status);
-      } else {
-        resolve(data);
-      }
-    }).fail(() => reject(requestFailedMsg));
-  });
+  return ajax(url, "GET", null);
 }
 
 export function postData(url: string, data: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    $.post(url, data, (response) => {
-      if (response.error) {
-        console.error(response.error);
-        reject(response.error);
-      } else {
-        resolve(response.result);
-      }
-    }).fail(() => reject(requestFailedMsg));
-  });
+  return ajax(url, "POST", data);
 }
+
 
 

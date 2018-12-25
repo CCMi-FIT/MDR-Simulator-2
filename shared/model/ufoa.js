@@ -1,9 +1,10 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, Label } from '../metamodel/general';
-import type { UfoaEntity, Generalisation, GSet, Association, AssocType, AssocMeta, Connection, UfoaModel } from '../metamodel/ufoa';
+import type { Id } from '../metamodel/general';
+import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from '../metamodel/ufoa';
 import type { ValidationResult } from "../metamodel/general";
+import * as meta from '../metamodel/general';
 import * as ufoaMeta from "../metamodel/ufoa";
 import { getLastIdNo } from './general.js';
 
@@ -27,7 +28,7 @@ export function getEntity(model: UfoaModel, e_id: Id): ?UfoaEntity {
 export function updateEntity(model: UfoaModel, updatedEntity: UfoaEntity): ValidationResult {
   const validity = ufoaMeta.validateEntity(updatedEntity);
   if (validity.errors) {
-    return validity;
+    return validity.errors;
   } else { 
     let entity = getEntity(model, updatedEntity.e_id);
     if (entity) {
@@ -35,13 +36,18 @@ export function updateEntity(model: UfoaModel, updatedEntity: UfoaEntity): Valid
     } else {
       model.entities.push(updatedEntity); // added a new one to the model
     }
-    return ufoaMeta.validationResultOK;
+    return meta.validationResultOK;
   }
 }
 
-export function deleteEntity(model: UfoaModel, e_id: Id): void {
-  let i = model.entities.findIndex(e => e.e_id === e_id);
-  model.entities.splice(i, 1);
+export function deleteEntity(model: UfoaModel, e_id: Id): UfoaModel {
+  const entities2 = model.entities.filter(e => e.e_id !== e_id);
+  const associations2 = model.associations.filter(a => a.a_connection1.e_id !== e_id && a.a_connection2.e_id !== e_id);
+  return {
+    entities: entities2,
+    generalisations: R.clone(model.generalisations),
+    associations: associations2
+  };
 }
 
 // Generalisations
@@ -99,7 +105,7 @@ export function updateGeneralisation(model: UfoaModel, updatedGeneralisation: Ge
         updateGSet(model, originalGSet.g_set_id, updatedGeneralisation.g_set);
       }
     }
-    return ufoaMeta.validationResultOK;
+    return meta.validationResultOK;
   }
 }
 
@@ -165,7 +171,7 @@ export function updateAssociation(model: UfoaModel, updatedAssociation: Associat
     } else {
       model.associations.push(updatedAssociation); // added a new one to the model
     }
-    return ufoaMeta.validationResultOK;
+    return meta.validationResultOK;
   }
 }
 
