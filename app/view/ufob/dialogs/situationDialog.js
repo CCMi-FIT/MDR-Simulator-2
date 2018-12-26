@@ -56,12 +56,15 @@ class SituationForm extends React.Component<Props, State> {
   }
 
   commitSituation = (nodes: any, s: Situation) => {
-    ufobDB.updateSituation(s).then(() => {
-      nodes.update({ id: s.s_id, label: s.s_name });
-      this.updateEdges();
-      panels.hideDialog();
-      panels.displayInfo("Situation saved.");
-    }, (error) => panels.displayError("Situation save failed: " + error));
+    ufobDB.updateSituation(s).then(
+      () => {
+        nodes.update({ id: s.s_id, label: s.s_name });
+        this.updateEdges();
+        panels.hideDialog();
+        panels.displayInfo("Situation saved.");
+      },
+      error => panels.displayError("Situation save failed: " + error)
+    );
   }
   
   setAttr = (attr: string, val: any) => {
@@ -89,13 +92,18 @@ class SituationForm extends React.Component<Props, State> {
   };
 
   delete = () => {
-    let nodes: any = this.props.ufobVisModel.nodes;
-    let s_id = this.props.situation.s_id;
-    ufobDB.deleteSituation(s_id).then(() => {
-      nodes.remove({ id: s_id });
-      panels.hideDialog();
-      panels.displayInfo("Situation deleted.");
-    }, (error) => panels.displayError("Situation delete failed: " + error));
+    const nodes: any = this.props.ufobVisModel.nodes;
+    const edges: any = this.props.ufobVisModel.edges;
+    const s_id = this.props.situation.s_id;
+    ufobDB.deleteSituation(s_id).then(
+      () => {
+        nodes.remove({ id: s_id });
+        const edges2remove = edges.get().filter(e => e.from === s_id || e.to === s_id);
+        edges.remove(edges2remove.map(e => e.id));
+        panels.hideDialog();
+        panels.displayInfo("Situation deleted.");
+      },
+      error => panels.displayError("Situation delete failed: " + error));
   }
 
   renderSituationName = () => {

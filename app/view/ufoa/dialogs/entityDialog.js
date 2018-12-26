@@ -29,7 +29,8 @@ function commitEntity(nodes: any, e: UfoaEntity) {
       panels.hideDialog();
       panels.displayInfo("Entity saved.");
     },
-    error => panels.displayError("Entity save failed: " + error));
+    error => panels.displayError("Entity save failed: " + error)
+  );
 }
   
 class UfoaNodeForm extends React.Component<Props, State> {
@@ -56,7 +57,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
     });
   }
 
-  save = (event) => {
+  save = () => {
     let ufoaEntityOriginal = this.props.ufoaEntity;
     let ufoaEntityNew = this.state.ufoaEntity2;
     let nodes: any = this.props.ufoaVisModel.nodes;
@@ -65,12 +66,15 @@ class UfoaNodeForm extends React.Component<Props, State> {
     }
   };
 
-  delete = (event) => {
-    let nodes: any = this.props.ufoaVisModel.nodes;
-    let e_id = this.props.ufoaEntity.e_id;
+  delete = () => {
+    const nodes: any = this.props.ufoaVisModel.nodes;
+    const edges: any = this.props.ufoaVisModel.edges;
+    const e_id = this.props.ufoaEntity.e_id;
     ufoaDB.deleteEntity(e_id).then(
       () => {
         nodes.remove({ id: e_id });
+        const edges2remove = edges.get().filter(e => e.from === e_id || e.to === e_id);
+        edges.remove(edges2remove.map(e => e.id));
         panels.hideDialog();
         panels.displayInfo("Entity deleted.");
       },

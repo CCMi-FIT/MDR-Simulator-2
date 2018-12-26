@@ -29,7 +29,7 @@ export function graphicsDelete(): Promise<any> {
 }
 
 export function writeModel(model: UfobModel): Promise<any> {
-  return db.writeModel(model, ufobFname);
+  return db.writeModel(ufobFname, model);
 }
 
 // Event
@@ -60,14 +60,15 @@ export function deleteEvent(ev_id: Id): Promise<any> {
     getModel().then(
       model => {
         ufobModel.deleteEvent(model, ev_id);
-      writeModel(model).then(
-        () => deleteElementGraphics(ev_id).then(
-          ()    => resolve(),
+        writeModel(model).then(
+          () => deleteElementGraphics(ev_id).then(
+            ()    => resolve(),
+            error => reject(error)
+          ),
           error => reject(error)
-        ),
-        error => reject(error)
-      );
-   });
+        );
+     }
+    );
   }));
 }
 
@@ -99,14 +100,15 @@ export function deleteSituation(s_id: Id): Promise<any> {
     getModel().then(
       model => {
         ufobModel.deleteSituation(model, s_id);
-      writeModel(model).then(
-        () => deleteElementGraphics(s_id).then(
-          ()    => resolve(),
+        writeModel(model).then(
+          () => deleteElementGraphics(s_id).then(
+            ()    => resolve(),
+            error => reject(error)
+          ),
           error => reject(error)
-        ),
-        error => reject(error)
-      );
-   });
+        );
+      }
+    );
   }));
 }
 

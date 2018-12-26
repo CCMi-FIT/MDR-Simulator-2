@@ -1,6 +1,6 @@
 // @flow
 
-import type { Id } from './ufoa';
+import type { Id } from './general';
 
 export type EntityInst = {
   ei_id: Id,

@@ -17,7 +17,7 @@ export function getModel(): Promise<any> {
 }
 
 export function writeModel(model: UfoaModel): Promise<any> {
-  return db.writeModel(model, ufoaFname);
+  return db.writeModel(ufoaFname, model);
 }
 
 // Entities
@@ -45,16 +45,18 @@ export function updateEntity(updatedEntity: any): Promise<any> {
 
 export function deleteEntity(e_id: Id): Promise<any> {
   return db.fileOpWithLock(ufoaFname, new Promise((resolve, reject) => { 
-    getModel().then((model) => {
-      ufoaModel.deleteEntity(model, e_id);
-      writeModel(model).then(
-        //() => deleteEntityGraphics(e_id).then(
-          ()    => resolve(),
-          error => reject(error)
-        //),
-        //error => { error(error); reject(error); }
-      );
-   });
+    getModel().then(
+      model => {
+        const model2 = ufoaModel.deleteEntity(model, e_id);
+        writeModel(model2).then(
+          () => deleteEntityGraphics(e_id).then(
+            ()    => resolve(),
+            error => reject(error)
+          ),
+          error => { error(error); reject(error); }
+        );
+      }
+    );
   }));
 }
 

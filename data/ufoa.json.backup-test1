@@ -604,6 +604,11 @@
       "e_id": "e120",
       "e_type": "relator",
       "e_name": "Follow-up"
+    },
+    {
+      "e_id": "e121",
+      "e_type": "kind",
+      "e_name": "xxx\n"
     }
   ],
   "generalisations": [
@@ -1326,6 +1331,24 @@
       },
       "g_sup_e_id": "e115",
       "g_sub_e_id": "e34"
+    },
+    {
+      "g_id": "g80",
+      "g_set": {
+        "g_set_id": "gs165",
+        "g_meta": "disjoint-complete"
+      },
+      "g_sup_e_id": "e121",
+      "g_sub_e_id": "e103"
+    },
+    {
+      "g_id": "g81",
+      "g_set": {
+        "g_set_id": "gs166",
+        "g_meta": "disjoint"
+      },
+      "g_sup_e_id": "e30",
+      "g_sub_e_id": "e121"
     }
   ],
   "associations": [
@@ -3420,6 +3443,42 @@
           "upper": 1
         }
       }
+    },
+    {
+      "a_id": "a108",
+      "a_type": "",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e120",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e121",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_label": "a1"
+    },
+    {
+      "a_id": "a109",
+      "a_type": "",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e121",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e53",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_label": "a2"
     }
   ]
 }

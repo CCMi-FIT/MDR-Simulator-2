@@ -720,30 +720,6 @@
       "s_id": "s37",
       "s_name": "Donor Follow-Up",
       "s_dispositions": []
-    },
-    {
-      "s_id": "s38",
-      "s_name": "New Situation2",
-      "s_dispositions": [
-        {
-          "d_text": "",
-          "d_events_ids": [
-            "e17"
-          ]
-        }
-      ]
-    },
-    {
-      "s_id": "s39",
-      "s_name": "New Situation3",
-      "s_dispositions": [
-        {
-          "d_text": "",
-          "d_events_ids": [
-            "e18"
-          ]
-        }
-      ]
     }
   ]
 }

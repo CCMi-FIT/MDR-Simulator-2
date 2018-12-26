@@ -69,13 +69,18 @@ class EventForm extends React.Component<Props, State> {
   };
 
   delete = () => {
-    let nodes: any = this.props.ufobVisModel.nodes;
-    let ev_id = this.props.eventB.ev_id;
-    ufobDB.deleteEvent(ev_id).then(() => {
-      nodes.remove({ id: ev_id });
-      panels.hideDialog();
-      panels.displayInfo("Event deleted.");
-    }, (error) => panels.displayError("Event delete failed: " + error));
+    const nodes: any = this.props.ufobVisModel.nodes;
+    const edges: any = this.props.ufobVisModel.edges;
+    const ev_id = this.props.eventB.ev_id;
+    ufobDB.deleteEvent(ev_id).then(
+      () => {
+        nodes.remove({ id: ev_id });
+        const edges2remove = edges.get().filter(e => e.from === ev_id || e.to === ev_id);
+        edges.remove(edges2remove.map(e => e.id));
+        panels.hideDialog();
+        panels.displayInfo("Event deleted.");
+      },
+      error => panels.displayError("Event delete failed: " + error));
   }
 
   renderEventName() {

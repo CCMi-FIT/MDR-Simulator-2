@@ -42,10 +42,11 @@ export function updateEntity(model: UfoaModel, updatedEntity: UfoaEntity): Valid
 
 export function deleteEntity(model: UfoaModel, e_id: Id): UfoaModel {
   const entities2 = model.entities.filter(e => e.e_id !== e_id);
+  const generalisations2 = model.generalisations.filter(g => g.g_sup_e_id !== e_id && g.g_sub_e_id !== e_id);
   const associations2 = model.associations.filter(a => a.a_connection1.e_id !== e_id && a.a_connection2.e_id !== e_id);
   return {
     entities: entities2,
-    generalisations: R.clone(model.generalisations),
+    generalisations: generalisations2,
     associations: associations2
   };
 }

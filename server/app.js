@@ -206,9 +206,10 @@ app.post(urls.ufobEventDelete, (req, res: any) => {
   if (!ev_id) {
     res.json({error: "Missing `ev_id`"});
   } else { 
-    ufobDB.deleteEvent(ev_id, (result) => {
-      res.json(result);
-    });
+    ufobDB.deleteEvent(ev_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, error)
+    );
   }
 });
 
@@ -221,9 +222,10 @@ app.post(urls.ufobSituationUpdate, (req, res: any) => {
     if (validity.errors) {
       res.json(validity);
     } else { 
-      ufobDB.updateSituation(situation, (result) => {
-        res.json(result);
-      });
+      ufobDB.updateSituation(situation).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, error)
+      );
     }
   } catch (SyntaxError) { 
     res.json({error: "Unable to parse `situation` object"});
@@ -235,26 +237,29 @@ app.post(urls.ufobSituationDelete, (req, res: any) => {
   if (!s_id) {
     res.json({error: "Missing `s_id`"});
   } else { 
-    ufobDB.deleteSituation(s_id, (result) => {
-      res.json(result);
-    });
+    ufobDB.deleteSituation(s_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, error)
+    );
   }
 });
 
 // Graphics
 
 app.get(urls.ufobGetGraphics, (req, res: any) => {
-  ufobDB.getGraphics().then(graphics => {
-    res.json(graphics);
-  }, error => res.json( {error: `Server error in loading UFO-B model layout: ${error}` }));
+  ufobDB.getGraphics().then(
+    graphics => res.json(graphics),
+    error => res.json( {error: `Server error in loading UFO-B model layout: ${error}` })
+  );
 });
 
 app.post(urls.ufobGraphicsSave, (req, res: any) => {
   try {
     const graphics = JSON.parse(req.body.graphics);
-    ufobDB.saveGraphics(graphics, (result) => {
-      res.json(result);
-    });
+    ufobDB.saveGraphics(graphics).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, error)
+    );
   } catch (SyntaxError) { 
     res.json({ error: "Unable to parse `graphics` object" });
   }

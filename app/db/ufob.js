@@ -1,8 +1,7 @@
 // @flow
 
-import * as R from 'ramda';
 import type { Id } from '../metamodel/general';
-import type { Situation, EventB, Disposition, UfobModel } from '../metamodel/ufob';
+import type { Situation, EventB, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from '../metamodel/ufob';
 import * as urls from "../urls";
 import * as ufobModel from '../model/ufob';
@@ -53,9 +52,10 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
     if (validity.errors) {
       reject("Event update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufobEventUpdate, { event: JSON.stringify(updatedEvent)}).then(result =>
-        resolve(result)
-      ), error => reject(error);
+      postData(urls.baseURL + urls.ufobEventUpdate, { event: JSON.stringify(updatedEvent)}).then(
+        result => resolve(result),
+        error => reject(error)
+      );
     }
   });
 }
@@ -63,7 +63,10 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
 export function deleteEvent(ev_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteEvent(model, ev_id);
-    postData(urls.baseURL + urls.ufobEventDelete, { ev_id }).then(result => resolve(result)), error => reject(error);
+    postData(urls.baseURL + urls.ufobEventDelete, { ev_id }).then(
+      result => resolve(result),
+      error => reject(error)
+    );
   });
 }
 
@@ -87,9 +90,10 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
     if (validity.errors) {
       reject("Situation update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufobSituationUpdate, { situation: JSON.stringify(updatedSituation)}).then(result =>
-        resolve(result)
-      ), error => reject(error);
+      postData(urls.baseURL + urls.ufobSituationUpdate, { situation: JSON.stringify(updatedSituation)}).then(
+        result => resolve(result),
+        error => reject(error)
+      );
     }
   });
 }
@@ -97,6 +101,9 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
 export function deleteSituation(s_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteSituation(model, s_id);
-    postData(urls.baseURL + urls.ufobSituationDelete, { s_id }).then(result => resolve(result)), error => reject(error);
+    postData(urls.baseURL + urls.ufobSituationDelete, { s_id }).then(
+      result => resolve(result),
+      error => reject(error)
+    );
   });
 }
