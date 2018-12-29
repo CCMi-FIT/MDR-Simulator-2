@@ -1,4 +1,4 @@
-- dokoncit listScenarios
+- divnej bug, kdy New prida hned dva scenare
 
 - refactor to https://www.primefaces.org/primereact
 

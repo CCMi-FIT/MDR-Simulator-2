@@ -1,19 +1,23 @@
 //@flow
 
+import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { VisModel } from '../rendering';
 import { Button, Panel } from 'react-bootstrap';
+import * as scenarioInfoModal from './scenarioInfoModal';
 import * as panels from '../panels';
-import type { Scenario } from '../../metamodel/scenario';
-import * as db from  '../../db/scenario';
+import type { Id } from '../../metamodel/general';
+import type { Scenario, Model } from '../../metamodel/scenario';
+import * as scenarioDB from  '../../db/scenario';
 
 type Props = {
+  model: Model,
   ufobVisModel: VisModel
 };
 
 type State = {
-  openScenario: ?Scenario
+  openScenario: ?Scenario,
 };
 
 class ScenarioBox extends React.Component<Props, State> {
@@ -21,33 +25,80 @@ class ScenarioBox extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      openScenario: null
+      openScenario: null,
     };
   }
 
   newScenario = () => {
-    db.newScenario().then(
+    scenarioDB.newScenario().then(
       newSc => this.setState({ openScenario: newSc }),
       error => panels.displayError(error)
+    );
+  }
+
+  loadScenario = (scId: Id) => {
+    const sc = scenarioDB.getScenarioById(scId);
+    if (sc) {
+      this.setState({ openScenario: sc });
+    }
+  }
+
+  renderScenariosSelect = () => {
+    const oSc = this.state.openScenario;
+    const options = R.concat(
+      [{sc_id: "empty",
+        sc_name: "--Select scenario--",
+        sc_desc: "",
+        sc_ev_insts: []
+      }],
+      this.props.model);
+    console.log(options);
+    return (
+      <div style={{float: "left"}}>
+        <select
+          className="form-control"
+          value={oSc ? oSc.sc_id : ""}
+          onChange={evt => this.loadScenario(evt.currentTarget.value)}
+        >{options.map(sc => <option key={sc.sc_id} value={sc.sc_id}>{sc.sc_name}</option>)}
+        </select>
+      </div>
     );
   }
 
   renderToolbar = () => {
     return (
       <div style={{paddingTop: "5px", paddingBottom: "5px"}}>
+        <div className="btn-group" style={{marginRight: "5px"}} role="group">
+          {this.renderScenariosSelect()}
+        </div>
         <div className="btn-group" role="group">
-          <Button className="btn-default">Load</Button>
           <Button className="btn-default" onClick={() => this.newScenario()}>New</Button>
         </div>
       </div>
     );
   }
 
+  editInfo = () => {
+    const sc = this.state.openScenario;
+    if (sc) {
+      scenarioInfoModal.render(sc).then(
+        newSc => {
+          scenarioDB.updateScenario(newSc).then(
+            () => { this.setState((state: State) => R.mergeDeepRight(state, { openScenario: newSc })); }
+          );
+        }
+      );
+    }
+  }
+
   renderEditor = () => {
     const scName = this.state.openScenario ? this.state.openScenario.sc_name : "";
     return (
       <Panel>
-        <Panel.Heading><strong>{scName}</strong></Panel.Heading>
+        <Panel.Heading>
+          <span style={{marginRight: "5px"}}>{scName}</span>
+          <i className="glyphicon glyphicon-pencil clickable" onClick={() => this.editInfo()}/>
+        </Panel.Heading>
         <Panel.Body collapsible={false}>
         </Panel.Body>
       </Panel>
@@ -65,10 +116,10 @@ class ScenarioBox extends React.Component<Props, State> {
 
 }
 
-export function render(ufobVisModel: VisModel) {
+export function render(model: Model, ufobVisModel: VisModel) {
   let box = panels.getScenariosBox();
   if (box) {
-    ReactDOM.render(<ScenarioBox ufobVisModel={ufobVisModel}/>, box);
+    ReactDOM.render(<ScenarioBox model={model} ufobVisModel={ufobVisModel}/>, box);
   }
 }
 

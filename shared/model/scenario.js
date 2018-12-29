@@ -9,7 +9,7 @@ import { getLastIdNo } from './general';
 
 // Scenario {{{1
 
-export function getScenario(model: Model, sc_id: Id): ?Scenario {
+export function getScenarioById(model: Model, sc_id: Id): ?Scenario {
   return model.find(sc => sc.sc_id === sc_id);
 }
 
@@ -18,6 +18,7 @@ export function newScenario(model: Model, sc_name: string): Scenario {
   const newScenario: Scenario = {
     sc_id: `sc${lastIdNo+1}`,
     sc_name,
+    sc_desc: "",
     sc_ev_insts: []
   };
   model.push(newScenario);
@@ -29,7 +30,7 @@ export function updateScenario(model: Model, updatedScenario: Scenario): Validat
   if (validity.errors) {
     return validity;
   } else { 
-    let scenario = getScenario(model, updatedScenario.sc_id);
+    let scenario = getScenarioById(model, updatedScenario.sc_id);
     if (scenario) {
       Object.assign(scenario, updatedScenario); // mutated existing scenario in the model
     } else {

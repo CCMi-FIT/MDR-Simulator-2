@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Button } from 'react-bootstrap';
 import * as panels from '../panels';
 import { FindElement } from './findButton';
 import { SaveLayout } from './saveLayoutButton';

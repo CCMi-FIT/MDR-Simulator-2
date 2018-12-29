@@ -9,6 +9,7 @@ import * as networkToolbar from './view/networkToolbar/toolbar';
 import * as scenarioPane from './view/scenario/pane';
 import * as ufoaDB from "./db/ufoa";
 import * as ufobDB from "./db/ufob";
+import * as scenarioDB from "./db/scenario.js";
 
 $(window).resize(function() {
   panels.fitPanes();
@@ -20,11 +21,9 @@ $(document).ready(function() {
     ufoaDB.loadModel(),
     ufoaDB.loadGraphics(),
     ufobDB.loadModel(),
-    ufobDB.loadGraphics()]).then(([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics]) => {
-      let error = ufoaModel.error || ufoaEntityGraphics.error || ufobModel.error || ufobGraphics.error;
-      if (error) {
-        panels.displayError(error);
-      } else {
+    ufobDB.loadGraphics(),
+    scenarioDB.loadModel()]).then(
+      ([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics, scenarios]) => {
         panels.hideMsg();
         let ufoaVisModel = ra.model2vis(ufoaModel, ufoaEntityGraphics);
         let ufoaNetwork  = ra.renderUfoa(ufoaVisModel);
@@ -34,8 +33,9 @@ $(document).ready(function() {
         ufobNetwork.on("click", params => dispatchB.handleClick(ufobVisModel, params));
         networkToolbar.render("ufoa-float-toolbar", ufoaModel.entities, "e_name", "e_id", ufoaDB, ufoaNetwork);
         networkToolbar.render("ufob-float-toolbar", ufobModel.events, "ev_name" , "ev_id", ufobDB, ufobNetwork);
-        scenarioPane.render(ufobVisModel);
-      }
-    }, (error) => panels.displayError("Error loading model: " + error));
+        scenarioPane.render(scenarios, ufobVisModel);
+      }, 
+      error => panels.displayError("Error loading model: " + error)
+    );
 });
 

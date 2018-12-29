@@ -124,22 +124,26 @@ class SituationForm extends React.Component<Props, State> {
   }
 
   editDisposition = (d: Disposition) => {
-    dispositionModal.render(this.state.situation2, d).then((dNew) => {
-      if (!dNew) {
-        const newS = ufobModel.deleteDisposition(this.state.situation2, d.d_text);
-        this.setState({ situation2: newS, saveDisabled: false });
-      } else {
-        const newS = ufobModel.withUpdatedDisposition(this.state.situation2, d.d_text, dNew);
-        this.setState({ situation2: newS, saveDisabled: false });
+    dispositionModal.render(this.state.situation2, d).then(
+      dNew => {
+        if (!dNew) {
+          const newS = ufobModel.deleteDisposition(this.state.situation2, d.d_text);
+          this.setState({ situation2: newS, saveDisabled: false });
+        } else {
+          const newS = ufobModel.withUpdatedDisposition(this.state.situation2, d.d_text, dNew);
+          this.setState({ situation2: newS, saveDisabled: false });
+        }
       }
-    });
+    );
   }
 
   addDisposition = () => {
-    dispositionModal.render(this.state.situation2, ufobMeta.emptyDisposition).then((dNew) => {
-      let newS = ufobModel.addDisposition(this.state.situation2, dNew);
-      this.setState({ situation2: newS, saveDisabled: false });
-    });
+    dispositionModal.render(this.state.situation2, ufobMeta.emptyDisposition).then(
+      dNew => {
+        let newS = ufobModel.addDisposition(this.state.situation2, dNew);
+        this.setState({ situation2: newS, saveDisabled: false });
+      }
+    );
   }
 
   renderDispositionRow = (d: Disposition) => {

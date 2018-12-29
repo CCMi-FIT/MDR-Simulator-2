@@ -11,6 +11,7 @@ ajv.addSchema(schema);
 export type Scenario = {
   sc_id: Id,
   sc_name: string,
+  sc_desc: string,
   sc_ev_insts: Array<EventInstance>
 };
 

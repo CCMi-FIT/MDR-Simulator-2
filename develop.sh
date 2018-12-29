@@ -5,6 +5,6 @@
 sleep 0.5
 xdotool key super+j
 xdotool key super+j
-xdotool key return
+xdotool key Return
 xdotool key super+shift+k
 xdotool key super+shift+k

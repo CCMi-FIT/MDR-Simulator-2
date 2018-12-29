@@ -11,13 +11,14 @@ export const schema = {
       "properties": {
         "sc_id": { "type": "string" },
         "sc_name": { "type": "string" },
+        "sc_desc": { "type": "string" },
         "sc_ev_insts": { 
           "type": "array",
           "items": { "$ref": "#/definitions/eventInstance" },
           "uniqueItems": true
         }
       },
-      "required": ["sc_id", "sc_name", "sc_ev_insts"]
+      "required": ["sc_id", "sc_name", "sc_desc", "sc_ev_insts"]
     },
     "eventInstance": {
       "type": "object",

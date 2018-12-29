@@ -273,14 +273,12 @@ app.post(urls.ufobGraphicsSave, (req, res: any) => {
 
 // Scenarios {{{1
 
-app.get(urls.scenariosList, (req, res: any) => {
-  scenariosDB.listScenarios().then(
-    scenarios => okRes(res, scenarios),
-    error     => serverErrRes(res, `Error in loading list of scenarios: ${error}`)
+app.get(urls.scenariosGet, (req, res: any) => {
+  scenarioDB.getModel().then(
+    model => okRes(res, model),
+    error => serverErrRes(res, `Error in loading scenarios: ${error}`)
   );
 });
-
-//}}}1
 
 app.post(urls.scenarioUpdate, (req, res: any) => {
   try {

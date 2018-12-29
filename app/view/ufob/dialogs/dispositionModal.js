@@ -61,7 +61,7 @@ class DispositionForm extends React.Component<Props, State> {
     let dNew = this.state.disposition2;
     panels.hideModal();
     if (!R.equals(dNew, dOrig)) {
-      this.props.resolve(this.state.disposition2);
+      this.props.resolve(dNew);
     } else {
       this.props.reject();
     }
