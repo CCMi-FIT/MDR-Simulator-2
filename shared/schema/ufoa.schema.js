@@ -10,7 +10,9 @@ export const ufoaSchema = {
       "type": "object",
       "properties": {
         "e_id":     { "type": "string" },
-        "e_type": { "type": "string", "pattern": "kind|subkind|role|phase|mode|relator|quantity|quality|collective" },
+        "e_type": { 
+          "type": "string",
+          "pattern": "kind|subkind|role|phase|mode|relator|quantity|quality|collective" },
         "e_name":   { "type": "string" }
       },
       "required": ["e_id", "e_type", "e_name"]

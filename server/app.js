@@ -1,5 +1,6 @@
 //@flow
 
+// Imports {{{1
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -7,10 +8,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const ufoaMeta = require('./metamodel/ufoa');
 const ufobMeta = require('./metamodel/ufob');
+const scenarioMeta = require('./metamodel/scenario');
 const ufoaDB = require('./db/ufoa');
 const ufobDB = require('./db/ufob');
+const scenarioDB = require('./db/scenario');
 const urls = require('./urls');
 
+// Helper {{{1
 function clientErrRes(res: any, msg: string): void {
   res.status(400);
   res.send(msg);
@@ -26,6 +30,8 @@ function okRes(res: any, result: any): void {
   res.json(result);
 }
 
+// Express init {{{1
+
 var app = express();
 
 app.use(cors());
@@ -35,13 +41,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Home
+// Home {{{1
 
 app.get('/', (req, res: any) => {
   res.status(200).render('index.html');
 });
 
-// UFO-A
+// UFO-A {{{1
 
 app.get(urls.ufoaGetModel, (req, res: any) => {
   ufoaDB.getModel().then(
@@ -50,7 +56,7 @@ app.get(urls.ufoaGetModel, (req, res: any) => {
   );
 });
 
-// Entities
+// Entities {{{2
 
 app.post(urls.ufoaEntityUpdate, (req, res: any) => {
   try {
@@ -81,9 +87,9 @@ app.post(urls.ufoaEntityDelete, (req, res: any) => {
   }
 });
 
-// Generalisations
+// Generalisations {{{2
 
-app.post(urls.generalisationUpdate, (req, res: any) => {
+app.post(urls.ufoaGeneralisationUpdate, (req, res: any) => {
   try {
     const generalisation = JSON.parse(req.body.generalisation);
     const validity = ufoaMeta.validateGeneralisation(generalisation);
@@ -112,9 +118,9 @@ app.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
   }
 });
 
-// Associations
+// Associations {{{2
 
-app.post(urls.associationUpdate, (req, res: any) => {
+app.post(urls.ufoaAssociationUpdate, (req, res: any) => {
   try {
     const assoc = JSON.parse(req.body.association);
     const validity = ufoaMeta.validateAssociation(assoc);
@@ -143,7 +149,7 @@ app.post(urls.ufoaAssociationDelete, (req, res: any) => {
   }
 });
 
-// Graphics 
+// Graphics {{{2
 
 app.get(urls.ufoaGetGraphics, (req, res: any) => {
   ufoaDB.getGraphics().then(
@@ -171,9 +177,9 @@ app.post(urls.ufoaGraphicsDelete, (req, res: any) => {
   );
 });
 
-// UFO-B
+// UFO-B {{{1
 
-// Model
+// Model {{{2
 
 app.get(urls.ufobGetModel, (req, res: any) => {
   ufobDB.getModel().then(
@@ -182,7 +188,7 @@ app.get(urls.ufobGetModel, (req, res: any) => {
   );
 });
 
-// Event
+// Event {{{2
 
 app.post(urls.ufobEventUpdate, (req, res: any) => {
   try {
@@ -213,7 +219,7 @@ app.post(urls.ufobEventDelete, (req, res: any) => {
   }
 });
 
-// Situation
+// Situation {{{2
 
 app.post(urls.ufobSituationUpdate, (req, res: any) => {
   try {
@@ -244,7 +250,7 @@ app.post(urls.ufobSituationDelete, (req, res: any) => {
   }
 });
 
-// Graphics
+// Graphics {{{2
 
 app.get(urls.ufobGetGraphics, (req, res: any) => {
   ufobDB.getGraphics().then(
@@ -265,6 +271,33 @@ app.post(urls.ufobGraphicsSave, (req, res: any) => {
   }
 });
 
-//
+// Scenarios {{{1
+
+app.get(urls.scenariosList, (req, res: any) => {
+  scenariosDB.listScenarios().then(
+    scenarios => okRes(res, scenarios),
+    error     => serverErrRes(res, `Error in loading list of scenarios: ${error}`)
+  );
+});
+
+//}}}1
+
+app.post(urls.scenarioUpdate, (req, res: any) => {
+  try {
+    const scenario = JSON.parse(req.body.scenario);
+    const validity = scenarioMeta.validateScenario(scenario);
+    if (validity.errors) {
+      serverErrRes(res, "Error in scenario update (validity violation)");
+    } else { 
+      scenarioDB.updateScenario(scenario).then(
+        result => okRes(res, result),
+        error  => serverErrRes(res, `Error in updating scenario: ${error}`)
+      );
+    }
+  } catch (err) { 
+    console.error("Unable to parse `scenario` object: " + err.message);
+    clientErrRes(res, "Unable to parse `scenario` object: " + err.message);
+  }
+});
 
 module.exports = app;

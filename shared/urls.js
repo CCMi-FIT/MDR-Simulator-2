@@ -13,9 +13,9 @@ if (process && process.env.NODE_ENV === "production") {
 export const ufoaGetModel = "/ufoa/getModel";
 export const ufoaEntityUpdate = "/ufoa/entity/update";
 export const ufoaEntityDelete = "/ufoa/entity/delete";
-export const generalisationUpdate = "/ufoa/generalisation/update";
+export const ufoaGeneralisationUpdate = "/ufoa/generalisation/update";
 export const ufoaGeneralisationDelete = "/ufoa/generalisation/delete";
-export const associationUpdate = "/ufoa/association/update";
+export const ufoaAssociationUpdate = "/ufoa/association/update";
 export const ufoaAssociationDelete = "/ufoa/association/delete";
 
 // UFO-A Graphics
@@ -36,3 +36,8 @@ export const ufobSituationDelete = "/ufob/situation/delete";
 
 export const ufobGetGraphics = "/ufob/getGraphics";
 export const ufobGraphicsSave = "/ufob/saveGraphics";
+
+// Scenarios
+
+export const scenariosList = "/scenarios/list";
+export const scenarioUpdate = "/scenarios/update";

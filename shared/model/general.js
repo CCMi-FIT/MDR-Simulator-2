@@ -1,6 +1,6 @@
 // @flow
 
-import type { Id } from '../metamodel/ufoa';
+import type { Id } from '../metamodel/general';
 
 export function getLastIdNo(ids: Array<Id>): number {
   return ids.reduce((maxNum: number, id: Id) => {

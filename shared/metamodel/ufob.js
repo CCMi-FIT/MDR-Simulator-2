@@ -52,24 +52,3 @@ export const emptyModel = { events: [], situations: [] };
 export function validateModel(model: UfobModel): ValidationResult {
   return validateElement(ajv, model, "ufob-meta#/model"); 
 }
-
-// Combinators
-
-export type EntityCombinatorOperation = "create" | "destroy" | "switch-phase";
-
-export const entityCombinatorOperations: Array<EntityCombinatorOperation> = ["create", "destroy", "switch-phase"];
-
-export type EntityCombinator = {
-  ec_operation: EntityCombinatorOperation,
-  ec_e_id: Id
-};
-
-export type AssocCombinatorOperation = "create" | "destroy";
-
-export const assocCombinatorOperations: Array<AssocCombinatorOperation> = ["create", "destroy"];
-
-export type AssocCombinator = {
-  ac_operation: AssocCombinatorOperation,
-  ac_ai_id: Id
-};
-

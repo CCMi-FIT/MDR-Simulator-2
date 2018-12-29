@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 
 const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
+const scenariosBoxId = "scenarios-box";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal-box";
@@ -59,9 +60,14 @@ export function getModal(): ?Element {
   return getPanel(modalId);
 }
 
+export function getScenariosBox(): ?Element {
+  return getPanel(scenariosBoxId);
+}
+
 export function getToolbarTop(): number {
   return $(`#${ufoaBoxId}`).offset().top;
 }
+
 
 // Showing
 

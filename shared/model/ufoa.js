@@ -28,7 +28,7 @@ export function getEntity(model: UfoaModel, e_id: Id): ?UfoaEntity {
 export function updateEntity(model: UfoaModel, updatedEntity: UfoaEntity): ValidationResult {
   const validity = ufoaMeta.validateEntity(updatedEntity);
   if (validity.errors) {
-    return validity.errors;
+    return validity;
   } else { 
     let entity = getEntity(model, updatedEntity.e_id);
     if (entity) {

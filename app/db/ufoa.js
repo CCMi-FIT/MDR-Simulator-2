@@ -92,7 +92,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
     if (validity.errors) {
       console.error("Generalisation update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.generalisationUpdate, { generalisation: JSON.stringify(updatedGeneralisation) }).then(
+      postData(urls.baseURL + urls.ufoaGeneralisationUpdate, { generalisation: JSON.stringify(updatedGeneralisation) }).then(
         ()    => resolve(),
         error => reject(error)
       );
@@ -134,7 +134,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
     if (validity.errors) {
       console.error("Association update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.associationUpdate, { association: JSON.stringify(updatedAssociation) }).then(
+      postData(urls.baseURL + urls.ufoaAssociationUpdate, { association: JSON.stringify(updatedAssociation) }).then(
         ()    => resolve(),
         error => reject(error)
       );

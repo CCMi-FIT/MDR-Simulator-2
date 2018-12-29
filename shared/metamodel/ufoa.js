@@ -1,7 +1,7 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, Name, Label } from './general';
+import type { Id, Name, Label, ValidationResult } from './general';
 import { validateElement } from './general';
 import { ufoaSchema } from '../schema/ufoa.schema.js';
 var Ajv = require('ajv');
