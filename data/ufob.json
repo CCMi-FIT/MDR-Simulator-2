@@ -3,191 +3,229 @@
     {
       "ev_id": "e1",
       "ev_name": "Donor Recruitment",
+      "ev_ops": [],
       "ev_to_situation_id": "s3"
     },
     {
       "ev_id": "e2",
       "ev_name": "Search Initiating",
+      "ev_ops": [],
       "ev_to_situation_id": "s5"
     },
     {
       "ev_id": "e3",
       "ev_name": "Initial Histocompatibility Testing",
+      "ev_ops": [],
       "ev_to_situation_id": "s4"
     },
     {
       "ev_id": "e4",
       "ev_name": "<<merging>>\nDonors Search",
+      "ev_ops": [],
       "ev_to_situation_id": "s6"
     },
     {
       "ev_id": "e5",
       "ev_name": "Donor\nBecomes\nTemporary\nUnavailable",
+      "ev_ops": [],
       "ev_to_situation_id": "s19"
     },
     {
       "ev_id": "e7",
       "ev_name": "Subsequent Donation Request",
+      "ev_ops": [],
       "ev_to_situation_id": "s30"
     },
     {
       "ev_id": "e8",
       "ev_name": "Donors Selection\nfor Verification",
+      "ev_ops": [],
       "ev_to_situation_id": "s7"
     },
     {
       "ev_id": "e9",
       "ev_name": "Extended\nHLA\nTyping\nfrom Stored\nBlood Sample",
+      "ev_ops": [],
       "ev_to_situation_id": "s9"
     },
     {
       "ev_id": "e10",
       "ev_name": "Extended\nHLA\nTyping\nfrom Stored\nDNA Sample",
+      "ev_ops": [],
       "ev_to_situation_id": "s10"
     },
     {
       "ev_id": "e11",
       "ev_name": "Donor Activation\nand Blood Sample Draw\nfor Extended HLA Typing",
+      "ev_ops": [],
       "ev_to_situation_id": "s8"
     },
     {
       "ev_id": "e12",
       "ev_name": "Donor Activation\nand Blood Sample Draw\nfor Verification Examination",
+      "ev_ops": [],
       "ev_to_situation_id": "s12"
     },
     {
       "ev_id": "e13",
       "ev_name": "Extended Histocompatibility\nTesting",
+      "ev_ops": [],
       "ev_to_situation_id": "s11"
     },
     {
       "ev_id": "e14",
       "ev_name": "Histocompatibility Confirmation",
+      "ev_ops": [],
       "ev_to_situation_id": "s14"
     },
     {
       "ev_id": "e15",
       "ev_name": "Medical Assessment",
+      "ev_ops": [],
       "ev_to_situation_id": "s13"
     },
     {
       "ev_id": "e16",
       "ev_name": "<<merging>>\nMaking Donor Verified",
+      "ev_ops": [],
       "ev_to_situation_id": "s15"
     },
     {
       "ev_id": "e17",
       "ev_name": "Donor Reservation",
+      "ev_ops": [],
       "ev_to_situation_id": "s16"
     },
     {
       "ev_id": "e18",
       "ev_name": "Collection Request",
+      "ev_ops": [],
       "ev_to_situation_id": "s17"
     },
     {
       "ev_id": "e19",
       "ev_name": "Collection Dates Assessment",
+      "ev_ops": [],
       "ev_to_situation_id": "s18"
     },
     {
       "ev_id": "e20",
       "ev_name": "Work-up",
+      "ev_ops": [],
       "ev_to_situation_id": "s21"
     },
     {
       "ev_id": "e21",
       "ev_name": "Donor\nBecomes\nAvailable",
+      "ev_ops": [],
       "ev_to_situation_id": "s4"
     },
     {
       "ev_id": "e22",
       "ev_name": "Donor\nBecomes\nPermanently\nUnavailable",
+      "ev_ops": [],
       "ev_to_situation_id": "s20"
     },
     {
       "ev_id": "e23",
       "ev_name": "Collection Approval\nby the Transplant Centre",
+      "ev_ops": [],
       "ev_to_situation_id": "s22"
     },
     {
       "ev_id": "e24",
       "ev_name": "Reasoning\nof Collection of Noneligible\nDonor",
+      "ev_ops": [],
       "ev_to_situation_id": "s22"
     },
     {
       "ev_id": "e25",
       "ev_name": "Donor Selection\nfor Transplantation",
+      "ev_ops": [],
       "ev_to_situation_id": "s17"
     },
     {
       "ev_id": "e26",
       "ev_name": "BM\nDonation",
+      "ev_ops": [],
       "ev_to_situation_id": "s27"
     },
     {
       "ev_id": "e27",
       "ev_name": "PBSC\nDonation\nPreparation",
+      "ev_ops": [],
       "ev_to_situation_id": "s23"
     },
     {
       "ev_id": "e28",
       "ev_name": "PBSC\nCollection",
+      "ev_ops": [],
       "ev_to_situation_id": "s24"
     },
     {
       "ev_id": "e29",
       "ev_name": "PBSC\nTransportation",
+      "ev_ops": [],
       "ev_to_situation_id": "s25"
     },
     {
       "ev_id": "e30",
       "ev_name": "Donor\nMonitoring",
+      "ev_ops": [],
       "ev_to_situation_id": "s37"
     },
     {
       "ev_id": "e31",
       "ev_name": "PBSC\nTransplantation",
+      "ev_ops": [],
       "ev_to_situation_id": "s26"
     },
     {
       "ev_id": "e32",
       "ev_name": "BM\nTransportation",
+      "ev_ops": [],
       "ev_to_situation_id": "s28"
     },
     {
       "ev_id": "e33",
       "ev_name": "BM\nTransplantation",
+      "ev_ops": [],
       "ev_to_situation_id": "s29"
     },
     {
       "ev_id": "e34",
       "ev_name": "Collection Dates Assessment\nfor Subsequent Donation",
+      "ev_ops": [],
       "ev_to_situation_id": "s31"
     },
     {
       "ev_id": "e35",
       "ev_name": "Schedule\nand Specification\nof Donor Clearance",
+      "ev_ops": [],
       "ev_to_situation_id": "s32"
     },
     {
       "ev_id": "e36",
       "ev_name": "Subsequent\nCollection of HSC\nApproval",
+      "ev_ops": [],
       "ev_to_situation_id": "s33"
     },
     {
       "ev_id": "e37",
       "ev_name": "Subsequent HSC\nCollection",
+      "ev_ops": [],
       "ev_to_situation_id": "s34"
     },
     {
       "ev_id": "e38",
       "ev_name": "Subseqent HSC\nTransportation",
+      "ev_ops": [],
       "ev_to_situation_id": "s35"
     },
     {
       "ev_id": "e39",
       "ev_name": "Subseqent HSC\nTransplantation",
+      "ev_ops": [],
       "ev_to_situation_id": "s36"
     }
   ],

@@ -109,7 +109,7 @@ class SituationForm extends React.Component<Props, State> {
   renderSituationName = () => {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.situation2.s_name} onChange={(e) => this.setAttr("s_name", e.currentTarget.value)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.situation2.s_name} onChange={(e) => this.setAttr("s_name", e.currentTarget.value)} rows="3" cols="30"/>
       </div>);
   }
 

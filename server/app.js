@@ -13,6 +13,7 @@ const ufoaDB = require('./db/ufoa');
 const ufobDB = require('./db/ufob');
 const scenarioDB = require('./db/scenario');
 const urls = require('./urls');
+import { error } from './logging';
 
 // Helper {{{1
 function clientErrRes(res: any, msg: string): void {
@@ -21,6 +22,7 @@ function clientErrRes(res: any, msg: string): void {
 }
 
 function serverErrRes(res: any, msg: string): void {
+  error(msg);
   res.status(500);
   res.send(msg);
 }

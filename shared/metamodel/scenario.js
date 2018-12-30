@@ -26,27 +26,6 @@ export type EventInstance = {
   evi_is_excluded: bool
 };
 
-export type Operation = AddEntityInstOp | RemoveEntityInstOp;
-
-export type AddEntityInstOp = {
-  opa_id: Id,
-  opa_e_id: Id,
-  opa_ei_name: string
-};
-
-export type RemoveEntityInstOp = {
-  opr_id: Id,
-  opr_ei_id: Id
-};
-
-export const operationTypes = {
-  add_entity_inst:    "Add entity instance",
-  remove_entity_inst: "Remove entity instance",
-  switch_phase:       "Switch phase"
-};
-
-export type OperationType = $Keys<typeof operationTypes>;
-
 export type Model = Array<Scenario>;
 
 export function validateModel(model: Model): ValidationResult {

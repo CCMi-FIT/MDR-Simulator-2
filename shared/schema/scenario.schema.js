@@ -34,25 +34,6 @@ export const schema = {
       },
       "required": ["evi_id", "evi_ev_id", "evi_ops", "evi_is_excluded"]
     },
-    "operation": {
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "opa_id": { "type": "string" },
-            "opa_e_id": { "type": "string" },
-            "opa_ei_name": { "type": "string" }
-          }
-        }, 
-        {
-          "type": "object",
-          "properties": {
-            "opr_id": { "type": "string" },
-            "opr_ei_id": { "type": "string" },
-          }
-        } 
-      ]
-    }
   },
   "model": {
     "type": "array",

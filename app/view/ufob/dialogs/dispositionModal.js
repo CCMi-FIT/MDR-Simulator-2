@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { Modal, Panel, Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { Id } from '../../../metamodel/general';
-import type { Situation, EventB, Disposition } from '../../../metamodel/ufob';
+import type { Situation, Disposition } from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import * as panels from '../../panels';
 
@@ -34,12 +34,11 @@ class DispositionForm extends React.Component<Props, State> {
       duplicityError: false,
       saveDisabled: true
     };
-    //console.dir(this.props);
-    //console.dir(this.state);
   }
 
-  setTextHandler = (event: any) => {
-    const val = event.currentTarget.value;
+  // Operations {{{1
+
+  setText = (val: string) => {
     this.setState((state: State, props: Props) => {
       const newD = R.mergeDeepRight(state.disposition2, { d_text: val }); 
       if (props.situation.s_dispositions.find(d => d.d_text === val)) {
@@ -91,10 +90,12 @@ class DispositionForm extends React.Component<Props, State> {
     panels.hideModal();
   }
 
+  // Rendering {{{1
+
   renderDispositionText() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.disposition2.d_text} onChange={e => this.setTextHandler(e)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.disposition2.d_text} onChange={e => this.setText(e.currentTarget.value)} rows="5" cols="30"/>
         {this.state.duplicityError ? 
             <span className="error-hint">Duplicate disposition</span>
           : ""}
@@ -179,6 +180,8 @@ class DispositionForm extends React.Component<Props, State> {
       </Modal.Dialog>);
   }
 }
+
+// }}}1
 
 export function render(situation: Situation, disposition: Disposition): Promise<any> {
   return new Promise((resolve, reject) => {

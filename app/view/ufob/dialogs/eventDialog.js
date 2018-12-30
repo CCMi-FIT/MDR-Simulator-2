@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import type { EventB } from '../../../metamodel/ufob';
+import type { EventB, Operation } from '../../../metamodel/ufob';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
 import * as rendering from '../canvas/rendering';
@@ -24,15 +24,17 @@ type State = {
 
 class EventForm extends React.Component<Props, State> {
 
+  typeahead: any = null;
+  
   constructor(props) {
     super(props);
     this.state = {
       eventB2: R.clone(props.eventB),
       saveDisabled: true
     };
-    //console.dir(this.props);
-    //console.dir(this.state);
   }
+
+  // Operations {{{1
 
   setAttr = (attr: string, val: any) => {
     let eventBOriginal = this.props.eventB;
@@ -83,18 +85,63 @@ class EventForm extends React.Component<Props, State> {
       error => panels.displayError("Event delete failed: " + error));
   }
 
+  // Rendering {{{1
+
   renderEventName() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={(e) => this.setAttr("ev_name", e.currentTarget.value)} rows="5" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={(e) => this.setAttr("ev_name", e.currentTarget.value)} rows="3" cols="30"/>
       </div>);
+  }
+
+  renderOperation = (op: Operation) => {
+    const opSymbol = 
+          op.opa_id ? <span>+</span> 
+        : op.opr_id ? <span>-</span>
+        : <span>??</span>;
+    return (
+      {opSymbol}
+      //<div key={ev_id} className="badge-item">
+        //<span className="badge badge-info">{ev ? ev.ev_name : ""}
+          //{" "}
+          //<span 
+            //className="badge badge-error clickable"
+            //onClick={() => this.deleteEvent(ev_id)}>X</span>
+        //</span>
+      //</div>
+    );
+  }
+
+  renderOperations = () => {
+    return (
+      <div className="form-group">
+        <Panel className="dialog">
+          <Panel.Heading>Operations</Panel.Heading>
+          <Panel.Body collapsible={false}>
+            {this.state.eventB2.ev_ops.map(this.renderOperation)}
+            {/*TODO:
+              <Typeahead
+                ref={(typeahead) => this.typeahead = typeahead}
+                options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
+                labelKey={"ev_name"}
+                onChange={evs => { 
+                  if (evs.length > 0) { 
+                    this.addEvent(evs[0].ev_id);
+                    this.typeahead.getInstance().clear();
+                  }
+                }}
+              />*/}
+            </Panel.Body>
+          </Panel>
+      </div>
+    );
   }
 
   renderToSituation = () => {
     const toSituation = ufobDB.getSituationById(this.state.eventB2.ev_to_situation_id);
     return (
       <div className="form-group">
-        <label>To situation:</label>
+        <label>Resulting situation:</label>
         <Typeahead
           options={ufobDB.getSituations()}
           labelKey={"s_name"}
@@ -108,6 +155,8 @@ class EventForm extends React.Component<Props, State> {
       </div>
     );
   }
+
+  // Buttons {{{2
 
   renderButtons() {
     return (
@@ -132,12 +181,15 @@ class EventForm extends React.Component<Props, State> {
       </Confirm>);
   }
 
+  // }}}2
+
   render() {
     return ( 
       <Panel className="dialog">
         <Panel.Heading><strong>{this.props.eventB.ev_name}</strong></Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderEventName()}
+          {this.renderOperations()}
           {this.renderToSituation()}
           {this.renderButtons()}
         </Panel.Body>
@@ -148,6 +200,8 @@ class EventForm extends React.Component<Props, State> {
     panels.fitPanes();
   }
 }
+
+///}}}1
 
 export function render(eventB: EventB, ufobVisModel: VisModel) {
   let panel = panels.getDialog();
