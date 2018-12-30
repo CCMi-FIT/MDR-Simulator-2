@@ -55,7 +55,8 @@ export function deleteEntity(e_id: Id): Promise<any> {
           ),
           error => { error(error); reject(error); }
         );
-      }
+      },
+      error => reject(error)
     );
   }));
 }

@@ -1,6 +1,7 @@
 // @flow
 
-import type { Scenario } from '../metamodel/scenario';
+import type { Id } from '../metamodel/general';
+import type { Scenario, Model } from '../metamodel/scenario';
 import * as scenarioMeta from '../metamodel/scenario';
 import * as scenarioModel from '../model/scenario';
 import * as db from './general';
@@ -39,6 +40,21 @@ export function updateScenario(updatedScenario: any): Promise<any> {
             error => reject(error)
           );
         }
+      },
+      error => reject(error)
+    );
+  }));
+}
+
+export function deleteScenario(sc_id: Id): Promise<any> {
+  return db.fileOpWithLock(fname, new Promise((resolve, reject) => { 
+    getModel().then(
+      model => {
+        const model2: Model = scenarioModel.deleteScenario(model, sc_id);
+        writeModel(model2).then(
+          ()    => resolve(),
+          error => reject(error)
+        );
       },
       error => reject(error)
     );

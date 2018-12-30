@@ -40,3 +40,6 @@ export function updateScenario(model: Model, updatedScenario: Scenario): Validat
   }
 }
 
+export function deleteScenario(model: Model, sc_id: Id): Model {
+  return model.filter(sc => sc.sc_id !== sc_id);
+}

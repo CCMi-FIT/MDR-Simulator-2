@@ -298,4 +298,17 @@ app.post(urls.scenarioUpdate, (req, res: any) => {
   }
 });
 
+app.post(urls.scenarioDelete, (req, res: any) => {
+  let sc_id = req.body.sc_id;
+  if (!sc_id) {
+    clientErrRes(res, "Missing `sc_id`");
+  } else { 
+    scenarioDB.deleteScenario(sc_id).then(
+      result => okRes(res, result),
+      error  => serverErrRes(res, `Error in deleting scenario: ${error}`)
+    );
+  }
+});
+
+//}}}1
 module.exports = app;

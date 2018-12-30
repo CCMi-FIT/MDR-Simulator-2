@@ -52,3 +52,13 @@ export function updateScenario(updatedScenario: Scenario): Promise<any> {
   });
 }
 
+export function deleteScenario(sc_id: Id): Promise<any> {
+  return new Promise((resolve, reject) => {
+    model = scenarioModel.deleteScenario(model, sc_id);
+    postData(urls.baseURL + urls.scenarioDelete, { sc_id }).then(
+      ()    => resolve(),
+      error => reject(error)
+    );
+  });
+}
+

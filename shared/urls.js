@@ -41,3 +41,4 @@ export const ufobGraphicsSave = "/ufob/saveGraphics";
 
 export const scenariosGet = "/scenarios/get";
 export const scenarioUpdate = "/scenarios/update";
+export const scenarioDelete = "/scenarios/delete";
