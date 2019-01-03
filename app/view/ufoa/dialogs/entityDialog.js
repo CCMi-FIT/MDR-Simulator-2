@@ -1,5 +1,6 @@
 //@flow
 
+// Imports {{{1
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -10,8 +11,10 @@ import * as ufoaMeta from '../../../metamodel/ufoa';
 import * as ufoaDB from '../../../db/ufoa';
 import type { VisModel } from '../../rendering';
 import * as panels from '../../panels';
+import * as rendering from '../../rendering';
 import * as associationDialog from "./associationDialog";
 
+// Props & State {{{1
 type Props = {
   ufoaEntity: UfoaEntity,
   ufoaVisModel: VisModel
@@ -21,6 +24,8 @@ type State = {
   ufoaEntity2: UfoaEntity,
   saveDisabled: boolean
 };
+
+// }}}1
 
 function commitEntity(nodes: any, e: UfoaEntity) {
   ufoaDB.updateEntity(e).then(
@@ -33,6 +38,8 @@ function commitEntity(nodes: any, e: UfoaEntity) {
   );
 }
   
+// Component {{{1
+
 class UfoaNodeForm extends React.Component<Props, State> {
 
   constructor(props) {
@@ -41,10 +48,8 @@ class UfoaNodeForm extends React.Component<Props, State> {
       ufoaEntity2: R.clone(props.ufoaEntity),
       saveDisabled: true
     };
-    //console.dir(this.props);
-    //console.dir(this.state);
   }
-
+  // Operations {{{1
   setAttr = (attr: string, val: any) => {
     let ufoaEntityOriginal = this.props.ufoaEntity;
     this.setState((state) => {
@@ -80,7 +85,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
       },
       error => panels.displayError("Entity delete failed: " + error));
   }
-
+  // Rendering {{{1
   renderEntityType() {
     return (
       <div className="form-group">
@@ -97,24 +102,14 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </div>);
   }
 
-  // AssocPane ----------------------------------------------- 
-
-  renderEntity(e: UfoaEntity) {
-    return (
-      <div className="entity-box" style={{backgroundColor: ufoaMeta.entityColor(e)}}>
-        {ufoaMeta.entityTypeStr(e)}
-        <br/>
-        {e.e_name}
-      </div>);
-  }
-
+  // AssocPane {{{2
   renderConnection(a: Association, c: Connection, align: string) {
     const prefix =
       R.equals(a.a_connection1, c) ?
         a.a_type === "member of" ?
           !a.a_connection1.mult.upper || a.a_connection1.mult.upper > 1 ? "\u2662" : "\u2666"
         : ""
-      : ""
+      : "";
     return (
       <div className="col-xs-6" style={{textAlign: align}}>
         <span style={{fontSize: "22px"}}>{align === "left" ? prefix : ""}</span>
@@ -161,15 +156,15 @@ class UfoaNodeForm extends React.Component<Props, State> {
       }
       return (
         <div className="row clickable" style={{marginBottom: "15px"}} key={assoc.a_id}
-          onClick={(e) => associationDialog.render(assoc, this.props.ufoaVisModel)}>
+          onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
           <div className="col-xs-4 nopadding">
-            {e1 ? this.renderEntity(e1) : ""}
+            {e1 ? rendering.renderEntity(e1) : ""}
           </div>
           <div className="col-xs-4 nopadding">
             {this.renderAssocDetails(assoc, c1, c2)}
           </div>
           <div className="col-xs-4 nopadding">
-            {e2 ? this.renderEntity(e2) : ""}
+            {e2 ? rendering.renderEntity(e2) : ""}
           </div>
         </div>
       );
@@ -187,8 +182,9 @@ class UfoaNodeForm extends React.Component<Props, State> {
         </Panel.Body>
       </Panel>);
   }
-  // --------------------------------------------------------
+  // }}}2
 
+  // Buttons rendering {{{2
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
@@ -212,6 +208,8 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </Confirm>);
   }
 
+  // }}}2
+
   render() {
     return ( 
       <Panel className="dialog">
@@ -229,6 +227,7 @@ class UfoaNodeForm extends React.Component<Props, State> {
     panels.fitPanes();
   }
 }
+//}}}1
 
 export function render(ufoaEntity: UfoaEntity, ufoaVisModel: VisModel) {
   let panel = panels.getDialog();

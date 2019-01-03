@@ -1,14 +1,17 @@
 // @flow
 
+// Imports {{{1
 import type { Id, ValidationResult } from './general';
 import { validateElement } from './general';
 import type { EntityInst } from './ufoa-inst';
 import { ufobSchema } from '../schema/ufob.schema.js';
-var Ajv = require('ajv');
 
+// Schema {{{1
+var Ajv = require('ajv');
 var ajv = new Ajv();
 ajv.addSchema(ufobSchema); 
 
+// Combinators {{{1
 export type SituationCombinator = (Array<EntityInst>, EntityInst) => Array<EntityInst>;
 
 export type SituationOperation = (Array<EntityInst>) => Array<EntityInst>;
@@ -37,7 +40,8 @@ export function validateSituation(situation: Situation): ValidationResult {
 export type EventB = {
   ev_id: Id,
   ev_name: string,
-  ev_ops: Array<Operation>,
+  ev_add_ops: Array<AddEntityInstOp>,
+  ev_remove_ops: Array<RemoveEntityInstOp>,
   ev_to_situation_id: Id
 };
 
@@ -45,17 +49,13 @@ export function validateEvent(event: EventB): ValidationResult {
   return validateElement(ajv, event, "ufob-meta#/definitions/event"); 
 }
 
-export type Operation = AddEntityInstOp | RemoveEntityInstOp;
-
 export type AddEntityInstOp = {
-  opa_id: Id,
   opa_e_id: Id,
-  opa_ei_name: string
+  opa_ei_is_default: boolean
 };
 
 export type RemoveEntityInstOp = {
-  opr_id: Id,
-  opr_ei_name: string
+  opr_e_id: Id,
 };
 
 export const operationTypes = {

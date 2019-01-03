@@ -32,6 +32,8 @@ class ScenarioBox extends React.Component<Props, State> {
     };
   }
 
+  // Toolbar {{{1
+  
   loadModel = (): Promise<any> => {
     return new Promise((resolve, reject) => {
       scenarioDB.loadModel().then(
@@ -100,6 +102,8 @@ class ScenarioBox extends React.Component<Props, State> {
     );
   }
 
+  // Pane {{{1
+
   editInfo = () => {
     const sc = this.state.openScenario;
     if (sc) {
@@ -163,6 +167,8 @@ class ScenarioBox extends React.Component<Props, State> {
       </Panel>
     );
   }
+
+  //{{{1
 
   render() {
     return ( 

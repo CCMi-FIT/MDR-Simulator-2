@@ -1,5 +1,9 @@
 //@flow
 
+import * as React from 'react';
+import type { UfoaEntity } from '../metamodel/ufoa.js';
+import * as ufoaMeta from '../metamodel/ufoa.js';
+
 export type VisId = string;
 export type VisLabel = string;
 export type VisColor = string;
@@ -27,4 +31,13 @@ export type VisModel = {
   nodes: any,
   edges: any
 };
+
+export function renderEntity(e: UfoaEntity) {
+  return (
+    <div className="entity-box" style={{backgroundColor: ufoaMeta.entityColor(e)}}>
+      {ufoaMeta.entityTypeStr(e)}
+      <br/>
+      {e.e_name}
+    </div>);
+}
 

@@ -1,4 +1,5 @@
-- abstrahovat vykreslovani entit z AssocDialog a pouzit v rernderovani Operations 
+- renderovani Operations: table
+- adding Operation
 
 - refactor to https://www.primefaces.org/primereact
 

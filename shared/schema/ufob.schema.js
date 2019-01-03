@@ -11,35 +11,34 @@ export const ufobSchema = {
       "properties": {
         "ev_id":           { "type": "string" },
         "ev_name":         { "type": "string" },
-        "ev_ops": { 
+        "ev_add_ops": { 
           "type": "array",
-          "items": {"$ref": "#/definitions/operation" },
+          "items": {"$ref": "#/definitions/operationAdd" },
+          "uniqueItems": true
+        },
+        "ev_remove_ops": { 
+          "type": "array",
+          "items": {"$ref": "#/definitions/operationRemove" },
           "uniqueItems": true
         },
         "ev_to_situation_id": { "type": "string" },
       },
-      "required": ["ev_id", "ev_name", "ev_ops", "ev_to_situation_id"]
+      "required": ["ev_id", "ev_name", "ev_add_ops", "ev_remove_ops", "ev_to_situation_id"]
     },
-    "operation": {
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "opa_id": { "type": "string" },
-            "opa_e_id": { "type": "string" },
-            "opa_ei_name": { "type": "string" }
-          },
-          "required": ["opa_id", "opa_e_id", "opa_ei_name"]
-        }, 
-        {
-          "type": "object",
-          "properties": {
-            "opr_id": { "type": "string" },
-            "opr_ei_name": { "type": "string" },
-          },
-          "required": ["opr_id", "opr_ei_name"]
-        } 
-      ]
+    "operationAdd": {
+      "type": "object",
+      "properties": {
+        "opa_e_id": { "type": "string" },
+        "opa_ei_is_default": { "type": "boolean" }
+      },
+      "required": ["opa_e_id", "opa_ei_is_default"]
+    }, 
+    "operationRemove": {
+      "type": "object",
+      "properties": {
+        "opr_e_id": { "type": "string" },
+      },
+      "required": ["opr_e_id"]
     },
     "disposition": {
       "type": "object",

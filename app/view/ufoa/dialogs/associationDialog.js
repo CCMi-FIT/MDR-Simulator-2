@@ -1,5 +1,6 @@
 // @flow
 
+// Imports {{{1
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -11,6 +12,7 @@ import * as ufoaDB from '../../../db/ufoa';
 import type { VisModel } from '../../rendering';
 import * as panels from '../../panels';
 
+// Props & State {{{1
 type Props = {
   association: Association,
   visModel: VisModel
@@ -22,18 +24,22 @@ type State = {
   saveDisabled: boolean
 };
 
+// Operations {{{1
 function commitAssociation(edges: any, a: Association) {
-  ufoaDB.updateAssociation(a).then((response) => {
-    edges.update({ 
-      id: a.a_id,
-      from: a.a_connection1.e_id,
-      to: a.a_connection2.e_id,
-      label: a.a_label,
-      title: ufoaMeta.assocStr(a), 
-    });
-    panels.hideDialog();
-    panels.displayInfo("Association saved.");
-  }, (error) => panels.displayError("Association save failed: " + error));
+  ufoaDB.updateAssociation(a).then(
+    () => {
+      edges.update({ 
+        id: a.a_id,
+        from: a.a_connection1.e_id,
+        to: a.a_connection2.e_id,
+        label: a.a_label,
+        title: ufoaMeta.assocStr(a), 
+      });
+      panels.hideDialog();
+      panels.displayInfo("Association saved.");
+    },
+    error => panels.displayError("Association save failed: " + error)
+  );
 }
   
 class AssociationForm extends React.Component<Props, State> {
@@ -57,7 +63,7 @@ class AssociationForm extends React.Component<Props, State> {
           attr === "a_type" ?
             R.mergeDeepRight(state, {
               showMeta: val === "member of",
-              association2: { a_type: val }
+             association2: { a_type: val }
             }) 
         : attr === "a_meta" ?
           R.mergeDeepRight(state, { association2: { a_meta: val }})
@@ -92,15 +98,20 @@ class AssociationForm extends React.Component<Props, State> {
     }
   };
 
-  delete = (event) => {
+  delete = () => {
     let edges: any = this.props.visModel.edges;
     let a_id = this.props.association.a_id;
-    ufoaDB.deleteAssociation(a_id).then((response) => {
-      edges.remove({ id: a_id });
-      panels.hideDialog();
-      panels.displayInfo("Association deleted.");
-    }, (error) => panels.displayError("Association delete failed: " + error));
+    ufoaDB.deleteAssociation(a_id).then(
+      () => {
+        edges.remove({ id: a_id });
+        panels.hideDialog();
+        panels.displayInfo("Association deleted.");
+      },
+      error => panels.displayError("Association delete failed: " + error)
+    );
   }
+
+  // Rendering {{{1
 
   renderType() {
     return (
@@ -218,6 +229,7 @@ class AssociationForm extends React.Component<Props, State> {
   }
 }
 
+///}}}1
 export function render(association: Association, ufoaVisModel: VisModel) {
   let panel = panels.getDialog();
   if (panel) {

@@ -1,17 +1,22 @@
 //@flow
 
+// Imports {{{1
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import type { EventB, Operation } from '../../../metamodel/ufob';
+import type { UfoaEntity } from '../../../metamodel/ufoa';
+import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../../metamodel/ufob';
+import * as ufoaDB from '../../../db/ufoa';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
-import * as rendering from '../canvas/rendering';
+import * as rendering from '../../rendering';
+import * as canvasRendering from '../canvas/rendering';
 import * as panels from '../../panels';
 
+// Props & State {{{1
 type Props = {
   eventB: EventB,
   ufobVisModel: VisModel
@@ -22,6 +27,7 @@ type State = {
   saveDisabled: boolean
 };
 
+// Component {{{1
 class EventForm extends React.Component<Props, State> {
 
   typeahead: any = null;
@@ -34,17 +40,29 @@ class EventForm extends React.Component<Props, State> {
     };
   }
 
-  // Operations {{{1
+  // Actions {{{1
 
   setAttr = (attr: string, val: any) => {
-    let eventBOriginal = this.props.eventB;
-    this.setState((state) => {
-      let eventBNew = state.eventB2;
-      eventBNew[attr] = val;
-      return {
-        eventB2: eventBNew,
-        saveDisabled: R.equals(eventBOriginal, eventBNew)
-      };
+    this.setState((state: State, props: Props) => {
+      console.log(state);
+      let evOrig = props.eventB;
+      let stateNew =
+        attr === "ev_add_ops.update" ?
+          R.mergeDeepRight(state, { eventB2: {
+            ev_add_ops: R.append(val, state.eventB2.ev_add_ops.filter(op => op.opa_e_id !== val.opa_e_id))
+          }})
+        : attr === "ev_add_ops.delete" ?
+          R.mergeDeepRight(state, { eventB2: {
+            ev_add_ops: state.eventB2.ev_add_ops.filter(op => op.opa_e_id !== val.opa_e_id)
+          }})
+        : attr === "ev_remove_ops.delete" ?
+          R.mergeDeepRight(state, { eventB2: {
+            //TODO: WTF?!? Pri odebrani posledniho prvku se zmeni na objekt tohoto prvku misto prazdneho array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            ev_remove_ops: state.eventB2.ev_remove_ops.filter(op => op.opr_e_id !== val.opr_e_id)
+          }})
+        : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
+      console.log(stateNew);
+      return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
     });
   }
 
@@ -56,7 +74,7 @@ class EventForm extends React.Component<Props, State> {
       nodes.update({ id: ev.ev_id, label: ev.ev_name });
       const edgesIds = edges.get().filter(e => e.from === ev.ev_id).map(e => e.id); //Effectively, there should be just one edge
       edges.remove(edgesIds);
-      edges.add(rendering.mkEdge(ev.ev_id, ev.ev_to_situation_id));
+      edges.add(canvasRendering.mkEdge(ev.ev_id, ev.ev_to_situation_id));
       panels.hideDialog();
       panels.displayInfo("Event saved.");
     }, (error) => panels.displayError("Event save failed: " + error));
@@ -85,6 +103,16 @@ class EventForm extends React.Component<Props, State> {
       error => panels.displayError("Event delete failed: " + error));
   }
 
+  // Operations actions {{{2
+
+  setExplicit = (op: AddEntityInstOp) => {
+    this.setAttr("ev_add_ops.update", R.mergeDeepRight(op, { opa_ei_is_default: false }));
+  }
+
+  setDefault = (op: AddEntityInstOp) => {
+    this.setAttr("ev_add_ops.update", R.mergeDeepRight(op, { opa_ei_is_default: true }));
+  }
+
   // Rendering {{{1
 
   renderEventName() {
@@ -94,31 +122,95 @@ class EventForm extends React.Component<Props, State> {
       </div>);
   }
 
-  renderOperation = (op: Operation) => {
-    const opSymbol = 
-          op.opa_id ? <span>+</span> 
-        : op.opr_id ? <span>-</span>
-        : <span>??</span>;
+  // Operations rendering {{{2
+  renderAddOperation = (op: AddEntityInstOp) => {
+    const entity: ?UfoaEntity = ufoaDB.getEntity(op.opa_e_id);
+    if (!entity) {
+      console.error(`Internal error: entity with id=${op.opa_e_id} required in event ${this.state.eventB2.ev_name} does not exist`);
+    }
     return (
-      {opSymbol}
-      //<div key={ev_id} className="badge-item">
-        //<span className="badge badge-info">{ev ? ev.ev_name : ""}
-          //{" "}
-          //<span 
-            //className="badge badge-error clickable"
-            //onClick={() => this.deleteEvent(ev_id)}>X</span>
-        //</span>
-      //</div>
+      <div className="row" style={{marginBottom: "15px"}} key={op.opa_e_id}>
+        <div className="col-xs-1" style={{paddingTop: "10px"}}>
+          <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
+        </div>
+        <div className="col-xs-6">
+          {entity ? rendering.renderEntity(entity) : ""}
+        </div>
+        <div className="col-xs-3" style={{paddingTop: "10px"}}>
+          {op.opa_ei_is_default ? 
+            <Button 
+              className="btn-default btn-sm"
+              title="Default instances are nameless single instances of an entity"
+              onClick={() => this.setExplicit(op)}
+            >Default</Button> 
+            : 
+            <Button
+              className="btn-primary btn-sm"
+              title="Explicit instances ask for a name when instantiated"
+              onClick={() => this.setDefault(op)}
+            >Explicit</Button> 
+          }
+        </div>
+        <div className="col-xs-2" style={{paddingTop: "10px"}}>
+          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
+            <i className="glyphicon glyphicon-trash"/>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  renderRemoveOperation = (op: RemoveEntityInstOp) => {
+    const entity: ?UfoaEntity = ufoaDB.getEntity(op.opr_e_id);
+    if (!entity) {
+      console.error(`Internal error: entity with id=${op.opr_e_id} required in event ${this.state.eventB2.ev_name} does not exist`);
+    }
+    return (
+      <div className="row" style={{marginBottom: "15px"}} key={op.opr_e_id}>
+        <div className="col-xs-1" style={{paddingTop: "10px"}}>
+          <i className="glyphicon glyphicon-minus text-danger" style={{fontSize: "20px"}}/>
+        </div>
+        <div className="col-xs-6">
+          {entity ? rendering.renderEntity(entity) : ""}
+        </div>
+        <div className="col-xs-3">
+        </div>
+        <div className="col-xs-2" style={{paddingTop: "10px"}}>
+          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops", op)}>
+            <i className="glyphicon glyphicon-trash"/>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  addOpComparator = (op1: AddEntityInstOp, op2: AddEntityInstOp) => {
+    return (
+        op1.opa_e_id < op2.opa_e_id ? -1
+      : op1.opa_e_id > op2.opa_e_id ? 1
+      : 0
+    );
+  }
+
+  removeOpComparator = (op1: RemoveEntityInstOp, op2: RemoveEntityInstOp) => {
+    return (
+        op1.opr_e_id < op2.opr_e_id ? -1
+      : op1.opr_e_id > op2.opr_e_id ? 1
+      : 0
     );
   }
 
   renderOperations = () => {
+    const addOpsSorted = R.sort(this.addOpComparator, this.state.eventB2.ev_add_ops);
+    const removeOpsSorted = R.sort(this.removeOpComparator, this.state.eventB2.ev_remove_ops);
     return (
       <div className="form-group">
         <Panel className="dialog">
           <Panel.Heading>Operations</Panel.Heading>
           <Panel.Body collapsible={false}>
-            {this.state.eventB2.ev_ops.map(this.renderOperation)}
+            <div className="container-fluid">
+              {addOpsSorted.map(this.renderAddOperation)}
+              {removeOpsSorted.map(this.renderRemoveOperation)}
             {/*TODO:
               <Typeahead
                 ref={(typeahead) => this.typeahead = typeahead}
@@ -131,11 +223,14 @@ class EventForm extends React.Component<Props, State> {
                   }
                 }}
               />*/}
-            </Panel.Body>
-          </Panel>
+            </div>
+          </Panel.Body>
+        </Panel>
       </div>
     );
   }
+
+  //}}}2
 
   renderToSituation = () => {
     const toSituation = ufobDB.getSituationById(this.state.eventB2.ev_to_situation_id);
@@ -156,7 +251,7 @@ class EventForm extends React.Component<Props, State> {
     );
   }
 
-  // Buttons {{{2
+  // Buttons rendering {{{2
 
   renderButtons() {
     return (
