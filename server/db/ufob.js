@@ -10,7 +10,7 @@ import { error } from '../logging';
 const ufobFname = "../data/ufob.json";
 const ufobGraphicsFname = "../data/ufob-graphics.json";
 
-// Model
+// Model {{{1
 
 export function getModel(): Promise<any> {
   return db.getModel(ufobFname, ufobMeta);
@@ -32,7 +32,7 @@ export function writeModel(model: UfobModel): Promise<any> {
   return db.writeModel(ufobFname, model);
 }
 
-// Event
+// Event {{{1
 
 export function updateEvent(updatedEvent: any): Promise<any> {
   return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
@@ -72,7 +72,7 @@ export function deleteEvent(ev_id: Id): Promise<any> {
   }));
 }
 
-// Situation
+// Situation {{{1
 
 export function updateSituation(updatedSituation: any): Promise<any> {
   return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
@@ -112,9 +112,25 @@ export function deleteSituation(s_id: Id): Promise<any> {
   }));
 }
 
-// Graphics
+// Graphics {{{1
 
 function deleteElementGraphics(elId: Id): Promise<any> {
   return db.graphicsElementDelete(ufobGraphicsFname, elId);
+}
+
+// Hooks {{{1
+
+export function entityDeletionHook(e_id: Id): Promise<any> {
+  return db.fileOpWithLock(ufobFname, new Promise((resolve, reject) => {
+    getModel().then(
+      model => {
+        const model2 = ufobModel.entityDeletionHook(model, e_id);
+        writeModel(model2).then(
+          ()    => resolve(),
+          error => reject(error)
+        );
+      }
+    );
+  }));
 }
 

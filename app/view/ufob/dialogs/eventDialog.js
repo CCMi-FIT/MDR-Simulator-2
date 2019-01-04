@@ -47,7 +47,6 @@ class EventForm extends React.Component<Props, State> {
 
   setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
-      console.log(state);
       let evOrig = props.eventB;
       let stateNew =
         attr === "ev_add_ops.add" ?
@@ -144,7 +143,7 @@ class EventForm extends React.Component<Props, State> {
           <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
         </div>
         <div className="col-xs-6">
-          {entity ? rendering.renderEntity(entity) : ""}
+          {entity ? rendering.renderEntity(entity) : "This entity does not exist: this should not happen..."}
         </div>
         <div className="col-xs-3" style={{paddingTop: "10px"}}>
           {op.opa_ei_is_default ? 
@@ -181,7 +180,7 @@ class EventForm extends React.Component<Props, State> {
           <i className="glyphicon glyphicon-minus text-danger" style={{fontSize: "20px"}}/>
         </div>
         <div className="col-xs-6">
-          {entity ? rendering.renderEntity(entity) : ""}
+          {entity ? rendering.renderEntity(entity) : "This entity does not exist, this should not happen..."}
         </div>
         <div className="col-xs-3">
         </div>

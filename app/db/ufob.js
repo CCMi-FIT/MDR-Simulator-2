@@ -1,5 +1,6 @@
 // @flow
 
+import * as R from 'ramda';
 import type { Id } from '../metamodel/general';
 import type { Situation, EventB, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from '../metamodel/ufob';
@@ -7,9 +8,9 @@ import * as urls from "../urls";
 import * as ufobModel from '../model/ufob';
 import { getData, postData } from './general';
 
-var model: UfobModel = ufobMeta.emptyModel;
+// Model {{{1
 
-// Model
+var model: UfobModel = ufobMeta.emptyModel;
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -28,7 +29,7 @@ export function saveGraphics(graphics: any): Promise<any> {
   return postData(urls.baseURL + urls.ufobGraphicsSave, { graphics: JSON.stringify(graphics) });
 }
 
-// Events
+// Events {{{1
 
 export function getEvents(): Array<EventB> {
   return model.events;
@@ -70,7 +71,7 @@ export function deleteEvent(ev_id: Id): Promise<any> {
   });
 }
 
-//Situations
+// Situations {{{1
 
 export function getSituations(): Array<Situation> {
   return model.situations;
@@ -107,3 +108,11 @@ export function deleteSituation(s_id: Id): Promise<any> {
     );
   });
 }
+
+// Hooks {{{1
+
+export function entityDeletionHook(e_id: Id) {
+  model = ufobModel.entityDeletionHook(model, e_id);
+}
+
+

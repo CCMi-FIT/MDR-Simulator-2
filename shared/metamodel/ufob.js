@@ -45,6 +45,17 @@ export type EventB = {
   ev_to_situation_id: Id
 };
 
+export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): EventB {
+  return ({
+    ev_id,
+    ev_name,
+    ev_to_situation_id,
+    ev_add_ops: [],
+    ev_remove_ops: []
+  });
+}
+
+
 export function validateEvent(event: EventB): ValidationResult {
   return validateElement(ajv, event, "ufob-meta#/definitions/event"); 
 }

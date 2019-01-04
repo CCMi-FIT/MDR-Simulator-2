@@ -5,6 +5,7 @@ import type { Id } from '../metamodel/general';
 import type { UfoaModel } from '../metamodel/ufoa';
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as ufoaModel from '../model/ufoa';
+import * as ufobDB from './ufob';
 import { error } from '../logging';
 
 const ufoaFname = "../data/ufoa.json";
@@ -48,12 +49,13 @@ export function deleteEntity(e_id: Id): Promise<any> {
     getModel().then(
       model => {
         const model2 = ufoaModel.deleteEntity(model, e_id);
-        writeModel(model2).then(
-          () => deleteEntityGraphics(e_id).then(
-            ()    => resolve(),
-            error => reject(error)
-          ),
-          error => { error(error); reject(error); }
+        Promise.all([
+          writeModel(model2),
+          deleteEntityGraphics(e_id),
+          ufobDB.entityDeletionHook(e_id)
+        ]).then(
+          ()    => resolve(),
+          error => reject(error)
         );
       },
       error => reject(error)

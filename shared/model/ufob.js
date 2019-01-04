@@ -1,13 +1,13 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, Name, Label, ValidationResult } from '../metamodel/general';
+import type { Id, ValidationResult } from '../metamodel/general';
 import * as meta from '../metamodel/general';
 import type { EventB, Situation, Disposition, UfobModel } from '../metamodel/ufob';
 import * as ufobMeta from "../metamodel/ufob";
 import { getLastIdNo } from './general.js';
 
-// Event
+// Event {{{1
 
 export function getEventById(model: UfobModel, ev_id: Id): ?EventB {
   return model.events.find(ev => ev.ev_id === ev_id);
@@ -15,11 +15,7 @@ export function getEventById(model: UfobModel, ev_id: Id): ?EventB {
 
 export function newEvent(model: UfobModel, ev_name: string, s_id: Id): EventB {
   const lastIdNo = getLastIdNo(model.events.map((ev) => ev.ev_id));
-  const newEvent = {
-    ev_id: `ev${lastIdNo+1}`,
-    ev_name,
-    ev_to_situation_id: s_id
-  };
+  const newEvent = ufobMeta.newEvent(`ev${lastIdNo+1}`, "New Event", s_id);
   model.events.push(newEvent);
   return newEvent;
 }
@@ -48,7 +44,7 @@ export function deleteEvent(model: UfobModel, ev_id: Id): void {
   });
 }
 
-// Situation
+// Situation {{{1
 
 export function getSituationById(model: UfobModel, s_id: Id): ?Situation {
   return model.situations.find(s => s.s_id === s_id);
@@ -104,3 +100,16 @@ export function deleteSituation(model: UfobModel, s_id: Id): void {
   let i = model.situations.findIndex(s => s.s_id === s_id);
   model.situations.splice(i, 1);
 }
+
+// Hooks {{{1
+
+export function entityDeletionHook(model: UfobModel, e_id: Id): UfobModel {
+  // Remove those Operations that relate to the entity
+  const events = model.events.map(ev => {
+    const addOps2 = ev.ev_add_ops.filter(op => op.opa_e_id !== e_id);
+    const removeOps2 = ev.ev_remove_ops.filter(op => op.opr_e_id !== e_id);
+    return R.mergeDeepRight(ev, { ev_add_ops: addOps2, ev_remove_ops: removeOps2 });
+  });
+  return R.mergeDeepRight(model, { events });
+}
+

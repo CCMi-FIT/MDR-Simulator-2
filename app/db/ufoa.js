@@ -5,6 +5,7 @@ import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from '.
 import * as ufoaMeta from '../metamodel/ufoa';
 import * as urls from "../urls";
 import * as ufoaModel from '../model/ufoa';
+import * as ufobDB from './ufob';
 import { getData, postData } from './general';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
@@ -60,9 +61,12 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
 
 export function deleteEntity(e_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
-    model = ufoaModel.deleteEntity(model, e_id);
     postData(urls.baseURL + urls.ufoaEntityDelete, { e_id }).then(
-      ()    => resolve(),
+      () => {
+        model = ufoaModel.deleteEntity(model, e_id);
+        ufobDB.entityDeletionHook(e_id);
+        resolve();
+      },
       error => reject(error)
     );
   });

@@ -9,7 +9,10 @@ exports.files = {
 
 exports.plugins = {
   babel: {
-    plugins: ["transform-class-properties"],
+    plugins: [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-react-jsx-source"
+    ],
     presets: [
       "@babel/preset-env",
       "@babel/preset-react",

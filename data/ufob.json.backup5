@@ -281,37 +281,33 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s36"
-    },
-    {
-      "ev_id": "ev40",
-      "ev_name": "Prepare Infrastructure",
-      "ev_to_situation_id": "s38",
-      "ev_add_ops": [
-        {
-          "opa_e_id": "e100",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e90",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e97",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e93",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e109",
-          "opa_ei_is_default": true
-        }
-      ],
-      "ev_remove_ops": []
     }
   ],
   "situations": [
+    {
+      "s_id": "s1",
+      "s_name": "A Person wants to\nbecome a Donor",
+      "s_dispositions": [
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e1"
+          ]
+        }
+      ]
+    },
+    {
+      "s_id": "s2",
+      "s_name": "A Person Needs\nUnrelated\nDonor Transplanation",
+      "s_dispositions": [
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e2"
+          ]
+        }
+      ]
+    },
     {
       "s_id": "s3",
       "s_name": "A Person becomes\nAspirant Donor",
@@ -816,24 +812,6 @@
       "s_id": "s37",
       "s_name": "Donor Follow-Up",
       "s_dispositions": []
-    },
-    {
-      "s_id": "s38",
-      "s_name": "Infrastructure Ready",
-      "s_dispositions": [
-        {
-          "d_text": "A Person wants \nto become a Donor",
-          "d_events_ids": [
-            "e1"
-          ]
-        },
-        {
-          "d_text": "A Person Needs\nUnrelated\nDonor Transplanation",
-          "d_events_ids": [
-            "e2"
-          ]
-        }
-      ]
     }
   ]
 }
