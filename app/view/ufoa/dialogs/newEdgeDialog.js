@@ -15,7 +15,7 @@ type State = {
   selection: "generalisation" | "association",
 };
 
-class NewEdgeForm extends React.Component<Props, State> {
+class NewEdgeForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);

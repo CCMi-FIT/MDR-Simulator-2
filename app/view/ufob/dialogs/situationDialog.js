@@ -25,7 +25,7 @@ type State = {
   saveDisabled: boolean
 };
 
-class SituationForm extends React.Component<Props, State> {
+class SituationForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);
@@ -212,9 +212,6 @@ class SituationForm extends React.Component<Props, State> {
       </Panel>);
   }
 
-  componentDidMount() {
-    panels.fitPanes();
-  }
 }
 
 export function render(situation: Situation, ufobVisModel: VisModel) {

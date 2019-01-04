@@ -18,7 +18,7 @@ type State = {
   ev_to_situation_id?: Id
 };
 
-class NewNodeForm extends React.Component<Props, State> {
+class NewNodeForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);

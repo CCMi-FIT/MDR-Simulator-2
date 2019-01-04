@@ -35,7 +35,7 @@ function commitGeneralisation(edges: any, g: Generalisation) {
   }, (error) => panels.displayError("Generalisation save failed: " + error));
 }
   
-class GeneralisationsForm extends React.Component<Props, State> {
+class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);

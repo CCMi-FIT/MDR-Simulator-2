@@ -40,7 +40,7 @@ function commitEntity(nodes: any, e: UfoaEntity) {
   
 // Component {{{1
 
-class UfoaNodeForm extends React.Component<Props, State> {
+class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);
@@ -223,9 +223,6 @@ class UfoaNodeForm extends React.Component<Props, State> {
       </Panel>);
   }
 
-  componentDidMount() {
-    panels.fitPanes();
-  }
 }
 //}}}1
 

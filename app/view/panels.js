@@ -1,5 +1,6 @@
 // @flow
 
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 const ufoaBoxId = "ufoa-box";
@@ -134,5 +135,16 @@ export function displayInfo(msg: string): void {
 
 export function displayError(msg: string): void {
   displayMsg(msg, "alert-danger", false);
+}
+
+// Component
+
+export class PaneDialog<Props: {}, State: ?{} = null> extends React.Component<Props, State> {
+  componentDidMount() {
+    fitPanes();
+  }
+  componentDidUpdate() {
+    fitPanes();
+  }
 }
 

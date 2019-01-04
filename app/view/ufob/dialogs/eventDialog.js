@@ -30,7 +30,7 @@ type State = {
 };
 
 // Component {{{1
-class EventForm extends React.Component<Props, State> {
+class EventForm extends panels.PaneDialog<Props, State> {
 
   newOpTypeahead: any = null;
   
@@ -337,9 +337,6 @@ class EventForm extends React.Component<Props, State> {
       </Panel>);
   }
 
-  componentDidMount() {
-    panels.fitPanes();
-  }
 }
 
 ///}}}1

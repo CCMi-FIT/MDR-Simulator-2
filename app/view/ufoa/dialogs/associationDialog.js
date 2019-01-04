@@ -24,7 +24,6 @@ type State = {
   saveDisabled: boolean
 };
 
-// Operations {{{1
 function commitAssociation(edges: any, a: Association) {
   ufoaDB.updateAssociation(a).then(
     () => {
@@ -41,8 +40,9 @@ function commitAssociation(edges: any, a: Association) {
     error => panels.displayError("Association save failed: " + error)
   );
 }
-  
-class AssociationForm extends React.Component<Props, State> {
+
+// Component {{{1
+class AssociationForm extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);
@@ -55,6 +55,7 @@ class AssociationForm extends React.Component<Props, State> {
     //console.dir(this.state);
   }
 
+// Operations {{{1
   setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
       let stateCopy = Object.assign({}, state); // Just because Flow bitches about state in R.dissocPath
