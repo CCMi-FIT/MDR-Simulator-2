@@ -217,7 +217,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
 
   render() {
     return ( 
-      <Panel className="dialog">
+      <Panel className="dialog-panel">
         <Panel.Heading><strong>{`Association ${this.props.association.a_id}`}</strong></Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderType()}

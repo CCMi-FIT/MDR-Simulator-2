@@ -243,6 +243,10 @@ footer {
   z-index: 50;
 }
 
+.dialog-panel {
+  margin-bottom: 0;
+}
+
 .message-box {
   display: none;
   left: 50px;

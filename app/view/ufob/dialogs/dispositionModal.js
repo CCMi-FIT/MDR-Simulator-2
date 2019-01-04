@@ -125,7 +125,7 @@ class DispositionForm extends React.Component<Props, State> {
   renderEvents() {
     const esIds = this.state.disposition2.d_events_ids;
     return ( 
-      <Panel className="dialog">
+      <Panel>
         <Panel.Heading>Events caused</Panel.Heading>
         <Panel.Body collapsible={false}>
           {esIds.length === 0 ?
