@@ -54,9 +54,22 @@ export type AddEntityInstOp = {
   opa_ei_is_default: boolean
 };
 
+export function newAddEntityInstOp(opa_e_id: Id): AddEntityInstOp {
+  return ({
+    opa_e_id,
+    opa_ei_is_default: true
+  });
+}
+
 export type RemoveEntityInstOp = {
   opr_e_id: Id,
 };
+
+export function newRemoveEntityInstOp(opr_e_id: Id): RemoveEntityInstOp {
+  return ({
+    opr_e_id,
+  });
+}
 
 export const operationTypes = {
   add_entity_inst:    "Add entity instance",

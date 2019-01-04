@@ -9,6 +9,7 @@ import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { UfoaEntity } from '../../../metamodel/ufoa';
 import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../../metamodel/ufob';
+import * as ufobMeta from '../../../metamodel/ufob';
 import * as ufoaDB from '../../../db/ufoa';
 import * as ufobDB from '../../../db/ufob';
 import type { VisModel } from '../../rendering';
@@ -24,18 +25,20 @@ type Props = {
 
 type State = {
   eventB2: EventB,
+  newOpEntity: ?UfoaEntity,
   saveDisabled: boolean
 };
 
 // Component {{{1
 class EventForm extends React.Component<Props, State> {
 
-  typeahead: any = null;
+  newOpTypeahead: any = null;
   
   constructor(props) {
     super(props);
     this.state = {
       eventB2: R.clone(props.eventB),
+      newOpEntity: null,
       saveDisabled: true
     };
   }
@@ -47,7 +50,11 @@ class EventForm extends React.Component<Props, State> {
       console.log(state);
       let evOrig = props.eventB;
       let stateNew =
-        attr === "ev_add_ops.update" ?
+        attr === "ev_add_ops.add" ?
+          R.mergeDeepRight(state, { eventB2: {
+            ev_add_ops: R.append(ufobMeta.newAddEntityInstOp(val), state.eventB2.ev_add_ops)
+          }})
+        : attr === "ev_add_ops.update" ?
           R.mergeDeepRight(state, { eventB2: {
             ev_add_ops: R.append(val, state.eventB2.ev_add_ops.filter(op => op.opa_e_id !== val.opa_e_id))
           }})
@@ -55,13 +62,16 @@ class EventForm extends React.Component<Props, State> {
           R.mergeDeepRight(state, { eventB2: {
             ev_add_ops: state.eventB2.ev_add_ops.filter(op => op.opa_e_id !== val.opa_e_id)
           }})
+        : attr === "ev_remove_ops.add" ?
+          R.mergeDeepRight(state, { eventB2: {
+            ev_remove_ops: R.append(ufobMeta.newRemoveEntityInstOp(val), state.eventB2.ev_remove_ops)
+          }})
         : attr === "ev_remove_ops.delete" ?
           R.mergeDeepRight(state, { eventB2: {
-            //TODO: WTF?!? Pri odebrani posledniho prvku se zmeni na objekt tohoto prvku misto prazdneho array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //TODO: WTF?!? Pri odebrani posledniho prvku se zmeni na objekt tohoto prvku misto prazdneho array!!!!!!!!! a u add_ops to funguje normalne!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             ev_remove_ops: state.eventB2.ev_remove_ops.filter(op => op.opr_e_id !== val.opr_e_id)
           }})
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
-      console.log(stateNew);
       return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
     });
   }
@@ -183,19 +193,67 @@ class EventForm extends React.Component<Props, State> {
       </div>
     );
   }
-
-  addOpComparator = (op1: AddEntityInstOp, op2: AddEntityInstOp) => {
+  
+  renderNewOp = () => {
+    const addOps = this.state.eventB2.ev_add_ops;
+    const removeOps = this.state.eventB2.ev_remove_ops;
+    const opsEIds = R.concat(addOps.map(op => op.opa_e_id), removeOps.map(op => op.opr_e_id));
     return (
-        op1.opa_e_id < op2.opa_e_id ? -1
-      : op1.opa_e_id > op2.opa_e_id ? 1
-      : 0
+      <div className="row" style={{marginBottom: "15px"}}>
+        <div className="col-xs-9">
+          <Typeahead
+            ref={typeahead => this.newOpTypeahead = typeahead}
+            options={ufoaDB.getEntities().filter(e => opsEIds.indexOf(e.e_id) < 0)}
+            labelKey={"e_name"}
+            onChange={es => { 
+              if (es.length > 0) { 
+                this.setState({ newOpEntity: es[0] });
+              }
+            }}
+          />
+        </div>
+        <div className="col-xs-1">
+          <Button 
+            className="btn-primary btn-sm" 
+            onClick={() => { 
+              if (this.state.newOpEntity) {
+                this.setAttr("ev_add_ops.add", this.state.newOpEntity.e_id);
+                this.newOpTypeahead.getInstance().clear();
+              }
+            }}>
+            <i className="glyphicon glyphicon-plus"/>
+          </Button>
+        </div>
+        <div className="col-xs-1">
+          <Button 
+            className="btn-primary btn-sm" 
+            onClick={() => { 
+              if (this.state.newOpEntity) {
+                this.setAttr("ev_remove_ops.add", this.state.newOpEntity.e_id);
+                this.newOpTypeahead.getInstance().clear();
+              }
+            }}>
+            <i className="glyphicon glyphicon-minus"/>
+          </Button>
+        </div>
+      </div>
     );
   }
 
+  addOpComparator = (op1: AddEntityInstOp, op2: AddEntityInstOp) => {
+    return this.compareEntities(ufoaDB.getEntity(op1.opa_e_id), ufoaDB.getEntity(op2.opa_e_id));
+  }
+
   removeOpComparator = (op1: RemoveEntityInstOp, op2: RemoveEntityInstOp) => {
+    return this.compareEntities(ufoaDB.getEntity(op1.opr_e_id), ufoaDB.getEntity(op2.opr_e_id));
+  }
+
+  compareEntities = (e1: ?UfoaEntity, e2: ?UfoaEntity) => {
+    const name1 = e1 ? e1.e_name : "";
+    const name2 = e2 ? e2.e_name : "";
     return (
-        op1.opr_e_id < op2.opr_e_id ? -1
-      : op1.opr_e_id > op2.opr_e_id ? 1
+        name1 < name2 ? -1
+      : name1 > name2 ? 1
       : 0
     );
   }
@@ -211,18 +269,7 @@ class EventForm extends React.Component<Props, State> {
             <div className="container-fluid">
               {addOpsSorted.map(this.renderAddOperation)}
               {removeOpsSorted.map(this.renderRemoveOperation)}
-            {/*TODO:
-              <Typeahead
-                ref={(typeahead) => this.typeahead = typeahead}
-                options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
-                labelKey={"ev_name"}
-                onChange={evs => { 
-                  if (evs.length > 0) { 
-                    this.addEvent(evs[0].ev_id);
-                    this.typeahead.getInstance().clear();
-                  }
-                }}
-              />*/}
+              {this.renderNewOp()}
             </div>
           </Panel.Body>
         </Panel>

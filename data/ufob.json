@@ -4,19 +4,22 @@
       "ev_id": "e1",
       "ev_name": "Donor Recruitment",
       "ev_add_ops": [
-	{
-	  "opa_e_id": "e0",
-	  "opa_ei_is_default": false
-	},
-	{
-	  "opa_e_id": "e1",
-	  "opa_ei_is_default": true
-	}
+        {
+          "opa_e_id": "e0",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e1",
+          "opa_ei_is_default": true
+        }
       ],
       "ev_remove_ops": [
-	{
-	  "opr_e_id": "e5"
-	}
+        {
+          "opr_e_id": "e5"
+        },
+        {
+          "opr_e_id": "e4"
+        }
       ],
       "ev_to_situation_id": "s3"
     },
@@ -285,277 +288,277 @@
       "s_id": "s1",
       "s_name": "A Person wants to\nbecome a Donor",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e1"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e1"
+          ]
+        }
       ]
     },
     {
       "s_id": "s2",
       "s_name": "A Person Needs\nUnrelated\nDonor Transplanation",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e2"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e2"
+          ]
+        }
       ]
     },
     {
       "s_id": "s3",
       "s_name": "A Person becomes\nAspirant Donor",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e3"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e3"
+          ]
+        }
       ]
     },
     {
       "s_id": "s4",
       "s_name": "Donor Available",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e4"
-	  ]
-	},
-	{
-	  "d_text": "Unavailability\nReasons\nOccured",
-	  "d_events_ids": [
-	    "e5"
-	  ]
-	},
-	{
-	  "d_text": "Permament\nUnavailability\nReasons\nOccured",
-	  "d_events_ids": [
-	    "e22"
-	  ]
-	},
-	{
-	  "d_text": "Subsequent\nDonation Required",
-	  "d_events_ids": [
-	    "e7"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e4"
+          ]
+        },
+        {
+          "d_text": "Unavailability\nReasons\nOccured",
+          "d_events_ids": [
+            "e5"
+          ]
+        },
+        {
+          "d_text": "Permament\nUnavailability\nReasons\nOccured",
+          "d_events_ids": [
+            "e22"
+          ]
+        },
+        {
+          "d_text": "Subsequent\nDonation Required",
+          "d_events_ids": [
+            "e7"
+          ]
+        }
       ]
     },
     {
       "s_id": "s5",
       "s_name": "Donor Search Initiated",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e4"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e4"
+          ]
+        }
       ]
     },
     {
       "s_id": "s6",
       "s_name": "Potential Donor(s) Found",
       "s_dispositions": [
-	{
-	  "d_text": "Extended HLA\nTyping not Required",
-	  "d_events_ids": [
-	    "e8"
-	  ]
-	},
-	{
-	  "d_text": "Extended HLA\nTyping Required\nand\nDNA Sample\nAvailable",
-	  "d_events_ids": [
-	    "e10"
-	  ]
-	},
-	{
-	  "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample/DNA\nnot Available",
-	  "d_events_ids": [
-	    "e11"
-	  ]
-	},
-	{
-	  "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample\nAvailable",
-	  "d_events_ids": [
-	    "e9"
-	  ]
-	}
+        {
+          "d_text": "Extended HLA\nTyping not Required",
+          "d_events_ids": [
+            "e8"
+          ]
+        },
+        {
+          "d_text": "Extended HLA\nTyping Required\nand\nDNA Sample\nAvailable",
+          "d_events_ids": [
+            "e10"
+          ]
+        },
+        {
+          "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample/DNA\nnot Available",
+          "d_events_ids": [
+            "e11"
+          ]
+        },
+        {
+          "d_text": "Extended HLA\nTyping Required\nand\nBlood Sample\nAvailable",
+          "d_events_ids": [
+            "e9"
+          ]
+        }
       ]
     },
     {
       "s_id": "s7",
       "s_name": "Donors Selected\nfor Verification",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e12"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e12"
+          ]
+        }
       ]
     },
     {
       "s_id": "s8",
       "s_name": "Donor Blood Sample\nDrawn for\nExtended HLA Typing",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e13"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e13"
+          ]
+        }
       ]
     },
     {
       "s_id": "s9",
       "s_name": "Donor\nExtended HLA Typed\n from a Stored\nBlood Sample",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e8"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e8"
+          ]
+        }
       ]
     },
     {
       "s_id": "s10",
       "s_name": "Donor\nExtended HLA Typed\nfrom a Stored\nDNA Sample",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e8"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e8"
+          ]
+        }
       ]
     },
     {
       "s_id": "s11",
       "s_name": "Donor\nExtended\nHLA Typed\nfrom a Fresh\nBlood Sample",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e8"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e8"
+          ]
+        }
       ]
     },
     {
       "s_id": "s12",
       "s_name": "Donor Blood Sample\nDrawn for\nVerification Examination",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e14",
-	    "e15"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e14",
+            "e15"
+          ]
+        }
       ]
     },
     {
       "s_id": "s13",
       "s_name": "Donor\nHealth Screening\nCompleted",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e16"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e16"
+          ]
+        }
       ]
     },
     {
       "s_id": "s14",
       "s_name": "Donor HLA Verified",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e16"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e16"
+          ]
+        }
       ]
     },
     {
       "s_id": "s15",
       "s_name": "Donor Verified",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e17"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e17"
+          ]
+        }
       ]
     },
     {
       "s_id": "s16",
       "s_name": "Donor Reserved",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e18"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e18"
+          ]
+        }
       ]
     },
     {
       "s_id": "s17",
       "s_name": "Donor Chosen\nfor Donation",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e19"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e19"
+          ]
+        }
       ]
     },
     {
       "s_id": "s18",
       "s_name": "Schedule and Specification\nof Donor Clearance Assigned",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e20"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e20"
+          ]
+        }
       ]
     },
     {
       "s_id": "s19",
       "s_name": "Donor\nTemporary\nDeferred",
       "s_dispositions": [
-	{
-	  "d_text": "Reasons\nGone",
-	  "d_events_ids": [
-	    "e21"
-	  ]
-	},
-	{
-	  "d_text": "Reasons\nBecome\nPermanent",
-	  "d_events_ids": [
-	    "e22"
-	  ]
-	},
-	{
-	  "d_text": "Subsequent\nDonation Required",
-	  "d_events_ids": [
-	    "e7"
-	  ]
-	}
+        {
+          "d_text": "Reasons\nGone",
+          "d_events_ids": [
+            "e21"
+          ]
+        },
+        {
+          "d_text": "Reasons\nBecome\nPermanent",
+          "d_events_ids": [
+            "e22"
+          ]
+        },
+        {
+          "d_text": "Subsequent\nDonation Required",
+          "d_events_ids": [
+            "e7"
+          ]
+        }
       ]
     },
     {
@@ -567,242 +570,242 @@
       "s_id": "s21",
       "s_name": "Donor Clearance\nProvided",
       "s_dispositions": [
-	{
-	  "d_text": "Donor\nEligible",
-	  "d_events_ids": [
-	    "e23"
-	  ]
-	},
-	{
-	  "d_text": "Donor Noneligible\nand another Donor not Available\nand Urgent Medical Need",
-	  "d_events_ids": [
-	    "e24"
-	  ]
-	},
-	{
-	  "d_text": "Donor\nNoneligible (Temporary)\nand another Donor\nAvailable",
-	  "d_events_ids": [
-	    "e5",
-	    "e25"
-	  ]
-	},
-	{
-	  "d_text": "Donor\nNoneligible (Permanently)\nand Another Donors\nAvailable",
-	  "d_events_ids": [
-	    "e22",
-	    "e25"
-	  ]
-	}
+        {
+          "d_text": "Donor\nEligible",
+          "d_events_ids": [
+            "e23"
+          ]
+        },
+        {
+          "d_text": "Donor Noneligible\nand another Donor not Available\nand Urgent Medical Need",
+          "d_events_ids": [
+            "e24"
+          ]
+        },
+        {
+          "d_text": "Donor\nNoneligible (Temporary)\nand another Donor\nAvailable",
+          "d_events_ids": [
+            "e5",
+            "e25"
+          ]
+        },
+        {
+          "d_text": "Donor\nNoneligible (Permanently)\nand Another Donors\nAvailable",
+          "d_events_ids": [
+            "e22",
+            "e25"
+          ]
+        }
       ]
     },
     {
       "s_id": "s22",
       "s_name": "Collection of HSC\nApproved",
       "s_dispositions": [
-	{
-	  "d_text": "The Donor\nWants to Donate\nBM",
-	  "d_events_ids": [
-	    "e26"
-	  ]
-	},
-	{
-	  "d_text": "The Donor\nWants to Donate\nBlood Cells",
-	  "d_events_ids": [
-	    "e27"
-	  ]
-	},
-	{
-	  "d_text": "Collection\nnot Performed",
-	  "d_events_ids": [
-	    "e25"
-	  ]
-	}
+        {
+          "d_text": "The Donor\nWants to Donate\nBM",
+          "d_events_ids": [
+            "e26"
+          ]
+        },
+        {
+          "d_text": "The Donor\nWants to Donate\nBlood Cells",
+          "d_events_ids": [
+            "e27"
+          ]
+        },
+        {
+          "d_text": "Collection\nnot Performed",
+          "d_events_ids": [
+            "e25"
+          ]
+        }
       ]
     },
     {
       "s_id": "s23",
       "s_name": "PBSC\nDonation\nPrepared",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e28"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e28"
+          ]
+        }
       ]
     },
     {
       "s_id": "s24",
       "s_name": "PBSC\nCollected",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e29"
-	  ]
-	},
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e30"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e29"
+          ]
+        },
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e30"
+          ]
+        }
       ]
     },
     {
       "s_id": "s25",
       "s_name": "PBSC\nDelivered",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e31"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e31"
+          ]
+        }
       ]
     },
     {
       "s_id": "s26",
       "s_name": "PBSC\nTransplantation\nCompleted",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e5"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e5"
+          ]
+        }
       ]
     },
     {
       "s_id": "s27",
       "s_name": "BM\nCollected",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e32"
-	  ]
-	},
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e30"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e32"
+          ]
+        },
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e30"
+          ]
+        }
       ]
     },
     {
       "s_id": "s28",
       "s_name": "BM\nDelivered",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e33"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e33"
+          ]
+        }
       ]
     },
     {
       "s_id": "s29",
       "s_name": "BM\nTransplantation\nCompleted",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e5"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e5"
+          ]
+        }
       ]
     },
     {
       "s_id": "s30",
       "s_name": "Donor Chosen\nfor Subsequent Donation",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e34"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e34"
+          ]
+        }
       ]
     },
     {
       "s_id": "s31",
       "s_name": "Schedule and Specification\nof Donor Clearance\nfor Subsequent Donation\nAssigned",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e35"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e35"
+          ]
+        }
       ]
     },
     {
       "s_id": "s32",
       "s_name": "Donor Clearance\nfor Subsequent Donation\nProvided",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e36"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e36"
+          ]
+        }
       ]
     },
     {
       "s_id": "s33",
       "s_name": "Subsequent Collection\nof HSC Approved",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e37"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e37"
+          ]
+        }
       ]
     },
     {
       "s_id": "s34",
       "s_name": "Subseqent HSC\nCollected",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e38"
-	  ]
-	},
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e30"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e38"
+          ]
+        },
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e30"
+          ]
+        }
       ]
     },
     {
       "s_id": "s35",
       "s_name": "Subseqent HSC\nDelivered",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e39"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e39"
+          ]
+        }
       ]
     },
     {
       "s_id": "s36",
       "s_name": "Subsequent HSC\nTransplantation\nCompleted",
       "s_dispositions": [
-	{
-	  "d_text": "",
-	  "d_events_ids": [
-	    "e5"
-	  ]
-	}
+        {
+          "d_text": "",
+          "d_events_ids": [
+            "e5"
+          ]
+        }
       ]
     },
     {
