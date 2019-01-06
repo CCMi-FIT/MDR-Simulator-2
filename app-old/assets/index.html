@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+  <!-- Head {{{1-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Marrow Donor Registry UFO Simulator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="css/bootstrap-custom.css">
+    <link rel="stylesheet" href="css/vis-network.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+body {
+  padding-top: 50px;
+}
+    </style>
+  </head>
+
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--Banner {{{1-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header pull-left">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Marrow Donor Registry Simulator 2 v0.3</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li id="model-mi" class="active"><a href="#" onclick="gotoModel();">Model</a></li>
+          <li id="methodology-mi"><a href="#" onclick="gotoMethodology();">Methodology</a></li>
+          <li id="about-mi"><a href="#" onclick="gotoAbout();">About</a></li>
+        </ul>
+        <div class="navbar-right">
+          <a href="https://www.elixir-czech.cz/" target="_blank"><img class="logo" src="img/logo-elixir-cz.jpg" alt="Logo ELIXIR CZ"></a>
+          <a href="http://www.cvut.cz/" target="_blank"><img class="logo" src="img/logo-fit.png" alt="Logo FIT"></a>
+          <a href="https://ccmi.fit.cvut.cz/" target="_blank"><img class="logo" src="img/logo-ccmi.png" alt="Logo CCMi"></a>
+          <a href="https://www.zcu.cz" target="_blank"><img class="logo" src="img/logo-zcu.png" alt="Logo ZCU"></a>
+          <a href="https://ntis.zcu.cz/en" target="_blank"><img class="logo" src="img/logo-ntis.gif" alt="Logo NTIS"></a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Model {{{1 -->
+    <div id="model-page" class="container-fluid">
+
+      <!-- Nav tabs Model {{{2 -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#ufoa-tab"      aria-controls="ufoa-tab"      role="tab" data-toggle="tab">Structure</a></li>
+        <li role="presentation"               ><a href="#ufob-tab"      aria-controls="ufob-tab"      role="tab" data-toggle="tab">Behaviour</a></li>
+        <li role="presentation"               ><a href="#simulation-tab" aria-controls="simulation-tab" role="tab" data-toggle="tab">Simulation</a></li>
+        <li role="presentation"               ><a href="#domain-tab" aria-controls="domain-tab" role="tab" data-toggle="tab">Suitability Evaluation Model</a></li>
+        <!--<li>-->
+          <!--<span id="help-btn" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
+            <!--<button type="button" class="btn btn-default" title="Help" data-toggle="modal" data-target="#help-modal">-->
+              <!--<span class="glyphicon glyphicon-question-sign" aria-hidden="false"></span>-->
+            <!--</button>-->
+          <!--</span>-->
+          <!--[> Controls <]-->
+          <!--<span id="standards-btn" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
+            <!--<button type="button" class="btn btn-default" title="Help" data-toggle="modal" data-target="#story-ufob-modal">-->
+              <!--<span class="glyphicon glyphicon-book" aria-hidden="false"></span>-->
+            <!--</button>-->
+          <!--</span>-->
+          <!--<span id="controls" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
+            <!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Resizer left" onclick="Haste['resizeLeft']()">-->
+              <!--<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Resizer right" onclick="Haste['resizeRight']()">-->
+              <!--<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>-->
+            <!--</button>-->
+          <!--</span>-->
+        <!--</li>-->
+      </ul>
+      <!-- Tab panes Model {{{2 -->
+      <div class="tab-content">
+        <!--Tab Structure {{{3 -->
+        <div role="tabpanel" class="tab-pane active" id="ufoa-tab">
+          <div id="ufoa-box" class="ufoa-box"></div>
+          <div id="ufoa-float-toolbar" class="float-toolbar"></div>
+        </div>
+        <!--Tab Behaviour {{{3 -->
+        <div role="tabpanel" class="tab-pane " id="ufob-tab">
+          <div id="ufob-box" class="ufob-box"></div>
+          <div id="ufob-float-toolbar" class="float-toolbar"></div>
+          <div id="ufob-cover-toolbar" class="cover-toolbar"></div>
+        </div>
+        <!--Tab Simulation {{{3 -->
+        <div role="tabpanel" class="tab-pane" id="simulation-tab">
+          <div id="simulation-box" class="simulation-box"></div>
+        </div>
+        <!--Tab Suitability {{{3 -->
+        <div role="tabpanel" class="tab-pane suitability-panel" id="domain-tab">
+          <div class="suitability-panel-left">
+            <img src="img/domain.png" alt="Suitability Evaluation Model">
+          </div>
+          <div class="panel panel-primary suitability-panel-right">
+            <div class="panel-body">
+              When selecting a donor, numerous human leukocyte antigens (HLA) and numerous non-HLA factors are considered, although the most important is a HLA match between a donor and a patient (stem cells recipient).  The HLA complex is known to be the most polymorphic genetic system in humans. It is located within the 6p21.3 region on the short arm of human chromosome 6 and contains more than 220 genes of diverse function (the variant form of a given gene is an allele). That’s why a well-structured database of donors containing all necessary attributes is an important part of clinical decision support system for choosing the donor for transplantation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Methodology {{{1 -->
+    <div id="methodology-page" style="display: none;" class="container">
+      <div class="row">
+        <h1>Methodology</h1>
+        <h2>Model</h2>
+        <p>
+        The model is elaborated using the <a href="https://ontouml.org">Unified Foundational Ontology (UFO)</a> and the <a href="https://ontouml.org">OntoUML</a> ontologically well-founded modelling language in the form of a UML profile.
+        </p>
+        <p>
+        The model consists of two interrelated parts:
+        <ul>
+          <li><strong>Conceptual structural model</strong> (UFO-A), which contains the various entity types and their relations.</li>
+          <li><strong>Behavioural model</strong> (UFO-B), which shows the dynamic aspects of the domain.</li>
+        </ul>
+        </p>
+        <p>
+        The simulation is a result of a joint research project of <a href="http://www.fit.cvut.cz" target="_blank">FIT CTU</a> and <a href="https://zcu.cz" target="_blank">ZCU</a>, which was aimed at presenting the UFO-B in a comprehensible process-flow manner, together with the related UFO-A entities. More about the methodology will be published in a prepared paper.
+        </p>
+        <h2>Domain Knowledge</h2>
+        <p>
+        The Marrow Donor Registry domain knowledge comes from the knowledge of Czech National Marrow Donor Registry and international regulations <em>TODO</em>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Page About {{{1 -->
+    <div id="about-page" style="display: none;" class="container">
+      <h1>About</h1>
+      <p>
+      This portal is a result of a joint research project of <a href="http://www.fit.cvut.cz" target="_blank">FIT CTU</a> and <a href="https://zcu.cz" target="_blank">ZCU</a> supported by <a href="https://www.elixir-czech.cz/" target="_blank">ELIXIR CZ</a>. It is now an early stage of a working prototype, which we hope will gradually mature into a professionally crafted tool.
+      </p>
+
+      <h2>Development</h2>
+      <table class="table borderless" style="width: auto;">
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle;">The source code is released under the open <a href="https://github.com/CCMi-FIT/MDR-Simulator/blob/master/LICENSE" target="_blank">Apache 2.0 Licence</a> and hosted on</td>
+            <td><a href="https://github.com/CCMi-FIT/MDR-Simulator" target="_blank"><img src="img/logo-github.png" alt="GitHub logo"/></a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Contacts</h2>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Methodology, development and operation</th>
+            <td><a href="mailto:perglr@fit.cvut.cz" target="_blank">Ing. Robert Pergl, Ph.D.</a></td>
+            <td>
+              <a href="https://ccmi.fit.cvut.cz" target="_blank">Centre for Conceptual Modelling and Implementation</a><br/>
+              <a href="http://fit.cvut.cz/en/faculty/structure/departmets/ksi" target="_blank">Department of Software Engineering</a><br/>
+              <a href="http://fit.cvut.cz/en" target="_blank">Faculty of Information Technology</a><br/>
+              <a href="https://www.cvut.cz/en" target="_blank">Czech Technical University in Prague</a></td>
+          </tr>
+          <tr>
+            <th>Marrow Donor Registry experts</th>
+            <td>
+              <p><a href="mailto:houdina@ntis.zcu.cz" target="_blank">Ing. Lucie Houdová, Ph.D.</a><br/><br/></p>
+              <p><a href="mailto:fetter@kky.zcu.cz" target="_blank">Ing. Miloš Fetter</a></p>
+            </td>
+            <td>
+              <p>
+              <a href="https://ntis.czu.cz/en" target="_blank">NTIS - New Technologies for the Information
+                ociety</a><br/>
+              <a href="https://zcu.cz/en" target="_blank">University of West Bohemia</a><br/>
+              </p>
+              <p>
+              <a href="http://www.kky.zcu.cz/en" target="_blank">Department of Cybernetics</a><br/>
+              <a href="https://zcu.cz/en" target="_blank">University of West Bohemia</a>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Message box {{{1 -->
+    <div id="message-box"></div>
+
+    <!-- Dialogs {{{1 -->
+    <div id="dialog-box" class="dialog-box drop-shadow"></div>
+    <div id="modal-box"></div>
+
+    <!-- Story modal {{{1 -->
+    <div id="story-ufob-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h1 class="modal-title">WMDA Standards</h1>
+          </div>
+          <div id="story-ufob" class="modal-body">
+            Select a situation to display the applicable standards.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help modal {{{1 -->
+    <div id="help-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h1 class="modal-title">Simulator Help</h1>
+          </div>
+          <div class="modal-body">
+            <h2>Model Elements</h2>
+            <p>
+            Model elements are rooted in the <a href="https://inf.ufes.br/~gguizzardi/Towards%20Ontological%20Foundations%20for%20the%20Conceptual%20modeling%20of%20events.pdf" target="_blank">UFO-B theory</a>.
+            </p>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><img src="img/situation.png" class="img-help" alt="Situation"></td>
+                  <td>Situation represents a particular state-of-the affairs in the world. In the model, each situation represents a subset of instances of the UFO-A structural conceptual model.</td>
+                </tr>
+                <tr>
+                  <td><img src="img/event.png" class="img-help" alt="Event"></td>
+                  <td>Events (also called perdurants) are individuals composed of temporal parts. They represent a transformations from a portion of reality to another, i.e., they  change reality by changing the state of affairs from one situation to another.</td>
+                </tr>
+                <tr>
+                  <td><img src="img/disposition.png" class="img-help" alt="Disposition"></td>
+                  <td>
+                    <p>
+                    A situation triggers an event when this situation activates the disposition that is manifested by that event. Dispositions are properties that are only manifested in particular situations and that can also fail to be manifested. When manifested, they are manifested through the occurrence of events. Dispositions <em>inhere in objects</em> and thus transitively in situations, although the notation (trying to be aligned with common process-modelling notations) does not picture this.
+                    </p>
+                    <p>
+                    Dispositions introduce a <em>conditional behavior</em>: they represent <em>decision criteria</em> of firing individual events. Generally, there are two variants:
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><img src="img/singleDisposition.png" class="img-help2" alt="Single disposition"></td>
+                  <td><em>Single disposition inhering in a situation:</em> In this case, the disposition plays a role of a <em>guard</em>, i.e. it specifies a waiting condition (predicate) that is waited upon before the event starts happening. If the guard is not important in the model, it may be ommitted (technically, the guard is "the situation has ripened for the event to start unrolling"), which is the usual case.</td>
+                </tr>
+                <tr>
+                  <td><img src="img/doubleDisposition.png" class="img-help2" alt="Double disposition"></td>
+                  <td><em>Multiple dispositions inhering in a situation:</em> In this case, each event is triggered once the corresponding disposition condition predicate becomes true. As such, zero, one or more events may be triggered.</td>
+                </tr>
+                <tr>
+                  <td><img src="img/mergingEvent.png" class="img-help" alt="Merging event"></td>
+                  <td>The merging variant of an event does not unroll unless <strong>all dispositions that the event manifests occur</strong>, while the standard (non-merging) one starts unrolling once any of the dispositions that the event manifests occurs.</td>
+                </tr>
+              </tbody>
+            </table>
+            <h2>Simulation</h2>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><img src="img/simulator.png" alt="Simulator"></td>
+                  <td>
+                    <ul>
+                      <li>In the beginning, the simulator is in no specific state and the set of all instances is displayed in the right pane.</li>
+                      <li>By entering the situations (clicking them) in the process model in the left pane, the event leading to the situation is triggered and the corresponding state of affairs of UFO-A instances appears in the right pane and the situation description is displayed under it.</li>
+                      <li>By navigating through situations, the state of the world is gradually changed by the corresponding events: instances start to exist, cease to exist or change. The instances affected by the event preceding the situation and their respective relations are marked bold.</li>
+                      <li>You may need to scroll the right pane in both directions extensively to discover the affected instances, as they do not change their position during the simulation.</li>
+                      <li>The simulator does not contrain you in the order of exploring the situations. This enables exploring what-if scenarios. It is up to you to move through in a sensible way (or not).</li>
+                      <li>To reset the simulator to the initial state, reload the page (ctrl/cmd+R or the reload button).</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer {{{1-->
+    <footer class="footer navbar-fixed-bottom">
+      &copy; <a href="http://fit.cvut.cz/en" target="_blank">FIT CTU</a>, <a href="https://zcu.cz/en" target="_blank">ZCU</a> 2018. This project was supported by <a href="https://www.elixir-czech.cz/" target="_blank">ELIXIR CZ</a>.
+    </footer>
+  </body>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script> 
+  <script src="vendor.js"></script>
+  <script src="app.js"></script>
+  <script>require('main.js');</script>
+  <!--}}}1-->
+</html>

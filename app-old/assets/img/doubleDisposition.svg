@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="55.332455mm"
+   height="48.20105mm"
+   viewBox="0 0 55.332454 48.20105"
+   version="1.1"
+   id="svg2739"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
+   sodipodi:docname="doubleDisposition.svg"
+   inkscape:export-filename="/home/rob/Downloads/doubleDisposition.png"
+   inkscape:export-xdpi="619.85999"
+   inkscape:export-ydpi="619.85999">
+  <defs
+     id="defs2733" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-144.40417"
+     inkscape:cy="89.323858"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-global="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata2736">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-105.71212,-81.934033)">
+    <polygon
+       points="290.5,-1911.9899 201.5,-1911.9899 201.5,-1875.9899 290.5,-1875.9899 "
+       id="polygon1150"
+       style="fill:none;stroke:#000000;stroke-width:1.49030507"
+       transform="matrix(0.21260365,0,0,0.26347719,81.113637,585.89609)" />
+    <text
+       x="133.66994"
+       y="87.892624"
+       font-size="9.00"
+       id="text1152"
+       style="font-size:3.17449403px;font-family:'Helvetica Neue', Helvetica, sans-serif;text-anchor:middle;fill:#000000;stroke-width:0.35272157">Situation</text>
+    <polygon
+       points="246,-1683.9899 314,-1713.9899 246,-1743.9899 178,-1713.9899 "
+       id="polygon1166"
+       style="fill:none;stroke:#000000;stroke-width:1.79471505"
+       transform="matrix(0.19549612,0,0,0.1975763,71.348435,441.59678)" />
+    <text
+       x="119.71249"
+       y="104.18999"
+       font-size="9.00"
+       id="text1170"
+       style="font-size:3.17449403px;font-family:'Helvetica Neue', Helvetica, sans-serif;text-anchor:middle;fill:#000000;stroke-width:0.35272157">Disposition 1</text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.35272157"
+       inkscape:connector-curvature="0"
+       id="path1177"
+       d="m 133.37834,91.725994 -9.06831,7.360742"
+       sodipodi:nodetypes="cc" />
+    <ellipse
+       cx="119.54169"
+       cy="123.60973"
+       rx="9.5234823"
+       ry="6.3489881"
+       id="ellipse1265"
+       style="fill:none;stroke:#000000;stroke-width:0.35272157" />
+    <text
+       x="119.47487"
+       y="124.54571"
+       font-size="9.00"
+       id="text1269"
+       style="font-size:3.17449403px;font-family:'Helvetica Neue', Helvetica, sans-serif;text-anchor:middle;fill:#000000;stroke-width:0.35272157">Event 1</text>
+    <g
+       class="edge"
+       id="edge84"
+       transform="matrix(0.35272157,0,0,0.35272157,32.77218,698.1896)">
+      <title
+         id="title1272">CollectionofHSCApprovedd1-&gt;e_BMDonationBMCollected</title>
+      <path
+         style="fill:none;stroke:#000000"
+         inkscape:connector-curvature="0"
+         id="path1274"
+         d="m 246,-1670.2538 v 12.8604"
+         sodipodi:nodetypes="cc" />
+      <polygon
+         style="fill:#000000;stroke:#000000"
+         id="polygon1276"
+         points="241.5001,-1657.2246 246,-1647.2245 250.5001,-1657.2245 246,-1652.2245 246.0001,-1657.2245 246,-1652.2245 " />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.96875px;line-height:6.8791666px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="122.80567"
+       y="122.91882"
+       id="text2914"><tspan
+         sodipodi:role="line"
+         id="tspan2912"
+         x="122.80567"
+         y="127.35059"
+         style="stroke-width:0.26458332px" /></text>
+    <polygon
+       transform="matrix(0.19549612,0,0,0.1975763,99.224179,441.50229)"
+       style="fill:none;stroke:#000000;stroke-width:1.79471505"
+       id="polygon2918"
+       points="314,-1713.9899 246,-1743.9899 178,-1713.9899 246,-1683.9899 " />
+    <text
+       style="font-size:3.17449403px;font-family:'Helvetica Neue', Helvetica, sans-serif;text-anchor:middle;fill:#000000;stroke-width:0.35272157"
+       id="text2920"
+       font-size="9.00"
+       y="104.09549"
+       x="147.58823">Disposition 2</text>
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.35272157"
+       id="ellipse2922"
+       ry="6.3489881"
+       rx="9.5234823"
+       cy="123.51524"
+       cx="147.41743" />
+    <text
+       style="font-size:3.17449403px;font-family:'Helvetica Neue', Helvetica, sans-serif;text-anchor:middle;fill:#000000;stroke-width:0.35272157"
+       id="text2924"
+       font-size="9.00"
+       y="124.45121"
+       x="147.35062">Event 2</text>
+    <g
+       transform="matrix(0.35272157,0,0,0.35272157,60.647924,698.09511)"
+       id="g2932"
+       class="edge">
+      <title
+         id="title2926">CollectionofHSCApprovedd1-&gt;e_BMDonationBMCollected</title>
+      <path
+         sodipodi:nodetypes="cc"
+         d="m 246,-1670.2538 v 12.8604"
+         id="path2928"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000" />
+      <polygon
+         points="246,-1647.2245 250.5001,-1657.2245 246,-1652.2245 246.0001,-1657.2245 246,-1652.2245 241.5001,-1657.2246 "
+         id="polygon2930"
+         style="fill:#000000;stroke:#000000" />
+    </g>
+    <path
+       sodipodi:nodetypes="cc"
+       d="m 133.37834,91.725994 8.08731,7.586497"
+       id="path2934"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.35272157" />
+  </g>
+</svg>
