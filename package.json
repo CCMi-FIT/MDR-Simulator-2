@@ -13,20 +13,10 @@
     "clean": "npm cache clean --force"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "@babel/plugin-transform-react-jsx-source": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "auto-reload-brunch": "^2.7.1",
-    "babel-brunch": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "brunch": "^2.10.17",
-    "flow-brunch": "^0.2.4",
-    "uglify-js-brunch": "^2.10.0"
+    "@babel/preset-react": "^7.0.0"
   },
   "repository": {
     "type": "git",
@@ -46,7 +36,6 @@
     "cors": "^2.8.5",
     "debug": "^4.1.1",
     "express": "^4.16.4",
-    "jquery": "^3.3.1",
     "morgan": "^1.9.1",
     "proper-lockfile": "^3.2.0",
     "ramda": "^0.26.1",
@@ -55,7 +44,6 @@
     "react-bootstrap-typeahead": "^3.2.4",
     "react-confirm-bootstrap": "^5.3.0",
     "react-dom": "^16.7.0",
-    "react-draggable": "^3.1.1",
     "vis": "^4.21.0"
   }
 }
