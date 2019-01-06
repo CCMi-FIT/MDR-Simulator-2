@@ -1,12 +1,12 @@
 // @flow
 
-import type { Id } from '../metamodel/general';
-import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from '../metamodel/ufoa';
-import * as ufoaMeta from '../metamodel/ufoa';
+import type { Id } from '../metamodel';
+import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from './metamodel';
+import * as ufoaMeta from './metamodel';
 import * as urls from "../urls";
-import * as ufoaModel from '../model/ufoa';
-import * as ufobDB from './ufob';
-import { getData, postData } from './general';
+import * as ufoaModel from './model';
+import * as ufobDB from '../ufob/db';
+import { getData, postData } from '../db';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
 

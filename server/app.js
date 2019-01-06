@@ -6,12 +6,12 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const ufoaMeta = require('./metamodel/ufoa');
-const ufobMeta = require('./metamodel/ufob');
-const scenarioMeta = require('./metamodel/scenario');
-const ufoaDB = require('./db/ufoa');
-const ufobDB = require('./db/ufob');
-const scenarioDB = require('./db/scenario');
+const ufoaMeta = require('./ufoa/metamodel');
+const ufobMeta = require('./ufob/metamodel');
+//const scenarioMeta = require('./metamodel/scenario');
+const ufoaDB = require('./ufoa/db');
+const ufobDB = require('./ufob/db');
+//const scenarioDB = require('./db/scenario');
 const urls = require('./urls');
 import { error } from './logging';
 
@@ -275,42 +275,42 @@ app.post(urls.ufobGraphicsSave, (req, res: any) => {
 
 // Scenarios {{{1
 
-app.get(urls.scenariosGet, (req, res: any) => {
-  scenarioDB.getModel().then(
-    model => okRes(res, model),
-    error => serverErrRes(res, `Error in loading scenarios: ${error}`)
-  );
-});
+//app.get(urls.scenariosGet, (req, res: any) => {
+  //scenarioDB.getModel().then(
+    //model => okRes(res, model),
+    //error => serverErrRes(res, `Error in loading scenarios: ${error}`)
+  //);
+//});
 
-app.post(urls.scenarioUpdate, (req, res: any) => {
-  try {
-    const scenario = JSON.parse(req.body.scenario);
-    const validity = scenarioMeta.validateScenario(scenario);
-    if (validity.errors) {
-      serverErrRes(res, "Error in scenario update (validity violation)");
-    } else { 
-      scenarioDB.updateScenario(scenario).then(
-        result => okRes(res, result),
-        error  => serverErrRes(res, `Error in updating scenario: ${error}`)
-      );
-    }
-  } catch (err) { 
-    console.error("Unable to parse `scenario` object: " + err.message);
-    clientErrRes(res, "Unable to parse `scenario` object: " + err.message);
-  }
-});
+//app.post(urls.scenarioUpdate, (req, res: any) => {
+  //try {
+    //const scenario = JSON.parse(req.body.scenario);
+    //const validity = scenarioMeta.validateScenario(scenario);
+    //if (validity.errors) {
+      //serverErrRes(res, "Error in scenario update (validity violation)");
+    //} else { 
+      //scenarioDB.updateScenario(scenario).then(
+        //result => okRes(res, result),
+        //error  => serverErrRes(res, `Error in updating scenario: ${error}`)
+      //);
+    //}
+  //} catch (err) { 
+    //console.error("Unable to parse `scenario` object: " + err.message);
+    //clientErrRes(res, "Unable to parse `scenario` object: " + err.message);
+  //}
+//});
 
-app.post(urls.scenarioDelete, (req, res: any) => {
-  let sc_id = req.body.sc_id;
-  if (!sc_id) {
-    clientErrRes(res, "Missing `sc_id`");
-  } else { 
-    scenarioDB.deleteScenario(sc_id).then(
-      result => okRes(res, result),
-      error  => serverErrRes(res, `Error in deleting scenario: ${error}`)
-    );
-  }
-});
+//app.post(urls.scenarioDelete, (req, res: any) => {
+  //let sc_id = req.body.sc_id;
+  //if (!sc_id) {
+    //clientErrRes(res, "Missing `sc_id`");
+  //} else { 
+    //scenarioDB.deleteScenario(sc_id).then(
+      //result => okRes(res, result),
+      //error  => serverErrRes(res, `Error in deleting scenario: ${error}`)
+    //);
+  //}
+//});
 
 //}}}1
 module.exports = app;

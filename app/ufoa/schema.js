@@ -1,0 +1,1 @@
+../../shared/ufoa/schema.js

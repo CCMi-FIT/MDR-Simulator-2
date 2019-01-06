@@ -1,10 +1,10 @@
 //@flow
 
-import type { Id } from '../../metamodel/general';
-import * as ufoaDB from '../../db/ufoa';
-import type { VisModel } from '../rendering';
+import type { Id } from '../../metamodel';
+import * as ufoaDB from '../db';
+import type { VisModel } from '../../rendering';
 import * as entityDialog from './dialogs/entityDialog';
-import * as panels from '../panels';
+import * as panels from '../../panels';
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
 

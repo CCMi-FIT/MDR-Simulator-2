@@ -7,15 +7,15 @@ import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import type { UfoaEntity } from '../../../metamodel/ufoa';
-import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../../metamodel/ufob';
-import * as ufobMeta from '../../../metamodel/ufob';
-import * as ufoaDB from '../../../db/ufoa';
-import * as ufobDB from '../../../db/ufob';
-import type { VisModel } from '../../rendering';
-import * as rendering from '../../rendering';
+import type { UfoaEntity } from '../../../ufoa/metamodel';
+import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../metamodel';
+import * as ufobMeta from '../../metamodel';
+import * as ufoaDB from '../../../ufoa/db';
+import * as ufobDB from '../../db';
+import type { VisModel } from '../../../rendering';
+import * as rendering from '../../../rendering';
 import * as canvasRendering from '../canvas/rendering';
-import * as panels from '../../panels';
+import * as panels from '../../../panels';
 
 // Props & State {{{1
 type Props = {

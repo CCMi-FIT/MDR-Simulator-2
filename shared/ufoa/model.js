@@ -1,12 +1,11 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id } from '../metamodel/general';
-import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from '../metamodel/ufoa';
-import type { ValidationResult } from "../metamodel/general";
-import * as meta from '../metamodel/general';
-import * as ufoaMeta from "../metamodel/ufoa";
-import { getLastIdNo } from './general.js';
+import type { Id, ValidationResult } from '../metamodel';
+import { getLastIdNo } from '../metamodel';
+import * as meta from '../metamodel';
+import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from './metamodel';
+import * as ufoaMeta from "./metamodel";
 
 // Entities
 

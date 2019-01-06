@@ -1,11 +1,10 @@
 // @flow
 
 import * as R from 'ramda';
-import type { Id, ValidationResult } from '../metamodel/general';
-import * as meta from '../metamodel/general';
-import type { EventB, Situation, Disposition, UfobModel } from '../metamodel/ufob';
-import * as ufobMeta from "../metamodel/ufob";
-import { getLastIdNo } from './general.js';
+import type { Id, ValidationResult } from '../metamodel';
+import { getLastIdNo, validationResultOK } from '../metamodel';
+import type { EventB, Situation, Disposition, UfobModel } from './metamodel';
+import * as ufobMeta from "./metamodel";
 
 // Event {{{1
 
@@ -31,7 +30,7 @@ export function updateEvent(model: UfobModel, updatedEvent: EventB): ValidationR
     } else {
       model.events.push(updatedEvent); // added a new one to the model
     }
-    return meta.validationResultOK;
+    return validationResultOK;
   }
 }
 
@@ -72,7 +71,7 @@ export function updateSituation(model: UfobModel, updatedSituation: Situation): 
     } else {
       model.situations.push(updatedSituation); // added a new one to the model
     }
-    return meta.validationResultOK;
+    return validationResultOK;
   }
 }
 

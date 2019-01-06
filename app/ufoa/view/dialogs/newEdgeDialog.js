@@ -1,10 +1,9 @@
 //@flow
 
-import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Modal,  Button } from 'react-bootstrap';
-import * as panels from '../../panels';
+import * as panels from '../../../panels';
 
 type Props = {
   edgeData: any,

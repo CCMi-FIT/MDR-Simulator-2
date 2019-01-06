@@ -1,10 +1,10 @@
 //@flow
 
-import * as db from './general';
-import type { Id } from '../metamodel/general';
-import type { UfobModel } from '../metamodel/ufob';
-import * as ufobMeta from '../metamodel/ufob';
-import * as ufobModel from '../model/ufob';
+import * as db from '../db';
+import type { Id } from '../metamodel';
+import type { UfobModel } from './metamodel';
+import * as ufobMeta from './metamodel';
+import * as ufobModel from './model';
 import { error } from '../logging';
 
 const ufobFname = "../data/ufob.json";

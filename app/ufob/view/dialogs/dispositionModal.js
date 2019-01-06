@@ -5,10 +5,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Modal, Panel, Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import type { Id } from '../../../metamodel/general';
-import type { Situation, Disposition } from '../../../metamodel/ufob';
-import * as ufobDB from '../../../db/ufob';
-import * as panels from '../../panels';
+import type { Id } from '../../../metamodel';
+import type { Situation, Disposition } from '../../metamodel';
+import * as ufobDB from '../../db';
+import * as panels from '../../../panels';
 
 type Props = {
   situation: Situation,

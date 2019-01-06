@@ -1,14 +1,14 @@
 // @flow
 
-import * as ra from "./view/ufoa/canvas/rendering";
-import * as rb from "./view/ufob/canvas/rendering";
-import * as dispatchA from "./view/ufoa/dispatch";
-import * as dispatchB from "./view/ufob/dispatch";
-import * as panels from "./view/panels";
-import * as networkToolbar from './view/networkToolbar/toolbar';
+import * as ra from "./ufoa/view/canvas/rendering";
+import * as rb from "./ufob/view/canvas/rendering";
+import * as dispatchA from "./ufoa/view/dispatch";
+import * as dispatchB from "./ufob/view/dispatch";
+import * as panels from "./panels";
+import * as networkToolbar from './networkToolbar/toolbar';
 //import * as scenarioPane from './view/scenario/pane';
-import * as ufoaDB from "./db/ufoa";
-import * as ufobDB from "./db/ufob";
+import * as ufoaDB from "./ufoa/db";
+import * as ufobDB from "./ufob/db";
 //import * as scenarioDB from "./db/scenario.js";
 
 $(window).resize(function() {

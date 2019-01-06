@@ -1,21 +1,14 @@
 // @flow
 
 // Imports {{{1
-import type { Id, ValidationResult } from './general';
-import { validateElement } from './general';
-import type { EntityInst } from './ufoa-inst';
-import { ufobSchema } from '../schema/ufob.schema.js';
+import type { Id, ValidationResult } from '../metamodel';
+import { validateElement } from '../metamodel';
+import { ufobSchema } from './schema';
 
 // Schema {{{1
 var Ajv = require('ajv');
 var ajv = new Ajv();
 ajv.addSchema(ufobSchema); 
-
-// Combinators {{{1
-export type SituationCombinator = (Array<EntityInst>, EntityInst) => Array<EntityInst>;
-
-export type SituationOperation = (Array<EntityInst>) => Array<EntityInst>;
-
 // Situation {{{1
 
 export type Disposition = {

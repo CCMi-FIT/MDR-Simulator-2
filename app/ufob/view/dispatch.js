@@ -1,11 +1,11 @@
 //@flow
 
-import type { Id } from '../../metamodel/general';
-import * as ufobDB from '../../db/ufob';
-import type { VisModel } from '../rendering';
+import type { Id } from '../../metamodel';
+import * as ufobDB from '../db';
+import type { VisModel } from '../../rendering';
 import * as situationDialog from './dialogs/situationDialog';
 import * as eventDialog from './dialogs/eventDialog';
-import * as panels from '../panels';
+import * as panels from '../../panels';
 
 function dispatchNode(nodeId: Id, ufobVisModel: VisModel) {
   let node = ufobVisModel.nodes.get(nodeId);

@@ -1,12 +1,11 @@
 // @flow
 
-import * as R from 'ramda';
-import type { Id } from '../metamodel/general';
-import type { Situation, EventB, UfobModel } from '../metamodel/ufob';
-import * as ufobMeta from '../metamodel/ufob';
+import type { Id } from '../metamodel';
+import type { Situation, EventB, UfobModel } from './metamodel';
+import * as ufobMeta from './metamodel';
 import * as urls from "../urls";
-import * as ufobModel from '../model/ufob';
-import { getData, postData } from './general';
+import * as ufobModel from './model';
+import { getData, postData } from '../db';
 
 // Model {{{1
 

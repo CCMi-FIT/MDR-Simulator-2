@@ -1,11 +1,10 @@
 //@flow
 
 import * as vis from 'vis';
-import type { Id } from '../../../metamodel/general';
-import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../../../metamodel/ufoa";
-import type { VisId, VisLabel, VisColor, VisNode, VisEdge, VisModel } from '../../rendering';
-import * as ufoaMeta from "../../../metamodel/ufoa";
-import * as ufoaDB from "../../../db/ufoa";
+import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../../metamodel";
+import type { VisNode, VisEdge, VisModel } from '../../../rendering';
+import * as ufoaMeta from "../../metamodel";
+import * as ufoaDB from "../../db";
 import * as newEdgeDialog from "../dialogs/newEdgeDialog";
 import * as entityDialog from "../dialogs/entityDialog";
 import * as generalisationDialog from "../dialogs/generalisationDialog";

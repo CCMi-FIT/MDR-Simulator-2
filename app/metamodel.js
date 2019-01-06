@@ -1,1 +1,1 @@
-../shared/general/metamodel.js
+../shared/metamodel.js

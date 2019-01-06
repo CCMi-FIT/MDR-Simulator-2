@@ -2,10 +2,10 @@
 
 import * as db from '../db';
 import type { Id } from '../metamodel';
-import type { UfoaModel } from '../metamodel/ufoa';
-import * as ufoaMeta from '../metamodel/ufoa';
-import * as ufoaModel from '../model/ufoa';
-import * as ufobDB from './ufob';
+import type { UfoaModel } from '../ufoa/metamodel';
+import * as ufoaMeta from '../ufoa/metamodel';
+import * as ufoaModel from '../ufoa/model';
+import * as ufobDB from '../ufob/db';
 import { error } from '../logging';
 
 const ufoaFname = "../data/ufoa.json";

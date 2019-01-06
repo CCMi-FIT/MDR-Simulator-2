@@ -6,11 +6,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Association } from '../../../metamodel/ufoa';
-import * as ufoaMeta from '../../../metamodel/ufoa';
-import * as ufoaDB from '../../../db/ufoa';
-import type { VisModel } from '../../rendering';
-import * as panels from '../../panels';
+import type { Association } from '../../../ufoa/metamodel';
+import * as ufoaMeta from '../../../ufoa/metamodel';
+import * as ufoaDB from '../../../ufoa/db';
+import type { VisModel } from '../../../rendering';
+import * as panels from '../../../panels';
 
 // Props & State {{{1
 type Props = {

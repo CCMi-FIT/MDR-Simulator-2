@@ -5,14 +5,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
-import type { Situation, Disposition } from '../../../metamodel/ufob';
-import type { Id } from '../../../metamodel/general.js';
-import * as ufobMeta from '../../../metamodel/ufob';
-import * as ufobModel from '../../../model/ufob';
-import * as ufobDB from '../../../db/ufob';
-import type { VisModel } from '../../rendering';
+import type { Situation, Disposition } from '../../metamodel';
+import type { Id } from '../../../metamodel.js';
+import * as ufobMeta from '../../metamodel';
+import * as ufobModel from '../../model';
+import * as ufobDB from '../../db';
+import type { VisModel } from '../../../rendering';
 import * as rendering from '../canvas/rendering';
-import * as panels from '../../panels';
+import * as panels from '../../../panels';
 import * as dispositionModal from './dispositionModal';
 
 type Props = {

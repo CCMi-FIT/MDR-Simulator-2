@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import type { Id } from '../../../metamodel/general';
+import type { Id } from '../../../metamodel';
 import { Modal,  Button } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import * as ufobDB from '../../../db/ufob';
-import * as panels from '../../panels';
+import * as ufobDB from '../../db';
+import * as panels from '../../../panels';
 
 type Props = {
   nodeData: any,
