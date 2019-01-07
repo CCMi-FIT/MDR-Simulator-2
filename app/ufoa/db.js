@@ -3,7 +3,7 @@
 import type { Id } from '../metamodel';
 import type { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from './metamodel';
 import * as ufoaMeta from './metamodel';
-import * as urls from "../urls";
+import * as urls from "./urls";
 import * as ufoaModel from './model';
 import * as ufobDB from '../ufob/db';
 import { getData, postData } from '../db';
@@ -14,7 +14,7 @@ var model: UfoaModel = ufoaMeta.emptyModel;
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
-    getData(urls.baseURL + urls.ufoaGetModel).then(
+    getData(urls.clientURL(urls.ufoaGetModel)).then(
       data => {
         model = data;
         resolve(data);
@@ -24,11 +24,11 @@ export function loadModel(): Promise<any> {
 }
 
 export function loadGraphics(): Promise<any> {
-  return getData(urls.baseURL + urls.ufoaGetGraphics);
+  return getData(urls.clientURL(urls.ufoaGetGraphics));
 }
 
 export function saveGraphics(graphics: any): Promise<any> {
-  return postData(urls.baseURL + urls.ufoaGraphicsSave, { graphics: JSON.stringify(graphics) });
+  return postData(urls.clientURL(urls.ufoaGraphicsSave), { graphics: JSON.stringify(graphics) });
 }
 
 // Entities
@@ -51,7 +51,7 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
     if (validity.errors) {
       reject("Entity update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufoaEntityUpdate, { entity: JSON.stringify(updatedEntity) }).then(
+      postData(urls.clientURL(urls.ufoaEntityUpdate), { entity: JSON.stringify(updatedEntity) }).then(
         ()    => resolve(),
         error => reject(error)
       );
@@ -61,7 +61,7 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
 
 export function deleteEntity(e_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
-    postData(urls.baseURL + urls.ufoaEntityDelete, { e_id }).then(
+    postData(urls.clientURL(urls.ufoaEntityDelete), { e_id }).then(
       () => {
         model = ufoaModel.deleteEntity(model, e_id);
         ufobDB.entityDeletionHook(e_id);
@@ -96,7 +96,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
     if (validity.errors) {
       console.error("Generalisation update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufoaGeneralisationUpdate, { generalisation: JSON.stringify(updatedGeneralisation) }).then(
+      postData(urls.clientURL(urls.ufoaGeneralisationUpdate), { generalisation: JSON.stringify(updatedGeneralisation) }).then(
         ()    => resolve(),
         error => reject(error)
       );
@@ -107,7 +107,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
 export function deleteGeneralisation(g_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteGeneralisation(model, g_id);
-    postData(urls.baseURL + urls.ufoaGeneralisationDelete, { g_id }).then(
+    postData(urls.clientURL(urls.ufoaGeneralisationDelete), { g_id }).then(
       ()    => resolve(),
       error => reject(error)
     );
@@ -138,7 +138,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
     if (validity.errors) {
       console.error("Association update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufoaAssociationUpdate, { association: JSON.stringify(updatedAssociation) }).then(
+      postData(urls.clientURL(urls.ufoaAssociationUpdate), { association: JSON.stringify(updatedAssociation) }).then(
         ()    => resolve(),
         error => reject(error)
       );
@@ -149,7 +149,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
 export function deleteAssociation(a_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteAssociation(model, a_id);
-    postData(urls.baseURL + urls.ufoaAssociationDelete, { a_id }).then(
+    postData(urls.clientURL(urls.ufoaAssociationDelete), { a_id }).then(
       ()    => resolve(),
       error => reject(error)
     );

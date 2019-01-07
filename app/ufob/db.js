@@ -3,7 +3,7 @@
 import type { Id } from '../metamodel';
 import type { Situation, EventB, UfobModel } from './metamodel';
 import * as ufobMeta from './metamodel';
-import * as urls from "../urls";
+import * as urls from "./urls";
 import * as ufobModel from './model';
 import { getData, postData } from '../db';
 
@@ -13,7 +13,7 @@ var model: UfobModel = ufobMeta.emptyModel;
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
-    getData(urls.baseURL + urls.ufobGetModel).then(data => {
+    getData(urls.clientURL(urls.ufobGetModel)).then(data => {
       model = data;
       resolve(data);
     }, (error) => reject(error));
@@ -21,11 +21,11 @@ export function loadModel(): Promise<any> {
 }
 
 export function loadGraphics(): Promise<any> {
-  return getData(urls.baseURL + urls.ufobGetGraphics);
+  return getData(urls.clientURL(urls.ufobGetGraphics));
 }
 
 export function saveGraphics(graphics: any): Promise<any> {
-  return postData(urls.baseURL + urls.ufobGraphicsSave, { graphics: JSON.stringify(graphics) });
+  return postData(urls.clientURL(urls.ufobGraphicsSave), { graphics: JSON.stringify(graphics) });
 }
 
 // Events {{{1
@@ -52,7 +52,7 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
     if (validity.errors) {
       reject("Event update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufobEventUpdate, { event: JSON.stringify(updatedEvent)}).then(
+      postData(urls.clientURL(urls.ufobEventUpdate), { event: JSON.stringify(updatedEvent)}).then(
         result => resolve(result),
         error => reject(error)
       );
@@ -63,7 +63,7 @@ export function updateEvent(updatedEvent: EventB): Promise<any> {
 export function deleteEvent(ev_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteEvent(model, ev_id);
-    postData(urls.baseURL + urls.ufobEventDelete, { ev_id }).then(
+    postData(urls.clientURL(urls.ufobEventDelete), { ev_id }).then(
       result => resolve(result),
       error => reject(error)
     );
@@ -90,7 +90,7 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
     if (validity.errors) {
       reject("Situation update failed: " + validity.errors);
     } else {
-      postData(urls.baseURL + urls.ufobSituationUpdate, { situation: JSON.stringify(updatedSituation)}).then(
+      postData(urls.clientURL(urls.ufobSituationUpdate), { situation: JSON.stringify(updatedSituation)}).then(
         result => resolve(result),
         error => reject(error)
       );
@@ -101,7 +101,7 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
 export function deleteSituation(s_id: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufobModel.deleteSituation(model, s_id);
-    postData(urls.baseURL + urls.ufobSituationDelete, { s_id }).then(
+    postData(urls.clientURL(urls.ufobSituationDelete), { s_id }).then(
       result => resolve(result),
       error => reject(error)
     );
