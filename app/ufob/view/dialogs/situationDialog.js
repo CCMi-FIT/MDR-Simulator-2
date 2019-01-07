@@ -10,8 +10,8 @@ import type { Id } from '../../../metamodel.js';
 import * as ufobMeta from '../../metamodel';
 import * as ufobModel from '../../model';
 import * as ufobDB from '../../db';
-import type { VisModel } from '../../../rendering';
-import * as rendering from '../canvas/rendering';
+import type { VisModel } from '../../../diagram';
+import * as diagram from '../diagram';
 import * as panels from '../../../panels';
 import * as dispositionModal from './dispositionModal';
 
@@ -48,7 +48,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
       edges.remove(edgesIds);
       this.state.situation2.s_dispositions.forEach(d => {
         d.d_events_ids.forEach(evId => {
-          const newEdge = rendering.mkEdge(sId, evId, d.d_text);
+          const newEdge = diagram.mkEdge(sId, evId, d.d_text);
           edges.add(newEdge);
         });
       });

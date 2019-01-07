@@ -2,15 +2,15 @@
 
 import * as R from 'ramda';
 import * as vis from 'vis';
-import type { Id } from '../../../metamodel';
-import type { EventB, Situation, Disposition, UfobModel } from "../../metamodel";
-import type { VisNode, VisEdge, VisModel } from '../../../rendering';
-import * as rendering from '../../../rendering';
-import * as ufobModel from "../../model";
-import * as ufobDB from "../../db";
-import * as newNodeDialog from "../dialogs/newNodeDialog";
-import * as situationDialog from '../dialogs/situationDialog';
-import * as eventDialog from '../dialogs/eventDialog';
+import type { Id } from '../../metamodel';
+import type { EventB, Situation, Disposition, UfobModel } from "../metamodel";
+import type { VisNode, VisEdge, VisModel } from '../../diagram';
+import * as diagram from '../../diagram';
+import * as ufobModel from "../model";
+import * as ufobDB from "../db";
+import * as newNodeDialog from "./dialogs/newNodeDialog";
+import * as situationDialog from './dialogs/situationDialog';
+import * as eventDialog from './dialogs/eventDialog';
 
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
@@ -40,7 +40,7 @@ function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, ev_id: 
     return mkEdge(s.s_id, ev.ev_id, d.d_text);
   } else {
     console.error(`Model consistency error: event ${ev_id} not found`);
-    return rendering.emptyVisEdge;
+    return diagram.emptyVisEdge;
   }
 }
 

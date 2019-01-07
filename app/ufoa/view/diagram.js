@@ -1,14 +1,14 @@
 //@flow
 
 import * as vis from 'vis';
-import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../../metamodel";
-import type { VisNode, VisEdge, VisModel } from '../../../rendering';
-import * as ufoaMeta from "../../metamodel";
-import * as ufoaDB from "../../db";
-import * as newEdgeDialog from "../dialogs/newEdgeDialog";
-import * as entityDialog from "../dialogs/entityDialog";
-import * as generalisationDialog from "../dialogs/generalisationDialog";
-import * as associationDialog from "../dialogs/associationDialog";
+import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
+import type { VisNode, VisEdge, VisModel } from '../../diagram';
+import * as ufoaMeta from "../metamodel";
+import * as ufoaDB from "../db";
+import * as newEdgeDialog from "./dialogs/newEdgeDialog";
+import * as entityDialog from "./dialogs/entityDialog";
+import * as generalisationDialog from "./dialogs/generalisationDialog";
+import * as associationDialog from "./dialogs/associationDialog";
 
 function entity2vis(e: UfoaEntity, coords: any): VisNode {
   return Object.assign({

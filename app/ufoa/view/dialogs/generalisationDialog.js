@@ -9,7 +9,7 @@ import { Confirm } from 'react-confirm-bootstrap';
 import type { Generalisation } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
 import * as ufoaDB from '../../db';
-import type { VisModel } from '../../../rendering';
+import type { VisModel } from '../../../diagram';
 import * as panels from '../../../panels';
 
 type Props = {

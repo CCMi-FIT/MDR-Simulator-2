@@ -1,7 +1,7 @@
 // @flow
 
-import * as ra from "./ufoa/view/canvas/rendering";
-import * as rb from "./ufob/view/canvas/rendering";
+import * as ufoaDiagram from "./ufoa/view/diagram";
+import * as ufobDiagram from "./ufob/view/diagram";
 import * as dispatchA from "./ufoa/view/dispatch";
 import * as dispatchB from "./ufob/view/dispatch";
 import * as panels from "./panels";
@@ -26,10 +26,10 @@ $(document).ready(function() {
       //([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics, scenarios]) => {
       ([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics]) => {
         panels.hideMsg();
-        let ufoaVisModel = ra.model2vis(ufoaModel, ufoaEntityGraphics);
-        let ufoaNetwork  = ra.renderUfoa(ufoaVisModel);
-        let ufobVisModel = rb.model2vis(ufobModel, ufobGraphics);
-        let ufobNetwork  = rb.renderUfob(ufobVisModel);
+        let ufoaVisModel = ufoaDiagram.model2vis(ufoaModel, ufoaEntityGraphics);
+        let ufoaNetwork  = ufoaDiagram.renderUfoa(ufoaVisModel);
+        let ufobVisModel = ufobDiagram.model2vis(ufobModel, ufobGraphics);
+        let ufobNetwork  = ufobDiagram.renderUfob(ufobVisModel);
         ufoaNetwork.on("click", params => dispatchA.handleClick(ufoaVisModel, params));
         ufobNetwork.on("click", params => dispatchB.handleClick(ufobVisModel, params));
         networkToolbar.render("ufoa-float-toolbar", ufoaModel.entities, "e_name", "e_id", ufoaDB, ufoaNetwork);

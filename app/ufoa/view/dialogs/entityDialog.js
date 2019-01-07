@@ -9,8 +9,8 @@ import { Confirm } from 'react-confirm-bootstrap';
 import type { UfoaEntity, Association, Connection } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
 import * as ufoaDB from '../../db';
-import type { VisModel } from '../../../rendering';
-import * as rendering from '../../../rendering';
+import type { VisModel } from '../../../diagram';
+import * as diagram from '../../../diagram';
 import * as panels from '../../../panels';
 import * as associationDialog from "./associationDialog";
 
@@ -158,13 +158,13 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         <div className="row clickable" style={{marginBottom: "15px"}} key={assoc.a_id}
           onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
           <div className="col-xs-4 nopadding">
-            {e1 ? rendering.renderEntity(e1) : ""}
+            {e1 ? diagram.renderEntity(e1) : ""}
           </div>
           <div className="col-xs-4 nopadding">
             {this.renderAssocDetails(assoc, c1, c2)}
           </div>
           <div className="col-xs-4 nopadding">
-            {e2 ? rendering.renderEntity(e2) : ""}
+            {e2 ? diagram.renderEntity(e2) : ""}
           </div>
         </div>
       );

@@ -2,7 +2,7 @@
 
 import type { Id } from '../../metamodel';
 import * as ufobDB from '../db';
-import type { VisModel } from '../../rendering';
+import type { VisModel } from '../../diagram';
 import * as situationDialog from './dialogs/situationDialog';
 import * as eventDialog from './dialogs/eventDialog';
 import * as panels from '../../panels';

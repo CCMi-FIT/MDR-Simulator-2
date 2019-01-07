@@ -9,7 +9,7 @@ import { Confirm } from 'react-confirm-bootstrap';
 import type { Association } from '../../../ufoa/metamodel';
 import * as ufoaMeta from '../../../ufoa/metamodel';
 import * as ufoaDB from '../../../ufoa/db';
-import type { VisModel } from '../../../rendering';
+import type { VisModel } from '../../../diagram';
 import * as panels from '../../../panels';
 
 // Props & State {{{1

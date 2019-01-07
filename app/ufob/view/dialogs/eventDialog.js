@@ -12,9 +12,9 @@ import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../metamode
 import * as ufobMeta from '../../metamodel';
 import * as ufoaDB from '../../../ufoa/db';
 import * as ufobDB from '../../db';
-import type { VisModel } from '../../../rendering';
-import * as rendering from '../../../rendering';
-import * as canvasRendering from '../canvas/rendering';
+import type { VisModel } from '../../../diagram';
+import * as diagram from '../../../diagram';
+import * as ufobDiagram from '../diagram';
 import * as panels from '../../../panels';
 
 // Props & State {{{1
@@ -83,7 +83,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       nodes.update({ id: ev.ev_id, label: ev.ev_name });
       const edgesIds = edges.get().filter(e => e.from === ev.ev_id).map(e => e.id); //Effectively, there should be just one edge
       edges.remove(edgesIds);
-      edges.add(canvasRendering.mkEdge(ev.ev_id, ev.ev_to_situation_id));
+      edges.add(ufobDiagram.mkEdge(ev.ev_id, ev.ev_to_situation_id));
       panels.hideDialog();
       panels.displayInfo("Event saved.");
     }, (error) => panels.displayError("Event save failed: " + error));
@@ -131,7 +131,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       </div>);
   }
 
-  // Operations rendering {{{2
+  // Operations Rendering {{{2
   renderAddOperation = (op: AddEntityInstOp) => {
     const entity: ?UfoaEntity = ufoaDB.getEntity(op.opa_e_id);
     if (!entity) {
@@ -143,7 +143,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
           <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
         </div>
         <div className="col-xs-6">
-          {entity ? rendering.renderEntity(entity) : "This entity does not exist: this should not happen..."}
+          {entity ? diagram.renderEntity(entity) : "This entity does not exist: this should not happen..."}
         </div>
         <div className="col-xs-3" style={{paddingTop: "10px"}}>
           {op.opa_ei_is_default ? 
@@ -180,7 +180,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
           <i className="glyphicon glyphicon-minus text-danger" style={{fontSize: "20px"}}/>
         </div>
         <div className="col-xs-6">
-          {entity ? rendering.renderEntity(entity) : "This entity does not exist, this should not happen..."}
+          {entity ? diagram.renderEntity(entity) : "This entity does not exist, this should not happen..."}
         </div>
         <div className="col-xs-3">
         </div>
