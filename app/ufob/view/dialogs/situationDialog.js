@@ -114,7 +114,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
   }
 
   renderEvent = (ev_id: Id) => {
-    const ev = ufobDB.getEventById(ev_id);
+    const ev = ufobDB.getUfobEventyId(ev_id);
     return (
       <div key={ev_id}>
         <i className="glyphicon glyphicon-arrow-right"></i>

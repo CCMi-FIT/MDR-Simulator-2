@@ -30,7 +30,7 @@ export function validateSituation(situation: Situation): ValidationResult {
 
 // Event {{{1
 
-export type EventB = {
+export type UfobEvent = {
   ev_id: Id,
   ev_name: string,
   ev_add_ops: Array<AddEntityInstOp>,
@@ -38,7 +38,7 @@ export type EventB = {
   ev_to_situation_id: Id
 };
 
-export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): EventB {
+export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): UfobEvent {
   return ({
     ev_id,
     ev_name,
@@ -49,7 +49,7 @@ export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): Ev
 }
 
 
-export function validateEvent(event: EventB): ValidationResult {
+export function validateEvent(event: UfobEvent): ValidationResult {
   return validateElement(ajv, event, "ufob-meta#/definitions/event"); 
 }
 
@@ -86,7 +86,7 @@ export type OperationType = $Keys<typeof operationTypes>;
 // Model {{{1
 
 export type UfobModel = {
-  events: Array<EventB>,
+  events: Array<UfobEvent>,
   situations: Array<Situation>
 };
 

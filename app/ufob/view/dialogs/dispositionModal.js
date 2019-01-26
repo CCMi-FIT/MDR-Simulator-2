@@ -103,7 +103,7 @@ class DispositionForm extends React.Component<Props, State> {
   }
 
   renderEvent = (ev_id: Id) => {
-    const ev = ufobDB.getEventById(ev_id);
+    const ev = ufobDB.getUfobEventyId(ev_id);
     return (
       <div key={ev_id} className="badge-item">
         <span className="badge badge-info">{ev ? ev.ev_name : ""}

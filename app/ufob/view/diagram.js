@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import * as vis from 'vis';
 import type { Id } from '../../metamodel';
-import type { EventB, Situation, Disposition, UfobModel } from "../metamodel";
+import type { UfobEvent, Situation, Disposition, UfobModel } from "../metamodel";
 import type { VisNode, VisEdge, VisModel } from '../../diagram';
 import * as diagram from '../../diagram';
 import * as ufobModel from "../model";
@@ -21,7 +21,7 @@ function situation2vis(s: Situation, coords: any): VisNode {
   }, coords);
 }
 
-function event2vis(ev: EventB, coords: any): VisNode {
+function event2vis(ev: UfobEvent, coords: any): VisNode {
   return Object.assign({
     id: ev.ev_id,
     type: "event",
@@ -35,7 +35,7 @@ export function mkEdge(from: Id, to: Id, label: string = "") {
 }
 
 function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, ev_id: Id): VisEdge {
-  const ev = ufobModel.getEventById(m, ev_id);
+  const ev = ufobModel.getUfobEventyId(m, ev_id);
   if (ev) {
     return mkEdge(s.s_id, ev.ev_id, d.d_text);
   } else {
@@ -68,7 +68,7 @@ function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) 
       });
       situationDialog.render(newS, ufobVisModel);
     } else if (res.selection === "event") {
-      let newEv: EventB = ufobDB.newEvent("New event", res.ev_to_situation_id);
+      let newEv: UfobEvent = ufobDB.newEvent("New event", res.ev_to_situation_id);
       callback(event2vis(newEv));
       visNetwork.fit({ 
         nodes: [newEv.ev_id],
@@ -82,8 +82,7 @@ function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) 
 
 }
 
-export function renderUfob(ufobVisModel: VisModel): any {
-  const container = document.getElementById("ufob-box");
+export function renderUfob(ufobVisModel: VisModel, container: Element): any {
   let visNetwork;
   const options = {
     edges: {
@@ -117,11 +116,6 @@ export function renderUfob(ufobVisModel: VisModel): any {
     }
   };
   
-  if (container == null) {
-    console.log("#ufob-box missing");
-    return null;
-  } else {
-    visNetwork = new vis.Network(container, ufobVisModel, options);
-    return visNetwork;
-  }
+  visNetwork = new vis.Network(container, ufobVisModel, options);
+  return visNetwork;
 }

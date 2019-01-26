@@ -1,12 +1,21 @@
 // @flow
 
-import type { Id } from './general';
+import type { Id } from '../metamodel';
 
 export type EntityInst = {
-  ei_id: Id,
   ei_e_id: Id,
-  ei_label: string
+  ei_name: string
 };
+
+export function eiId(ei: EntityInst): string {
+  return ei.ei_e_id + '_' + ei.ei_name;
+}
+
+export function eiLabel(ei: EntityInst, ufoaDB: any): string {
+  const entity = ufoaDB.getEntity(ei.ei_e_id);
+  const eName = entity ? entity.e_name : '';
+  return ei.ei_name + ' :' + eName;
+}
 
 export type GeneralisationInst = {
   gi_id: Id,

@@ -23,16 +23,19 @@ type State = {
 };
 
 function commitGeneralisation(edges: any, g: Generalisation) {
-  ufoaDB.updateGeneralisation(g).then((response) => {
-    edges.update({ 
-      id: g.g_id,
-      label: g.g_set.g_set_id,
-      from: g.g_sup_e_id,
-      to: g.g_sub_e_id,
-    });
-    panels.hideDialog();
-    panels.displayInfo("Generalisation saved.");
-  }, (error) => panels.displayError("Generalisation save failed: " + error));
+  ufoaDB.updateGeneralisation(g).then(
+    () => {
+      edges.update({ 
+        id: g.g_id,
+        label: g.g_set.g_set_id,
+        from: g.g_sup_e_id,
+        to: g.g_sub_e_id,
+      });
+      panels.hideDialog();
+      panels.displayInfo("Generalisation saved.");
+    },
+    error => panels.displayError("Generalisation save failed: " + error)
+  );
 }
   
 class GeneralisationsForm extends panels.PaneDialog<Props, State> {
@@ -88,7 +91,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     });
   }
 
-  save = (event) => {
+  save = () => {
     let gOriginal = this.props.generalisation;
     let gNew = this.state.generalisation2;
     let edges: any = this.props.visModel.edges;
@@ -97,14 +100,17 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     }
   };
   
-  delete = (event) => {
+  delete = () => {
     let edges: any = this.props.visModel.edges;
     let g_id = this.props.generalisation.g_id;
-    ufoaDB.deleteGeneralisation(g_id).then((response) => {
-      edges.remove({ id: g_id });
-      panels.hideDialog();
-      panels.displayInfo("Generalisation deleted.");
-    }, (error) => panels.displayError("Generalisation delete failed: " + error));
+    ufoaDB.deleteGeneralisation(g_id).then(
+      () => {
+        edges.remove({ id: g_id });
+        panels.hideDialog();
+        panels.displayInfo("Generalisation deleted.");
+      },
+      error => panels.displayError("Generalisation delete failed: " + error)
+    );
   }
 
   renderGSet() {

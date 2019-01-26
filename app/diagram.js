@@ -11,7 +11,7 @@ export type VisColor = string;
 export type VisNode = { 
   id: VisId,
   label: VisLabel,
-  color: VisColor,
+  color?: VisColor,
   x?: number,
   y?: number
 };

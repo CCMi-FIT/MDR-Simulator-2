@@ -131,7 +131,28 @@
     {
       "ev_id": "e18",
       "ev_name": "Collection Request",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e100",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e90",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e97",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e93",
+          "opa_ei_is_default": true 
+        },
+        {
+          "opa_e_id": "e109",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17"
     },

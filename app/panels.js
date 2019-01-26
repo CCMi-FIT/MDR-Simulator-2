@@ -6,6 +6,8 @@ import * as ReactDOM from 'react-dom';
 const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
 const simulationBoxId = "simulation-box";
+const simulationDiagramBoxId = "simulation-diagram";
+const ufoaInstDiagramBoxId = "ufoa-inst-diagram";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal-box";
@@ -29,6 +31,8 @@ export function fitPanes() {
   $("#ufoa-inst-box").height(h);
   $(`#${ufoaBoxId}`).height(h);
   $(`#${ufobBoxId}`).height(h);
+  $(`#${simulationDiagramBoxId}`).height(h);
+  $(`#${ufoaInstDiagramBoxId}`).height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
@@ -75,7 +79,7 @@ export function getToolbarTop(): number {
 function showPanel(panelId: string): void {
   let panel = getPanel(panelId);
   if (panel) {
-    $(panel).show();
+    $(panel).fadeIn();
   }
 }
 
@@ -93,7 +97,7 @@ function hidePanel(panelId: string): void {
   let panel = getPanel(panelId);
   if (panel) {
     ReactDOM.unmountComponentAtNode(panel);
-    $(panel).hide();
+    $(panel).fadeOut();
   }
 }
 

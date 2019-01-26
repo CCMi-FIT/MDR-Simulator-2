@@ -3,28 +3,28 @@
 import * as R from 'ramda';
 import type { Id, ValidationResult } from '../metamodel';
 import { getLastIdNo, validationResultOK } from '../metamodel';
-import type { EventB, Situation, Disposition, UfobModel } from './metamodel';
+import type { UfobEvent, Situation, Disposition, UfobModel } from './metamodel';
 import * as ufobMeta from "./metamodel";
 
 // Event {{{1
 
-export function getEventById(model: UfobModel, ev_id: Id): ?EventB {
+export function getUfobEventyId(model: UfobModel, ev_id: Id): ?UfobEvent {
   return model.events.find(ev => ev.ev_id === ev_id);
 }
 
-export function newEvent(model: UfobModel, ev_name: string, s_id: Id): EventB {
+export function newEvent(model: UfobModel, ev_name: string, s_id: Id): UfobEvent {
   const lastIdNo = getLastIdNo(model.events.map((ev) => ev.ev_id));
   const newEvent = ufobMeta.newEvent(`ev${lastIdNo+1}`, "New Event", s_id);
   model.events.push(newEvent);
   return newEvent;
 }
 
-export function updateEvent(model: UfobModel, updatedEvent: EventB): ValidationResult {
+export function updateEvent(model: UfobModel, updatedEvent: UfobEvent): ValidationResult {
   const validity = ufobMeta.validateEvent(updatedEvent);
   if (validity.errors) {
     return validity;
   } else { 
-    let event = getEventById(model, updatedEvent.ev_id);
+    let event = getUfobEventyId(model, updatedEvent.ev_id);
     if (event) {
       Object.assign(event, updatedEvent); // mutated existing event in the model
     } else {

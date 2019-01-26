@@ -1,7 +1,7 @@
 // @flow
 
 import type { Id } from '../metamodel';
-import type { Situation, EventB, UfobModel } from './metamodel';
+import type { Situation, UfobEvent, UfobModel } from './metamodel';
 import * as ufobMeta from './metamodel';
 import * as urls from "./urls";
 import * as ufobModel from './model';
@@ -30,23 +30,23 @@ export function saveGraphics(graphics: any): Promise<any> {
 
 // Events {{{1
 
-export function getEvents(): Array<EventB> {
+export function getEvents(): Array<UfobEvent> {
   return model.events;
 }
 
-export function getEventById(ev_id: Id): ?EventB {
-  const res = ufobModel.getEventById(model, ev_id);
+export function getUfobEventyId(ev_id: Id): ?UfobEvent {
+  const res = ufobModel.getUfobEventyId(model, ev_id);
   if (!res) {
     console.error(`UFO-B database inconsistency: ev_id ${ev_id} not found.`);
   }
   return res; 
 }
 
-export function newEvent(ev_name: string, s_id: Id): EventB {
+export function newEvent(ev_name: string, s_id: Id): UfobEvent {
   return ufobModel.newEvent(model, ev_name, s_id);
 }
 
-export function updateEvent(updatedEvent: EventB): Promise<any> {
+export function updateEvent(updatedEvent: UfobEvent): Promise<any> {
   return new Promise((resolve, reject) => {
     let validity = ufobModel.updateEvent(model, updatedEvent);
     if (validity.errors) {

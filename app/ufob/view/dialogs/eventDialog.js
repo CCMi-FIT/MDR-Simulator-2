@@ -8,7 +8,7 @@ import { Panel, Button } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
-import type { EventB, AddEntityInstOp, RemoveEntityInstOp } from '../../metamodel';
+import type { UfobEvent, AddEntityInstOp, RemoveEntityInstOp } from '../../metamodel';
 import * as ufobMeta from '../../metamodel';
 import * as ufoaDB from '../../../ufoa/db';
 import * as ufobDB from '../../db';
@@ -19,12 +19,12 @@ import * as panels from '../../../panels';
 
 // Props & State {{{1
 type Props = {
-  eventB: EventB,
+  eventB: UfobEvent,
   ufobVisModel: VisModel
 };
 
 type State = {
-  eventB2: EventB,
+  eventB2: UfobEvent,
   newOpEntity: ?UfoaEntity,
   saveDisabled: boolean
 };
@@ -341,7 +341,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
 ///}}}1
 
-export function render(eventB: EventB, ufobVisModel: VisModel) {
+export function render(eventB: UfobEvent, ufobVisModel: VisModel) {
   let panel = panels.getDialog();
   if (panel) {
     ReactDOM.render(<EventForm eventB={eventB} ufobVisModel={ufobVisModel}/>, panel);
