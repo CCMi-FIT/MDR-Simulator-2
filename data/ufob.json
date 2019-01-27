@@ -11,6 +11,30 @@
         {
           "opa_e_id": "e1",
           "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e27",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e28",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e76",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e70",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e77",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e68",
+          "opa_ei_is_default": true
         }
       ],
       "ev_remove_ops": [
@@ -146,7 +170,7 @@
         },
         {
           "opa_e_id": "e93",
-          "opa_ei_is_default": true 
+          "opa_ei_is_default": true
         },
         {
           "opa_e_id": "e109",

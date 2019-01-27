@@ -120,6 +120,10 @@ export function deleteGeneralisation(g_id: Id): Promise<any> {
 
 // Associations {{{1
 
+export function getAssociations(): Array<Association> {
+  return model.associations;
+}
+
 export function newAssociation(e_id_1: Id, e_id_2: Id): Association {
   return ufoaModel.newAssociation(model, e_id_1, e_id_2);
 }

@@ -81,18 +81,25 @@ function addGeneralisations(ufoaInstVisModel: VisModel) {
       const supInst = getEntityInst(g.g_sup_e_id);
       const subInst = getEntityInst(g.g_sub_e_id);
       if (supInst && subInst) {
-        const gInst = ufoaDiagram.generalisation2vis(g);
-        return edges.concat(R.dissoc('label',
-          R.mergeDeepRight(gInst, { 
-            from: ufoaInstMeta.eiId(supInst),
-            to: ufoaInstMeta.eiId(subInst) 
-          }))
-        );
+        return edges.concat(ufoaInstDiagram.gen2InstVis(g, supInst, subInst));
       } else {
         return edges;
       }
     }, []);
-  console.log(edges);
+  edges.map(edge => ufoaInstVisModel.edges.add(edge));
+}
+
+function addAssociations(ufoaInstVisModel: VisModel) {
+  const edges = ufoaDB.getAssociations().reduce(
+    (edges, a) => {
+      const e1Inst = getEntityInst(a.a_connection1.e_id);
+      const e2Inst = getEntityInst(a.a_connection2.e_id);
+      if (e1Inst && e2Inst) {
+        return edges.concat(ufoaInstDiagram.assoc2InstVis(a, e1Inst, e2Inst));
+      } else {
+        return edges;
+      }
+    }, []);
   edges.map(edge => ufoaInstVisModel.edges.add(edge));
 }
 
@@ -104,6 +111,7 @@ function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, 
       simState.sim_ufoaInsts = simState.sim_ufoaInsts.concat(newInsts);
       newInsts.map(ei => ufoaInstDiagram.addEntityInst(ufoaInstVisModel, ei));
       addGeneralisations(ufoaInstVisModel);
+      addAssociations(ufoaInstVisModel);
       ufoaInstNetwork.fit({ 
         nodes: newInsts.map(ei => ufoaInstMeta.eiId(ei)),
         animation: true
