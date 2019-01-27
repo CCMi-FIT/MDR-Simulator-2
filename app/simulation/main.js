@@ -1,11 +1,13 @@
 // @flow
 
+import * as R from 'ramda';
 import type { Id } from '../metamodel';
 import type { VisModel } from '../diagram';
 import * as ufobDiagram from "../ufob/view/diagram";
 import type { SimulationState } from './metamodel';
 import * as simMeta from './metamodel';
 import type { UfoaEntity } from '../ufoa/metamodel';
+import * as ufoaDiagram from '../ufoa/view/diagram';
 import type { UfobEvent, AddEntityInstOp } from '../ufob/metamodel';
 import type { EntityInst } from '../ufoa-inst/metamodel';
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
@@ -20,18 +22,18 @@ var simState: SimulationState = simMeta.initState;
 var simError: boolean = false;
 
 function checkSingleDefault(entity: UfoaEntity): boolean {
-  return true;
+  return !simState.sim_ufoaInsts.find(ei => ei.ei_e_id === entity.e_id);
 }
 
 function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<?EntityInst> {
   return (() => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
     if (!entity) {
-      return Promise.reject(`Entity with id=${op.opa_e_id} referenced from addEntityInst operation in event ${eventB.ev_id} does not exist`);
+      return Promise.reject(`Entity with id=${op.opa_e_id} referenced from addEntityInst operation in event ${eventB.ev_id} does not exist<br>`);
     } else {
       if (op.opa_ei_is_default) {
         if (!checkSingleDefault(entity)) {
-          return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}".<br>Please correct the Behaviour Model.`);
+          return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
         } else {
           return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
         }
@@ -69,15 +71,41 @@ function sequence(tasks: Array<() => Promise<any>>, parameters = [], context = n
   });
 }
 
+function getEntityInst(eId: Id): ?EntityInst {
+  return simState.sim_ufoaInsts.find(ei => ei.ei_e_id === eId);
+}
+
+function addGeneralisations(ufoaInstVisModel: VisModel) {
+  const edges = ufoaDB.getGeneralisations().reduce(
+    (edges, g) => {
+      const supInst = getEntityInst(g.g_sup_e_id);
+      const subInst = getEntityInst(g.g_sub_e_id);
+      if (supInst && subInst) {
+        const gInst = ufoaDiagram.generalisation2vis(g);
+        return edges.concat(R.dissoc('label',
+          R.mergeDeepRight(gInst, { 
+            from: ufoaInstMeta.eiId(supInst),
+            to: ufoaInstMeta.eiId(subInst) 
+          }))
+        );
+      } else {
+        return edges;
+      }
+    }, []);
+  console.log(edges);
+  edges.map(edge => ufoaInstVisModel.edges.add(edge));
+}
+
 function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
   const addOps = eventB.ev_add_ops;
   const newInstsPmFns = addOps.map(op => addOp2EntityInstPmFn(eventB, op));
   sequence(newInstsPmFns).then(
     newInsts => {
+      simState.sim_ufoaInsts = simState.sim_ufoaInsts.concat(newInsts);
       newInsts.map(ei => ufoaInstDiagram.addEntityInst(ufoaInstVisModel, ei));
-      const eiIds = newInsts.map(ei => ufoaInstMeta.eiId(ei));
+      addGeneralisations(ufoaInstVisModel);
       ufoaInstNetwork.fit({ 
-        nodes: eiIds,
+        nodes: newInsts.map(ei => ufoaInstMeta.eiId(ei)),
         animation: true
       });
     },
@@ -92,13 +120,19 @@ function processRemoveOperations(ufoaInstVisModel: VisModel, eventB: UfobEvent) 
   const removeOps = eventB.ev_remove_ops;
 }
 
-function doStep(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
+function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
+  ufobVisModel.nodes.update({ id: eventB.ev_id, color: "#e6de17" });
+  ufobVisModel.nodes.update({ id: eventB.ev_to_situation_id, color: "#e6de17" });
+}
+
+function doStep(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
   const eventB = ufobDB.getUfobEventyId(evId);
   if (!eventB) {
     console.error(`UFO-B model inconsistency: Event id=${evId} missing in DB, but present in the diagram`);
   } else {
     processRemoveOperations(ufoaInstVisModel, eventB);
     processAddOperations(ufoaInstVisModel, ufoaInstNetwork, eventB);
+    markVisited(ufobVisModel, eventB);
   }
 }
 
@@ -110,7 +144,7 @@ function dispatch(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNe
       if (simError) {
         panels.displayError("Simulation crashed, please restart it");
       } else {
-        doStep(ufoaInstVisModel, ufoaInstNetwork, nodeId);
+        doStep(ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, nodeId);
       }
     }
   }
@@ -126,6 +160,10 @@ export function initialise(ufobVisModel: any) {
       let simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
       simUfobNetwork.setOptions({ manipulation: false });
       simUfobNetwork.on("click", params => dispatch(ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, params));
+      simUfobNetwork.fit({ 
+        nodes: ["ev40"],
+        animation: false
+      });
     } else {
       console.error('#simulation-diagram missing in DOM');
     }

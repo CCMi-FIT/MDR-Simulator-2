@@ -10,7 +10,7 @@ import * as entityDialog from "./dialogs/entityDialog";
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
 
-function entity2vis(e: UfoaEntity, coords: any): VisNode {
+export function entity2vis(e: UfoaEntity, coords: any): VisNode {
   return Object.assign({
     id: e.e_id,
     label: ufoaMeta.entityStr(e),
@@ -18,7 +18,7 @@ function entity2vis(e: UfoaEntity, coords: any): VisNode {
   }, coords);
 }
 
-function generalisation2vis(g: Generalisation): VisEdge {
+export function generalisation2vis(g: Generalisation): VisEdge {
   return {
     id: g.g_id,
     type: "generalisation",
@@ -35,7 +35,7 @@ function generalisation2vis(g: Generalisation): VisEdge {
   };
 }
 
-function assoc2vis(a: Association) :VisEdge {
+export function assoc2vis(a: Association) :VisEdge {
   return {
     id: a.a_id,
     type: "association",

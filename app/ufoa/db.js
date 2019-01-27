@@ -10,7 +10,7 @@ import { getData, postData } from '../db';
 
 var model: UfoaModel = ufoaMeta.emptyModel;
 
-// Model
+// Model {{{1
 
 export function loadModel(): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ export function saveGraphics(graphics: any): Promise<any> {
   return postData(urls.clientURL(urls.ufoaGraphicsSave), { graphics: JSON.stringify(graphics) });
 }
 
-// Entities
+// Entities {{{1
 
 export function newEntity(): UfoaEntity {
   return ufoaModel.newEntity(model);
@@ -72,7 +72,11 @@ export function deleteEntity(e_id: Id): Promise<any> {
   });
 }
 
-// Generalisations
+// Generalisations {{{1
+
+export function getGeneralisations(): Array<Generalisation> {
+  return model.generalisations;
+}
 
 export function newGeneralisation(g_sup_e_id: Id, g_sub_e_id: Id): Generalisation {
   return ufoaModel.newGeneralisation(model, g_sup_e_id, g_sub_e_id);
@@ -114,7 +118,7 @@ export function deleteGeneralisation(g_id: Id): Promise<any> {
   });
 }
 
-// Associations
+// Associations {{{1
 
 export function newAssociation(e_id_1: Id, e_id_2: Id): Association {
   return ufoaModel.newAssociation(model, e_id_1, e_id_2);
@@ -156,7 +160,7 @@ export function deleteAssociation(a_id: Id): Promise<any> {
   });
 }
 
-// Querying
+// Querying {{{1
 
 export function getAssocsOfEntity(e: UfoaEntity): Array<Association> {
   return ufoaModel.getAssocsOfEntity(model, e);

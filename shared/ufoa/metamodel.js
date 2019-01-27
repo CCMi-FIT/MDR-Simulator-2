@@ -9,7 +9,7 @@ var Ajv = require('ajv');
 var ajv = new Ajv();
 ajv.addSchema(ufoaSchema); 
 
-// Entity
+// Entity {{{1
 
 export type EntityType = "kind" | "subkind" | "role" | "phase" | "mode" | "relator" | "quantity" | "quality" | "collective"
 
@@ -54,7 +54,7 @@ export function validateEntity(entity: UfoaEntity): ValidationResult {
   return validateElement(ajv, entity, "ufoa-meta#/definitions/entity"); 
 }
 
-// Generalisation Set
+// Generalisation Set {{{1
 
 export type GenMeta = "" | "disjoint" | "complete" | "disjoint-complete";
 
@@ -75,7 +75,7 @@ export type GSet = {
 
 export const gSetAttrs: Array<string> = Object.keys(ufoaSchema.definitions.gset.properties);
 
-// Generalisation 
+// Generalisation {{{1
 
 export type Generalisation = {
   g_id: Id,
@@ -99,7 +99,7 @@ export function validateGeneralisation(generalisation: Generalisation): Validati
   return validateElement(ajv, generalisation, "ufoa-meta#/definitions/generalisation"); 
 }
 
-// Association
+// Association {{{1
 
 export type Lower = number
 export type Upper = number
@@ -161,7 +161,7 @@ export function validateAssociation(assoc: Association): ValidationResult {
   return validateElement(ajv, assoc, "ufoa-meta#/definitions/association"); 
 }
 
-// Model
+// Model {{{1
 
 export type UfoaModel = {
   entities: Array<UfoaEntity>,
