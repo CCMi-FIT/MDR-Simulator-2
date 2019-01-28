@@ -19,7 +19,7 @@ export function entity2vis(e: UfoaEntity, coords: any): VisNode {
 }
 
 export function generalisation2vis(g: Generalisation): VisEdge {
-  return {
+  return ({
     id: g.g_id,
     type: "generalisation",
     from: g.g_sup_e_id,
@@ -29,14 +29,11 @@ export function generalisation2vis(g: Generalisation): VisEdge {
     arrows: "from",
     width: 5,
     smooth: false
-    //smooth: {
-    //  type: "straightCross"
-    // }
-  };
+  });
 }
 
 export function assoc2vis(a: Association) :VisEdge {
-  return {
+  return ({
     id: a.a_id,
     type: "association",
     from: a.a_connection1.e_id,
@@ -51,10 +48,7 @@ export function assoc2vis(a: Association) :VisEdge {
     },
     width: 2,
     smooth: false
-    //smooth: {
-    //  type: "cubicBezier"
-    // }
-  };
+  });
 }
 
 export function model2vis(model: UfoaModel, graphics: any): VisModel {

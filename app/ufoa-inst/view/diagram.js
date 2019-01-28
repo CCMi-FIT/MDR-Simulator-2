@@ -42,24 +42,41 @@ export function addEntityInst(visModel: VisModel, ei: EntityInst) {
 
 // Generalisation Inst {{{1
 
-export function gen2InstVis(g: Generalisation, supInst: EntityInst, subInst: EntityInst): any {
-  const gInstEdge: VisEdge = ufoaDiagram.generalisation2vis(g);
-  return R.dissoc('label',
-    R.mergeDeepRight(gInstEdge, { 
-      from: ufoaInstMeta.eiId(supInst),
-      to: ufoaInstMeta.eiId(subInst) 
-    }));
+export function genInst2vis(gi: GeneralisationInst): VisEdge {
+  return ({
+    id: gi.gi_id,
+    type: "genInst",
+    from: gi.gi_sup_ei_id,
+    to: gi.gi_sub_ei_id,
+    arrows: "from",
+    width: 5,
+    smooth: false
+  });
 }
 
 // Association Inst {{{1
 
-export function assoc2InstVis(a: Association, e1Inst: EntityInst, e2Inst: EntityInst): any {
-  const aInstEdge: VisEdge = ufoaDiagram.assoc2vis(a);
-  return R.dissoc('label',
-    R.mergeDeepRight(aInstEdge, { 
-      from: ufoaInstMeta.eiId(e1Inst),
-      to: ufoaInstMeta.eiId(e2Inst) 
-    }));
+export function assocInst2vis(ai: AssocInst): ?VisEdge {
+  const a = ufoaDB.getAssociation(ai.ai_a_id);
+  if (a) {
+    return ({
+      id: ai.ai_id,
+      type: "assocInst",
+      from: ai.ai_ei1_id,
+      to: ai.ai_ei2_id,
+      arrows: {
+        from: {
+          enabled: a.a_type === "member of",
+          type: "circle"
+        }
+      },
+      width: 2,
+      smooth: false
+    });
+  } else {
+    console.error(`Model inconsistency: Association ${ai.ai_a_id} in AssocInst ${ai.ai_id} does not exist`);
+    return null;
+  }
 }
 
 // Render {{{1

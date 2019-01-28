@@ -17,10 +17,10 @@ export type VisNode = {
 };
 
 export type VisEdge = {
-  type?: "generalisation" | "association",
+  type?: "generalisation" | "association" | "genInst" | "assocInst",
   from: VisId,
   to: VisId,
-  label: VisLabel,
+  label?: VisLabel,
   width: number,
   arrows?: any
 };

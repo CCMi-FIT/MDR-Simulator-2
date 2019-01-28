@@ -81,7 +81,9 @@ function addGeneralisations(ufoaInstVisModel: VisModel) {
       const supInst = getEntityInst(g.g_sup_e_id);
       const subInst = getEntityInst(g.g_sub_e_id);
       if (supInst && subInst) {
-        return edges.concat(ufoaInstDiagram.gen2InstVis(g, supInst, subInst));
+        const gi = ufoaInstMeta.newGenInst(g, supInst, subInst);
+        simState.sim_genInsts.push(gi);
+        return edges.concat(ufoaInstDiagram.genInst2vis(gi));
       } else {
         return edges;
       }
@@ -95,7 +97,9 @@ function addAssociations(ufoaInstVisModel: VisModel) {
       const e1Inst = getEntityInst(a.a_connection1.e_id);
       const e2Inst = getEntityInst(a.a_connection2.e_id);
       if (e1Inst && e2Inst) {
-        return edges.concat(ufoaInstDiagram.assoc2InstVis(a, e1Inst, e2Inst));
+        const ai = ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst);
+        simState.sim_assocInsts.push(ai);
+        return edges.concat(ufoaInstDiagram.assocInst2vis(ai));
       } else {
         return edges;
       }
