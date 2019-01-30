@@ -19,7 +19,7 @@ function dispatchNode(nodeId: Id, ufobVisModel: VisModel) {
       }
       break;
     case "event":
-      let ev = ufobDB.getUfobEventyId(nodeId);
+      let ev = ufobDB.getUfobEventById(nodeId);
       if (!ev) {
         console.error("Consistency error: event ev_id=" + nodeId + " not found in the UFO-B model"); 
       } else {

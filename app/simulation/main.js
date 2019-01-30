@@ -138,7 +138,7 @@ function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
 }
 
 function doStep(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
-  const eventB = ufobDB.getUfobEventyId(evId);
+  const eventB = ufobDB.getUfobEventById(evId);
   if (!eventB) {
     console.error(`UFO-B model inconsistency: Event id=${evId} missing in DB, but present in the diagram`);
   } else {
@@ -152,13 +152,32 @@ function dispatch(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNe
   const nodeId = params.nodes[0];
   if (nodeId) {
     const node = ufobVisModel.nodes.get(nodeId);
+    let wmdaText = "";
     if (node.type === "event") {
+      let ev = ufobDB.getUfobEventById(nodeId);               
+      if (ev) {
+        wmdaText = ev.ev_wmda_text;
+      } else {
+        console.error(`Inconsistency: event ${nodeId} not present in the model`);
+      }
       if (simError) {
         panels.displayError("Simulation crashed, please restart it");
       } else {
         doStep(ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, nodeId);
       }
+    } else { // situation ... hopefully
+      if (node.type === "situation") {
+        let s = ufobDB.getSituationById(nodeId);               
+        if (s) {
+          wmdaText = s.s_wmda_text;
+        } else {
+          console.error(`Inconsistency: situation${nodeId} not present in the model`);
+        }
+      } else {
+        console.error("Unknown UFO-B diagram node type: " + node.type);
+      }
     }
+    $('#wmda-panel').html(wmdaText);
   }
 }
 

@@ -8,7 +8,7 @@ import * as ufobMeta from "./metamodel";
 
 // Event {{{1
 
-export function getUfobEventyId(model: UfobModel, ev_id: Id): ?UfobEvent {
+export function getUfobEventById(model: UfobModel, ev_id: Id): ?UfobEvent {
   return model.events.find(ev => ev.ev_id === ev_id);
 }
 
@@ -24,7 +24,7 @@ export function updateEvent(model: UfobModel, updatedEvent: UfobEvent): Validati
   if (validity.errors) {
     return validity;
   } else { 
-    let event = getUfobEventyId(model, updatedEvent.ev_id);
+    let event = getUfobEventById(model, updatedEvent.ev_id);
     if (event) {
       Object.assign(event, updatedEvent); // mutated existing event in the model
     } else {

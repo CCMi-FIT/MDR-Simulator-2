@@ -35,7 +35,7 @@ export function mkEdge(from: Id, to: Id, label: string = "") {
 }
 
 function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, ev_id: Id): VisEdge {
-  const ev = ufobModel.getUfobEventyId(m, ev_id);
+  const ev = ufobModel.getUfobEventById(m, ev_id);
   if (ev) {
     return mkEdge(s.s_id, ev.ev_id, d.d_text);
   } else {

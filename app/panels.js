@@ -6,8 +6,6 @@ import * as ReactDOM from 'react-dom';
 const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
 const simulationBoxId = "simulation-box";
-const simulationDiagramBoxId = "simulation-diagram";
-const ufoaInstDiagramBoxId = "ufoa-inst-diagram";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal-box";
@@ -31,8 +29,10 @@ export function fitPanes() {
   $("#ufoa-inst-box").height(h);
   $(`#${ufoaBoxId}`).height(h);
   $(`#${ufobBoxId}`).height(h);
-  $(`#${simulationDiagramBoxId}`).height(h);
-  $(`#${ufoaInstDiagramBoxId}`).height(h);
+  $(`#${simulationBoxId}`).height(h);
+  $("#simulation-diagram").height(h);
+  $("#ufoa-inst-diagram").height(h);
+  $("#wmda-panel").height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
