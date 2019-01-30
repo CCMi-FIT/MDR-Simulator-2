@@ -45,7 +45,7 @@ function dispatchEdge(edgeId: Id, ufoaVisModel: VisModel) {
 export function handleClick(ufoaVisModel: VisModel, params: any): void {
   let nodeId = params.nodes[0];
   let edgeId = params.edges[0];
-  panels.hideDialog();
+  panels.disposeDialog();
   if (nodeId) {
     dispatchNode(nodeId, ufoaVisModel);
   } else if (edgeId) {

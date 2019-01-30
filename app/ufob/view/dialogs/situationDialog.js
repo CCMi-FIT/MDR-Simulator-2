@@ -14,6 +14,7 @@ import type { VisModel } from '../../../diagram';
 import * as diagram from '../diagram';
 import * as panels from '../../../panels';
 import * as dispositionModal from './dispositionModal';
+import * as wmdaModal from './wmdaModal';
 
 type Props = {
   situation: Situation,
@@ -60,7 +61,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
       () => {
         nodes.update({ id: s.s_id, label: s.s_name });
         this.updateEdges();
-        panels.hideDialog();
+        panels.disposeDialog();
         panels.displayInfo("Situation saved.");
       },
       error => panels.displayError("Situation save failed: " + error)
@@ -72,12 +73,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
       //let stateCopy = R.clone(state); // Just because Flow bitches about state in R.dissocPath
       let sOrig = props.situation;
       let stateNew = 
-        attr === "s_name" ?
-          R.mergeDeepRight(state, { situation2: { s_name: val }})
-        : (() => {
-            console.error(`SituationForm: setAttr of ${attr} not implemented`);
-            return R.mergeDeepRight(state, {});
-          })();
+        R.mergeDeepRight(state, { situation2: { [attr]: val }});
       return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(sOrig, stateNew.situation2) });
     });
   }
@@ -100,10 +96,17 @@ class SituationForm extends panels.PaneDialog<Props, State> {
         nodes.remove({ id: s_id });
         const edges2remove = edges.get().filter(e => e.from === s_id || e.to === s_id);
         edges.remove(edges2remove.map(e => e.id));
-        panels.hideDialog();
+        panels.disposeDialog();
         panels.displayInfo("Situation deleted.");
       },
       error => panels.displayError("Situation delete failed: " + error));
+  }
+
+  editWMDA = () => {
+    const situation2 = this.state.situation2;
+    wmdaModal.render(situation2.s_name, situation2.s_wmda_text).then(
+      wmdaText2 => this.setAttr("s_wmda_text", wmdaText2)
+    );
   }
 
   renderSituationName = () => {
@@ -177,6 +180,13 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
+  renderWMDAButton = () => {
+    return (
+      <div className="form-group row col-sm-12">
+        <Button className="col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</Button>
+      </div>);
+  }
+
   renderButtons = () => {
     return (
       <div className="form-group row col-sm-12"> 
@@ -207,6 +217,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
         <Panel.Body collapsible={false}>
           {this.renderSituationName()}
           {this.renderDispositions()}
+          {this.renderWMDAButton()}
           {this.renderButtons()}
         </Panel.Body>
       </Panel>);

@@ -618,7 +618,7 @@
     {
       "s_id": "s17",
       "s_name": "Donor Chosen\nfor Donation",
-      "s_wmda_text": "<p>yyy</p>",
+      "s_wmda_text": "",
       "s_dispositions": [
         {
           "d_text": "",

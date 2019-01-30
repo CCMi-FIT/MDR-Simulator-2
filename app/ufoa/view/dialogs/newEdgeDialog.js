@@ -29,7 +29,7 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
   };
 
   setEdgeType = () => {
-    panels.hideModal();
+    panels.disposeModal();
     this.props.next(this.state.selection);
   }
 

@@ -34,7 +34,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
 
   setNodeType = () => {
     const sel = this.state.selection;
-    panels.hideModal();
+    panels.disposeModal();
     this.props.next(
       sel === "event" ? 
         { selection: sel, ev_to_situation_id: this.state.ev_to_situation_id }

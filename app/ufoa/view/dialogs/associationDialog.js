@@ -34,7 +34,7 @@ function commitAssociation(edges: any, a: Association) {
         label: a.a_label,
         title: ufoaMeta.assocStr(a), 
       });
-      panels.hideDialog();
+      panels.disposeDialog();
       panels.displayInfo("Association saved.");
     },
     error => panels.displayError("Association save failed: " + error)
@@ -105,7 +105,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     ufoaDB.deleteAssociation(a_id).then(
       () => {
         edges.remove({ id: a_id });
-        panels.hideDialog();
+        panels.disposeDialog();
         panels.displayInfo("Association deleted.");
       },
       error => panels.displayError("Association delete failed: " + error)

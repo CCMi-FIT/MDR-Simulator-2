@@ -31,7 +31,7 @@ function commitGeneralisation(edges: any, g: Generalisation) {
         from: g.g_sup_e_id,
         to: g.g_sub_e_id,
       });
-      panels.hideDialog();
+      panels.disposeDialog();
       panels.displayInfo("Generalisation saved.");
     },
     error => panels.displayError("Generalisation save failed: " + error)
@@ -106,7 +106,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     ufoaDB.deleteGeneralisation(g_id).then(
       () => {
         edges.remove({ id: g_id });
-        panels.hideDialog();
+        panels.disposeDialog();
         panels.displayInfo("Generalisation deleted.");
       },
       error => panels.displayError("Generalisation delete failed: " + error)

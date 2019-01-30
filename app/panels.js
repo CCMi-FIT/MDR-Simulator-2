@@ -93,7 +93,7 @@ export function showModal(): void {
 
 // Hiding
 
-function hidePanel(panelId: string): void {
+function disposePanel(panelId: string): void {
   let panel = getPanel(panelId);
   if (panel) {
     ReactDOM.unmountComponentAtNode(panel);
@@ -101,12 +101,12 @@ function hidePanel(panelId: string): void {
   }
 }
 
-export function hideDialog(): void {
-  hidePanel(dialogId);
+export function disposeDialog(): void {
+  disposePanel(dialogId);
 }
 
-export function hideModal(): void {
-  hidePanel(modalId);
+export function disposeModal(): void {
+  disposePanel(modalId);
 }
 
 // Messages

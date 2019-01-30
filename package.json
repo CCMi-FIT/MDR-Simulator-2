@@ -39,6 +39,7 @@
   },
   "homepage": "https://github.com/CCMi-FIT/mdr-simulator2-js#readme",
   "dependencies": {
+    "@tinymce/tinymce-react": "^2.5.0",
     "ajv": "^6.6.2",
     "bootstrap3": "^3.3.5",
     "chalk": "^2.4.2",

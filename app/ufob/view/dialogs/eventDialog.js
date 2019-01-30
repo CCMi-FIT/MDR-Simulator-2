@@ -16,6 +16,7 @@ import type { VisModel } from '../../../diagram';
 import * as diagram from '../../../diagram';
 import * as ufobDiagram from '../diagram';
 import * as panels from '../../../panels';
+import * as wmdaModal from './wmdaModal';
 
 // Props & State {{{1
 type Props = {
@@ -84,7 +85,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       const edgesIds = edges.get().filter(e => e.from === ev.ev_id).map(e => e.id); //Effectively, there should be just one edge
       edges.remove(edgesIds);
       edges.add(ufobDiagram.mkEdge(ev.ev_id, ev.ev_to_situation_id));
-      panels.hideDialog();
+      panels.disposeDialog();
       panels.displayInfo("Event saved.");
     }, (error) => panels.displayError("Event save failed: " + error));
   }
@@ -106,10 +107,17 @@ class EventForm extends panels.PaneDialog<Props, State> {
         nodes.remove({ id: ev_id });
         const edges2remove = edges.get().filter(e => e.from === ev_id || e.to === ev_id);
         edges.remove(edges2remove.map(e => e.id));
-        panels.hideDialog();
+        panels.disposeDialog();
         panels.displayInfo("Event deleted.");
       },
       error => panels.displayError("Event delete failed: " + error));
+  }
+
+  editWMDA = () => {
+    const eventB2 = this.state.eventB2;
+    wmdaModal.render(eventB2.ev_name, eventB2.ev_wmda_text).then(
+      wmdaText2 => this.setAttr("ev_wmda_text", wmdaText2)
+    );
   }
 
   // Operations actions {{{2
@@ -297,6 +305,13 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
+  renderWMDAButton = () => {
+    return (
+      <div className="form-group row col-sm-12">
+        <Button className="col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</Button>
+      </div>);
+  }
+
   // Buttons rendering {{{2
 
   renderButtons() {
@@ -332,6 +347,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
           {this.renderEventName()}
           {this.renderOperations()}
           {this.renderToSituation()}
+          {this.renderWMDAButton()}
           {this.renderButtons()}
         </Panel.Body>
       </Panel>);

@@ -22,6 +22,7 @@ export type Situation = {
   s_id: Id,
   s_name: string,
   s_dispositions: Array<Disposition>,
+  s_wmda_text: string
 };
 
 export function validateSituation(situation: Situation): ValidationResult {
@@ -35,7 +36,8 @@ export type UfobEvent = {
   ev_name: string,
   ev_add_ops: Array<AddEntityInstOp>,
   ev_remove_ops: Array<RemoveEntityInstOp>,
-  ev_to_situation_id: Id
+  ev_to_situation_id: Id,
+  ev_wmda_text: string
 };
 
 export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): UfobEvent {

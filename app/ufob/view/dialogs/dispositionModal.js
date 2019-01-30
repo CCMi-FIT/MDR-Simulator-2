@@ -58,13 +58,12 @@ class DispositionForm extends React.Component<Props, State> {
   save = () => {
     let dOrig = this.props.disposition;
     let dNew = this.state.disposition2;
-    panels.hideModal();
+    panels.disposeModal();
     if (!R.equals(dNew, dOrig)) {
       this.props.resolve(dNew);
     } else {
       this.props.reject();
     }
-    panels.hideModal();
   }
 
   deleteEvent = (ev_id: Id) => {
@@ -87,7 +86,7 @@ class DispositionForm extends React.Component<Props, State> {
   
   delete = () => {
     this.props.resolve(null);
-    panels.hideModal();
+    panels.disposeModal();
   }
 
   // Rendering {{{1
@@ -161,7 +160,7 @@ class DispositionForm extends React.Component<Props, State> {
           <Button className="btn-danger" onClick={() => this.delete()}>Delete disposition</Button>
         </div>
         <div className="col-sm-4">
-          <Button className="btn-warning" onClick={() => panels.hideModal()}>Cancel</Button>
+          <Button className="btn-warning" onClick={() => panels.disposeModal()}>Cancel</Button>
         </div>
       </div>);
   }

@@ -8,7 +8,7 @@ import type { VisNode, VisEdge, VisModel } from '../../diagram';
 import * as diagram from '../../diagram';
 import * as ufobModel from "../model";
 import * as ufobDB from "../db";
-import * as newNodeDialog from "./dialogs/newNodeDialog";
+import * as newNodeModal from "./dialogs/newNodeModal";
 import * as situationDialog from './dialogs/situationDialog';
 import * as eventDialog from './dialogs/eventDialog';
 
@@ -58,7 +58,7 @@ export function model2vis(model: UfobModel, elementGraphics: any): VisModel {
 }
 
 function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) {
-  newNodeDialog.render(nodeData, (res: any) => {
+  newNodeModal.render(nodeData, (res: any) => {
     if (res.selection === "situation") {
       let newS: Situation = ufobDB.newSituation();
       callback(situation2vis(newS));

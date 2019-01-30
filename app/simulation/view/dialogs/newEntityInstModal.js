@@ -53,7 +53,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
   }
 
   save = () => {
-    panels.hideModal();
+    panels.disposeModal();
     const res = ufoaInstModel.newEntityInst(this.props.entity, this.state.instName);
     this.props.resolve(res);
   }

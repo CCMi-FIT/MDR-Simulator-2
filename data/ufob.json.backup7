@@ -46,7 +46,7 @@
         }
       ],
       "ev_to_situation_id": "s3",
-      "ev_wmda_text": "<p>If a Person wants to become a part of the Registry as a Donor, they must undertake recruitment process.</p><h3>wmda_text Definition:</h3><ul><li>World Marrow Donor Association (wmda_text) - A non-profit association that fosters international collaboration to facilitate the exchange of high quality HSC for clinical transplantation worldwide and to promote the interests of donors.</li><li>Donor - A person who is the source of cells or tissue for a cellular therapy product. Donors are unrelated to the patient seeking a transplant.<br/>(the model/simulation refer to specific donor type according to the wmda_text Standards - volunteer donors of HSC who have passed a minimum age established by national law or their eighteenth (18th) birthday when no regulation exist)</li><li>HSC - Haematopoietic stem cells are the cells, which give rise to blood and immune system cells. These cells are found in bone marrow, growth factor stimulated peripheral blood, and umbilical cord blood.</li><li>Registry - An organisation responsible for coordination of the search for haematopoietic stem cells from donors (including cord blood) unrelated to the potential recipient.</li></ul><h3>wmda_text Standard:</h3><ul><li>1.06 If a registry relies on an independent donor centre or cord blood bank to recruit and characterise donors/umbilical cord blood units, the registry must ensure that the donor centre/cord blood bank complies with relevant wmda_text Standards. The nature of these affiliations and the duties and responsibilities of each entity must be documented in a written agreement.</li><li>3.01 Entities involved in donor recruitment must meet any relevant international and national laws and regulations.</li><li>3.02 The recruitment of volunteer donors must be performed under the direction of individuals who are experienced in recruitment of donors and in management activities including education, consenting, counselling, confidentiality, and medical screening. These individuals must be appropriately qualified and provided with timely and relevant training. The training and experience of these individuals must be documented.</li><li>3.03 The willingness to become a donor must be the individual choice of each donor, that is, donations must be voluntary. Donors must be willing to donate on behalf of any patient being treated in any part of the world. Donors must not be paid for their donation and may be reimbursed for expenses incurred during the donation process.</li></ul>"
+      "ev_wmda": ""
     },
     {
       "ev_id": "e2",
@@ -54,7 +54,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s5",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e3",
@@ -62,7 +62,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s4",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e4",
@@ -70,7 +70,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s6",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e5",
@@ -78,7 +78,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s19",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e7",
@@ -86,7 +86,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s30",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e8",
@@ -94,7 +94,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s7",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e9",
@@ -102,7 +102,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s9",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e10",
@@ -110,7 +110,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s10",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e11",
@@ -118,7 +118,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s8",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e12",
@@ -126,7 +126,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s12",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e13",
@@ -134,7 +134,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s11",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e14",
@@ -142,7 +142,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s14",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e15",
@@ -150,7 +150,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s13",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e16",
@@ -158,7 +158,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s15",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e17",
@@ -166,7 +166,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s16",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e18",
@@ -195,7 +195,7 @@
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e19",
@@ -203,7 +203,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s18",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e20",
@@ -211,7 +211,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s21",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e21",
@@ -219,7 +219,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s4",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e22",
@@ -227,7 +227,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s20",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e23",
@@ -235,7 +235,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e24",
@@ -243,7 +243,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e25",
@@ -251,7 +251,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e26",
@@ -259,7 +259,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s27",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e27",
@@ -267,7 +267,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s23",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e28",
@@ -275,7 +275,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s24",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e29",
@@ -283,7 +283,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s25",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e30",
@@ -291,7 +291,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s37",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e31",
@@ -299,7 +299,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s26",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e32",
@@ -307,7 +307,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s28",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e33",
@@ -315,7 +315,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s29",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e34",
@@ -323,7 +323,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s31",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e35",
@@ -331,7 +331,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s32",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e36",
@@ -339,7 +339,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s33",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e37",
@@ -347,7 +347,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s34",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e38",
@@ -355,7 +355,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s35",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "e39",
@@ -363,7 +363,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s36",
-      "ev_wmda_text": ""
+      "ev_wmda": ""
     },
     {
       "ev_id": "ev40",
@@ -392,14 +392,14 @@
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s38",
-      "ev_wmda_text": "<p>xxx</p>"
+      "ev_wmda": ""
     }
   ],
   "situations": [
     {
       "s_id": "s3",
       "s_name": "A Person becomes\nAspirant Donor",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -412,7 +412,7 @@
     {
       "s_id": "s4",
       "s_name": "Donor Available",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -443,7 +443,7 @@
     {
       "s_id": "s5",
       "s_name": "Donor Search Initiated",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -456,7 +456,7 @@
     {
       "s_id": "s6",
       "s_name": "Potential Donor(s) Found",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "Extended HLA\nTyping not Required",
@@ -487,7 +487,7 @@
     {
       "s_id": "s7",
       "s_name": "Donors Selected\nfor Verification",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -500,7 +500,7 @@
     {
       "s_id": "s8",
       "s_name": "Donor Blood Sample\nDrawn for\nExtended HLA Typing",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -513,7 +513,7 @@
     {
       "s_id": "s9",
       "s_name": "Donor\nExtended HLA Typed\n from a Stored\nBlood Sample",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -526,7 +526,7 @@
     {
       "s_id": "s10",
       "s_name": "Donor\nExtended HLA Typed\nfrom a Stored\nDNA Sample",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -539,7 +539,7 @@
     {
       "s_id": "s11",
       "s_name": "Donor\nExtended\nHLA Typed\nfrom a Fresh\nBlood Sample",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -552,7 +552,7 @@
     {
       "s_id": "s12",
       "s_name": "Donor Blood Sample\nDrawn for\nVerification Examination",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -566,7 +566,7 @@
     {
       "s_id": "s13",
       "s_name": "Donor\nHealth Screening\nCompleted",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -579,7 +579,7 @@
     {
       "s_id": "s14",
       "s_name": "Donor HLA Verified",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -592,7 +592,7 @@
     {
       "s_id": "s15",
       "s_name": "Donor Verified",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -605,7 +605,7 @@
     {
       "s_id": "s16",
       "s_name": "Donor Reserved",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -618,7 +618,7 @@
     {
       "s_id": "s17",
       "s_name": "Donor Chosen\nfor Donation",
-      "s_wmda_text": "<p>yyy</p>",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -631,7 +631,7 @@
     {
       "s_id": "s18",
       "s_name": "Schedule and Specification\nof Donor Clearance Assigned",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -644,7 +644,7 @@
     {
       "s_id": "s19",
       "s_name": "Donor\nTemporary\nDeferred",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "Reasons\nGone",
@@ -669,13 +669,13 @@
     {
       "s_id": "s20",
       "s_name": "Donor\nPermanently\nDeferred",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": []
     },
     {
       "s_id": "s21",
       "s_name": "Donor Clearance\nProvided",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "Donor\nEligible",
@@ -708,7 +708,7 @@
     {
       "s_id": "s22",
       "s_name": "Collection of HSC\nApproved",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "The Donor\nWants to Donate\nBM",
@@ -733,7 +733,7 @@
     {
       "s_id": "s23",
       "s_name": "PBSC\nDonation\nPrepared",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -746,7 +746,7 @@
     {
       "s_id": "s24",
       "s_name": "PBSC\nCollected",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -765,7 +765,7 @@
     {
       "s_id": "s25",
       "s_name": "PBSC\nDelivered",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -778,7 +778,7 @@
     {
       "s_id": "s26",
       "s_name": "PBSC\nTransplantation\nCompleted",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -791,7 +791,7 @@
     {
       "s_id": "s27",
       "s_name": "BM\nCollected",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -810,7 +810,7 @@
     {
       "s_id": "s28",
       "s_name": "BM\nDelivered",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -823,7 +823,7 @@
     {
       "s_id": "s29",
       "s_name": "BM\nTransplantation\nCompleted",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -836,7 +836,7 @@
     {
       "s_id": "s30",
       "s_name": "Donor Chosen\nfor Subsequent Donation",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -849,7 +849,7 @@
     {
       "s_id": "s31",
       "s_name": "Schedule and Specification\nof Donor Clearance\nfor Subsequent Donation\nAssigned",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -862,7 +862,7 @@
     {
       "s_id": "s32",
       "s_name": "Donor Clearance\nfor Subsequent Donation\nProvided",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -875,7 +875,7 @@
     {
       "s_id": "s33",
       "s_name": "Subsequent Collection\nof HSC Approved",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -888,7 +888,7 @@
     {
       "s_id": "s34",
       "s_name": "Subseqent HSC\nCollected",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -907,7 +907,7 @@
     {
       "s_id": "s35",
       "s_name": "Subseqent HSC\nDelivered",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -920,7 +920,7 @@
     {
       "s_id": "s36",
       "s_name": "Subsequent HSC\nTransplantation\nCompleted",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "",
@@ -933,13 +933,13 @@
     {
       "s_id": "s37",
       "s_name": "Donor Follow-Up",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": []
     },
     {
       "s_id": "s38",
       "s_name": "Infrastructure Ready",
-      "s_wmda_text": "",
+      "s_wmda": "",
       "s_dispositions": [
         {
           "d_text": "A Person wants \nto become a Donor",

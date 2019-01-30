@@ -38,7 +38,7 @@ function dispatchEdge(edgeId: Id, ufobVisModel: VisModel) {
 export function handleClick(ufobVisModel: VisModel, params: any): void {
   let nodeId = params.nodes[0];
   let edgeId = params.edges[0];
-  panels.hideDialog();
+  panels.disposeDialog();
   if (nodeId) {
     dispatchNode(nodeId, ufobVisModel);
   } else if (edgeId) {

@@ -22,8 +22,9 @@ export const ufobSchema = {
           "uniqueItems": true
         },
         "ev_to_situation_id": { "type": "string" },
+        "ev_wmda_text": { "type": "string" }
       },
-      "required": ["ev_id", "ev_name", "ev_add_ops", "ev_remove_ops", "ev_to_situation_id"]
+      "required": ["ev_id", "ev_name", "ev_add_ops", "ev_remove_ops", "ev_to_situation_id", "ev_wmda_text"]
     },
     "operationAdd": {
       "type": "object",
@@ -62,8 +63,9 @@ export const ufobSchema = {
           "items":       {"$ref": "#/definitions/disposition" },
           "uniqueItems": true
         },
+        "s_wmda_text":         { "type": "string" }
       },
-      "required": ["s_id", "s_name", "s_dispositions"]
+      "required": ["s_id", "s_name", "s_dispositions", "s_wmda_text"]
     }
   },
 
