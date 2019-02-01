@@ -68,7 +68,6 @@ class EventForm extends panels.PaneDialog<Props, State> {
           }})
         : attr === "ev_remove_ops.delete" ?
           R.mergeDeepRight(state, { eventB2: {
-            //TODO: WTF?!? Pri odebrani posledniho prvku se zmeni na objekt tohoto prvku misto prazdneho array!!!!!!!!! a u add_ops to funguje normalne!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             ev_remove_ops: state.eventB2.ev_remove_ops.filter(op => op.opr_e_id !== val.opr_e_id)
           }})
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
@@ -193,7 +192,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
         <div className="col-xs-3">
         </div>
         <div className="col-xs-2" style={{paddingTop: "10px"}}>
-          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops", op)}>
+          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
             <i className="glyphicon glyphicon-trash"/>
           </Button>
         </div>
@@ -222,10 +221,12 @@ class EventForm extends panels.PaneDialog<Props, State> {
         <div className="col-xs-1">
           <Button 
             className="btn-primary btn-sm" 
+            disabled={!this.state.newOpEntity}
             onClick={() => { 
               if (this.state.newOpEntity) {
                 this.setAttr("ev_add_ops.add", this.state.newOpEntity.e_id);
                 this.newOpTypeahead.getInstance().clear();
+                this.setState({ newOpEntity: null });
               }
             }}>
             <i className="glyphicon glyphicon-plus"/>
@@ -234,10 +235,12 @@ class EventForm extends panels.PaneDialog<Props, State> {
         <div className="col-xs-1">
           <Button 
             className="btn-primary btn-sm" 
+            disabled={!this.state.newOpEntity}
             onClick={() => { 
               if (this.state.newOpEntity) {
                 this.setAttr("ev_remove_ops.add", this.state.newOpEntity.e_id);
                 this.newOpTypeahead.getInstance().clear();
+                this.setState({ newOpEntity: null });
               }
             }}>
             <i className="glyphicon glyphicon-minus"/>

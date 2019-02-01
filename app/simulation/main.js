@@ -7,7 +7,6 @@ import * as ufobDiagram from "../ufob/view/diagram";
 import type { SimulationState } from './metamodel';
 import * as simMeta from './metamodel';
 import type { UfoaEntity } from '../ufoa/metamodel';
-import * as ufoaDiagram from '../ufoa/view/diagram';
 import type { UfobEvent, AddEntityInstOp } from '../ufob/metamodel';
 import type { EntityInst } from '../ufoa-inst/metamodel';
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
@@ -75,6 +74,15 @@ function getEntityInst(eId: Id): ?EntityInst {
   return simState.sim_ufoaInsts.find(ei => ei.ei_e_id === eId);
 }
 
+function addEdges(ufoaInstVisModel: VisModel, edges: Array<any>) {
+  edges.map((edge: any) => {
+    let visEdges = ufoaInstVisModel.edges;
+    if (!visEdges.get(edge.id)) {
+      visEdges.add(edge);
+    }
+  });
+}
+
 function addGeneralisations(ufoaInstVisModel: VisModel) {
   const edges = ufoaDB.getGeneralisations().reduce(
     (edges, g) => {
@@ -88,7 +96,7 @@ function addGeneralisations(ufoaInstVisModel: VisModel) {
         return edges;
       }
     }, []);
-  edges.map(edge => ufoaInstVisModel.edges.add(edge));
+  addEdges(ufoaInstVisModel, edges);
 }
 
 function addAssociations(ufoaInstVisModel: VisModel) {
@@ -104,7 +112,7 @@ function addAssociations(ufoaInstVisModel: VisModel) {
         return edges;
       }
     }, []);
-  edges.map(edge => ufoaInstVisModel.edges.add(edge));
+  addEdges(ufoaInstVisModel, edges);
 }
 
 function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {

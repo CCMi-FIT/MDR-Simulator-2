@@ -3,7 +3,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Modal, Button } from 'react-bootstrap';
-import { Editor } from '@tinymce/tinymce-react';
+import CKEditor from "react-ckeditor-component";
+//import { Editor } from '@tinymce/tinymce-react';
 import * as panels from '../../../panels';
 
 type Props = {
@@ -26,7 +27,8 @@ class WMDAForm extends React.Component<Props, State> {
     };
   }
 
-  setText = (val: string) => {
+  setText = (evt: any) => {
+    let val = evt.editor.getData();
     this.setState({ wmdaText2: val });
   }
 
@@ -59,11 +61,24 @@ class WMDAForm extends React.Component<Props, State> {
           <Modal.Title>{`WMDA Standard for "${this.props.title}"`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Editor
+          {/*<Editor
             apiKey="3w4rqs3iwrm8co1p6sllgs42temdv4t0b748kfshv5yn6u8k"
-            init={{ height: (panels.getWindowHeight() - 350) + 'px' }}
+            init={{
+              height: (panels.getWindowHeight() - 350) + 'px',
+              selector: "textarea",
+              plugins: "code",
+              //toolbar: "code",
+              //menubar: "tools"
+            }}
             value={this.state.wmdaText2}
-            onEditorChange={this.setText} />
+            onEditorChange={this.setText} />*/}
+          <CKEditor 
+              activeClass="p10" 
+              content={this.state.wmdaText2} 
+              events={{
+                "change": this.setText
+              }}
+             />
         </Modal.Body>
         <Modal.Footer>
           {this.renderButtons()}

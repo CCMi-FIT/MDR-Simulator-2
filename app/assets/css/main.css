@@ -237,6 +237,7 @@ footer {
 
 .dialog-box {
   left: 10px;
+  /*overflow-y: scroll;*/
   position: fixed;
   top: 100px;
   width: 500px;

@@ -33,8 +33,8 @@ export function newGenInst(g: Generalisation, supInst: EntityInst, subInst: Enti
   return ({
     gi_id: g.g_id + '_' + eiId(supInst) + '_' + eiId(subInst),
     gi_g_id: g.g_id,
-    gi_sup_ei_id: supInst.ei_e_id,
-    gi_sub_ei_id: subInst.ei_e_id
+    gi_sup_ei_id: eiId(supInst),
+    gi_sub_ei_id: eiId(subInst)
   });
 }
 

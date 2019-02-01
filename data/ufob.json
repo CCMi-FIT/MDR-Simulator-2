@@ -5,16 +5,8 @@
       "ev_name": "Donor Recruitment",
       "ev_add_ops": [
         {
-          "opa_e_id": "e0",
-          "opa_ei_is_default": false
-        },
-        {
           "opa_e_id": "e1",
           "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e27",
-          "opa_ei_is_default": false
         },
         {
           "opa_e_id": "e28",
@@ -35,34 +27,121 @@
         {
           "opa_e_id": "e68",
           "opa_ei_is_default": true
-        }
-      ],
-      "ev_remove_ops": [
-        {
-          "opr_e_id": "e5"
         },
         {
-          "opr_e_id": "e4"
+          "opa_e_id": "e89",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e31",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e30",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e61",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e60",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e57",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e53",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e0",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e27",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e5",
+          "opa_ei_is_default": true
         }
       ],
+      "ev_remove_ops": [],
       "ev_to_situation_id": "s3",
       "ev_wmda_text": "<p>If a Person wants to become a part of the Registry as a Donor, they must undertake recruitment process.</p><h3>wmda_text Definition:</h3><ul><li>World Marrow Donor Association (wmda_text) - A non-profit association that fosters international collaboration to facilitate the exchange of high quality HSC for clinical transplantation worldwide and to promote the interests of donors.</li><li>Donor - A person who is the source of cells or tissue for a cellular therapy product. Donors are unrelated to the patient seeking a transplant.<br/>(the model/simulation refer to specific donor type according to the wmda_text Standards - volunteer donors of HSC who have passed a minimum age established by national law or their eighteenth (18th) birthday when no regulation exist)</li><li>HSC - Haematopoietic stem cells are the cells, which give rise to blood and immune system cells. These cells are found in bone marrow, growth factor stimulated peripheral blood, and umbilical cord blood.</li><li>Registry - An organisation responsible for coordination of the search for haematopoietic stem cells from donors (including cord blood) unrelated to the potential recipient.</li></ul><h3>wmda_text Standard:</h3><ul><li>1.06 If a registry relies on an independent donor centre or cord blood bank to recruit and characterise donors/umbilical cord blood units, the registry must ensure that the donor centre/cord blood bank complies with relevant wmda_text Standards. The nature of these affiliations and the duties and responsibilities of each entity must be documented in a written agreement.</li><li>3.01 Entities involved in donor recruitment must meet any relevant international and national laws and regulations.</li><li>3.02 The recruitment of volunteer donors must be performed under the direction of individuals who are experienced in recruitment of donors and in management activities including education, consenting, counselling, confidentiality, and medical screening. These individuals must be appropriately qualified and provided with timely and relevant training. The training and experience of these individuals must be documented.</li><li>3.03 The willingness to become a donor must be the individual choice of each donor, that is, donations must be voluntary. Donors must be willing to donate on behalf of any patient being treated in any part of the world. Donors must not be paid for their donation and may be reimbursed for expenses incurred during the donation process.</li></ul>"
     },
     {
       "ev_id": "e2",
       "ev_name": "Search Initiating",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e0",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e2",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e29",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e96",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e98",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e27",
+          "opa_ei_is_default": false
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s5",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>If a Person needs unrelated donor transplantation, via search request he is include in transplant program.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Transplant centre (TC) - A medical facility where a patient (recipient) receives a transplant (graft) with HSC from an unrelated donor or from an umbilical cord blood unit. The TC oversees the immediate medical treatment and provides long-term follow-up of the recipient. The search unit undertakes the search for an unrelated donor for specific patients using criteria defined and documented by the TC. This entity may be contained within a TC or may be separate from the TC. If separate, the search unit may coordinate searches for one or several TCs. In the standards, reference to a TC should be interpreted as a TC and/or a search unit as appropriate. Transplant centres/search units seeking an international donor work through the registry in their country.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>1.07 The registry must ensure that transplant centres affiliated with the registry and requesting a donor from another country meet standards designed to ensure that donation of HSC will only be requested for patients for whom transplantation is a medically acceptable procedure. The nature of these affiliations and the duties and responsibilities of each entity must be documented in a written agreement.</li>\n\t<li>1.07.1 These transplant centre standards should be defined by an appropriate national or international organisation. In absence of such standards, they must be defined by the registry.</li>\n\t<li>1.07.2 The standards for transplant centres must be readily accessible to healthcare professionals involved in HSC transplantation.</li>\n</ul>\n"
     },
     {
       "ev_id": "e3",
       "ev_name": "Initial Histocompatibility Testing",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e92",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e64",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e94",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e95",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s4",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Registered and HLA typed donor becomes an Available Donor, who can be used for Search. Then the HLA Laboratory performs the donor HLA Typing and enters the HLA typing and information relating to the actual isolation and typing (used methods, kits, reagents, etc.) record into the database. The HLA typing can be performed on different resolution levels (antigen/multiple allele code/allele).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.18 Registries must have established approaches to monitor and ensure the accuracy and completeness of the data listed in the donor database, including a system to ensure the quality of HLA typing results.</li>\n\t<li>3.19 The results of the donor assessment including the results of any laboratory tests and medical evaluation must be documented and maintained.</li>\n\t<li>3.20 A minimum of HLA-A,-B,-DRB1 must be defined prior to listing newly recruited volunteer donors on the registry. If not all the newly recruited donors are HLA-DRB1 typed, the registry must have a reasonable policy and strategy for selective HLA-DRB1 typing of its donors.</li>\n\t<li>5.02 Any HLA-related information stored, presented or communicated by the registry must follow WMDA guidelines for the use of HLA nomenclature.</li>\n</ul>\n"
     },
     {
       "ev_id": "e4",

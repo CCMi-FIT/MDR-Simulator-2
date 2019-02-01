@@ -38,7 +38,7 @@ export function fitPanes() {
 
   const dbox = $("#dialog-box");
   const dboxh = dbox.height();
-  if (dboxh > h-10) {
+  if (dboxh > h-20) {
     dbox.css("height", `${h-10}px`);
     dbox.css("overflow-y", "scroll");
   } else {
@@ -85,6 +85,7 @@ function showPanel(panelId: string): void {
 
 export function showDialog(): void {
   showPanel(dialogId);
+  fitPanes();
 }
 
 export function showModal(): void {
