@@ -1,14 +1,13 @@
 // @flow
 
-import * as R from 'ramda';
 import type { Id } from '../metamodel';
 import type { VisModel } from '../diagram';
 import * as ufobDiagram from "../ufob/view/diagram";
 import type { SimulationState } from './metamodel';
 import * as simMeta from './metamodel';
-import type { UfoaEntity } from '../ufoa/metamodel';
+import type { UfoaEntity, Generalisation } from '../ufoa/metamodel';
 import type { UfobEvent, AddEntityInstOp } from '../ufob/metamodel';
-import type { EntityInst } from '../ufoa-inst/metamodel';
+import type { EntityInst, GeneralisationInst } from '../ufoa-inst/metamodel';
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
 import * as ufoaInstModel from '../ufoa-inst/model';
 import * as ufoaInstDiagram from '../ufoa-inst/view/diagram';
@@ -16,6 +15,7 @@ import * as ufoaDB from '../ufoa/db';
 import * as ufobDB from '../ufob/db';
 import * as panels from '../panels';
 import * as newEntityInstModal from './view/dialogs/newEntityInstModal';
+import * as chooseEntityInstModal from './view/dialogs/chooseEntityInstModal';
 
 var simState: SimulationState = simMeta.initState;
 var simError: boolean = false;
@@ -24,7 +24,7 @@ function checkSingleDefault(entity: UfoaEntity): boolean {
   return !simState.sim_ufoaInsts.find(ei => ei.ei_e_id === entity.e_id);
 }
 
-function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<?EntityInst> {
+function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<EntityInst> {
   return (() => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
     if (!entity) {
@@ -44,7 +44,7 @@ function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Pro
 }
 
 function sequence(tasks: Array<() => Promise<any>>, parameters = [], context = null) {
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     var nextTask = tasks.splice(0,1)[0].apply(context, parameters[0]); //Dequeue and call the first task
     var output = new Array(tasks.length + 1);
     var errorFlag = false;
@@ -70,8 +70,20 @@ function sequence(tasks: Array<() => Promise<any>>, parameters = [], context = n
   });
 }
 
-function getEntityInst(eId: Id): ?EntityInst {
-  return simState.sim_ufoaInsts.find(ei => ei.ei_e_id === eId);
+function getEntityInstPm(insts: Array<EntityInst>, entity: UfoaEntity, choiceType: string): Promise<?EntityInst> {
+  return new Promise(resolve => {
+    const myInsts = insts.filter(ei => ei.ei_e_id === entity.e_id);
+    if (myInsts.length === 0) {
+      //console.log("No instance for " + entity.e_id);
+      resolve(null);
+    } else if (myInsts.length === 1) {
+      //console.log("1 instance for " + entity.e_id);
+      resolve(myInsts[0]);
+    } else { // >1
+      console.log("several instances for " + entity.e_name);
+      return chooseEntityInstModal.renderPm(simState.sim_ufoaInsts.filter(ei => ei.ei_e_id === entity.e_id), entity, choiceType);
+    }
+  });
 }
 
 function addEdges(ufoaInstVisModel: VisModel, edges: Array<any>) {
@@ -83,37 +95,64 @@ function addEdges(ufoaInstVisModel: VisModel, edges: Array<any>) {
   });
 }
 
-function addGeneralisations(ufoaInstVisModel: VisModel) {
-  const edges = ufoaDB.getGeneralisations().reduce(
-    (edges, g) => {
-      const supInst = getEntityInst(g.g_sup_e_id);
-      const subInst = getEntityInst(g.g_sub_e_id);
-      if (supInst && subInst) {
-        const gi = ufoaInstMeta.newGenInst(g, supInst, subInst);
-        simState.sim_genInsts.push(gi);
-        return edges.concat(ufoaInstDiagram.genInst2vis(gi));
+function g2gInstPmFn(g: Generalisation): () => Promise<?GeneralisationInst> {
+  return (() => {
+    return new Promise((resolve, reject) => {
+      const sup = ufoaDB.getEntity(g.g_sup_e_id);
+      const sub = ufoaDB.getEntity(g.g_sub_e_id);
+      if (!sup || !sub) {
+        console.error(`UFO-A model inconsistency: entity/ies does not exist: ${sup ? '' : g.g_sup_e_id} ${sub ? '' : g.g_sub_e_id}`);
+        return reject();
       } else {
-        return edges;
+        getEntityInstPm(sup, `supertype of ${sub.e_name}`).then(
+          supInst => {
+            if (!supInst) {
+              resolve(null);
+            } else {
+              getEntityInstPm(sub, `subtype of ${sup.e_name}`).then(
+                subInst => {
+                  if (!subInst) {
+                    resolve(null);
+                  } else {
+                    resolve(ufoaInstMeta.newGenInst(g, supInst, subInst));
+                  }
+                }
+              );
+            }
+          } 
+        );
       }
-    }, []);
-  addEdges(ufoaInstVisModel, edges);
+    });
+  });
 }
 
-function addAssociations(ufoaInstVisModel: VisModel) {
-  const edges = ufoaDB.getAssociations().reduce(
-    (edges, a) => {
-      const e1Inst = getEntityInst(a.a_connection1.e_id);
-      const e2Inst = getEntityInst(a.a_connection2.e_id);
-      if (e1Inst && e2Inst) {
-        const ai = ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst);
-        simState.sim_assocInsts.push(ai);
-        return edges.concat(ufoaInstDiagram.assocInst2vis(ai));
-      } else {
-        return edges;
-      }
-    }, []);
-  addEdges(ufoaInstVisModel, edges);
+function addGeneralisations(ufoaInstVisModel: VisModel) {
+  const presentEntityInstsInGInstsIds: Array<Id> = 
+    simState.sim_gInsts.reduce((acc: Array<EntityInst>, gi: GeneralisationInst) => 
+      acc.concat([gi.gi_sup_ei_id, gi.gi_sub_ei_id]));
+  sequence(gInstEdgesPmFns).then(
+    gInsts => {
+      const edges = gInsts.filter(gi => gi !== null).map(ufoaInstDiagram.gInst2vis);
+      addEdges(ufoaInstVisModel, edges);
+    }
+  );
 }
+
+//function addAssociations(ufoaInstVisModel: VisModel) {
+  //const edges = ufoaDB.getAssociations().reduce(
+    //(edges, a) => {
+      //const e1Inst = getEntityInst(a.a_connection1.e_id);
+      //const e2Inst = getEntityInst(a.a_connection2.e_id);
+      //if (e1Inst && e2Inst) {
+        //const ai = ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst);
+        //simState.sim_assocInsts.push(ai);
+        //return edges.concat(ufoaInstDiagram.assocInst2vis(ai));
+      //} else {
+        //return edges;
+      //}
+    //}, []);
+  //addEdges(ufoaInstVisModel, edges);
+//}
 
 function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
   const addOps = eventB.ev_add_ops;
@@ -123,7 +162,7 @@ function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, 
       simState.sim_ufoaInsts = simState.sim_ufoaInsts.concat(newInsts);
       newInsts.map(ei => ufoaInstDiagram.addEntityInst(ufoaInstVisModel, ei));
       addGeneralisations(ufoaInstVisModel);
-      addAssociations(ufoaInstVisModel);
+      //addAssociations(ufoaInstVisModel);
       ufoaInstNetwork.fit({ 
         nodes: newInsts.map(ei => ufoaInstMeta.eiId(ei)),
         animation: true

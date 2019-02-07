@@ -1,4 +1,5 @@
 Fixes:
+- Focus inputu newEntityInstModal
 - rolovani jen vnitrku panes, ne celeho
 
 Upgrades:
@@ -12,6 +13,5 @@ Refactoring:
 
 Ideas:
 - simulace
-  - kontrola max jedné default entity v každém kroku
 - dispositions budou mít condition (nyní existence instance, v budoucnu i hodnoty atributů)
 

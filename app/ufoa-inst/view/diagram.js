@@ -42,7 +42,7 @@ export function addEntityInst(visModel: VisModel, ei: EntityInst) {
 
 // Generalisation Inst {{{1
 
-export function genInst2vis(gi: GeneralisationInst): VisEdge {
+export function gInst2vis(gi: GeneralisationInst): VisEdge {
   return ({
     id: gi.gi_id,
     type: "genInst",

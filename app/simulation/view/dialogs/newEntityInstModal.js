@@ -24,7 +24,7 @@ type State = {
 
 class EntityInstNameForm extends React.Component<Props, State> {
 
-  typeahead: any = null;
+  nameInput = null;
 
   constructor(props) {
     super(props);
@@ -52,6 +52,12 @@ class EntityInstNameForm extends React.Component<Props, State> {
     });
   }
 
+  handleKeyPress = event => {
+    if(event.key === "Enter") {
+      this.save();
+    }
+  }
+
   save = () => {
     panels.disposeModal();
     const res = ufoaInstModel.newEntityInst(this.props.entity, this.state.instName);
@@ -65,7 +71,9 @@ class EntityInstNameForm extends React.Component<Props, State> {
       <div className="form-group"> 
         <label>Name</label>
         <input className="form-control"
+          ref={(input) => { this.nameInput = input; }} 
           value={this.state.instName}
+          onKeyPress={this.handleKeyPress}
           onChange={event => this.setInstName(event.currentTarget.value)}
         />
       </div>
@@ -105,7 +113,15 @@ class EntityInstNameForm extends React.Component<Props, State> {
           </Panel>
       </Modal.Dialog>);
   }
+
+  componentDidMount() {
+    if (this.nameInput) {
+      this.nameInput.focus();
+    }
+  }
+
 }
+
 
 // }}}1
 
