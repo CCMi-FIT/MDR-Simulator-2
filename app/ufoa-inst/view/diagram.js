@@ -3,12 +3,11 @@
 import * as vis from 'vis';
 import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import * as ufoaDB from '../../ufoa/db';
-import type { Generalisation, Association } from '../../ufoa/metamodel';
 import * as ufoaMeta from '../../ufoa/metamodel';
 import * as ufoaInstMeta from '../../ufoa-inst/metamodel';
 import type { VisNode, VisEdge, VisModel } from '../../diagram';
 
-// Initialisation
+// Initialisation {{{1
 
 export function newVis(): VisModel {
   let nodesDataSet = new vis.DataSet();
@@ -19,7 +18,7 @@ export function newVis(): VisModel {
   };
 }
 
-// General manipulation
+// General manipulation {{{1
 
 export function addEdge(visModel: VisModel, edge: any) {
   let visEdges = visModel.edges;
@@ -104,6 +103,15 @@ export function assocInst2vis(ai: AssocInst): ?VisEdge {
     console.error(`Model inconsistency: Association ${ai.ai_a_id} in AssocInst ${ai.ai_id} does not exist`);
     return null;
   }
+}
+
+export function addAInst(visModel: VisModel, ai: AssocInst) {
+  const newEdge = assocInst2vis(ai);
+  addEdge(visModel, newEdge);
+}
+
+export function addAInsts(visModel: VisModel, ais: Array<AssocInst>) {
+  ais.map(ai => addAInst(visModel, ai));
 }
 
 // Render {{{1

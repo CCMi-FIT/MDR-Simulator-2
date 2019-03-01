@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import product from 'cartesian-product';
 import type { Id } from "../metamodel";
-import type { UfoaEntity, Generalisation } from '../ufoa/metamodel';
+import type { UfoaEntity, Generalisation, Association } from '../ufoa/metamodel';
 import * as ufoaDB from '../ufoa/db';
 import type { UfobEvent } from "../ufob/metamodel";
 import type { EntityInst, GeneralisationInst, AssocInst } from "../ufoa-inst/metamodel";
@@ -80,6 +80,21 @@ export function getMissingGIs(): Array<GeneralisationInst> {
   return R.difference(allGIs, simState.sim_gis);
 }
 
+export function getMissingAIs(): Array<AssocInst> {
+  const allAIs = ufoaDB.getAssociations().reduce(
+    (resAIs: Array<AssocInst>, a: Association) => {
+      const e1Insts = simState.sim_eis.filter(ei => ei.ei_e_id === a.a_connection1.e_id);
+      const e2Insts = simState.sim_eis.filter(ei => ei.ei_e_id === a.a_connection2.e_id);
+      const cartesian = product([e1Insts, e2Insts]);
+      const aisPossible = cartesian.map(([e1Inst, e2Inst]) => ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst));     
+      const ais = aisPossible.filter(ai => rules.checkAIrules(simState.sim_eis, simState.sim_ais, ai));
+      return resAIs.concat(ais);
+    },
+    [] 
+  );
+  return R.difference(allAIs, simState.sim_ais);
+}
+
 export type GIChoiceSets = Array<Array<EntityInst>>;
 
 export function getSupChoiceSets(gis: Array<GeneralisationInst>): any {
@@ -129,21 +144,14 @@ export function addGInsts(gis: Array<GeneralisationInst>): Array<string> {
   return msgs;
 }
 
-//function addAssociations(ufoaInstVisModel: VisModel) {
-  //const edges = ufoaDB.getAssociations().reduce(
-    //(edges, a) => {
-      //const e1Inst = getEntityInst(a.a_connection1.e_id);
-      //const e2Inst = getEntityInst(a.a_connection2.e_id);
-      //if (e1Inst && e2Inst) {
-        //const ai = ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst);
-        //simState.sim_assocInsts.push(ai);
-        //return edges.concat(ufoaInstDiagram.assocInst2vis(ai));
-      //} else {
-        //return edges;
-      //}
-    //}, []);
-  //addEdges(ufoaInstVisModel, edges);
-//}
+export function addAInsts(ais: Array<AssocInst>): Array<string> {
+  let msgs: Array<string> = [];
+  simState.sim_ais = simState.sim_ais.concat(ais);
+  if (msgs.length > 0) {
+    simError = true;
+  }
+  return msgs;
+}
 
 export function invalidate() {
   simError = true;

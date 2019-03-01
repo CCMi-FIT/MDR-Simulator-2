@@ -32,8 +32,6 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
 
   choose = () => {
     panels.disposeModal();
-    console.log(this.state.chosenInstName);
-    console.log(this.props.insts);
     const chosenInst = this.props.insts.find(ei => ei.ei_name === this.state.chosenInstName);
     if (!chosenInst) {
       console.error(`Something is very wrong in ChooseEntityInstForm: ${this.state.chosenInstName} disappeared from props.insts`);

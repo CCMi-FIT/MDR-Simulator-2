@@ -67,65 +67,65 @@ function sequence(tasks: Array<() => Promise<any>>, parameters = [], context = n
 
 function selectGisPmFn(giChoicesSet: Array<GeneralisationInst>): () => Promise<GeneralisationInst> {
   return (() => {
-    const instsChoices = giChoicesSet.map(gi => machine.getSupEntityInst(gi));
-    const supInst = machine.getSupEntityInst(giChoicesSet[0]);
-    const subInst = machine.getSubEntityInst(giChoicesSet[0]);
-    if (!supInst) {
-      console.error(`EntityInst ${giChoicesSet[0].gi_sup_ei_id} not found in selectGisPmFn`);
-      return Promise.reject();
-    } else {
+    try {
+      const instsChoices = giChoicesSet.map(gi => machine.getSupEntityInst(gi));
+      const supInst = machine.getSupEntityInst(giChoicesSet[0]);
+      const subInst = machine.getSubEntityInst(giChoicesSet[0]);
       const entity = ufoaInstModel.getEntityOfInst(supInst, ufoaDB);
-      if (!entity) {
-        console.error(`Consistency error: supInst of unknown entity ${supInst.ei_e_id}`);
-        return Promise.reject();
-      } else {
-        return chooseEntityInstModal.renderPm(instsChoices, entity, `as the supertype of ${eiLabel(subInst, ufoaDB)}`).then(
-          (chosenInst: EntityInst) => {
-            const chosenGI: ?GeneralisationInst = giChoicesSet.find(gi => R.equals(eiId(chosenInst), gi.gi_sup_ei_id));
-            if (!chosenGI) {
-              console.error(`Something is wrong: chosenInst was not found in the original set`);
-              return Promise.reject();
-            } else {
-              return Promise.resolve(chosenGI);
-            }
+      return chooseEntityInstModal.renderPm(instsChoices, entity, `as the supertype of ${eiLabel(subInst, ufoaDB)}`).then(
+        (chosenInst: EntityInst) => {
+          const chosenGI: ?GeneralisationInst = giChoicesSet.find(gi => R.equals(eiId(chosenInst), gi.gi_sup_ei_id));
+          if (!chosenGI) {
+            console.error(`Something is wrong: chosenInst was not found in the original set`);
+            return Promise.reject();
+          } else {
+            return Promise.resolve(chosenGI);
           }
-        );
-      }
+        }
+      );
+    } catch (err) {
+      return Promise.reject(err);
     }
   });
 }
 
-function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
-  const addOps = eventB.ev_add_ops;
-  const newEIsPmFns = addOps.map(op => addOp2EntityInstPmFn(eventB, op));
-  sequence(newEIsPmFns).then(
-    newEIs => {
-      machine.addEntityInsts(newEIs);
-      ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
-      const newGIs = machine.getMissingGIs();
-      const gisChoicesSets = machine.getSupChoiceSets(newGIs);
-      const gisChoicesArrays: Array<Array<GeneralisationInst>> = R.values(gisChoicesSets);
-      const gisSelectionsPmFns = gisChoicesArrays.map(selectGisPmFn);
-      sequence(gisSelectionsPmFns).then(
-        (gisSelections: any) => {
-          const gisChoices = R.flatten((gisChoicesArrays: any)); 
-          const gisNotSelected = R.difference(gisChoices, gisSelections);
-          const finalGIs = R.difference(newGIs, gisNotSelected);
-          machine.addGInsts(finalGIs);
-          ufoaInstDiagram.addGInsts(ufoaInstVisModel, finalGIs);
-          //addAssociations(ufoaInstVisModel);
-          ufoaInstNetwork.fit({ 
-            nodes: newEIs.map(ei => eiId(ei)),
-            animation: true
-          });
-        }
-      );
-    },
-    error => {
-      panels.displayError(error);
-      machine.invalidate();
-    }
-  );
+async function addGInsts(ufoaInstVisModel: VisModel) {
+  const newGIs = machine.getMissingGIs();
+  const gisChoicesSets = machine.getSupChoiceSets(newGIs);
+  const gisChoicesArrays: Array<Array<GeneralisationInst>> = R.values(gisChoicesSets);
+  const gisSelectionsPmFns = gisChoicesArrays.map(selectGisPmFn);
+  let gisSelections: any = await sequence(gisSelectionsPmFns);
+  const gisChoices = R.flatten((gisChoicesArrays: any)); 
+  const gisNotSelected = R.difference(gisChoices, gisSelections);
+  const finalGIs = R.difference(newGIs, gisNotSelected);
+  machine.addGInsts(finalGIs);
+  ufoaInstDiagram.addGInsts(ufoaInstVisModel, finalGIs);
+}
+
+async function addAssocsInsts(ufoaInstVisModel: VisModel) {
+  const newAIs = machine.getMissingAIs();
+  const finalAIs = newAIs;
+  machine.addAInsts(finalAIs);
+  ufoaInstDiagram.addAInsts(ufoaInstVisModel, finalAIs);
+}
+
+async function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
+  try {
+    const addOps = eventB.ev_add_ops;
+    const newEIsPmFns = addOps.map(op => addOp2EntityInstPmFn(eventB, op));
+    let newEIs = await sequence(newEIsPmFns);
+    machine.addEntityInsts(newEIs);
+    ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
+    await addGInsts(ufoaInstVisModel);
+    await addAssocsInsts(ufoaInstVisModel);
+    ufoaInstNetwork.fit({ 
+      nodes: newEIs.map(ei => eiId(ei)),
+      animation: true
+    });
+  } catch (err) {
+    panels.displayError(err);
+    machine.invalidate();
+  }
 }
 
 function processRemoveOperations(ufoaInstVisModel: VisModel, eventB: UfobEvent) {
