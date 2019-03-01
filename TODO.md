@@ -1,6 +1,7 @@
+- Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
+
 Fixes:
 - Focus inputu newEntityInstModal
-- rolovani jen vnitrku panes, ne celeho
 
 Upgrades:
 - https://split.js.org

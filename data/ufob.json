@@ -71,6 +71,10 @@
         {
           "opa_e_id": "e5",
           "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e4",
+          "opa_ei_is_default": true
         }
       ],
       "ev_remove_ops": [],

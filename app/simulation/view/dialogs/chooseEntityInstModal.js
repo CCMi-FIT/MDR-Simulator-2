@@ -57,23 +57,9 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
     );
   }
 
-  renderError() {
-    return (
-      <div>
-        This name is already present.
-      </div>
-    );
-  }
-  
   renderButtons() {
     return (
-      <div className="f
-￼
-￼
-Jméno učitele: 	Pergl Robert	￼
-￼
-Fakulta: 	￼
-￼orm-group"> 
+      <div className="form-group"> 
         <Button 
           className="btn-primary" 
           onClick={this.choose}
@@ -85,7 +71,7 @@ Fakulta: 	￼
     return ( 
       <Modal.Dialog>
           <Panel className="dialog">
-            <Panel.Heading><strong>Choose instance of &quot;{this.props.entity.e_name}&quot; as {this.props.choiceType}</strong></Panel.Heading>
+            <Panel.Heading>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></Panel.Heading>
             <Panel.Body collapsible={false}>
               {this.renderSelection()}
               {this.renderButtons()}

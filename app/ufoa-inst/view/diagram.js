@@ -1,14 +1,14 @@
 //@flow
 
-import * as R from 'ramda';
 import * as vis from 'vis';
 import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import * as ufoaDB from '../../ufoa/db';
 import type { Generalisation, Association } from '../../ufoa/metamodel';
 import * as ufoaMeta from '../../ufoa/metamodel';
-import * as ufoaDiagram from '../../ufoa/view/diagram';
 import * as ufoaInstMeta from '../../ufoa-inst/metamodel';
 import type { VisNode, VisEdge, VisModel } from '../../diagram';
+
+// Initialisation
 
 export function newVis(): VisModel {
   let nodesDataSet = new vis.DataSet();
@@ -17,6 +17,19 @@ export function newVis(): VisModel {
     nodes: nodesDataSet,
     edges: edgesDataSet
   };
+}
+
+// General manipulation
+
+export function addEdge(visModel: VisModel, edge: any) {
+  let visEdges = visModel.edges;
+  if (!visEdges.get(edge.id)) {
+    visEdges.add(edge);
+  }
+}
+
+export function addEdges(visModel: VisModel, edges: Array<any>) {
+  edges.map(edge => addEdge(edge));
 }
 
 // Entity Inst {{{1
@@ -40,6 +53,10 @@ export function addEntityInst(visModel: VisModel, ei: EntityInst) {
   visModel.nodes.add(newNode);
 }
 
+export function addEntityInsts(visModel: VisModel, eis: Array<EntityInst>) {
+  eis.map(ei => addEntityInst(visModel, ei));
+}
+
 // Generalisation Inst {{{1
 
 export function gInst2vis(gi: GeneralisationInst): VisEdge {
@@ -53,6 +70,16 @@ export function gInst2vis(gi: GeneralisationInst): VisEdge {
     smooth: false
   });
 }
+
+export function addGInst(visModel: VisModel, gi: GeneralisationInst) {
+  const newEdge = gInst2vis(gi);
+  addEdge(visModel, newEdge);
+}
+
+export function addGInsts(visModel: VisModel, gis: Array<GeneralisationInst>) {
+  gis.map(gi => addGInst(visModel, gi));
+}
+
 
 // Association Inst {{{1
 

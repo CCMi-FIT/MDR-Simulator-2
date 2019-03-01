@@ -10,8 +10,8 @@ export type EntityInst = {
   ei_name: string
 };
 
-export function eiId(ei: EntityInst): string {
-  return ei.ei_e_id + (ei.ei_name ? '_' + ei.ei_name : '');
+export function eiId(ei: ?EntityInst): string {
+  return ei ? ei.ei_e_id + (ei.ei_name ? '_' + ei.ei_name : '') : '';
 }
 
 export function eiLabel(ei: EntityInst, ufoaDB: any): string {
