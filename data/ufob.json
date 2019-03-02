@@ -65,10 +65,6 @@
           "opa_ei_is_default": false
         },
         {
-          "opa_e_id": "e5",
-          "opa_ei_is_default": true
-        },
-        {
           "opa_e_id": "e61",
           "opa_ei_is_default": true
         }
@@ -90,10 +86,6 @@
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e29",
-          "opa_ei_is_default": true
-        },
-        {
           "opa_e_id": "e96",
           "opa_ei_is_default": true
         },
@@ -103,6 +95,10 @@
         },
         {
           "opa_e_id": "e27",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e29",
           "opa_ei_is_default": false
         }
       ],
@@ -139,10 +135,6 @@
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e29",
-          "opa_ei_is_default": true
-        },
-        {
           "opa_e_id": "e88",
           "opa_ei_is_default": true
         },
@@ -153,6 +145,10 @@
         {
           "opa_e_id": "e101",
           "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e29",
+          "opa_ei_is_default": false
         }
       ],
       "ev_remove_ops": [],
@@ -281,16 +277,16 @@
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e91",
+          "opa_e_id": "e33",
           "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_ei_is_default": false
         },
         {
           "opa_e_id": "e61",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e33",
-          "opa_ei_is_default": true
+          "opa_ei_is_default": false
         }
       ],
       "ev_remove_ops": [],
@@ -495,7 +491,20 @@
     {
       "ev_id": "e25",
       "ev_name": "Donor Selection\nfor Transplantation",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e15",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e83",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e102",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17",
       "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
