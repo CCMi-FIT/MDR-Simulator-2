@@ -41,10 +41,6 @@
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e61",
-          "opa_ei_is_default": true
-        },
-        {
           "opa_e_id": "e91",
           "opa_ei_is_default": true
         },
@@ -73,7 +69,7 @@
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e4",
+          "opa_e_id": "e61",
           "opa_ei_is_default": true
         }
       ],
@@ -120,26 +116,42 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e92",
-          "opa_ei_is_default": true
+          "opa_ei_is_default": false
         },
         {
           "opa_e_id": "e64",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e101",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e88",
-          "opa_ei_is_default": true
+          "opa_ei_is_default": false
         },
         {
           "opa_e_id": "e94",
-          "opa_ei_is_default": true
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_ei_is_default": false
         },
         {
           "opa_e_id": "e95",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e29",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e5",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e62",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e65",
           "opa_ei_is_default": true
         }
       ],
@@ -149,19 +161,37 @@
     },
     {
       "ev_id": "e4",
-      "ev_name": "<<merging>>\nDonors Search",
-      "ev_add_ops": [],
+      "ev_name": "<<merging>>\nDonor Matching",
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e8",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e11",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e99",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s6",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The result of search is search report, where potential donors are listed. Potential Donors become members of the group Found Donors.</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>5.17 Search algorithms must provide lists of suitably matched donors in a reasonable time frame.</li>\n\t<li>5.18 Each printed report must be dated.</li>\n\t<li>5.19 Each step in the search process must be documented with all relevant attributes and a time stamp.</li>\n\t<li>6.01 Critical communications between registries or between a registry and a transplant centre must be in writing clearly readable, or via electronic established system.</li>\n\t<li>6.01.1 These communications should contain a signature of authorisation and be sent by fax or email or should be submitted through authorised access to a communication system.</li>\n\t<li>6.02 Registries must respond to search requests and to requests for additional information and/or an aliquot of donor (or maternal if cord blood) sample within a time period consistent with WMDA metrics and in a defined manner.</li>\n\t<li>6.02.3 The policy of the registry regarding repetition of the database search for a specific patient must be defined and readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.02.4 The registry must have an effective mechanism to provide access to international patients.</li>\n\t<li>6.07 Donor and patient identity must remain confidential throughout the search process so that only appropriate registry personnel have access to these data.</li>\n\t<li>6.07.1 The registry must have a written policy listing the conditions under which volunteer donors and recipients might be informed of each other&rsquo;s identity. These policies must comply with governmental laws on disclosure.</li>\n</ul>\n"
     },
     {
       "ev_id": "e5",
       "ev_name": "Donor\nBecomes\nTemporary\nUnavailable",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e6",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s19",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Reasons for making a Donor Temporary Deferred are donor&#39;s request, medical reasons, or realizing donation.</p>\n"
     },
     {
       "ev_id": "e7",
@@ -174,10 +204,15 @@
     {
       "ev_id": "e8",
       "ev_name": "Donors Selection\nfor Verification",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e9",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s7",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Transplant centre can select donor listed on search report for verification.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Verification Typing - This HLA typing includes the tests carried out on a fresh sample of a specific donor or on an attached-segment of a cord blood unit with the purpose of verifying the identity and concordance of an existing HLA assignment. The purpose of this typing is to ensure that the volunteer/cord blood unit is the same individual/unit whose HLA typing was listed on the search report used to select the donor. This stage used to be referred to as &quot;confirmatory typing (CT)&quot;.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>2.04 The director or key registry personnel or consultants must have expertise in human histocompatibility and HSC transplantation as documented by the relevant education and experience. At least one of these individuals must be a physician. These individuals must possess a basic understanding of diseases treatable by HSC transplantation, comprehend alternative therapies and donor search problems associated with these diseases, understand HLA specificities antigens/alleles(serologic and DNA-based) and haplotypes, and possess a knowledge of transplant centre, donor centre, collection centre, cord blood bank (if applicable), and registry protocols in their own country and abroad.</li>\n\t<li>2.05 The registry must have a qualified and trained health care professional readily available to assist with routine medical decisions regarding donor selection and donation.</li>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e9",
@@ -198,7 +233,28 @@
     {
       "ev_id": "e11",
       "ev_name": "Donor Activation\nand Blood Sample Draw\nfor Extended HLA Typing",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e10",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e32",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e60",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e61",
+          "opa_ei_is_default": false
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s8",
       "ev_wmda_text": ""
@@ -206,7 +262,24 @@
     {
       "ev_id": "e12",
       "ev_name": "Donor Activation\nand Blood Sample Draw\nfor Verification Examination",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e60",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e61",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e33",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s12",
       "ev_wmda_text": ""
@@ -230,71 +303,144 @@
     {
       "ev_id": "e15",
       "ev_name": "Medical Assessment",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e52",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e56",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e49",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e81",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s13",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Before possible selection for HSC donation for selected donor must be verified the donor identity and performed health screening affecting the suitability of donor.</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.08 The volunteer donor has the right to receive the results of their health screening.</li>\n\t<li>3.19 The results of the donor assessment including the results of any laboratory tests and medical evaluation must be documented and maintained.</li>\n\t<li>3.22.2 A health screening must be performed at time of verification typing.</li>\n\t<li>3.22.2.1 Information on donor parity and history of other prior sensitizing events such as transfusion must be obtained from volunteer donors during the verification typing stage.</li>\n\t<li>3.23 The volunteer donor&#39;s medical history taken at the time of medical examination for donation must include questions to identify persons at risk of disease transmissible through transplantation (e.g., infectious diseases, genetic defects or disseminated malignancies) according to WMDA recommendations.</li>\n</ul>\n\n<h3>WMDA Recommendations:</h3>\n\n<p>Minimum donor medical and lifestyle information requested at confirmatory/verification typing stage:</p>\n\n<ul>\n\t<li>Cancer</li>\n\t<li>Autoimmune disease (Ankylosing spondylitis; Crohn&rsquo;s disease; ulcerative colitis; myasthenia gravis; rheumatoid arthritis; sarcoidosis; SLE; multiple sclerosis; scleroderma/CREST. Any other autoimmune condition)</li>\n\t<li>Infectious diseases, including being a sexual partner of an infected individual (HIV, Hepatitis B, Hepatitis C, HTLV, syphilis)</li>\n\t<li>Infectious diseases, others (CJD - including familial and exposure risk, e.g. neurosurgery, use of pituitary hormone, Chagas disease, tuberculosis, malaria)</li>\n\t<li>Back problems (Any acute or chronic back complaint, including cause, investigations, duration, medication and impact on activities of daily living)</li>\n\t<li>Hypertension (Most recent blood pressure readings; medications; degree of control)</li>\n\t<li>Cardiac disease (Coronary artery disease; evidence of valve disease, e.g. murmur; arrhythmia)</li>\n\t<li>Asthma (Degree of control; medications; use of oral steroids; hospital admissions; intensive care admissions/ventilation)</li>\n\t<li>Epilepsy (Medications; date of last seizure)</li>\n\t<li>Pregnancy (Number of pregnancies, including miscarriage; current/recent pregnancies; breastfeeding.)</li>\n\t<li>Blood transfusion (Receipt of a blood transfusion. Ask year and place of transfusion.)</li>\n\t<li>Any other medical history (The potential donor should be asked if they have any other past or current medical problems)</li>\n\t<li>Height and weight</li>\n\t<li>High risk sexual behaviour (As defined by the registry&rsquo;s national competent authority)</li>\n\t<li>Non-prescription parenteral drug use</li>\n\t<li>Alcohol consumption</li>\n\t<li>Tattoo, acupuncture or body piercing (When and where. Establish if at an establishment registered according to national regulations)</li>\n\t<li>Current medications</li>\n\t<li>Allergies</li>\n</ul>\n"
     },
     {
       "ev_id": "e16",
       "ev_name": "<<merging>>\nMaking Donor Verified",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e13",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s15",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Donor become verified after obtaining all the results from verification HLA typing, medical assessment and infection disease markers testing.</p>\n"
     },
     {
       "ev_id": "e17",
       "ev_name": "Donor Reservation",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e14",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e103",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s16",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Transplant center can reserved one or more donors from verified donors for possible future HSC collection.</p>\n"
     },
     {
       "ev_id": "e18",
       "ev_name": "Collection Request",
       "ev_add_ops": [
         {
-          "opa_e_id": "e100",
+          "opa_e_id": "e15",
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e90",
-          "opa_ei_is_default": false
-        },
-        {
-          "opa_e_id": "e97",
+          "opa_e_id": "e83",
           "opa_ei_is_default": true
         },
         {
-          "opa_e_id": "e93",
-          "opa_ei_is_default": true
-        },
-        {
-          "opa_e_id": "e109",
+          "opa_e_id": "e102",
           "opa_ei_is_default": true
         }
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Transplant centre can choose donor with verified concordance of HLA, identity and performed health screening affecting the suitability of donor for donation, i.e. Work-up is initialized.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Work-up - At this stage, a volunteer donor has been identified as an acceptable match for a patient, agrees to donate HSC after a full donor information and counselling session, and is medically evaluated for their fitness to donate HSC.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.16 Prospective unrelated volunteer donors selected for HSC collection must have passed a minimum age established by national law or their 18th birthday if no regulations exist and an upper age-limit for donation must be stipulated after which donors will be removed from the registry.</li>\n\t<li>3.16.1 The upper age limit for prospective unrelated volunteer donors selected for HSC collection should not exceed sixty (60) years.</li>\n\t<li>6.03 A donor selected for a specific patient must be placed on a &ldquo;reserved&rdquo; status from the time of verification typing until the donation date is reached.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n\t<li>10.05 If the collection procedure is cancelled after the final donor selection, collection centre and/or donor centre and/or registry are entitled to charge for services performed prior to notice of cancellation. This practice must be noted on the fee schedule.</li>\n</ul>\n"
     },
     {
       "ev_id": "e19",
       "ev_name": "Collection Dates Assessment",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e110",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e111",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e16",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s18",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Donor centre must contact and informed the specific donor of the proposed date(s) of transplant based on Formal Request for HSC collection by TC. If possible the schedule is proposed, if donor was temporarily unavailable DC informs TC and new schedule can be proposed. Specification of donor clearance is proposed in cooperation of DC and TC (registry policy).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>3.11 Valid signed informed consent must be obtained from all volunteer donors at the time of work-up.</li>\n\t<li>3.11.1 Informed consent documents must meet established criteria based at a minimum on WMDA guidelines. In addition to information on the process, risks and benefits, documents must include information on the collection and protection of donor data and the right of the donor to medical confidentiality and to receive medical information. Documents must be clearly written in terms understood by the donor and, at work-up, must include the signature(s) of qualified staff involved in donor counselling.</li>\n\t<li>3.12 The identity of the volunteer donor must be verified, at a minimum, at work-up and at collection, by the qualified staff signing the consent form.</li>\n\t<li>3.22 Donor health requirements affecting the suitability of volunteer donors must be established.</li>\n\t<li>3.22.3 Policies for testing the volunteer donor selected for work-up must be established and must include medical history, physical exam, and laboratory tests in order to determine the volunteer&rsquo;s fitness to donate.</li>\n\t<li>3.22.3.1 This examination must be performed or supervised by a physician who is not a member of a team who has cared for the patient.</li>\n\t<li>3.22.3.2 Female volunteer donors of childbearing potential must have a pregnancy test and be counselled to avoid pregnancy during the work-up stage before use of mobilising agents, HSC collection or initiation of the recipient&rsquo;s preparative regimen, whichever occurs earliest.</li>\n\t<li>3.24 Infectious disease testing of volunteer donors selected for specific patients must include testing for diseases thought to be important to consider in HSC transplantation. Testing must monitor infection with human immunodeficiency virus (HIV), Human T-cell Lymphotropic virus I and II, Hepatitis B virus, Hepatitis C virus, Cytomegalovirus (CMV), Treponema pallidum (syphilis) and other infectious agents as defined by national health authorities.</li>\n\t<li>3.24.1 Selected volunteer donors should also be tested for local diseases that are important to consider in transplantation. Donors who have recently travelled outside their country should also be evaluated for infectious agents prevalent in the areas of travel.</li>\n\t<li>6.04 The donor centre/cord blood bank must be informed of the proposed date(s) of transplant at the time a specific donor/cord blood unit is requested for transplantation for a specific patient. If a volunteer donor will be the source of HSC, the donor must also be informed. The transplant centre must specify the latest date by which the donor centre must approve the eligibility of a donor for donation of HSC for a specific patient (i.e., provide donor clearance).</li>\n</ul>\n\n<h3>WMDA Recommendations:</h3>\n\n<p>Recommended minimum medical assessment at work-up:</p>\n\n<ul>\n\t<li>Travel history (Identify travel to areas with endemic malaria, chagas and West Nile virus)</li>\n\t<li>Sexual history (Identification of high risk sexual behaviour, including within groups associated with a higher prevalence of blood borne viruses)</li>\n\t<li>Examination (General (including height and weight); cardiovascular (including blood pressure); respiratory; gastrointestinal; neurological)</li>\n\t<li>Laboratory investigations (HIV, Hepatitis B, Hepatitis C, HTLV I+II, Syphilis detailed infectious disease markers testing)</li>\n\t<li>Haematology (Full blood count; coagulation screen (including PT, APTT and fibrinogen); ESR; blood film; haemoglobin electrophoresis or high-pressure liquid chromatography)</li>\n\t<li>Biochemistry (Urea and electrolytes; liver function tests; LDH; ferritin; random glucose; b-HCG (for females of child-bearing age))</li>\n\t<li>Other investigations (Chest x-ray; electrocardiogram)</li>\n</ul>\n"
     },
     {
       "ev_id": "e20",
       "ev_name": "Work-up",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e34",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e104",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e17",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e52",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e56",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e82",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e51",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e60",
+          "opa_ei_is_default": false
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_ei_is_default": false
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s21",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Donor centre provide medical screening (according to Specification of donor clearance) for the eligibility evaluation of a donor for donation of HSC for a specific patient.</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.08 The volunteer donor has the right to receive the results of their health screening.</li>\n\t<li>3.23 The volunteer donor&#39;s medical history taken at the time of medical examination for donation must include questions to identify persons at risk of disease transmissible through transplantation (e.g., infectious diseases, genetic defects or disseminated malignancies) according to WMDA recommendations.</li>\n\t<li>3.25 Infectious disease markers must be measured within thirty (30) days of the HSC/cellular product collection and the results must be provided to the transplant centre before commencement of patient conditioning.</li>\n\t<li>3.26 The volunteer donor must be counselled in case of positive disease results.</li>\n</ul>\n"
     },
     {
       "ev_id": "e21",
@@ -307,10 +453,15 @@
     {
       "ev_id": "e22",
       "ev_name": "Donor\nBecomes\nPermanently\nUnavailable",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e7",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s20",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>Reasons for making a Donor Permanently Deferred are donor&#39;s request, age limit, medical reasons, death, realizing two non-subsequent donations or long-term contact unavailability.</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.16.1 The upper age limit for prospective unrelated volunteer donors selected for HSC collection should not exceed sixty (60) years.</li>\n</ul>\n"
     },
     {
       "ev_id": "e23",
@@ -318,7 +469,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e24",
@@ -326,7 +477,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e25",
@@ -334,7 +485,7 @@
       "ev_add_ops": [],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s17",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e26",
@@ -347,23 +498,66 @@
     {
       "ev_id": "e27",
       "ev_name": "PBSC\nDonation\nPreparation",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e39",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e38",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e19",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e108",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s23",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>If donor preferred PBSC donation, as a part of medical preparation for collection application of GCSF is necessary. If medical preparation did no goes according pre-transplantation schedule, it is necessary to change the whole schedule.</p>\n\n<h3>WMDA Abbreviation:</h3>\n\n<ul>\n\t<li>GCSF - Granulocyte colony-stimulating factor is a cytokine that stimulates the bone marrow to produce granulocytes (white cells) and HSC and causes these cells to mobilise (move) to the peripheral blood where they can be collected from the veins for transplantation.</li>\n</ul>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>8.05 If a volunteer donor is subjected to a medical intervention as part of the HSC or cellular product collection process, the registry must have appropriate policies and procedures to protect the health and safety of the donor and of the recipient.</li>\n</ul>\n"
     },
     {
       "ev_id": "e28",
       "ev_name": "PBSC\nCollection",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e21",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e43",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e42",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e69",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s24",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>If donor preferred PBSC donation, PBSC collection takes place in Collection Centre.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Collection centre - A medical facility where HSC collection from volunteer donors actually takes place. This collection might include marrow aspiration or apheresis. The collection centre, or designee, performs the medical work-up of the volunteer donor and provides the final approval of the volunteer donor for collection. The collection centre packages the donation for transport to the transplant centre.</li>\n\t<li>Product - A cellular therapy product that contains haematopoietic stem cells and/or other nucleated cells intended for therapeutic use.</li>\n\t<li>Product code - Unique numeric or alphanumeric identifier by which it will be possible to trace any cellular therapy product to its donor and to all records describing the handling and final disposition of the product.</li>\n</ul>\n\n<h3>WMDA Abbreviation:</h3>\n\n<ul>\n\t<li>CVC - Central venous catheter. A catheter placed in a vein in the neck (internal jugular vein), chest (subclavian or axillary vein) or in the groin (femoral vein).</li>\n\t<li>SAE - Serious adverse event. Any untoward occurrence associated with the procurement, testing, processing, storage, and distribution of tissues and cells that might lead to the transmission of an infectious disease, to death or life-threatening, disabling or incapacitating conditions for patients or which might result in, or prolong, hospitalisation or morbidity.</li>\n\t<li>SAR - Serious adverse reaction. An unintended response, including a communicable disease, in the donor or in the recipient associated with the procurement or human application of tissues and cells that is fatal, life-threatening, disabling, incapacitating or which results in, or prolongs, hospitalisation or morbidity.</li>\n\t<li>S(P)EAR - A centralised international database recording written description of SAE and SAR that has or may have resulted in harm to an unrelated donor or that impact the quality of a donated cellular product that have or may have resulted in harm to a recipient. The database also includes the outcome of any investigation to determine the cause of the event.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>1.08 If a registry relies on an independent collection centre for the collection of donor HSC or other donor cellular products, for donor medical evaluation or for the follow-up of donors, the registry must ensure that the collection centre complies with WMDA Standards in these areas. The nature of these affiliations and the duties and responsibilities of each entity must be documented in a written agreement.</li>\n\t<li>8.01 Collection of HSC and any other collected cell products intended for therapeutic use, must be performed at a collection centre/cord blood collection site that fulfils standards established by the government or prevailing in the relevant community for such a facility.</li>\n\t<li>8.02 The collection centre/cord blood collection site must ensure the identity, safety and privacy of the donor and the confidentiality of the donor and cord blood data.</li>\n\t<li>8.03 The collection centre/cord blood bank collection site and the collection of HSC or other donor cellular product must be under the direction of trained and experienced health care professionals.</li>\n\t<li>8.04 If required, autologous donor blood must be collected at a blood collection centre that fulfils national and/or regional and/or international guidelines for such a facility.</li>\n\t<li>8.05 If a volunteer donor is subjected to a medical intervention as part of the HSC or cellular product collection process, the registry must have appropriate policies and procedures to protect the health and safety of the donor and of the recipient.</li>\n\t<li>8.05.1 These policies should include the procedure regarding the type of collection (HSC, apheresis versus HSC, Marrow) in case of failed mobilisation.</li>\n\t<li>8.05.2 The registry must have a policy concerning the use of CVC in volunteer donors to assure that a CVC is only used in exceptional circumstances. Those circumstances must be documented.</li>\n\t<li>8.05.3 The registry must have a policy that protects the safety of the volunteer donors with a CVC inserted.</li>\n\t<li>8.06 Written policies and procedures must be in place to ensure the identity, quality and quantity of the collected cells. These must include policies for communication between the transplant centre, collection centre/cord blood bank and cell-processing unit regarding the number of cells required.</li>\n\t<li>8.07 Written documentation of the characteristics of the collected product important in facilitating transplantation must be provided with the cells according to applicable guidelines. The documentation and/or label, at a minimum, must include information on the name of the product and product code, the number of cells collected, the donor&rsquo;s unique identifier, donor ABO/Rh group, identification of the patient, date and time of collection (only in case of volunteer donors), any processing details, and name and contact information of the transplant centre.</li>\n\t<li>8.07.1 The registry should utilise an international coding and labeling system for the product to ensure the identity of the product.</li>\n\t<li>8.09 SAE affecting a cellular product intended for a specific patient must be identified, documented, investigated and remedial and/or corrective action taken.</li>\n\t<li>8.10 SAR impacting the cellular product and hence potentially the patient&rsquo;s health must be submitted to a WMDA international centralised database of such events (S(P)EAR).</li>\n\t<li>8.10.1 Reports of SAR affecting the donated cellular product must be communicated to the registry involved in the donation if the event might affect the transplantation. Other individuals or groups should be notified as appropriate.</li>\n\t<li>8.10.2 The registry must comply with governmental regulations including requirements to report such adverse reactions to a regulatory agency.</li>\n</ul>\n"
     },
     {
       "ev_id": "e29",
       "ev_name": "PBSC\nTransportation",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e3",
+          "opa_ei_is_default": true
+        },
+        {
+          "opa_e_id": "e72",
+          "opa_ei_is_default": true
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s25",
       "ev_wmda_text": ""
@@ -475,7 +669,7 @@
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s38",
-      "ev_wmda_text": "<p>xxx</p>"
+      "ev_wmda_text": ""
     }
   ],
   "situations": [
@@ -525,7 +719,7 @@
     },
     {
       "s_id": "s5",
-      "s_name": "Donor Search Initiated",
+      "s_name": "Donor Search",
       "s_wmda_text": "",
       "s_dispositions": [
         {
@@ -773,17 +967,21 @@
           ]
         },
         {
-          "d_text": "Donor\nNoneligible (Temporary)\nand another Donor\nAvailable",
+          "d_text": "Donor Noneligible\nand Another Donors\nAvailable",
           "d_events_ids": [
-            "e5",
             "e25"
           ]
         },
         {
-          "d_text": "Donor\nNoneligible (Permanently)\nand Another Donors\nAvailable",
+          "d_text": "Donor Temporary\nNot Available\n",
           "d_events_ids": [
-            "e22",
-            "e25"
+            "e5"
+          ]
+        },
+        {
+          "d_text": "Donor Permanently\nNot Available",
+          "d_events_ids": [
+            "e22"
           ]
         }
       ]
