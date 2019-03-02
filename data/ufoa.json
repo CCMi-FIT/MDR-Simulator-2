@@ -604,6 +604,11 @@
       "e_id": "e120",
       "e_type": "relator",
       "e_name": "Follow-up"
+    },
+    {
+      "e_id": "e121",
+      "e_type": "mode",
+      "e_name": "Follow-up Results"
     }
   ],
   "generalisations": [
@@ -3402,24 +3407,24 @@
       }
     },
     {
-      "a_id": "a107",
-      "a_type": "member of",
+      "a_id": "a108",
+      "a_type": "characterization",
       "a_meta": "",
-      "a_label": "",
       "a_connection1": {
-        "e_id": "e100",
+        "e_id": "e120",
         "mult": {
           "lower": 1,
           "upper": 1
         }
       },
       "a_connection2": {
-        "e_id": "e109",
+        "e_id": "e121",
         "mult": {
           "lower": 1,
           "upper": 1
         }
-      }
+      },
+      "a_label": ""
     }
   ]
 }

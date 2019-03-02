@@ -1,7 +1,11 @@
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
+- Events Operations:
+  - Default / Explicit nahradit Default / Preset / Explicit. U Preset se zadaji nazvy instanci
+    - napr. Subsequent Donation Request: 3 instance Expert Statement
 
 Fixes:
 - Focus inputu newEntityInstModal
+- UFO-A Entity Dialog: Update barvy pri zmene typu
 
 Upgrades:
 - https://split.js.org
@@ -14,5 +18,5 @@ Refactoring:
 
 Ideas:
 - simulace
-- dispositions budou mít condition (nyní existence instance, v budoucnu i hodnoty atributů)
+  - dispositions budou mít condition (nyní existence instance, v budoucnu i hodnoty atributů)
 
