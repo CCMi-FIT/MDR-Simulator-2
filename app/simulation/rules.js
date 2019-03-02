@@ -1,5 +1,6 @@
 // @flow
 
+import * as R from 'ramda';
 import type { Mult } from '../ufoa/metamodel';
 import * as ufoaDB from '../ufoa/db';
 import type { EntityInst, GeneralisationInst, AssocInst } from "../ufoa-inst/metamodel";
@@ -65,19 +66,24 @@ function aiDoesNotExist(aInsts: Array<AssocInst>, ai: AssocInst): boolean {
 }
 
 function aiFollowsMultiplicity(insts: Array<EntityInst>, aInsts: Array<AssocInst>, ai: AssocInst): boolean {
-  console.log("Analysing " + ai.ai_id);
   const a = ufoaInstModel.getAssocOfInst(ai, ufoaDB);
-  const n1Set = insts.filter(inst => aInsts.find(ai1 => ufoaInstModel.getE1EntityInst(insts, ai1).ei_e_id === inst.ei_e_id));
-  console.log(n1Set);
-  const n2Set = insts.filter(inst => aInsts.find(ai1 => ufoaInstModel.getE2EntityInst(insts, ai1).ei_e_id === inst.ei_e_id));
-  console.log(n2Set);
-  const n1 = n1Set.length;
-  const n2 = n2Set.length;
+  const aiE1Inst = ufoaInstModel.getE1EntityInst(insts, ai);
+  const aiE2Inst = ufoaInstModel.getE2EntityInst(insts, ai);
+  const allAis = R.append(ai, aInsts.filter(_ai => _ai.ai_a_id === ai.ai_a_id));
+  const [n1, n2] = allAis.reduce(
+    (acc, _ai) => {
+      const _aiE1Inst = ufoaInstModel.getE1EntityInst(insts, _ai);
+      const _aiE2Inst = ufoaInstModel.getE2EntityInst(insts, _ai);
+      return ([ 
+        eiId(_aiE1Inst) === eiId(aiE1Inst) ? acc[0] + 1 : acc[0],
+        eiId(_aiE2Inst) === eiId(aiE2Inst) ? acc[1] + 1 : acc[1]
+      ]);
+    }, [0, 0]
+  );
   return multUpperOk(n1, a.a_connection1.mult) && multUpperOk(n2, a.a_connection2.mult);
 }
 
 function multUpperOk(n: number, mult: Mult): boolean {
   const res = mult.upper ? n <= mult.upper : true;
-  console.log(`${n} vs ${String(mult.upper)}: ${String(res)}`);
   return res;
 }
