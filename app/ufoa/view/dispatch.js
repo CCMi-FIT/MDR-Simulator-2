@@ -10,11 +10,7 @@ import * as associationDialog from "./dialogs/associationDialog";
 
 function dispatchNode(nodeId: Id, ufoaVisModel: VisModel) {
   let ufoaEntity = ufoaDB.getEntity(nodeId);
-  if (!ufoaEntity) {
-    console.error("Consistency error: entity e_id=" + nodeId + " not found in the UFO-A model"); 
-  } else {
-    entityDialog.render(ufoaEntity, ufoaVisModel);
-  }
+  entityDialog.render(ufoaEntity, ufoaVisModel);
 }
 
 function dispatchEdge(edgeId: Id, ufoaVisModel: VisModel) {

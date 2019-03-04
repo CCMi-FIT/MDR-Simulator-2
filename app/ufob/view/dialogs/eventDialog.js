@@ -140,17 +140,14 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   // Operations Rendering {{{2
   renderAddOperation = (op: AddEntityInstOp) => {
-    const entity: ?UfoaEntity = ufoaDB.getEntity(op.opa_e_id);
-    if (!entity) {
-      console.error(`Internal error: entity with id=${op.opa_e_id} required in event ${this.state.eventB2.ev_name} does not exist`);
-    }
+    const entity = ufoaDB.getEntity(op.opa_e_id);
     return (
       <div className="row" style={{marginBottom: "15px"}} key={op.opa_e_id}>
         <div className="col-xs-1" style={{paddingTop: "10px"}}>
           <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
         </div>
         <div className="col-xs-6">
-          {entity ? diagram.renderEntity(entity) : "This entity does not exist: this should not happen..."}
+          {diagram.renderEntity(entity)}
         </div>
         <div className="col-xs-3" style={{paddingTop: "10px"}}>
           {op.opa_ei_is_default ? 
@@ -177,10 +174,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   renderRemoveOperation = (op: RemoveEntityInstOp) => {
-    const entity: ?UfoaEntity = ufoaDB.getEntity(op.opr_e_id);
-    if (!entity) {
-      console.error(`Internal error: entity with id=${op.opr_e_id} required in event ${this.state.eventB2.ev_name} does not exist`);
-    }
+    const entity = ufoaDB.getEntity(op.opr_e_id);
     return (
       <div className="row" style={{marginBottom: "15px"}} key={op.opr_e_id}>
         <div className="col-xs-1" style={{paddingTop: "10px"}}>

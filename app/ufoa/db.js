@@ -41,8 +41,13 @@ export function getEntities(): Array<UfoaEntity> {
   return model.entities;
 }
 
-export function getEntity(e_id: Id): ?UfoaEntity {
-  return ufoaModel.getEntity(model, e_id);
+export function getEntity(e_id: Id): UfoaEntity {
+  const res = ufoaModel.getEntity(model, e_id);
+  if (!res) {
+    throw(`ufoa/db/get: Entity with e_id = ${e_id} does not exist`);
+  } else {
+    return res;
+  }
 }
 
 export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
