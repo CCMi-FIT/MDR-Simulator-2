@@ -14,12 +14,7 @@ export function newEntityInst(entity: UfoaEntity, ei_name: string = ""): EntityI
 }
 
 export function getEntityOfInst(inst: EntityInst, ufoaDB: any): UfoaEntity {
-  const res = ufoaDB.getEntity(inst.ei_e_id);
-  if (!res) {
-    throw(`Entity of instance ${eiId(inst)} does not exist`);
-  } else {
-    return res;
-  }
+  return ufoaDB.getEntity(inst.ei_e_id);
 }
 
 export function getEntityInstById(insts: Array<EntityInst>, eiId1: Id): ?EntityInst {
