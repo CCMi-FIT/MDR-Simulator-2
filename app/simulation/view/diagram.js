@@ -18,14 +18,19 @@ import * as chooseEntityInstModal from './dialogs/chooseEntityInstModal';
 function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<EntityInst> {
   return (() => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
-    if (op.opa_ei_is_default) {
-      if (!machine.checkSingleDefault(entity)) {
-        return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
-      } else {
-        return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
-      }
-    } else {
+    if (op.opa_inst_name_ask) {
       return newEntityInstModal.renderPm(machine.getEntityInsts(), entity);
+    } else {
+      if (op.opa_insts_names.length === 0) { // default instance
+        if (!machine.checkSingleDefault(entity)) {
+          return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
+        } else {
+          return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
+        }
+      } else { // explicit names present
+        return Promise.resolve(ufoaInstModel.newEntityInst(entity, op.opa_insts_names[0]));
+        // TODO: create also other insts
+      }
     }
   });
 }

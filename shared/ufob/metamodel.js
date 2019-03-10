@@ -57,13 +57,15 @@ export function validateEvent(event: UfobEvent): ValidationResult {
 
 export type AddEntityInstOp = {
   opa_e_id: Id,
-  opa_ei_is_default: boolean
+  opa_inst_name_ask: boolean,
+  opa_insts_names: Array<string>
 };
 
 export function newAddEntityInstOp(opa_e_id: Id): AddEntityInstOp {
   return ({
     opa_e_id,
-    opa_ei_is_default: true
+    opa_inst_name_ask: false,
+    opa_insts_names: []
   });
 }
 

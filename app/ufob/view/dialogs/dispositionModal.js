@@ -105,7 +105,7 @@ class DispositionForm extends React.Component<Props, State> {
     const ev = ufobDB.getUfobEventById(ev_id);
     return (
       <div key={ev_id} className="badge-item">
-        <span className="badge badge-info">{ev ? ev.ev_name : ""}
+        <span className="badge text-primary">{ev ? ev.ev_name : ""}
           {" "}
           <span 
             className="badge badge-error clickable"

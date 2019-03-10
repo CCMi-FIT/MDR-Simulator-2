@@ -4,7 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
@@ -19,6 +19,11 @@ import * as panels from '../../../panels';
 import * as wmdaModal from './wmdaModal';
 
 // Props & State {{{1
+
+type InstsNamesStrDict = {
+  [key: string]: string
+};
+
 type Props = {
   eventB: UfobEvent,
   ufobVisModel: VisModel
@@ -27,8 +32,25 @@ type Props = {
 type State = {
   eventB2: UfobEvent,
   newOpEntity: ?UfoaEntity,
+  instsNamesStrDict: InstsNamesStrDict,
   saveDisabled: boolean
 };
+
+// Helper Routines {{{1
+function arr2str(arr: Array<string>): string {
+  return arr.join(" ");
+}
+
+function str2arr(str: string): Array<string> {
+  return str.split(" ");
+}
+
+function mkInstsNamesStrDict(addOps: Array<AddEntityInstOp>): any {
+  return addOps.reduce(
+    (dict, addOp) => R.assoc(addOp.opa_e_id, arr2str(addOp.opa_insts_names), dict),
+    ({}: any)
+  );
+}
 
 // Component {{{1
 class EventForm extends panels.PaneDialog<Props, State> {
@@ -40,8 +62,10 @@ class EventForm extends panels.PaneDialog<Props, State> {
     this.state = {
       eventB2: R.clone(props.eventB),
       newOpEntity: null,
+      instsNamesStrDict: mkInstsNamesStrDict(props.eventB.ev_add_ops), 
       saveDisabled: true
     };
+    console.log(this.state);
   }
 
   // Actions {{{1
@@ -71,7 +95,9 @@ class EventForm extends panels.PaneDialog<Props, State> {
             ev_remove_ops: state.eventB2.ev_remove_ops.filter(op => op.opr_e_id !== val.opr_e_id)
           }})
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
-      return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
+      const res = R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
+      //console.log(res);
+      return res;
     });
   }
 
@@ -119,14 +145,18 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
+  updateInstsNamesFromStr = (op: AddEntityInstOp, str: string) => {
+    // TODO
+  };
+
   // Operations actions {{{2
-
-  setExplicit = (op: AddEntityInstOp) => {
-    this.setAttr("ev_add_ops.update", R.mergeDeepRight(op, { opa_ei_is_default: false }));
-  }
-
-  setDefault = (op: AddEntityInstOp) => {
-    this.setAttr("ev_add_ops.update", R.mergeDeepRight(op, { opa_ei_is_default: true }));
+  
+  changeAsk = (op: AddEntityInstOp, ask: boolean) => {
+    const newOp = 
+      ask ?
+          R.dissoc("opa_insts_names", R.mergeDeepRight(op, { opa_inst_name_ask: true }))
+        : R.mergeDeepRight(op, { opa_inst_name_ask: false, opa_insts_names: [] });
+      this.setAttr("ev_add_ops.update", newOp);
   }
 
   // Rendering {{{1
@@ -134,44 +164,78 @@ class EventForm extends panels.PaneDialog<Props, State> {
   renderEventName() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={(e) => this.setAttr("ev_name", e.currentTarget.value)} rows="3" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.eventB2.ev_name} onChange={ev => this.setAttr("ev_name", ev.currentTarget.value)} rows="3" cols="30"/>
       </div>);
   }
 
   // Operations Rendering {{{2
-  renderAddOperation = (op: AddEntityInstOp) => {
-    const entity = ufoaDB.getEntity(op.opa_e_id);
+  // AddOperation {{{3
+  
+  renderAskInstNames = (op: AddEntityInstOp) => {
     return (
-      <div className="row" style={{marginBottom: "15px"}} key={op.opa_e_id}>
-        <div className="col-xs-1" style={{paddingTop: "10px"}}>
-          <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
+        <div className="checkbox">
+          <label>
+            <input 
+              type="checkbox"
+              checked={op.opa_inst_name_ask}
+              onChange={ev => this.changeAsk(op, ev.currentTarget.checked)}
+            />Ask name</label>
         </div>
-        <div className="col-xs-6">
-          {diagram.renderEntity(entity)}
-        </div>
-        <div className="col-xs-3" style={{paddingTop: "10px"}}>
-          {op.opa_ei_is_default ? 
-            <Button 
-              className="btn-default btn-sm"
-              title="Default instances are nameless single instances of an entity"
-              onClick={() => this.setExplicit(op)}
-            >Default</Button> 
-            : 
-            <Button
-              className="btn-primary btn-sm"
-              title="Explicit instances ask for a name when instantiated"
-              onClick={() => this.setDefault(op)}
-            >Explicit</Button> 
-          }
-        </div>
-        <div className="col-xs-2" style={{paddingTop: "10px"}}>
-          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
-            <i className="glyphicon glyphicon-trash"/>
-          </Button>
-        </div>
+    );
+  }
+
+  renderAddOpDelete = (op: AddEntityInstOp) => {
+    return (
+      <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
+        <i className="glyphicon glyphicon-trash"/>
+      </Button>
+    );
+  }
+
+  renderInstsNamesInput = (op: AddEntityInstOp) => {
+    const instsTip = <Tooltip id="tooltip">Instance names separated by space</Tooltip>;
+    return (
+      <div className="col-xs-offset-1 col-xs-10">
+        <OverlayTrigger placement="right" overlay={instsTip}>
+          <input 
+            className="form-control"
+            value={this.state.instsNamesStrDict[op.opa_e_id]}
+            onChange={ev => this.updateInstsNamesFromStr(op, ev.currentTarget.value)}
+          />
+        </OverlayTrigger>
       </div>
     );
   }
+
+  renderAddOperation = (op: AddEntityInstOp) => {
+    const entity = ufoaDB.getEntity(op.opa_e_id);
+    return (
+      <div key={op.opa_e_id}>
+        <div className="row" style={{marginBottom: "5px"}}>
+          <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
+            <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
+          </div>
+          <div className="col-xs-6 nopadding">
+            {diagram.renderEntity(entity)}
+          </div>
+          <div className="col-xs-4" style={{paddingTop: "10px"}}>
+            {this.renderAskInstNames(op)}
+          </div>
+          <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
+            {this.renderAddOpDelete(op)}
+          </div>
+        </div>
+        { !op.opa_inst_name_ask ?
+            <div className="row" style={{marginBottom: "15px"}}>
+              {this.renderInstsNamesInput(op)}
+            </div>
+          : ""
+        }
+      </div>
+    );
+  }
+  // }}}3
+  // RemoveOperation {{{3
 
   renderRemoveOperation = (op: RemoveEntityInstOp) => {
     const entity = ufoaDB.getEntity(op.opr_e_id);
@@ -193,6 +257,8 @@ class EventForm extends panels.PaneDialog<Props, State> {
       </div>
     );
   }
+
+  // }}}3
   
   renderNewOp = () => {
     const addOps = this.state.eventB2.ev_add_ops;
