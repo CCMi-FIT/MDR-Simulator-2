@@ -26,6 +26,7 @@ export class FindElement extends React.Component<Props> {
       <div className="btn-group" role="group">
         <div style={{float: "left", width: "300px"}}>
           <Typeahead
+            id="findTA"
             options={this.props.elements}
             labelKey={this.props.labelKey}
             onChange={elements => { 

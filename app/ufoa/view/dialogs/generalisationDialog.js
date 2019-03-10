@@ -119,6 +119,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
         <label className="col-sm-2 col-form-label">Set</label>
         <div className="col-sm-10">
           <Typeahead
+            id="gsetTA"
             options={ufoaDB.getGeneralisationSets()}
             labelKey={"g_set_id"}
             onChange={gSets => { 
@@ -151,6 +152,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
         <label className="col-sm-2 col-form-label">Supertype</label>
         <div className="col-sm-10">
           <Typeahead
+            id="supTA"
             options={ufoaDB.getEntities()}
             labelKey={(e) => ufoaMeta.entityNameLine(e)}
             selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
@@ -170,6 +172,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
           <label className="col-sm-2 col-form-label">Subtype</label>
         <div className="col-sm-10">
           <Typeahead
+            id="subTA"
             options={ufoaDB.getEntities()}
             labelKey={(e) => ufoaMeta.entityNameLine(e)}
             selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}

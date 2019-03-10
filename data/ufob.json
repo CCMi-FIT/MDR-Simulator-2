@@ -407,13 +407,11 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e14",
-          "opa_inst_name_ask": false,
-          "opa_insts_names": ["i1", "i2", "i3"]
+          "opa_inst_name_ask": true
         },
         {
           "opa_e_id": "e103",
-          "opa_inst_name_ask": false,
-          "opa_insts_names": []
+          "opa_inst_name_ask": true
         }
       ],
       "ev_remove_ops": [],

@@ -59,6 +59,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
       <div className="form-group"> 
         <label>Resulting Situation:</label>
         <Typeahead
+          id="toSituationTA"
           options={ufobDB.getSituations()}
           labelKey={"s_name"}
           selected={toSituation}

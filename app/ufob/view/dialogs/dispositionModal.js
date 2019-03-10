@@ -131,6 +131,7 @@ class DispositionForm extends React.Component<Props, State> {
               this.renderEventsEmpty()
             : esIds.map(this.renderEvent)}
           <Typeahead
+            id="eventsTA"
             ref={(typeahead) => this.typeahead = typeahead}
             options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
             labelKey={"ev_name"}

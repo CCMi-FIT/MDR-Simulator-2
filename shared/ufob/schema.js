@@ -37,7 +37,7 @@ export const ufobSchema = {
           "uniqueItems": true
         }
       },
-      "if": { "properties": { "opa_inst_name_ask": { "enum": [ true ] } } },
+      "if": { "properties": { "opa_inst_name_ask": { "enum": [ false ] } } },
       "then": { "required": [ "opa_e_id", "opa_inst_name_ask", "opa_insts_names" ] },
       "else": { "required": [ "opa_e_id", "opa_inst_name_ask" ] },
     }, 

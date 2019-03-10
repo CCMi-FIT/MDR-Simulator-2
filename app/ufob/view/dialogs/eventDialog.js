@@ -36,20 +36,15 @@ type State = {
   saveDisabled: boolean
 };
 
-// Helper Routines {{{1
-function arr2str(arr: Array<string>): string {
-  return arr.join(" ");
-}
-
-function str2arr(str: string): Array<string> {
-  return str.split(" ");
-}
-
 function mkInstsNamesStrDict(addOps: Array<AddEntityInstOp>): any {
   return addOps.reduce(
-    (dict, addOp) => R.assoc(addOp.opa_e_id, arr2str(addOp.opa_insts_names), dict),
+    (dict, addOp) => (
+      addOp.opa_inst_name_ask ?
+        dict
+      : R.assoc(addOp.opa_e_id, addOp.opa_insts_names.join(" "), dict)
+    ),
     ({}: any)
-  );
+  ); 
 }
 
 // Component {{{1
@@ -65,7 +60,6 @@ class EventForm extends panels.PaneDialog<Props, State> {
       instsNamesStrDict: mkInstsNamesStrDict(props.eventB.ev_add_ops), 
       saveDisabled: true
     };
-    console.log(this.state);
   }
 
   // Actions {{{1
@@ -96,7 +90,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
           }})
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
       const res = R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
-      //console.log(res);
+      console.log(res);
       return res;
     });
   }
@@ -145,8 +139,11 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  updateInstsNamesFromStr = (op: AddEntityInstOp, str: string) => {
-    // TODO
+  updateInstsNamesFromStr = (op: AddEntityInstOp) => {
+    const str = this.state.instsNamesStrDict[op.opa_e_id];
+    const instsNames = str.split(" ").filter(i => i.length > 0);
+    const newOp = R.mergeDeepRight(op, { opa_insts_names: instsNames });
+    this.setAttr("ev_add_ops.update", newOp);
   };
 
   // Operations actions {{{2
@@ -200,7 +197,14 @@ class EventForm extends panels.PaneDialog<Props, State> {
           <input 
             className="form-control"
             value={this.state.instsNamesStrDict[op.opa_e_id]}
-            onChange={ev => this.updateInstsNamesFromStr(op, ev.currentTarget.value)}
+            onChange={ev => {
+              const val = ev.currentTarget.value;
+              this.setState(
+                (state: State) => 
+                  R.mergeDeepRight(state,
+                    { instsNamesStrDict: R.assoc(op.opa_e_id, val, state.instsNamesStrDict) }));
+            }}
+            onBlur={() => this.updateInstsNamesFromStr(op)}
           />
         </OverlayTrigger>
       </div>
@@ -268,6 +272,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       <div className="row" style={{marginBottom: "15px"}}>
         <div className="col-xs-9">
           <Typeahead
+            id="situationTA"
             ref={typeahead => this.newOpTypeahead = typeahead}
             options={ufoaDB.getEntities().filter(e => opsEIds.indexOf(e.e_id) < 0)}
             labelKey={"e_name"}
@@ -355,6 +360,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       <div className="form-group">
         <label>Resulting situation:</label>
         <Typeahead
+          id="toSituationxxxTA"
           options={ufobDB.getSituations()}
           labelKey={"s_name"}
           selected={[toSituation]}

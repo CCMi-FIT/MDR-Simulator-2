@@ -1,3 +1,5 @@
+- Editace instance names je snad hotova, ted vyzkouset v simulaci, plus je tam TODO
+
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
 - Events Operations:
   - Default / Explicit nahradit Default / Preset / Explicit. U Preset se zadaji nazvy instanci
