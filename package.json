@@ -51,7 +51,7 @@
     "debug": "^4.1.1",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
-    "proper-lockfile": "^3.2.0",
+    "proper-lockfile": "^4.1.0",
     "ramda": "^0.26.1",
     "react": "^16.8.4",
     "react-bootstrap": "^0.32.4",
