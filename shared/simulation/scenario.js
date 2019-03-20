@@ -1,42 +1,50 @@
-// @flow
+//@flow
 
 import * as R from 'ramda';
+import type { Id } from '../metamodel';
 import product from 'cartesian-product';
-import type { Id } from "../metamodel";
 import type { UfoaEntity, Generalisation, Association } from '../ufoa/metamodel';
 import * as ufoaDB from '../ufoa/db';
 import type { UfobEvent } from "../ufob/metamodel";
 import type { EntityInst, GeneralisationInst, AssocInst } from "../ufoa-inst/metamodel";
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
 import * as ufoaInstModel from '../ufoa-inst/model';
+import type { Layout } from '../diagram';
 import * as rules from './rules';
 
-type SimulationState = {
+export type Scenario = {
+  sc_id: Id,
+  sc_name: string,
+  sc_desc: string,
+  sc_steps: Array<SimulationState>
+};
+
+export type SimulationState = {
   sim_events: Array<UfobEvent>,
+  sim_layout: Layout,
   sim_eis: Array<EntityInst>,
   sim_gis: Array<GeneralisationInst>,
   sim_ais: Array<AssocInst>,
 };
 
-var simState: SimulationState;
 var simError: boolean;
+var scenario: Scenario;
 
 // Initialization {{{1
 
-export function initialize() {
-  simState = {
-    sim_events: [],
-    sim_eis: [],
-    sim_gis: [],
-    sim_ais: [],
-  };
+export function openScenario(sc: Scenario) {
+  scenario = sc;
   simError = false;
+}
+
+function getSimState() {
+  return R.last(scenario);
 }
 
 // Accessing {{{1
 
 export function getEntityInsts(): Array<EntityInst> {
-  return simState.sim_eis;
+  return getSimState().sim_eis;
 }
 
 export function getEntityInstById(eiId: Id): ?EntityInst {
@@ -58,7 +66,7 @@ export function getSubEntityInst(gi: GeneralisationInst): EntityInst {
 // Querying {{{1
 
 export function checkSingleDefault(entity: UfoaEntity): boolean {
-  return !simState.sim_eis.find(ei => ei.ei_e_id === entity.e_id);
+  return !getSimState().sim_eis.find(ei => ei.ei_e_id === entity.e_id);
 }
 
 export function isValid(): boolean {
@@ -68,31 +76,31 @@ export function isValid(): boolean {
 export function getMissingGIs(): Array<GeneralisationInst> {
   const allGIs = ufoaDB.getGeneralisations().reduce(
     (resGIs: Array<GeneralisationInst>, g: Generalisation) => {
-      const supInsts = simState.sim_eis.filter(ei => ei.ei_e_id === g.g_sup_e_id);
-      const subInsts = simState.sim_eis.filter(ei => ei.ei_e_id === g.g_sub_e_id);
+      const supInsts = getSimState().sim_eis.filter(ei => ei.ei_e_id === g.g_sup_e_id);
+      const subInsts = getSimState().sim_eis.filter(ei => ei.ei_e_id === g.g_sub_e_id);
       const cartesian = product([supInsts, subInsts]);
       const gisPossible = cartesian.map(([supInst, subInst]) => ufoaInstMeta.newGenInst(g, supInst, subInst));     
-      const gis = gisPossible.filter(gi => rules.checkGIrules(simState.sim_eis, simState.sim_gis, gi));
+      const gis = gisPossible.filter(gi => rules.checkGIrules(getSimState().sim_eis, getSimState().sim_gis, gi));
       return resGIs.concat(gis);
     },
     [] 
   );
-  return R.difference(allGIs, simState.sim_gis);
+  return R.difference(allGIs, getSimState().sim_gis);
 }
 
 export function getMissingAIs(): Array<AssocInst> {
   const allAIs = ufoaDB.getAssociations().reduce(
     (resAIs: Array<AssocInst>, a: Association) => {
-      const e1Insts = simState.sim_eis.filter(ei => ei.ei_e_id === a.a_connection1.e_id);
-      const e2Insts = simState.sim_eis.filter(ei => ei.ei_e_id === a.a_connection2.e_id);
+      const e1Insts = getSimState().sim_eis.filter(ei => ei.ei_e_id === a.a_connection1.e_id);
+      const e2Insts = getSimState().sim_eis.filter(ei => ei.ei_e_id === a.a_connection2.e_id);
       const cartesian = product([e1Insts, e2Insts]);
       const aisPossible = cartesian.map(([e1Inst, e2Inst]) => ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst));     
-      const ais = aisPossible.filter(ai => rules.checkAIrules(simState.sim_eis, simState.sim_ais, ai));
+      const ais = aisPossible.filter(ai => rules.checkAIrules(getSimState().sim_eis, getSimState().sim_ais, ai));
       return resAIs.concat(ais);
     },
     [] 
   );
-  return R.difference(allAIs, simState.sim_ais);
+  return R.difference(allAIs, getSimState().sim_ais);
 }
 
 export type GIChoiceSets = Array<Array<EntityInst>>;
@@ -128,7 +136,7 @@ export function getSupChoiceSets(gis: Array<GeneralisationInst>): any {
 
 export function addEntityInsts(eis: Array<EntityInst>): Array<string> {
   let msgs: Array<string> = [];
-  simState.sim_eis = simState.sim_eis.concat(eis);
+  getSimState().sim_eis = getSimState().sim_eis.concat(eis);
   if (msgs.length > 0) {
     simError = true;
   }
@@ -137,7 +145,7 @@ export function addEntityInsts(eis: Array<EntityInst>): Array<string> {
 
 export function addGInsts(gis: Array<GeneralisationInst>): Array<string> {
   let msgs: Array<string> = [];
-  simState.sim_gis = simState.sim_gis.concat(gis);
+  getSimState().sim_gis = getSimState().sim_gis.concat(gis);
   if (msgs.length > 0) {
     simError = true;
   }
@@ -146,7 +154,7 @@ export function addGInsts(gis: Array<GeneralisationInst>): Array<string> {
 
 export function addAInsts(ais: Array<AssocInst>): Array<string> {
   let msgs: Array<string> = [];
-  simState.sim_ais = simState.sim_ais.concat(ais);
+  getSimState().sim_ais = getSimState().sim_ais.concat(ais);
   if (msgs.length > 0) {
     simError = true;
   }

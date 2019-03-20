@@ -1,6 +1,7 @@
 //@flow
 
 import * as React from 'react';
+import type { Id } from './metamodel';
 import type { UfoaEntity } from './ufoa/metamodel';
 import * as ufoaMeta from './ufoa/metamodel';
 
@@ -31,6 +32,10 @@ export type VisModel = {
   nodes: any,
   edges: any
 };
+
+export type Layout = {
+  [key: Id]: { x: number, y: number}
+}
 
 export function renderEntity(e: UfoaEntity) {
   return (
