@@ -12,25 +12,21 @@ import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import * as ufoaDB from '../../ufoa/db';
 import * as ufobDB from '../../ufob/db';
 import * as panels from '../../panels';
-import * as newEntityInstModal from './dialogs/newEntityInstModal';
 import * as chooseEntityInstModal from './dialogs/chooseEntityInstModal';
 
 function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<EntityInst> {
   return (() => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
-    if (op.opa_inst_name_ask) {
-      return newEntityInstModal.renderPm(machine.getEntityInsts(), entity);
-    } else {
-      if (op.opa_insts_names.length === 0) { // default instance
-        if (!machine.checkSingleDefault(entity)) {
-          return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
-        } else {
-          return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
-        }
-      } else { // explicit names present
-        return Promise.resolve(ufoaInstModel.newEntityInst(entity, op.opa_insts_names[0]));
-        // TODO: create also other insts
+    if (op.opa_insts_names.length === 0) { // default instance
+      if (!machine.checkSingleDefault(entity)) {
+        return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
+      } else {
+        return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
       }
+    } else { // explicit names present
+      return Promise.resolve(ufoaInstModel.newEntityInst(entity, op.opa_insts_names[0]));
+      // TODO: create also other insts
+      // TODO: numbered instances
     }
   });
 }

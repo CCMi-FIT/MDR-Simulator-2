@@ -6,82 +6,66 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e1",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e28",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e76",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e70",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e77",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e68",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e89",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e31",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e30",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e91",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e60",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e57",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e53",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e0",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e27",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e61",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -95,32 +79,26 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e0",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e2",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e96",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e98",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e27",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e29",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -134,52 +112,42 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e5",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e62",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e65",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e92",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e64",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e94",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e88",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e95",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e101",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e29",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -193,17 +161,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e8",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e11",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e99",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -217,7 +182,6 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e6",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -231,17 +195,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e22",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e112",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e119",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -255,7 +216,6 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e9",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -285,27 +245,22 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e10",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e32",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e91",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e60",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e61",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -319,22 +274,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e60",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e33",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e91",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e61",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -364,22 +315,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e52",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e56",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e49",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e81",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -393,7 +340,6 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e13",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -407,11 +353,11 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e14",
-          "opa_inst_name_ask": true
+          "opa_insts_names": []
         },
         {
           "opa_e_id": "e103",
-          "opa_inst_name_ask": true
+          "opa_insts_names": []
         }
       ],
       "ev_remove_ops": [],
@@ -424,17 +370,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e15",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e83",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e102",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -448,17 +391,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e110",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e111",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e16",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -472,47 +412,38 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e34",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e104",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e17",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e52",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e56",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e82",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e51",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e60",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e91",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -534,7 +465,6 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e7",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -564,17 +494,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e15",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e83",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e102",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -588,32 +515,26 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e38",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e40",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e20",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e42",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e44",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e71",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -627,22 +548,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e39",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e38",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e19",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e108",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -656,22 +573,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e21",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e43",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e42",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e69",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -685,17 +598,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e3",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e72",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e118",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -709,17 +619,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e120",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e87",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e121",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -733,22 +640,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e2",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e46",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e47",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e74",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -762,17 +665,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e118",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e73",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e3",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -786,22 +686,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e2",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e46",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e48",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e75",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -815,17 +711,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e113",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e114",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e86",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -839,42 +732,34 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e34",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e24",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e55",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e59",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e82",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e51",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e60",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e91",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -888,12 +773,10 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e25",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e115",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -907,22 +790,18 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e26",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e38",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e42",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e78",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -936,17 +815,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e118",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e79",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e3",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -960,17 +836,14 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e2",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e46",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e80",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],
@@ -984,27 +857,22 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e100",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e90",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e97",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e93",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e109",
-          "opa_inst_name_ask": false,
           "opa_insts_names": []
         }
       ],

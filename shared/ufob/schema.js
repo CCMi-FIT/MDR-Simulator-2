@@ -30,16 +30,13 @@ export const ufobSchema = {
       "type": "object",
       "properties": {
         "opa_e_id": { "type": "string" },
-        "opa_inst_name_ask": { "type": "boolean" },
         "opa_insts_names": { 
           "type": "array",
           "items": { "type": "string" },
           "uniqueItems": true
         }
       },
-      "if": { "properties": { "opa_inst_name_ask": { "enum": [ false ] } } },
-      "then": { "required": [ "opa_e_id", "opa_inst_name_ask", "opa_insts_names" ] },
-      "else": { "required": [ "opa_e_id", "opa_inst_name_ask" ] },
+      "required": [ "opa_e_id", "opa_insts_names" ]
     }, 
     "operationRemove": {
       "type": "object",

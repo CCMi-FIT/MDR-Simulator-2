@@ -38,11 +38,7 @@ type State = {
 
 function mkInstsNamesStrDict(addOps: Array<AddEntityInstOp>): any {
   return addOps.reduce(
-    (dict, addOp) => (
-      addOp.opa_inst_name_ask ?
-        dict
-      : R.assoc(addOp.opa_e_id, addOp.opa_insts_names.join(" "), dict)
-    ),
+    (dict, addOp) => R.assoc(addOp.opa_e_id, addOp.opa_insts_names.join(" "), dict),
     ({}: any)
   ); 
 }
@@ -90,7 +86,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
           }})
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
       const res = R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
-      console.log(res);
+      //console.log(res);
       return res;
     });
   }
@@ -148,14 +144,6 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   // Operations actions {{{2
   
-  changeAsk = (op: AddEntityInstOp, ask: boolean) => {
-    const newOp = 
-      ask ?
-          R.dissoc("opa_insts_names", R.mergeDeepRight(op, { opa_inst_name_ask: true }))
-        : R.mergeDeepRight(op, { opa_inst_name_ask: false, opa_insts_names: [] });
-      this.setAttr("ev_add_ops.update", newOp);
-  }
-
   // Rendering {{{1
 
   renderEventName() {
@@ -168,19 +156,6 @@ class EventForm extends panels.PaneDialog<Props, State> {
   // Operations Rendering {{{2
   // AddOperation {{{3
   
-  renderAskInstNames = (op: AddEntityInstOp) => {
-    return (
-        <div className="checkbox">
-          <label>
-            <input 
-              type="checkbox"
-              checked={op.opa_inst_name_ask}
-              onChange={ev => this.changeAsk(op, ev.currentTarget.checked)}
-            />Ask name</label>
-        </div>
-    );
-  }
-
   renderAddOpDelete = (op: AddEntityInstOp) => {
     return (
       <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
@@ -192,7 +167,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   renderInstsNamesInput = (op: AddEntityInstOp) => {
     const instsTip = <Tooltip id="tooltip">Instance names separated by space</Tooltip>;
     return (
-      <div className="col-xs-offset-1 col-xs-10">
+      <div>
         <OverlayTrigger placement="right" overlay={instsTip}>
           <input 
             className="form-control"
@@ -215,26 +190,18 @@ class EventForm extends panels.PaneDialog<Props, State> {
     const entity = ufoaDB.getEntity(op.opa_e_id);
     return (
       <div key={op.opa_e_id}>
-        <div className="row" style={{marginBottom: "5px"}}>
+        <div className="row" style={{marginBottom: "10px"}}>
           <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
             <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
           </div>
-          <div className="col-xs-6 nopadding">
+          <div className="col-xs-10" style={{paddingLeft: 0}}>
             {diagram.renderEntity(entity)}
-          </div>
-          <div className="col-xs-4" style={{paddingTop: "10px"}}>
-            {this.renderAskInstNames(op)}
+            {this.renderInstsNamesInput(op)}
           </div>
           <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
             {this.renderAddOpDelete(op)}
           </div>
         </div>
-        { !op.opa_inst_name_ask ?
-            <div className="row" style={{marginBottom: "15px"}}>
-              {this.renderInstsNamesInput(op)}
-            </div>
-          : ""
-        }
       </div>
     );
   }
