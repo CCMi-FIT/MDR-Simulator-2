@@ -1,8 +1,6 @@
-- Zrusit ask name -- kdyztak potom prejmenovani z automatickeho cislovani
-- Ve vyctu jmen instanci umoznit zadani vyrazu s krizkem (napr. p#), kde se krizek bude nahrazovat cislem (umozni automaticke pridavani dalsich pojmenovanych entit neznamych v dobe vytvareni modelu -- darci a pacienti a jejich genomy, ...)
-- udelat instanciaci ve scenari, plus je tam TODO
 - Pridavani missing generalisations a associations udelat dvoufazove: nejdrive mezi pridavanymi instancemi, potom mezi vsemi.
 
+- V ufo-b zkontrolovat pri editaci event > instance name, ze jmeno je unikatni (to se jednoduse tyka i indexovanych).
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
 
 Scenario:

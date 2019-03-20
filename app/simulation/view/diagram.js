@@ -14,21 +14,27 @@ import * as ufobDB from '../../ufob/db';
 import * as panels from '../../panels';
 import * as chooseEntityInstModal from './dialogs/chooseEntityInstModal';
 
-function addOp2EntityInstPmFn(eventB: UfobEvent, op: AddEntityInstOp): () => Promise<EntityInst> {
-  return (() => {
-    const entity = ufoaDB.getEntity(op.opa_e_id);
-    if (op.opa_insts_names.length === 0) { // default instance
-      if (!machine.checkSingleDefault(entity)) {
-        return Promise.reject(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
-      } else {
-        return Promise.resolve(ufoaInstModel.newEntityInst(entity, ""));
-      }
-    } else { // explicit names present
-      return Promise.resolve(ufoaInstModel.newEntityInst(entity, op.opa_insts_names[0]));
-      // TODO: create also other insts
-      // TODO: numbered instances
+function addOp2EntityInsts(eventB: UfobEvent, op: AddEntityInstOp): Array<EntityInst> {
+  const entity = ufoaDB.getEntity(op.opa_e_id);
+  if (op.opa_insts_names.length === 0) { // default instance
+    if (!machine.checkSingleDefault(entity)) {
+      throw(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.<br>`);
+    } else {
+      return [ufoaInstModel.newEntityInst(entity, "")];
     }
-  });
+  } else { // explicit names present
+    const names = op.opa_insts_names;
+    const indexedName = names.find(name1 => name1.includes("#"));
+    if (indexedName) {
+      const index = machine.getInstNameIndex(indexedName);
+      const nameWithIndex = indexedName.replace("#", index.toString());
+      const remainingNames = names.filter(name1 => name1 != indexedName);
+      const allNames = R.append(nameWithIndex, remainingNames);
+      return allNames.map(name1 => ufoaInstModel.newEntityInst(entity, name1));
+    } else {
+      return names.map(name1 => ufoaInstModel.newEntityInst(entity, name1));
+    }
+  }
 }
 
 function sequence(tasks: Array<() => Promise<any>>, parameters = [], context = null) {
@@ -109,8 +115,10 @@ async function addAssocsInsts(ufoaInstVisModel: VisModel) {
 async function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
   try {
     const addOps = eventB.ev_add_ops;
-    const newEIsPmFns = addOps.map(op => addOp2EntityInstPmFn(eventB, op));
-    let newEIs = await sequence(newEIsPmFns);
+    const newEIs = addOps.reduce(
+      (acc, op) => R.concat(acc, addOp2EntityInsts(eventB, op)),
+      []
+    );
     machine.addEntityInsts(newEIs);
     ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
     await addGInsts(ufoaInstVisModel);

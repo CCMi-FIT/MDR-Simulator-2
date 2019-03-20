@@ -13,6 +13,7 @@ import * as rules from './rules';
 
 type SimulationState = {
   sim_events: Array<UfobEvent>,
+  sim_instsIndexDict: { [key: string]: number },
   sim_eis: Array<EntityInst>,
   sim_gis: Array<GeneralisationInst>,
   sim_ais: Array<AssocInst>,
@@ -26,6 +27,7 @@ var simError: boolean;
 export function initialize() {
   simState = {
     sim_events: [],
+    sim_instsIndexDict: {},
     sim_eis: [],
     sim_gis: [],
     sim_ais: [],
@@ -56,6 +58,18 @@ export function getSubEntityInst(gi: GeneralisationInst): EntityInst {
 }
 
 // Querying {{{1
+
+export function getInstNameIndex(instName: string): number {
+  if (simState.sim_instsIndexDict[instName]) {
+    const newVal = simState.sim_instsIndexDict[instName] + 1;
+    simState.sim_instsIndexDict[instName] = newVal;
+    return newVal;
+  } else { // not present
+    const newVal = 1;
+    simState.sim_instsIndexDict[instName] = newVal;
+    return newVal;
+  }
+}
 
 export function checkSingleDefault(entity: UfoaEntity): boolean {
   return !simState.sim_eis.find(ei => ei.ei_e_id === entity.e_id);
