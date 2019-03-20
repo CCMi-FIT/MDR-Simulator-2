@@ -139,13 +139,17 @@ function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
 }
 
 export function doStep(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
-  const eventB = ufobDB.getUfobEventById(evId);
-  if (!eventB) {
-    console.error(`UFO-B model inconsistency: Event id=${evId} missing in DB, but present in the diagram`);
+  if (!machine.isValid()) {
+    panels.displayError("Simulation crashed, please restart it");
   } else {
-    processRemoveOperations(ufoaInstVisModel, eventB);
-    processAddOperations(ufoaInstVisModel, ufoaInstNetwork, eventB);
-    markVisited(ufobVisModel, eventB);
+    const eventB = ufobDB.getUfobEventById(evId);
+    if (!eventB) {
+      console.error(`UFO-B model inconsistency: Event id=${evId} missing in DB, but present in the diagram`);
+    } else {
+      processRemoveOperations(ufoaInstVisModel, eventB);
+      processAddOperations(ufoaInstVisModel, ufoaInstNetwork, eventB);
+      markVisited(ufobVisModel, eventB);
+    }
   }
 }
 
