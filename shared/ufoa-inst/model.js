@@ -18,6 +18,11 @@ export function getEntityOfInst(inst: EntityInst, ufoaDB: any): UfoaEntity {
 }
 
 export function getEntityInstById(insts: Array<EntityInst>, eiId1: Id): ?EntityInst {
+  //console.group("getEntityInstById:");
+  //console.log(insts);
+  //console.log(eiId1);
+  //console.log(insts.find(ei => eiId(ei) === eiId1));
+  //console.groupEnd();
   return insts.find(ei => eiId(ei) === eiId1);
 }
 
@@ -28,9 +33,10 @@ export function getInstsOfEntityId(insts: Array<EntityInst>, eId: Id): Array<Ent
 // Generalisation insts {{{1
 
 export function getSupEntityInst(insts: Array<EntityInst>, gi: GeneralisationInst): EntityInst {
+  //console.trace();
   const res = getEntityInstById(insts, gi.gi_sup_ei_id);
   if (!res) {
-    throw(`Entity instance ${gi.gi_sup_ei_id} referenced in gi ${gi.gi_id} does not exist`);
+    throw(`getSupEntityInst: Entity instance ${gi.gi_sup_ei_id} referenced in gi ${gi.gi_id} does not exist`);
   } else {
     return res;
   }
@@ -39,7 +45,7 @@ export function getSupEntityInst(insts: Array<EntityInst>, gi: GeneralisationIns
 export function getSubEntityInst(insts: Array<EntityInst>, gi: GeneralisationInst): EntityInst {
   const res = getEntityInstById(insts, gi.gi_sub_ei_id);
   if (!res) {
-    throw(`Entity instance ${gi.gi_sub_ei_id} referenced in gi ${gi.gi_id} does not exist`);
+    throw(`getSubEntityInst: Entity instance ${gi.gi_sub_ei_id} referenced in gi ${gi.gi_id} does not exist`);
   } else {
     return res;
   }

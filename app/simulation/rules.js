@@ -38,6 +38,10 @@ function gSingleInstanceSupertype(insts: Array<EntityInst>, gInsts: Array<Genera
   const supId = supi.ei_e_id;
   const res = !gInsts.find(
     gi1 => {
+      //console.group("gSingleInstanceSupertype");
+      //console.log(insts);
+      //console.log(gi1);
+      //console.groupEnd();
       const supi1 = ufoaInstModel.getSupEntityInst(insts, gi1);
       const subi1 = ufoaInstModel.getSubEntityInst(insts, gi1);
       if (eiId(subi) !== eiId(subi1)) { // Subtypes are different instances, cannot be the case

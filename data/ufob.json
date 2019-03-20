@@ -5,99 +5,99 @@
       "ev_name": "Donor Recruitment",
       "ev_add_ops": [
         {
-          "opa_e_id": "e1",
-          "opa_insts_names": [
-            "ad#"
-          ]
-        },
-        {
-          "opa_e_id": "e70",
-          "opa_insts_names": [
-            "bm#"
-          ]
-        },
-        {
-          "opa_e_id": "e60",
-          "opa_insts_names": [
-            "bs#"
-          ]
-        },
-        {
-          "opa_e_id": "e91",
-          "opa_insts_names": [
-            "bsd#"
-          ]
-        },
-        {
-          "opa_e_id": "e77",
-          "opa_insts_names": [
-            "dli#"
-          ]
-        },
-        {
-          "opa_e_id": "e30",
-          "opa_insts_names": [
-            "ex#"
-          ]
-        },
-        {
-          "opa_e_id": "e61",
-          "opa_insts_names": [
-            "fbs#"
-          ]
-        },
-        {
-          "opa_e_id": "e76",
-          "opa_insts_names": [
-            "hsc#"
-          ]
-        },
-        {
-          "opa_e_id": "e68",
-          "opa_insts_names": [
-            "pbsc#"
-          ]
-        },
-        {
-          "opa_e_id": "e0",
-          "opa_insts_names": [
-            "pe#"
-          ]
-        },
-        {
-          "opa_e_id": "e27",
-          "opa_insts_names": [
-            "pg#"
-          ]
-        },
-        {
           "opa_e_id": "e89",
           "opa_insts_names": [
             "recruitment#"
           ]
         },
         {
-          "opa_e_id": "e28",
+          "opa_e_id": "e0",
           "opa_insts_names": [
-            "ug#"
+            "peDon#"
           ]
         },
         {
-          "opa_e_id": "e53",
+          "opa_e_id": "e68",
           "opa_insts_names": [
-            "initialMA#"
+            "pbscDon#"
           ]
         },
         {
-          "opa_e_id": "e57",
+          "opa_e_id": "e70",
           "opa_insts_names": [
-            "initialMAres#"
+            "bmDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e60",
+          "opa_insts_names": [
+            "bsDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_insts_names": [
+            "bsdDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e77",
+          "opa_insts_names": [
+            "dliDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e30",
+          "opa_insts_names": [
+            "exDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e61",
+          "opa_insts_names": [
+            "fbsDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e76",
+          "opa_insts_names": [
+            "hscDon#"
           ]
         },
         {
           "opa_e_id": "e31",
           "opa_insts_names": [
-            "initialEx#"
+            "initialExDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e57",
+          "opa_insts_names": [
+            "initialMAresDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e53",
+          "opa_insts_names": [
+            "initialMADon#"
+          ]
+        },
+        {
+          "opa_e_id": "e1",
+          "opa_insts_names": [
+            "aspDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e27",
+          "opa_insts_names": [
+            "pgDon#"
+          ]
+        },
+        {
+          "opa_e_id": "e28",
+          "opa_insts_names": [
+            "ug#"
           ]
         }
       ],
@@ -110,28 +110,40 @@
       "ev_name": "Search Initiating",
       "ev_add_ops": [
         {
-          "opa_e_id": "e0",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e2",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "pa#"
+          ]
         },
         {
           "opa_e_id": "e96",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "paReg#"
+          ]
         },
         {
-          "opa_e_id": "e98",
-          "opa_insts_names": []
+          "opa_e_id": "e0",
+          "opa_insts_names": [
+            "paPer#"
+          ]
         },
         {
           "opa_e_id": "e27",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "paPerGe#"
+          ]
+        },
+        {
+          "opa_e_id": "e98",
+          "opa_insts_names": [
+            "search#"
+          ]
         },
         {
           "opa_e_id": "e29",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "egPa#"
+          ]
         }
       ],
       "ev_remove_ops": [],

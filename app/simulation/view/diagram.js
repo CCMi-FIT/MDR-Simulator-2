@@ -5,7 +5,7 @@ import type { Id } from '../../metamodel';
 import type { VisModel } from '../../diagram';
 import * as machine from '../machine';
 import type { UfobEvent, AddEntityInstOp } from '../../ufob/metamodel';
-import type { EntityInst, GeneralisationInst } from '../../ufoa-inst/metamodel';
+import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import { eiId, eiLabel } from '../../ufoa-inst/metamodel';
 import * as ufoaInstModel from '../../ufoa-inst/model';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
@@ -92,8 +92,8 @@ function selectGisPmFn(giChoicesSet: Array<GeneralisationInst>): () => Promise<G
   });
 }
 
-async function addGInsts(ufoaInstVisModel: VisModel) {
-  const newGIs = machine.getMissingGIs();
+async function addGInsts(insts: Array<EntityInst>, presentGIs: Array<GeneralisationInst>, ufoaInstVisModel: VisModel) {
+  const newGIs = machine.getMissingGIs(insts, presentGIs);
   const gisChoicesSets = machine.getSupChoiceSets(newGIs);
   const gisChoicesArrays: Array<Array<GeneralisationInst>> = R.values(gisChoicesSets);
   const gisSelectionsPmFns = gisChoicesArrays.map(selectGisPmFn);
@@ -105,8 +105,8 @@ async function addGInsts(ufoaInstVisModel: VisModel) {
   ufoaInstDiagram.addGInsts(ufoaInstVisModel, finalGIs);
 }
 
-async function addAssocsInsts(ufoaInstVisModel: VisModel) {
-  const newAIs = machine.getMissingAIs();
+async function addAssocsInsts(insts: Array<EntityInst>, presentAIs: Array<AssocInst>, ufoaInstVisModel: VisModel) {
+  const newAIs = machine.getMissingAIs(insts, presentAIs);
   const finalAIs = newAIs;
   machine.addAInsts(finalAIs);
   ufoaInstDiagram.addAInsts(ufoaInstVisModel, finalAIs);
@@ -121,8 +121,12 @@ async function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork:
     );
     machine.addEntityInsts(newEIs);
     ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
-    await addGInsts(ufoaInstVisModel);
-    await addAssocsInsts(ufoaInstVisModel);
+    console.log("new");
+    await addGInsts(newEIs, [], ufoaInstVisModel);
+    console.log("all");
+    await addGInsts(machine.getEntityInsts(), machine.getGInsts(), ufoaInstVisModel);
+    await addAssocsInsts(newEIs, [], ufoaInstVisModel);
+    await addAssocsInsts(machine.getEntityInsts(), machine.getAInsts(), ufoaInstVisModel);
     ufoaInstNetwork.fit({ 
       nodes: newEIs.map(ei => eiId(ei)),
       animation: true
