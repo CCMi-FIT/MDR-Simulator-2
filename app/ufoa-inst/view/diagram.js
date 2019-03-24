@@ -122,32 +122,18 @@ export function renderUfoaInst(container: HTMLElement, visModel: VisModel): any 
     edges: {
       smooth: false
     },
-    //layout: {
-      //hierarchical: {
-        //enabled: true,
-        //sortMethod: "directed"
-      //}
-    //},
     physics: {
       enabled: true,
       solver: "barnesHut",
       barnesHut: {
-        gravitationalConstant: -500,
-        centralGravity: 0,
+        gravitationalConstant: -5000,
+        centralGravity: 0.9,
         springLength: 50,
-        springConstant: 0,
-        damping: 0.3,
+        springConstant: 0.04,
+        damping: 0.9,
         avoidOverlap: 1
       },
     },
-    //interaction: {
-      //multiselect: true
-    //},
-    //manipulation: {
-      //enabled: true,
-      //addNode: (nodeData, callback) => addNodeHandler(ufobVisModel, visNetwork, nodeData, callback),
-      ////addEdge: (edgeData, callback) => addEdgeHandler(ufobVisModel, edgeData, callback)
-    //}
   };
   
   visNetwork = new vis.Network(container, visModel, options);
