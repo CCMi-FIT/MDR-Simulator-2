@@ -6,6 +6,8 @@ import * as ReactDOM from 'react-dom';
 const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
 const simulationBoxId = "simulation-box";
+const instDiagramId = "ufoa-inst-diagram";
+const ufobDiagramId = "simulation-diagram";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalId = "modal-box";
@@ -31,6 +33,7 @@ export function fitPanes() {
   $(`#${ufobBoxId}`).height(h);
   $(`#${simulationBoxId}`).height(h);
   $("#simulation-diagram").height(h);
+  $(".gutter-horizontal").height(h);
   $("#ufoa-inst-diagram").height(h);
   $("#wmda-panel").height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
@@ -49,24 +52,33 @@ export function fitPanes() {
 
 // Getting
 
-export function getPanel(panelId: string): ?Element {
+export function getPanel(panelId: string): HTMLElement {
   let panel = document.getElementById(panelId);
   if (!panel) {
-    console.error("panel #" + panelId + " does not exist");
+    throw("panel #" + panelId + " does not exist");
+  } else {
+    return panel;
   }
-  return panel;
 }
 
-export function getDialog(): ?Element {
+export function getDialog(): HTMLElement {
   return getPanel(dialogId);
 }
 
-export function getModal(): ?Element {
+export function getModal(): HTMLElement {
   return getPanel(modalId);
 }
 
-export function getSimulationBox(): ?Element {
+export function getSimulationBox(): HTMLElement {
   return getPanel(simulationBoxId);
+}
+
+export function getInstDiagram(): HTMLElement {
+  return getPanel(instDiagramId);
+}
+
+export function getUfobDiagram(): HTMLElement {
+  return getPanel(ufobDiagramId);
 }
 
 export function getToolbarTop(): number {

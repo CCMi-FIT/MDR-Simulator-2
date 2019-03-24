@@ -97,37 +97,7 @@ body {
         </div>
         <!--Tab Simulation {{{3 -->
         <div role="tabpanel" class="tab-pane" id="simulation-tab">
-          <div id="simulation-box" class="simulation-box">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-xs-offset-7 col-xs-2">
-                  <input 
-                     type="radio"
-                     name="sim-view"
-                     onclick="$('#wmda-panel').hide(); $('#ufoa-inst-diagram').show();"
-                     checked>
-                  <label for="insts-view">Instances</label>
-                </div>
-                <div class="col-xs-2">
-                  <input 
-                    type="radio"
-                    name="sim-view"
-                    onclick="$('#wmda-panel').show(); $('#ufoa-inst-diagram').hide();"
-                  >
-                  <label for="wmda-view">WMDA standard</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6" style="border-right: 1px solid lightgray">
-                  <div id="simulation-diagram"></div>
-                </div>
-                <div class="col-xs-6" style="padding-right: 0">
-                  <div id="ufoa-inst-diagram"></div>
-                  <div id="wmda-panel" style="display: none; overflow-y: auto"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div id="simulation-box" class="simulation-box"></div>
         </div>
         <!--Tab Suitability {{{3 -->
         <div role="tabpanel" class="tab-pane suitability-panel" id="domain-tab">
