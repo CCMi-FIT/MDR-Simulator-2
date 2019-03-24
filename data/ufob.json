@@ -156,43 +156,69 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e5",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e62",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e65",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "ad#"
+          ]
         },
         {
           "opa_e_id": "e92",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "dnai#"
+          ]
         },
         {
           "opa_e_id": "e64",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "dnas#"
+          ]
         },
         {
           "opa_e_id": "e94",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e88",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e95",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e101",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "dtr#"
+          ]
         },
         {
           "opa_e_id": "e29",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "deg#"
+          ]
+        },
+        {
+          "opa_e_id": "e65",
+          "opa_insts_names": [
+            "fds#"
+          ]
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_insts_names": [
+            "ga#"
+          ]
+        },
+        {
+          "opa_e_id": "e95",
+          "opa_insts_names": [
+            "dgv#"
+          ]
+        },
+        {
+          "opa_e_id": "e62",
+          "opa_insts_names": [
+            "sbs#"
+          ]
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_insts_names": [
+            "dhlat#"
+          ]
+        },
+        {
+          "opa_e_id": "e4",
+          "opa_insts_names": [
+            "don#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -204,16 +230,22 @@
       "ev_name": "<<merging>>\nDonor Matching",
       "ev_add_ops": [
         {
-          "opa_e_id": "e8",
-          "opa_insts_names": []
+          "opa_e_id": "e99",
+          "opa_insts_names": [
+            "fd#"
+          ]
         },
         {
           "opa_e_id": "e11",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "nse#"
+          ]
         },
         {
-          "opa_e_id": "e99",
-          "opa_insts_names": []
+          "opa_e_id": "e8",
+          "opa_insts_names": [
+            "pd#"
+          ]
         }
       ],
       "ev_remove_ops": [],

@@ -126,11 +126,11 @@ export function renderUfoaInst(container: HTMLElement, visModel: VisModel): any 
       enabled: true,
       solver: "barnesHut",
       barnesHut: {
-        gravitationalConstant: -5000,
-        centralGravity: 0.9,
+        gravitationalConstant: -20000,
+        centralGravity: 0.7,
         springLength: 50,
-        springConstant: 0.04,
-        damping: 0.9,
+        springConstant: 0.03,
+        damping: 0.5,
         avoidOverlap: 1
       },
     },

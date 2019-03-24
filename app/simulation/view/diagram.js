@@ -121,9 +121,7 @@ async function processAddOperations(ufoaInstVisModel: VisModel, ufoaInstNetwork:
     );
     machine.addEntityInsts(newEIs);
     ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
-    console.log("new");
     await addGInsts(newEIs, [], ufoaInstVisModel);
-    console.log("all");
     await addGInsts(machine.getEntityInsts(), machine.getGInsts(), ufoaInstVisModel);
     await addAssocsInsts(newEIs, [], ufoaInstVisModel);
     await addAssocsInsts(machine.getEntityInsts(), machine.getAInsts(), ufoaInstVisModel);
