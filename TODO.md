@@ -1,4 +1,3 @@
-- V ufo-b zkontrolovat pri editaci event > instance name, ze jmeno je unikatni (to se jednoduse tyka i indexovanych).
 - prepinani fazi + remove operations
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
 
@@ -13,9 +12,6 @@ Server DB API:
 Fixes:
 - Focus inputu newEntityInstModal
 - UFO-A Entity Dialog: Update barvy pri zmene typu
-
-Upgrades:
-- https://split.js.org
 
 Refactoring:
 - refactor to https://www.primefaces.org/primereact / Bootstrap 4 (react-boostrap umi jen Boostrap 3 -- zbavit se ho? je velky...)

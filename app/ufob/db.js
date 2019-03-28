@@ -70,6 +70,10 @@ export function deleteEvent(ev_id: Id): Promise<any> {
   });
 }
 
+export function getInstsNames(): Array<string> {
+  return ufobModel.getInstsNames(model);
+}
+
 // Situations {{{1
 
 export function getSituations(): Array<Situation> {

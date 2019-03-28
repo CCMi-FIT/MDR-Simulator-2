@@ -43,6 +43,19 @@ export function deleteEvent(model: UfobModel, ev_id: Id): void {
   });
 }
 
+export function getInstsNames(model: UfobModel): Array<string> {
+  return model.events.reduce(
+    (acc1, ev) => {
+      const instsNames = ev.ev_add_ops.reduce(
+        (acc2, op) => R.concat(acc2, op.opa_insts_names),
+        []
+      );
+      return R.concat(acc1, instsNames);
+    },
+    []
+  );
+}
+
 // Situation {{{1
 
 export function getSituationById(model: UfobModel, s_id: Id): ?Situation {

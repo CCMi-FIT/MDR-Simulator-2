@@ -7,6 +7,7 @@ import * as ReactDOM from 'react-dom';
 import { Panel, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import type { Id } from '../../../metamodel';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
 import type { UfobEvent, AddEntityInstOp, RemoveEntityInstOp } from '../../metamodel';
 import * as ufobMeta from '../../metamodel';
@@ -33,6 +34,7 @@ type State = {
   eventB2: UfobEvent,
   newOpEntity: ?UfoaEntity,
   instsNamesStrDict: InstsNamesStrDict,
+  instsNamesViolations: Array<Id>,
   saveDisabled: boolean
 };
 
@@ -54,6 +56,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       eventB2: R.clone(props.eventB),
       newOpEntity: null,
       instsNamesStrDict: mkInstsNamesStrDict(props.eventB.ev_add_ops), 
+      instsNamesViolations: [],
       saveDisabled: true
     };
   }
@@ -84,8 +87,14 @@ class EventForm extends panels.PaneDialog<Props, State> {
           R.mergeDeepRight(state, { eventB2: {
             ev_remove_ops: state.eventB2.ev_remove_ops.filter(op => op.opr_e_id !== val.opr_e_id)
           }})
+        : attr === "instsNamesViolations.set" ?
+          R.mergeDeepRight(state, { instsNamesViolations: R.append(val, state.instsNamesViolations) })
+        : attr === "instsNamesViolations.unset" ?
+          R.mergeDeepRight(state, { instsNamesViolations: R.without([val], state.instsNamesViolations) })
         : R.mergeDeepRight(state, { eventB2: { [attr]: val }});
-      const res = R.mergeDeepRight(stateNew, { saveDisabled: R.equals(evOrig, stateNew.eventB2) });
+      const res = R.mergeDeepRight(stateNew, { saveDisabled: 
+        stateNew.instsNamesViolations.length > 0 || R.equals(evOrig, stateNew.eventB2)
+      });
       //console.log(res);
       return res;
     });
@@ -135,11 +144,27 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
+  hasInstNameError(op: AddEntityInstOp): boolean {
+    return this.state.instsNamesViolations.includes(op.opa_e_id);
+  }
+
+  checkInstsNamesUnique(op: AddEntityInstOp, instsNames: Array<string>): Array<string> {
+    const oldInstsNames = op.opa_insts_names;
+    const allInstsNames = R.without(oldInstsNames, ufobDB.getInstsNames());
+    return instsNames.filter(instName => allInstsNames.includes(instName));
+  }
+
   updateInstsNamesFromStr = (op: AddEntityInstOp) => {
     const str = this.state.instsNamesStrDict[op.opa_e_id];
-    const instsNames = str.split(" ").filter(i => i.length > 0);
-    const newOp = R.mergeDeepRight(op, { opa_insts_names: instsNames });
-    this.setAttr("ev_add_ops.update", newOp);
+    const newInstsNames = str.split(" ").filter(i => i.length > 0);
+    const violations = this.checkInstsNamesUnique(op, newInstsNames);
+    if (violations.length === 0) {
+      this.setAttr("instsNamesViolations.unset", op.opa_e_id);
+      const newOp = R.mergeDeepRight(op, { opa_insts_names: newInstsNames });
+      this.setAttr("ev_add_ops.update", newOp);
+    } else {
+      this.setAttr("instsNamesViolations.set", op.opa_e_id);
+    }
   };
 
   // Operations actions {{{2
@@ -165,12 +190,14 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   renderInstsNamesInput = (op: AddEntityInstOp) => {
-    const instsTip = <Tooltip id="tooltip">Instance names separated by space</Tooltip>;
+    const instsTip = this.hasInstNameError(op) ?
+        <Tooltip id="tooltip">The name is not unique</Tooltip>
+      : <Tooltip id="tooltip">Unique instance names separated by a space</Tooltip>;
     return (
       <div>
         <OverlayTrigger placement="right" overlay={instsTip}>
           <input 
-            className="form-control"
+            className={this.hasInstNameError(op) ? "form-control bg-error" : "form-control"}
             value={this.state.instsNamesStrDict[op.opa_e_id]}
             onChange={ev => {
               const val = ev.currentTarget.value;
@@ -237,7 +264,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     const opsEIds = R.concat(addOps.map(op => op.opa_e_id), removeOps.map(op => op.opr_e_id));
     return (
       <div className="row" style={{marginBottom: "15px"}}>
-        <div className="col-xs-9">
+        <div className="col-xs-10 nopadding">
           <Typeahead
             id="situationTA"
             ref={typeahead => this.newOpTypeahead = typeahead}
@@ -250,7 +277,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
             }}
           />
         </div>
-        <div className="col-xs-1">
+        <div className="col-xs-1 nopadding">
           <Button 
             className="btn-primary btn-sm" 
             disabled={!this.state.newOpEntity}
@@ -264,7 +291,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
             <i className="glyphicon glyphicon-plus"/>
           </Button>
         </div>
-        <div className="col-xs-1">
+        <div className="col-xs-1 nopadding">
           <Button 
             className="btn-primary btn-sm" 
             disabled={!this.state.newOpEntity}

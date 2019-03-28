@@ -360,6 +360,17 @@ footer {
   font-style: italic;
 }
 
+.bg-error {
+    background-color: #f2dede;
+}
+
+.tooltip-error {
+  background-color: #b94a48;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
 /*  Loading spinner */
 
 .loader,
