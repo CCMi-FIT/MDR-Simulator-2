@@ -4,7 +4,7 @@ import type { VisModel } from '../../diagram.js';
 import * as ufobDB from '../../ufob/db';
 import { doStep } from './diagram';
 
-export function dispatch(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, params: any) {
+export function dispatch(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, params: any) {
   const nodeId = params.nodes[0];
   if (nodeId) {
     const node = ufobVisModel.nodes.get(nodeId);
@@ -16,7 +16,7 @@ export function dispatch(ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufo
       } else {
         console.error(`Inconsistency: event ${nodeId} not present in the model`);
       }
-      doStep(ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, nodeId);
+      doStep(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, nodeId);
     } else { // situation ... hopefully
       if (node.type === "situation") {
         let s = ufobDB.getSituationById(nodeId);               

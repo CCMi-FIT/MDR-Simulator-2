@@ -6,6 +6,7 @@ import Split from 'react-split';
 import * as panels from '../../panels';
 import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
+import type { VisModel } from '../../diagram';
 import { dispatch } from './dispatch.js';
 
 type Props = {};
@@ -61,7 +62,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   }
 }
 
-export function render(ufobVisModel: any) {
+export function render(machine: any, ufobVisModel: VisModel) {
   let panel = panels.getSimulationBox();
   ReactDOM.render(<SimulationBox/>, panel);
   const ufoaInstDiagramContainer = panels.getInstDiagram();
@@ -70,7 +71,7 @@ export function render(ufobVisModel: any) {
   let ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
   let simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
   simUfobNetwork.setOptions({ manipulation: false });
-  simUfobNetwork.on("click", params => dispatch(ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, params));
+  simUfobNetwork.on("click", params => dispatch(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, params));
   simUfobNetwork.fit({ 
     nodes: ["ev40"],
     animation: false

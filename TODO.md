@@ -1,4 +1,8 @@
-- prepinani fazi + remove operations
+- prepinani fazi
+  - on adding a new instance:
+    - get it's generalisation set -- if there are multiple ones?!
+    - if it is "disjoint", remove all other sibling instances
+- remove operations
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
 
 Scenarios?
