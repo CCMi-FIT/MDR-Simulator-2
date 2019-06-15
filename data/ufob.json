@@ -53,12 +53,6 @@
           ]
         },
         {
-          "opa_e_id": "e61",
-          "opa_insts_names": [
-            "fbsDon#"
-          ]
-        },
-        {
           "opa_e_id": "e76",
           "opa_insts_names": [
             "hscDon#"
@@ -185,12 +179,6 @@
           ]
         },
         {
-          "opa_e_id": "e65",
-          "opa_insts_names": [
-            "fds#"
-          ]
-        },
-        {
           "opa_e_id": "e88",
           "opa_insts_names": [
             "ga#"
@@ -200,12 +188,6 @@
           "opa_e_id": "e95",
           "opa_insts_names": [
             "dgv#"
-          ]
-        },
-        {
-          "opa_e_id": "e62",
-          "opa_insts_names": [
-            "sbs#"
           ]
         },
         {
@@ -334,10 +316,6 @@
         {
           "opa_e_id": "e60",
           "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e61",
-          "opa_insts_names": []
         }
       ],
       "ev_remove_ops": [],
@@ -358,10 +336,6 @@
         },
         {
           "opa_e_id": "e91",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e61",
           "opa_insts_names": []
         }
       ],

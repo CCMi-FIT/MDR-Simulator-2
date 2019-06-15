@@ -306,44 +306,14 @@
       "e_name": "Blood Sample"
     },
     {
-      "e_id": "e61",
-      "e_type": "phase",
-      "e_name": "Fresh BS"
-    },
-    {
-      "e_id": "e62",
-      "e_type": "phase",
-      "e_name": "Stored BS"
-    },
-    {
-      "e_id": "e63",
-      "e_type": "phase",
-      "e_name": "Disposed BS"
-    },
-    {
       "e_id": "e64",
       "e_type": "quantity",
       "e_name": "DNA Sample"
     },
     {
-      "e_id": "e65",
-      "e_type": "phase",
-      "e_name": "Fresh DS"
-    },
-    {
-      "e_id": "e66",
-      "e_type": "phase",
-      "e_name": "Stored DS"
-    },
-    {
-      "e_id": "e67",
-      "e_type": "phase",
-      "e_name": "Disposed DS"
-    },
-    {
       "e_id": "e68",
-      "e_type": "quantity",
-      "e_name": "PBSC"
+      "e_type": "collective",
+      "e_name": "PBSC Stem Cells"
     },
     {
       "e_id": "e69",
@@ -352,8 +322,8 @@
     },
     {
       "e_id": "e70",
-      "e_type": "quantity",
-      "e_name": "BM"
+      "e_type": "collective",
+      "e_name": "BM Stem Cells"
     },
     {
       "e_id": "e71",
@@ -382,13 +352,13 @@
     },
     {
       "e_id": "e76",
-      "e_type": "quantity",
+      "e_type": "collective",
       "e_name": "Hematopoietic\nStem Cells"
     },
     {
       "e_id": "e77",
-      "e_type": "quantity",
-      "e_name": "DLI"
+      "e_type": "collective",
+      "e_name": "DLI Stem Cells"
     },
     {
       "e_id": "e78",
@@ -1072,60 +1042,6 @@
       "g_sub_e_id": "e59"
     },
     {
-      "g_id": "g51",
-      "g_set": {
-        "g_set_id": "g22",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e60",
-      "g_sub_e_id": "e61"
-    },
-    {
-      "g_id": "g52",
-      "g_set": {
-        "g_set_id": "g22",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e60",
-      "g_sub_e_id": "e62"
-    },
-    {
-      "g_id": "g53",
-      "g_set": {
-        "g_set_id": "g22",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e60",
-      "g_sub_e_id": "e63"
-    },
-    {
-      "g_id": "g54",
-      "g_set": {
-        "g_set_id": "g23",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e64",
-      "g_sub_e_id": "e65"
-    },
-    {
-      "g_id": "g55",
-      "g_set": {
-        "g_set_id": "g23",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e64",
-      "g_sub_e_id": "e66"
-    },
-    {
-      "g_id": "g56",
-      "g_set": {
-        "g_set_id": "g23",
-        "g_meta": "disjoint-complete"
-      },
-      "g_sup_e_id": "e64",
-      "g_sub_e_id": "e67"
-    },
-    {
       "g_id": "g57",
       "g_set": {
         "g_set_id": "g28a",
@@ -1178,33 +1094,6 @@
       },
       "g_sup_e_id": "e73",
       "g_sub_e_id": "e75"
-    },
-    {
-      "g_id": "g63",
-      "g_set": {
-        "g_set_id": "g31",
-        "g_meta": "disjoint"
-      },
-      "g_sup_e_id": "e76",
-      "g_sub_e_id": "e68"
-    },
-    {
-      "g_id": "g64",
-      "g_set": {
-        "g_set_id": "g31",
-        "g_meta": "disjoint"
-      },
-      "g_sup_e_id": "e76",
-      "g_sub_e_id": "e70"
-    },
-    {
-      "g_id": "g65",
-      "g_set": {
-        "g_set_id": "g31",
-        "g_meta": "disjoint"
-      },
-      "g_sup_e_id": "e76",
-      "g_sub_e_id": "e77"
     },
     {
       "g_id": "g66",
@@ -1335,28 +1224,8 @@
   ],
   "associations": [
     {
-      "a_id": "a0",
-      "a_type": "mediation",
-      "a_meta": "",
-      "a_label": "",
-      "a_connection1": {
-        "e_id": "e88",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      },
-      "a_connection2": {
-        "e_id": "e4",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      }
-    },
-    {
       "a_id": "a1",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1375,7 +1244,7 @@
     },
     {
       "a_id": "a2",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1395,7 +1264,7 @@
     },
     {
       "a_id": "a3",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1415,7 +1284,7 @@
     },
     {
       "a_id": "a4",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1434,7 +1303,7 @@
     },
     {
       "a_id": "a5",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1454,7 +1323,7 @@
     },
     {
       "a_id": "a6",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1473,7 +1342,7 @@
     },
     {
       "a_id": "a7",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1493,7 +1362,7 @@
     },
     {
       "a_id": "a8",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1512,28 +1381,8 @@
       }
     },
     {
-      "a_id": "a9",
-      "a_type": "characterization",
-      "a_meta": "",
-      "a_label": "",
-      "a_connection1": {
-        "e_id": "e4",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      },
-      "a_connection2": {
-        "e_id": "e95",
-        "mult": {
-          "lower": 1,
-          "upper": 1
-        }
-      }
-    },
-    {
       "a_id": "a10",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1553,7 +1402,7 @@
     },
     {
       "a_id": "a11",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1573,7 +1422,7 @@
     },
     {
       "a_id": "a12",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1592,7 +1441,7 @@
     },
     {
       "a_id": "a13",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1611,7 +1460,7 @@
     },
     {
       "a_id": "a14",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1631,7 +1480,7 @@
     },
     {
       "a_id": "a15",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1650,7 +1499,7 @@
     },
     {
       "a_id": "a16",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1670,7 +1519,7 @@
     },
     {
       "a_id": "a17",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1690,7 +1539,7 @@
     },
     {
       "a_id": "a18",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1709,7 +1558,7 @@
     },
     {
       "a_id": "a19",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1728,7 +1577,7 @@
     },
     {
       "a_id": "a20",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1747,7 +1596,7 @@
     },
     {
       "a_id": "a21",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1766,7 +1615,7 @@
     },
     {
       "a_id": "a22",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1824,7 +1673,7 @@
     },
     {
       "a_id": "a25",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1862,7 +1711,7 @@
     },
     {
       "a_id": "a27",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1882,7 +1731,7 @@
     },
     {
       "a_id": "a28",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1902,7 +1751,7 @@
     },
     {
       "a_id": "a29",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1922,7 +1771,7 @@
     },
     {
       "a_id": "a30",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1942,7 +1791,7 @@
     },
     {
       "a_id": "a31",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1962,7 +1811,7 @@
     },
     {
       "a_id": "a32",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -1982,7 +1831,7 @@
     },
     {
       "a_id": "a33",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2002,7 +1851,7 @@
     },
     {
       "a_id": "a34",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2021,7 +1870,7 @@
     },
     {
       "a_id": "a35",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2041,7 +1890,7 @@
     },
     {
       "a_id": "a36",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2060,7 +1909,7 @@
     },
     {
       "a_id": "a37",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2080,7 +1929,7 @@
     },
     {
       "a_id": "a38",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2100,7 +1949,7 @@
     },
     {
       "a_id": "a39",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2120,7 +1969,7 @@
     },
     {
       "a_id": "a40",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2140,7 +1989,7 @@
     },
     {
       "a_id": "a41",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2159,7 +2008,7 @@
     },
     {
       "a_id": "a42",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2179,7 +2028,7 @@
     },
     {
       "a_id": "a43",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2199,7 +2048,7 @@
     },
     {
       "a_id": "a44",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2219,7 +2068,7 @@
     },
     {
       "a_id": "a45",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2239,7 +2088,7 @@
     },
     {
       "a_id": "a46",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2259,7 +2108,7 @@
     },
     {
       "a_id": "a47",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2279,7 +2128,7 @@
     },
     {
       "a_id": "a48",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2298,7 +2147,7 @@
     },
     {
       "a_id": "a49",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2317,7 +2166,7 @@
     },
     {
       "a_id": "a50",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2336,7 +2185,7 @@
     },
     {
       "a_id": "a51",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2356,7 +2205,7 @@
     },
     {
       "a_id": "a52",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2376,7 +2225,7 @@
     },
     {
       "a_id": "a53",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2396,7 +2245,7 @@
     },
     {
       "a_id": "a54",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2416,7 +2265,7 @@
     },
     {
       "a_id": "a55",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2436,7 +2285,7 @@
     },
     {
       "a_id": "a56",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2456,7 +2305,7 @@
     },
     {
       "a_id": "a57",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2476,7 +2325,7 @@
     },
     {
       "a_id": "a58",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2496,7 +2345,7 @@
     },
     {
       "a_id": "a59",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2515,7 +2364,7 @@
     },
     {
       "a_id": "a60",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2534,7 +2383,7 @@
     },
     {
       "a_id": "a61",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2554,7 +2403,7 @@
     },
     {
       "a_id": "a62",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2574,7 +2423,7 @@
     },
     {
       "a_id": "a63",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2593,7 +2442,7 @@
     },
     {
       "a_id": "a64",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2613,7 +2462,7 @@
     },
     {
       "a_id": "a65",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2632,7 +2481,7 @@
     },
     {
       "a_id": "a66",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2652,7 +2501,7 @@
     },
     {
       "a_id": "a67",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2672,7 +2521,7 @@
     },
     {
       "a_id": "a68",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2692,7 +2541,7 @@
     },
     {
       "a_id": "a69",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2711,7 +2560,7 @@
     },
     {
       "a_id": "a70",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2730,7 +2579,7 @@
     },
     {
       "a_id": "a71",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2750,7 +2599,7 @@
     },
     {
       "a_id": "a72",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2770,7 +2619,7 @@
     },
     {
       "a_id": "a74",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2790,7 +2639,7 @@
     },
     {
       "a_id": "a75",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2810,7 +2659,7 @@
     },
     {
       "a_id": "a76",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2830,7 +2679,7 @@
     },
     {
       "a_id": "a77",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2850,7 +2699,7 @@
     },
     {
       "a_id": "a78",
-      "a_type": "containment",
+      "a_type": "Containment",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2870,7 +2719,7 @@
     },
     {
       "a_id": "a79",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2890,7 +2739,7 @@
     },
     {
       "a_id": "a81",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2909,7 +2758,7 @@
     },
     {
       "a_id": "a82",
-      "a_type": "mediation",
+      "a_type": "Mediation",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2929,7 +2778,7 @@
     },
     {
       "a_id": "a83",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2949,7 +2798,7 @@
     },
     {
       "a_id": "a84",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -2969,7 +2818,7 @@
     },
     {
       "a_id": "a85",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -2989,7 +2838,7 @@
     },
     {
       "a_id": "a86",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3009,7 +2858,7 @@
     },
     {
       "a_id": "a87",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3029,7 +2878,7 @@
     },
     {
       "a_id": "a88",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3049,7 +2898,7 @@
     },
     {
       "a_id": "a89",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3069,7 +2918,7 @@
     },
     {
       "a_id": "a90",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3089,7 +2938,7 @@
     },
     {
       "a_id": "a91",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3109,7 +2958,7 @@
     },
     {
       "a_id": "a92",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -3128,7 +2977,7 @@
     },
     {
       "a_id": "a93",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3148,7 +2997,7 @@
     },
     {
       "a_id": "a94",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3168,7 +3017,7 @@
     },
     {
       "a_id": "a95",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3188,7 +3037,7 @@
     },
     {
       "a_id": "a96",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3208,7 +3057,7 @@
     },
     {
       "a_id": "a97",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "",
       "a_label": "",
       "a_connection1": {
@@ -3228,7 +3077,7 @@
     },
     {
       "a_id": "a98",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3248,7 +3097,7 @@
     },
     {
       "a_id": "a99",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3268,7 +3117,7 @@
     },
     {
       "a_id": "a100",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3288,7 +3137,7 @@
     },
     {
       "a_id": "a101",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3308,7 +3157,7 @@
     },
     {
       "a_id": "a102",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3328,7 +3177,7 @@
     },
     {
       "a_id": "a103",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3348,7 +3197,7 @@
     },
     {
       "a_id": "a104",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3368,7 +3217,7 @@
     },
     {
       "a_id": "a105",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3388,7 +3237,7 @@
     },
     {
       "a_id": "a106",
-      "a_type": "member of",
+      "a_type": "MemberOf",
       "a_meta": "essential-inseparable",
       "a_label": "",
       "a_connection1": {
@@ -3408,7 +3257,7 @@
     },
     {
       "a_id": "a108",
-      "a_type": "characterization",
+      "a_type": "Characterization",
       "a_meta": "",
       "a_connection1": {
         "e_id": "e120",
@@ -3422,6 +3271,60 @@
         "mult": {
           "lower": 1,
           "upper": 1
+        }
+      },
+      "a_label": ""
+    },
+    {
+      "a_id": "a109",
+      "a_type": "SubCollectionOf",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e76",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e70",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_label": ""
+    },
+    {
+      "a_id": "a110",
+      "a_type": "SubCollectionOf",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e76",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e68",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_label": ""
+    },
+    {
+      "a_id": "a111",
+      "a_type": "SubCollectionOf",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e76",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e77",
+        "mult": {
+          "lower": 1
         }
       },
       "a_label": ""
