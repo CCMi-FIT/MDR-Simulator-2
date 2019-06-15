@@ -42,7 +42,7 @@ export function assoc2vis(a: Association) :VisEdge {
     title: ufoaMeta.assocMetaStr(a.a_meta),
     arrows: {
       from: {
-        enabled: a.a_type === "member of",
+        enabled: a.a_type === "MemberOf",
         type: "circle"
       }
     },
