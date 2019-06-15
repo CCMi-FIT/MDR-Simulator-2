@@ -31,11 +31,12 @@ export function getInstsOfEntityId(insts: Array<EntityInst>, eId: Id): Array<Ent
   return insts.filter(ei => ei.ei_e_id === eId);
 }
 
-export function getInstsOfGSet(insts: Array<EntityInst>, generalisations: Array<Generalisation>, gSetId: Id): Array<EntityInst> {
-  const gsWithGSet: Array<Generalisation> = generalisations.filter(g => g.g_set.g_set_id === gSetId);
-  const subsIds: Array<UfoaEntity> = gsWithGSet.map(g=> g.g_sub_e_id);
-  const subsIdsSet = new Set(subsIds);
-  return insts.filter(ei => subsIdsSet.has(ei.ei_e_id));
+export function getInstsIdsOfGSet(allGInsts: Array<GeneralisationInst>, generalisations: Array<Generalisation>, gSetId: Id, supEiId: Id): Array<Id> {
+  const gsOfGSet: Array<Generalisation> = generalisations.filter(g => g.g_set.g_set_id === gSetId);
+  const supId = gsOfGSet[0].g_sup_e_id;
+  console.assert(gsOfGSet.every(g => g.g_sup_e_id === supId));
+  const gInsts = allGInsts.filter(gi1 => gi1.gi_sup_ei_id === supEiId);
+  return gInsts.map(gi1 => gi1.gi_sub_ei_id);
 }
 
 // Generalisation insts {{{1
@@ -72,9 +73,8 @@ export function getGSet(gi: GeneralisationInst, ufoaDB: any): GSet {
   }
 }
 
-export function getSiblings(ei: EntityInst, insts: Array<EntityInst>, generalisations: Array<Generalisation>, gSet: GSet): Array<EntityInst> {
-  const instsInGSet = getInstsOfGSet(insts, generalisations, gSet.g_set_id);
-  const instsInGSetIds = new Set(instsInGSet.map(ei => eiId(ei)));
+export function getSiblings(ei: EntityInst, insts: Array<EntityInst>, gInsts: Array<GeneralisationInst>, generalisations: Array<Generalisation>, gSet: GSet, supEiId: Id): Array<EntityInst> {
+  const instsInGSetIds = new Set (getInstsIdsOfGSet(gInsts, generalisations, gSet.g_set_id, supEiId));
   return insts.filter(ei1 => eiId(ei1) !== eiId(ei) && instsInGSetIds.has(eiId(ei1)));
 }
 

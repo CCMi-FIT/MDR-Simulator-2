@@ -118,7 +118,7 @@ function pruneDisjointGSs(machine: any, ufoaInstVisModel: VisModel, newEIs) {
     gis.forEach(gi => {
       const gSet: GSet = ufoaInstModel.getGSet(gi, ufoaDB);
       if (gSet.g_meta === "disjoint" || gSet.g_meta === "disjoint-complete") {
-        const siblings = ufoaInstModel.getSiblings(ei, machine.getEntityInsts(), ufoaDB.getGeneralisations(), gSet);
+        const siblings = ufoaInstModel.getSiblings(ei, machine.getEntityInsts(), machine.getGInsts(), ufoaDB.getGeneralisations(), gSet, gi.gi_sup_ei_id);
         siblings.forEach(ei => removeEntityInst(machine, ufoaInstVisModel, ei));
       }
     });

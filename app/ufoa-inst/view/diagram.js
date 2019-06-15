@@ -96,7 +96,7 @@ export function assocInst2vis(ai: AssocInst): ?VisEdge {
       to: ai.ai_ei2_id,
       arrows: {
         from: {
-          enabled: a.a_type === "member of",
+          enabled: a.a_type === "MemberOf",
           type: "circle"
         }
       },

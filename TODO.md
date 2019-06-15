@@ -1,8 +1,7 @@
 - vyhodit zalozku Suitability Evaluation Model
-- Behaviour a Simulation: pri otevreni fit to size
-- pridani druheho darce: prvnimu zmizi nektere vazby
-- bug: nevyzadovat wmda text pri vytvoreni nove situace
 - Playground instance -- jen Simulation tab
+- Behaviour a Simulation: pri otevreni fit to size
+- bug: nevyzadovat wmda text pri vytvoreni nove situace
 
 - reset simulation button
 - remove operations

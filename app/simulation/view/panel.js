@@ -9,10 +9,10 @@ import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import { dispatch } from './dispatch.js';
+import {Button} from "react-bootstrap";
 
 type Props = { };
 type State = {
-  layouting: boolean;
   selectedView: "instances" | "wmda";
 };
 
@@ -23,36 +23,19 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      layouting: true,
       selectedView: "instances"
     };
   }
 
-  switchLayouting = () => {
-    this.setState(state => {
-      if (ufoaInstNetwork) {
-        if (!state.layouting) {
-          ufoaInstNetwork.startSimulation();
-        } else {
-          ufoaInstNetwork.stopSimulation();
-        }
-      }
-      return R.mergeDeepRight(state, { layouting: !this.state.layouting });
-    });
-  }
 
   renderInstToolbar() {
     return (
       <div>
-        <label className="checkbox-inline">
-          <input
-            type="checkbox"
-            name="layouting"
-            checked={this.state.layouting}
-            onChange={this.switchLayouting}
-          />
-          Layouting
-        </label>
+        <Button
+          className="btn-primary"
+          onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
+          Stop Layouting
+        </Button>
       </div>
     )
   }
