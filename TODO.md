@@ -1,9 +1,15 @@
-- prepinani fazi
-  - on adding a new instance:
-    - get it's generalisation set -- if there are multiple ones?!
-    - if it is "disjoint", remove all other sibling instances
+- vyhodit zalozku Suitability Evaluation Model
+- Behaviour a Simulation: pri otevreni fit to size
+- pridani druheho darce: prvnimu zmizi nektere vazby
+- bug: nevyzadovat wmda text pri vytvoreni nove situace
+- Playground instance -- jen Simulation tab
+
+- reset simulation button
 - remove operations
+
+Kontroly:
 - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
+- GeneralisationSet: Kontrola, ze vsechny nadtypy jsou jedna entita.
 
 Scenarios?
 - V instance modelu bude tlacitko "Save simulation step".
@@ -14,8 +20,11 @@ Server DB API:
   - addStep(step: SimulationStep) (po Save)
 
 Fixes:
+- UFO-A Entity Dialog: aktualizovat diagram pri update:
+  - Entity: barvy
+  - asociace: arrows (memberOf)
+- vyresit vicero instanci nadtyp-podtyp
 - Focus inputu newEntityInstModal
-- UFO-A Entity Dialog: Update barvy pri zmene typu
 
 Refactoring:
 - refactor to https://www.primefaces.org/primereact / Bootstrap 4 (react-boostrap umi jen Boostrap 3 -- zbavit se ho? je velky...)
@@ -24,6 +33,9 @@ Refactoring:
 - zkusit nahradit Visjs nejakou lean alternativou
 
 Ideas:
+- dedicnost v inst modelu nahradit vnorenymi krabickami (obsah uzlu bude <div>)
+- transformace modelu do textu (pro jednotlive entity).
+- scenare
 - simulace
   - dispositions budou mít condition (nyní existence instance, v budoucnu i hodnoty atributů)
 

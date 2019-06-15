@@ -55,8 +55,8 @@ export const ufoaSchema = {
       "type": "object",
       "properties": {
         "a_id":          { "type": "string" },
-        "a_type":        { "type": "string", "pattern": "^$|mediation|characterization|containment|member of" },
-        "a_meta":        { "type": "string", "pattern": "^$|essential|inseparable|essential-inseparable "},
+        "a_type":        { "type": "string", "pattern": "^$|Mediation|Characterization|ComponentOf|SubCollectionOf|MemberOf|Containment|SubQuantityOf" },
+        "a_meta":        { "type": "string", "pattern": "^$|essential|inseparable|essential-inseparable"},
         "a_connection1": { "$ref": "#/definitions/connection" },
         "a_connection2": { "$ref": "#/definitions/connection" },
         "a_label":       { "type": "string" }

@@ -1,5 +1,6 @@
 //@flow
 
+import * as R from 'ramda';
 import * as vis from 'vis';
 import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import * as ufoaDB from '../../ufoa/db';
@@ -48,11 +49,14 @@ function entityInst2vis(ei: EntityInst): VisNode {
 }
 
 export function addEntityInst(visModel: VisModel, ei: EntityInst) {
-  const newNode = entityInst2vis(ei);
+  const newNode = R.assoc("borderWidth", 5, entityInst2vis(ei));
   visModel.nodes.add(newNode);
 }
 
 export function addEntityInsts(visModel: VisModel, eis: Array<EntityInst>) {
+  const nodesIds = visModel.nodes.getIds();
+  const updateArray = nodesIds.map(nid => { return { id: nid, borderWidth: 1 }; });
+  visModel.nodes.update(updateArray);
   eis.map(ei => addEntityInst(visModel, ei));
 }
 

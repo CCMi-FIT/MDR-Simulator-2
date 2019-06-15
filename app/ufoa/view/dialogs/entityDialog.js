@@ -106,7 +106,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
   renderConnection(a: Association, c: Connection, align: string) {
     const prefix =
       R.equals(a.a_connection1, c) ?
-        a.a_type === "member of" ?
+        a.a_type === "MemberOf" ?
           !a.a_connection1.mult.upper || a.a_connection1.mult.upper > 1 ? "\u2662" : "\u2666"
         : ""
       : "";
@@ -213,7 +213,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
   render() {
     return ( 
       <Panel className="dialog-panel">
-        <Panel.Heading><strong>{this.props.ufoaEntity.e_name}</strong></Panel.Heading>
+        <Panel.Heading><strong>{this.props.ufoaEntity.e_name}</strong> ({this.props.ufoaEntity.e_id})</Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderEntityType()}
           {this.renderEntityName()}

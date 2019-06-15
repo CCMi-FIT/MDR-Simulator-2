@@ -1,7 +1,8 @@
 // @flow
 
+import * as R from 'ramda';
 import type { Id } from '../metamodel';
-import type { UfoaEntity, Association } from '../ufoa/metamodel';
+import type { UfoaEntity, Generalisation, GSet, Association } from '../ufoa/metamodel';
 import type { EntityInst, GeneralisationInst, AssocInst } from './metamodel';
 import { eiId } from './metamodel';
 
@@ -30,6 +31,13 @@ export function getInstsOfEntityId(insts: Array<EntityInst>, eId: Id): Array<Ent
   return insts.filter(ei => ei.ei_e_id === eId);
 }
 
+export function getInstsOfGSet(insts: Array<EntityInst>, generalisations: Array<Generalisation>, gSetId: Id): Array<EntityInst> {
+  const gsWithGSet: Array<Generalisation> = generalisations.filter(g => g.g_set.g_set_id === gSetId);
+  const subsIds: Array<UfoaEntity> = gsWithGSet.map(g=> g.g_sub_e_id);
+  const subsIdsSet = new Set(subsIds);
+  return insts.filter(ei => subsIdsSet.has(ei.ei_e_id));
+}
+
 // Generalisation insts {{{1
 
 export function getSupEntityInst(insts: Array<EntityInst>, gi: GeneralisationInst): EntityInst {
@@ -50,6 +58,26 @@ export function getSubEntityInst(insts: Array<EntityInst>, gi: GeneralisationIns
     return res;
   }
 }
+
+export function getGIsWithSub(inst: EntityInst, gis: Array<GeneralisationInst>): Array<GeneralisationInst> {
+  return gis.filter(gi => gi.gi_sub_ei_id === eiId(inst));
+}
+
+export function getGSet(gi: GeneralisationInst, ufoaDB: any): GSet {
+  const g: ?Generalisation = ufoaDB.getGeneralisation(gi.gi_g_id);
+  if (!g) {
+    throw(`getGSet: Generalisation ${gi.gi_g_id} does not exist`);
+  } else {
+    return g.g_set;
+  }
+}
+
+export function getSiblings(ei: EntityInst, insts: Array<EntityInst>, generalisations: Array<Generalisation>, gSet: GSet): Array<EntityInst> {
+  const instsInGSet = getInstsOfGSet(insts, generalisations, gSet.g_set_id);
+  const instsInGSetIds = new Set(instsInGSet.map(ei => eiId(ei)));
+  return insts.filter(ei1 => eiId(ei1) !== eiId(ei) && instsInGSetIds.has(eiId(ei1)));
+}
+
 
 // Associdation insts {{{1
 

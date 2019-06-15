@@ -96,6 +96,9 @@ export function getMissingGIs(insts: Array<EntityInst>, presentGIs: Array<Genera
       const cartesian = product([supInsts, subInsts]);
       const gisPossible = cartesian.map(([supInst, subInst]) => ufoaInstMeta.newGenInst(g, supInst, subInst));     
       const gis = gisPossible.filter(gi => rules.checkGIrules(insts, presentGIs, gi));
+      //if (g.g_id === "g3") {
+        //debugger;
+      //}
       return resGIs.concat(gis);
     },
     [] 
@@ -149,6 +152,11 @@ export function getSupChoiceSets(gis: Array<GeneralisationInst>): any {
 
 // Operation {{{1
 
+export function setEntityInsts(eis: Array<EntityInst>): Array<string> {
+  simState.sim_eis = [];
+  return addEntityInsts(eis);
+}
+
 export function addEntityInsts(eis: Array<EntityInst>): Array<string> {
   let msgs: Array<string> = [];
   simState.sim_eis = simState.sim_eis.concat(eis);
@@ -174,6 +182,18 @@ export function addAInsts(ais: Array<AssocInst>): Array<string> {
     simError = true;
   }
   return msgs;
+}
+
+export function removeEntityInst(ei: EntityInst) {
+  simState.sim_eis = getEntityInsts().filter(ei1 => ufoaInstMeta.eiId(ei1) !== ufoaInstMeta.eiId(ei));
+}
+
+export function removeGInst(gi: GeneralisationInst) {
+  simState.sim_gis = getGInsts().filter(gi1 => gi1.gi_id !== gi.gi_id);
+}
+
+export function removeAInst(ai: AssocInst) {
+  simState.sim_ais = getAInsts().filter(ai1 => ai1.ai_id !== ai.ai_id);
 }
 
 export function invalidate() {

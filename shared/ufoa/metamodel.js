@@ -114,9 +114,9 @@ export type Connection = {
   mult: Mult
 }
 
-export type AssocType = "" | "mediation" | "characterization" | "containment" | "member of"
+export type AssocType = "" | "Mediation" | "Characterization" | "ComponentOf" | "SubCollectionOf" | "MemberOf" | "Containment" | "SubQuantityOf"
 
-export const assocTypes = ["", "mediation", "characterization", "containment", "member of"];
+export const assocTypes = ["", "Mediation", "Characterization", "ComponentOf", "SubCollectionOf", "MemberOf", "Containment", "SubQuantityOf"];
 
 export function isValidAssocType(s: string): boolean {
   return assocTypes.includes(s);

@@ -212,7 +212,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
   render() {
     return ( 
       <Panel className="dialog-panel">
-        <Panel.Heading><strong>Generalisation</strong></Panel.Heading>
+        <Panel.Heading><strong>Generalisation {this.props.generalisation.g_id}</strong></Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderGSet()}
           {this.renderMeta()}

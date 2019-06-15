@@ -3,6 +3,7 @@
 import * as R from 'ramda';
 import type { Id } from '../../metamodel';
 import type { VisModel } from '../../diagram';
+import type { GSet } from '../../ufoa/metamodel';
 import type { UfobEvent, AddEntityInstOp } from '../../ufob/metamodel';
 import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import { eiId, eiLabel } from '../../ufoa-inst/metamodel';
@@ -27,7 +28,7 @@ function addOp2EntityInsts(machine: any, eventB: UfobEvent, op: AddEntityInstOp)
     if (indexedName) {
       const index = machine.getInstNameIndex(indexedName);
       const nameWithIndex = indexedName.replace("#", index.toString());
-      const remainingNames = names.filter(name1 => name1 != indexedName);
+      const remainingNames = names.filter(name1 => name1 !== indexedName);
       const allNames = R.append(nameWithIndex, remainingNames);
       return allNames.map(name1 => ufoaInstModel.newEntityInst(entity, name1));
     } else {
@@ -95,7 +96,7 @@ async function addGInsts(machine:any, ufoaInstVisModel: VisModel, insts: Array<E
   const newGIs = machine.getMissingGIs(insts, presentGIs);
   const gisChoicesSets = machine.getSupChoiceSets(newGIs);
   const gisChoicesArrays: Array<Array<GeneralisationInst>> = R.values(gisChoicesSets);
-  const gisSelectionsPmFns = gisChoicesArrays.map(machine, selectGisPmFn);
+  const gisSelectionsPmFns = gisChoicesArrays.map(fn => selectGisPmFn(machine, fn));
   let gisSelections: any = await sequence(gisSelectionsPmFns);
   const gisChoices = R.flatten((gisChoicesArrays: any)); 
   const gisNotSelected = R.difference(gisChoices, gisSelections);
@@ -111,6 +112,20 @@ async function addAssocsInsts(machine: any, ufoaInstVisModel: VisModel, insts: A
   ufoaInstDiagram.addAInsts(ufoaInstVisModel, finalAIs);
 }
 
+function pruneDisjointGSs(machine: any, ufoaInstVisModel: VisModel, newEIs) {
+  newEIs.forEach(ei => {
+    const gis: Array<GeneralisationInst> = ufoaInstModel.getGIsWithSub(ei, machine.getGInsts());
+    gis.forEach(gi => {
+      const gSet: GSet = ufoaInstModel.getGSet(gi, ufoaDB);
+      if (gSet.g_meta === "disjoint" || gSet.g_meta === "disjoint-complete") {
+        const siblings = ufoaInstModel.getSiblings(ei, machine.getEntityInsts(), ufoaDB.getGeneralisations(), gSet);
+        siblings.forEach(ei => removeEntityInst(machine, ufoaInstVisModel, ei));
+      }
+    });
+  });
+}
+
+
 async function processAddOperations(machine: any, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, eventB: UfobEvent) {
   try {
     const addOps = eventB.ev_add_ops;
@@ -122,17 +137,51 @@ async function processAddOperations(machine: any, ufoaInstVisModel: VisModel, uf
     ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, newEIs);
     await addGInsts(machine, ufoaInstVisModel, newEIs, []);
     await addGInsts(machine, ufoaInstVisModel, machine.getEntityInsts(), machine.getGInsts());
-    //pruneDisjointGSs(newIEs);
     await addAssocsInsts(machine, ufoaInstVisModel, newEIs, []);
     await addAssocsInsts(machine, ufoaInstVisModel, machine.getEntityInsts(), machine.getAInsts());
+    pruneDisjointGSs(machine, ufoaInstVisModel, newEIs);
     ufoaInstNetwork.fit({ 
       nodes: newEIs.map(ei => eiId(ei)),
       animation: true
     });
   } catch (err) {
     panels.displayError(err);
+    console.error(err);
     machine.invalidate();
   }
+}
+
+function removeEntityInst(machine: any, ufoaInstVisModel: VisModel, ei: EntityInst) {
+  removeGIsOf(machine, ufoaInstVisModel, ei);
+  removeAIsOf(machine, ufoaInstVisModel, ei);
+  machine.removeEntityInst(ei);
+  ufoaInstVisModel.nodes.remove(eiId(ei));
+}
+
+function removeGIsOf(machine: any, ufoaInstVisModel: VisModel, ei: EntityInst) {
+  const insts = machine.getEntityInsts();
+  const gis = machine.getGInsts().filter(gi => {
+    const supi = ufoaInstModel.getSupEntityInst(insts, gi);
+    const subi = ufoaInstModel.getSubEntityInst(insts, gi);
+    return eiId(supi) === eiId(ei) || eiId(subi) === eiId(ei);
+  });
+  gis.forEach(gi => {
+    machine.removeGInst(gi);
+    ufoaInstVisModel.edges.remove(gi.gi_id);
+  });
+}
+
+function removeAIsOf(machine: any, ufoaInstVisModel: VisModel, ei: EntityInst) {
+  const insts = machine.getEntityInsts();
+  const ais = machine.getAInsts().filter(ai => {
+    const ei1 = ufoaInstModel.getE1EntityInst(insts, ai);
+    const ei2 = ufoaInstModel.getE2EntityInst(insts, ai);
+    return eiId(ei1) === eiId(ei) || eiId(ei2) === eiId(ei);
+  });
+  ais.forEach(ai => {
+    machine.removeAInst(ai);
+    ufoaInstVisModel.edges.remove(ai.ai_id);
+  });
 }
 
 function processRemoveOperations(machine: any, ufoaInstVisModel: VisModel, eventB: UfobEvent) {

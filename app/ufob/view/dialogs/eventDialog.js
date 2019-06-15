@@ -405,7 +405,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   render() {
     return ( 
       <Panel className="dialog-panel">
-        <Panel.Heading><strong>{this.props.eventB.ev_name}</strong></Panel.Heading>
+        <Panel.Heading><strong>Event {this.props.eventB.ev_id}</strong></Panel.Heading>
         <Panel.Body collapsible={false}>
           {this.renderEventName()}
           {this.renderOperations()}
