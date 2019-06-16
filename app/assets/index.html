@@ -34,7 +34,7 @@ body {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Marrow Donor Registry Simulator 2 v1.1</a>
+          <a class="navbar-brand" href="#">Marrow Donor Registry Simulator 2 v1.2</a>
         </div>
         <ul class="nav navbar-nav">
           <li id="model-mi" class="active"><a href="#" onclick="gotoModel();">Model</a></li>
@@ -59,28 +59,6 @@ body {
         <li role="presentation" class="active"><a href="#ufoa-tab"      aria-controls="ufoa-tab"      role="tab" data-toggle="tab">Structure</a></li>
         <li role="presentation"               ><a href="#ufob-tab"      aria-controls="ufob-tab"      role="tab" data-toggle="tab">Behaviour</a></li>
         <li role="presentation"               ><a href="#simulation-tab" aria-controls="simulation-tab" role="tab" data-toggle="tab">Simulation</a></li>
-        <li role="presentation"               ><a href="#domain-tab" aria-controls="domain-tab" role="tab" data-toggle="tab">Suitability Evaluation Model</a></li>
-        <!--<li>-->
-          <!--<span id="help-btn" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
-            <!--<button type="button" class="btn btn-default" title="Help" data-toggle="modal" data-target="#help-modal">-->
-              <!--<span class="glyphicon glyphicon-question-sign" aria-hidden="false"></span>-->
-            <!--</button>-->
-          <!--</span>-->
-          <!--[> Controls <]-->
-          <!--<span id="standards-btn" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
-            <!--<button type="button" class="btn btn-default" title="Help" data-toggle="modal" data-target="#story-ufob-modal">-->
-              <!--<span class="glyphicon glyphicon-book" aria-hidden="false"></span>-->
-            <!--</button>-->
-          <!--</span>-->
-          <!--<span id="controls" class="btn-group btn-group-sm" role="group" style="margin-top: 7px;">-->
-            <!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Resizer left" onclick="Haste['resizeLeft']()">-->
-              <!--<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>-->
-            <!--</button>-->
-            <!--<button type="button" class="btn btn-default" data-toggle="tooltip" title="Resizer right" onclick="Haste['resizeRight']()">-->
-              <!--<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>-->
-            <!--</button>-->
-          <!--</span>-->
-        <!--</li>-->
       </ul>
       <!-- Tab panes Model {{{2 -->
       <div class="tab-content">
@@ -98,17 +76,6 @@ body {
         <!--Tab Simulation {{{3 -->
         <div role="tabpanel" class="tab-pane" id="simulation-tab">
           <div id="simulation-box" class="simulation-box"></div>
-        </div>
-        <!--Tab Suitability {{{3 -->
-        <div role="tabpanel" class="tab-pane suitability-panel" id="domain-tab">
-          <div class="suitability-panel-left">
-            <img src="img/domain.png" alt="Suitability Evaluation Model">
-          </div>
-          <div class="panel panel-primary suitability-panel-right">
-            <div class="panel-body">
-              When selecting a donor, numerous human leukocyte antigens (HLA) and numerous non-HLA factors are considered, although the most important is a HLA match between a donor and a patient (stem cells recipient).  The HLA complex is known to be the most polymorphic genetic system in humans. It is located within the 6p21.3 region on the short arm of human chromosome 6 and contains more than 220 genes of diverse function (the variant form of a given gene is an allele). That’s why a well-structured database of donors containing all necessary attributes is an important part of clinical decision support system for choosing the donor for transplantation.
-            </div>
-          </div>
         </div>
       </div>
     </div>

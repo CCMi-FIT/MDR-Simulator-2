@@ -240,7 +240,9 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e6",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donTemDef#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -252,16 +254,22 @@
       "ev_name": "Subsequent Donation Request",
       "ev_add_ops": [
         {
-          "opa_e_id": "e22",
-          "opa_insts_names": []
+          "opa_e_id": "e112",
+          "opa_insts_names": [
+            "colReqSub#"
+          ]
         },
         {
-          "opa_e_id": "e112",
-          "opa_insts_names": []
+          "opa_e_id": "e22",
+          "opa_insts_names": [
+            "donChoSub#"
+          ]
         },
         {
           "opa_e_id": "e119",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "expSta#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -279,23 +287,97 @@
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s7",
-      "ev_wmda_text": "<p>Transplant centre can select donor listed on search report for verification.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Verification Typing - This HLA typing includes the tests carried out on a fresh sample of a specific donor or on an attached-segment of a cord blood unit with the purpose of verifying the identity and concordance of an existing HLA assignment. The purpose of this typing is to ensure that the volunteer/cord blood unit is the same individual/unit whose HLA typing was listed on the search report used to select the donor. This stage used to be referred to as &quot;confirmatory typing (CT)&quot;.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>2.04 The director or key registry personnel or consultants must have expertise in human histocompatibility and HSC transplantation as documented by the relevant education and experience. At least one of these individuals must be a physician. These individuals must possess a basic understanding of diseases treatable by HSC transplantation, comprehend alternative therapies and donor search problems associated with these diseases, understand HLA specificities antigens/alleles(serologic and DNA-based) and haplotypes, and possess a knowledge of transplant centre, donor centre, collection centre, cord blood bank (if applicable), and registry protocols in their own country and abroad.</li>\n\t<li>2.05 The registry must have a qualified and trained health care professional readily available to assist with routine medical decisions regarding donor selection and donation.</li>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
+      "ev_wmda_text": "<p>Transplant centre can select donor listed on search report for verification.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Verification Typing - This HLA typing includes the tests carried out on a fresh sample of a specific donor or on an attached-segment of a cord blood unit with the purpose of verifying the identity and concordance of an existing HLA assignment. The purpose of this typing is to ensure that the volunteer/cord blood unit is the same individual/unit whose HLA typing was listed on the search report used to select the donor. This stage used to be referred to as \\&quot;confirmatory typing (CT)\\&quot;.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>2.04 The director or key registry personnel or consultants must have expertise in human histocompatibility and HSC transplantation as documented by the relevant education and experience. At least one of these individuals must be a physician. These individuals must possess a basic understanding of diseases treatable by HSC transplantation, comprehend alternative therapies and donor search problems associated with these diseases, understand HLA specificities antigens/alleles(serologic and DNA-based) and haplotypes, and possess a knowledge of transplant centre, donor centre, collection centre, cord blood bank (if applicable), and registry protocols in their own country and abroad.</li>\n\t<li>2.05 The registry must have a qualified and trained health care professional readily available to assist with routine medical decisions regarding donor selection and donation.</li>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e9",
       "ev_name": "Extended\nHLA\nTyping\nfrom Stored\nBlood Sample",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e95",
+          "opa_insts_names": [
+            "extGenValBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e94",
+          "opa_insts_names": [
+            "extDonTypResBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_insts_names": [
+            "extGenAssBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e10",
+          "opa_insts_names": [
+            "avExTyBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_insts_names": [
+            "extHLATypBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e64",
+          "opa_insts_names": [
+            "extDNASamBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e92",
+          "opa_insts_names": [
+            "extDNAIsoBS#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s9",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>A not-fully high-resolution-HLA-typed Donor (allele level for all HLA genes) may be asked for an Extended Examination for an Extended Typing. Extended typing is performed from fresh blood sample / stored blood sample / stored DNA sample.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Extended Typing - This HLA typing includes the tests carried out on a specific donor/cord blood unit with the purpose of adding additional information (typing of additional loci or further subtyping at a higher resolution) to an existing HLA assignment. The purpose of this typing is to ascertain the level of HLA match between donor and recipient. The additional HLA typing may be performed on a stored sample.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e10",
       "ev_name": "Extended\nHLA\nTyping\nfrom Stored\nDNA Sample",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e95",
+          "opa_insts_names": [
+            "extGenValDS#"
+          ]
+        },
+        {
+          "opa_e_id": "e94",
+          "opa_insts_names": [
+            "extDonTypResDS#"
+          ]
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_insts_names": [
+            "extGenAssDS#"
+          ]
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_insts_names": [
+            "extHLATypDS#"
+          ]
+        },
+        {
+          "opa_e_id": "e10",
+          "opa_insts_names": [
+            "avExTyDS#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s10",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>A not-fully high-resolution-HLA-typed Donor (allele level for all HLA genes) may be asked for an Extended Examination for an Extended Typing. Extended typing is performed from fresh blood sample / stored blood sample / stored DNA sample.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Extended Typing - This HLA typing includes the tests carried out on a specific donor/cord blood unit with the purpose of adding additional information (typing of additional loci or further subtyping at a higher resolution) to an existing HLA assignment. The purpose of this typing is to ascertain the level of HLA match between donor and recipient. The additional HLA typing may be performed on a stored sample.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e11",
@@ -303,24 +385,32 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e10",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "avExTyx#"
+          ]
         },
         {
           "opa_e_id": "e32",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e91",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "extTyNBS#"
+          ]
         },
         {
           "opa_e_id": "e60",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "extBS#"
+          ]
+        },
+        {
+          "opa_e_id": "e91",
+          "opa_insts_names": [
+            "extBSD#"
+          ]
         }
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s8",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The Donor Centre also creates a record of the particular Blood Sample and a request for an HLA typing. Donor blood sample is sent to HLA laboratory for histocompatibility testing.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Testing laboratories - These laboratories perform the histocompatibility, blood group, infectious disease, and other testing of the prospective donors and patients. They may be under the direction of a registry, donor centre or transplant centre or may be separate from these entities.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>3.17 Testing must be carried out by laboratories that meet standards established by the government or prevailing in the relevant community for performing these services.</li>\n\t<li>3.17.1 Testing must be carried out in a manner to ensure the accuracy of the data.</li>\n</ul>\n"
     },
     {
       "ev_id": "e12",
@@ -328,56 +418,144 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e60",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e33",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "verBS#"
+          ]
         },
         {
           "opa_e_id": "e91",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "verBSDraw#"
+          ]
+        },
+        {
+          "opa_e_id": "e33",
+          "opa_insts_names": [
+            "verEx#"
+          ]
         }
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s12",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The Donor Centre also creates a record of the particular Blood Sample and a request for an HLA typing. Donor blood sample is sent to HLA laboratory for histocompatibility testing.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Testing laboratories - These laboratories perform the histocompatibility, blood group, infectious disease, and other testing of the prospective donors and patients. They may be under the direction of a registry, donor centre or transplant centre or may be separate from these entities.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>3.17 Testing must be carried out by laboratories that meet standards established by the government or prevailing in the relevant community for performing these services.</li>\n\t<li>3.17.1 Testing must be carried out in a manner to ensure the accuracy of the data.</li>\n</ul>\n"
     },
     {
       "ev_id": "e13",
       "ev_name": "Extended Histocompatibility\nTesting",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e94",
+          "opa_insts_names": [
+            "extDonTypRes#"
+          ]
+        },
+        {
+          "opa_e_id": "e64",
+          "opa_insts_names": [
+            "extDNASam#"
+          ]
+        },
+        {
+          "opa_e_id": "e92",
+          "opa_insts_names": [
+            "extDNAIso#"
+          ]
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_insts_names": [
+            "extHLATyp#"
+          ]
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_insts_names": [
+            "extGenAss#"
+          ]
+        },
+        {
+          "opa_e_id": "e95",
+          "opa_insts_names": [
+            "extGenVal#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s11",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>A not-fully high-resolution-HLA-typed Donor (allele level for all HLA genes) may be asked for an Extended Examination for an Extended Typing. Extended typing is performed from fresh blood sample / stored blood sample / stored DNA sample.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Extended Typing - This HLA typing includes the tests carried out on a specific donor/cord blood unit with the purpose of adding additional information (typing of additional loci or further subtyping at a higher resolution) to an existing HLA assignment. The purpose of this typing is to ascertain the level of HLA match between donor and recipient. The additional HLA typing may be performed on a stored sample.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.10 Volunteer donors must be counselled when selected for further tests and when selected as a donor for a specific patient.</li>\n\t<li>3.10.1 Counselling for volunteer donors selected for specific patients must include anonymity of the donor and patient, requirement for further blood samples before donation, requirement for infectious disease and other testing, risk of donation, possible duration of loss of time from normal activities, location of the collection, the potential for collection of autologous blood, donor&rsquo;s right to withdraw and consequences for the patient, details of insurance coverage, possible subsequent donations of HSC or cellular products, alternative collection methods and whether blood or other biological material is reserved for research purposes.</li>\n\t<li>10.03 The registry must have available a clear fee schedule detailing payment terms for extended and verification HLA testing, infectious disease marker testing, procurement and other related services upon request.</li>\n\t<li>10.03.1 The registry should have a procedure to communicate changes in the fee schedule to interested parties thirty (30) days prior to implementation.</li>\n\t<li>10.04 Any cost not standardised or, for any reason, not accessible through such a schedule should be estimated and communicated in advance to the requesting registry and/or transplant centre.</li>\n</ul>\n"
     },
     {
       "ev_id": "e14",
       "ev_name": "Histocompatibility Confirmation",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e64",
+          "opa_insts_names": [
+            "verDNASam#"
+          ]
+        },
+        {
+          "opa_e_id": "e92",
+          "opa_insts_names": [
+            "verDNAIso#"
+          ]
+        },
+        {
+          "opa_e_id": "e94",
+          "opa_insts_names": [
+            "verDonTypRes#"
+          ]
+        },
+        {
+          "opa_e_id": "e88",
+          "opa_insts_names": [
+            "verGenAss#"
+          ]
+        },
+        {
+          "opa_e_id": "e95",
+          "opa_insts_names": [
+            "verGenVal#"
+          ]
+        },
+        {
+          "opa_e_id": "e101",
+          "opa_insts_names": [
+            "verHLATyp#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s14",
-      "ev_wmda_text": ""
+      "ev_wmda_text": "<p>The Donor Centre also creates a record of the particular Blood Sample and a request for an HLA typing. Donor blood sample is sent to HLA laboratory for histocompatibility testing.</p>\n\n<h3>WMDA Definition:</h3>\n\n<ul>\n\t<li>Testing laboratories - These laboratories perform the histocompatibility, blood group, infectious disease, and other testing of the prospective donors and patients. They may be under the direction of a registry, donor centre or transplant centre or may be separate from these entities.</li>\n</ul>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>3.13 Valid signed informed consent must be obtained if donor blood or other biological material or information is stored and/or used for the purpose of an ethically approved research project.</li>\n\t<li>3.17 Testing must be carried out by laboratories that meet standards established by the government or prevailing in the relevant community for performing these services.</li>\n\t<li>3.17.1 Testing must be carried out in a manner to ensure the accuracy of the data.</li>\n</ul>\n"
     },
     {
       "ev_id": "e15",
       "ev_name": "Medical Assessment",
       "ev_add_ops": [
         {
-          "opa_e_id": "e52",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e56",
-          "opa_insts_names": []
+          "opa_e_id": "e81",
+          "opa_insts_names": [
+            "verMarRes#"
+          ]
         },
         {
           "opa_e_id": "e49",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "verMarTes#"
+          ]
         },
         {
-          "opa_e_id": "e81",
-          "opa_insts_names": []
+          "opa_e_id": "e52",
+          "opa_insts_names": [
+            "verMedAss#"
+          ]
+        },
+        {
+          "opa_e_id": "e56",
+          "opa_insts_names": [
+            "verMedAssRes#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -390,12 +568,26 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e13",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donVer#"
+          ]
+        },
+        {
+          "opa_e_id": "e103",
+          "opa_insts_names": [
+            "donResRel#"
+          ]
+        },
+        {
+          "opa_e_id": "e14",
+          "opa_insts_names": [
+            "donRes#"
+          ]
         }
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s15",
-      "ev_wmda_text": "<p>Donor become verified after obtaining all the results from verification HLA typing, medical assessment and infection disease markers testing.</p>\n"
+      "ev_wmda_text": "<p>Donor becomes verified after obtaining all the results from verification HLA typing, medical assessment and infection disease markers testing.</p>\n"
     },
     {
       "ev_id": "e17",
@@ -423,16 +615,22 @@
       "ev_name": "Collection Request",
       "ev_add_ops": [
         {
-          "opa_e_id": "e15",
-          "opa_insts_names": []
+          "opa_e_id": "e102",
+          "opa_insts_names": [
+            "colReq#"
+          ]
         },
         {
           "opa_e_id": "e83",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donActWor#"
+          ]
         },
         {
-          "opa_e_id": "e102",
-          "opa_insts_names": []
+          "opa_e_id": "e15",
+          "opa_insts_names": [
+            "donChosen#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -444,16 +642,22 @@
       "ev_name": "Collection Dates Assessment",
       "ev_add_ops": [
         {
+          "opa_e_id": "e16",
+          "opa_insts_names": [
+            "donAvWok#"
+          ]
+        },
+        {
           "opa_e_id": "e110",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "sched#"
+          ]
         },
         {
           "opa_e_id": "e111",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e16",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donClearance#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -465,40 +669,58 @@
       "ev_name": "Work-up",
       "ev_add_ops": [
         {
-          "opa_e_id": "e34",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e104",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e17",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e52",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e56",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e82",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e51",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e60",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "worBS#"
+          ]
         },
         {
           "opa_e_id": "e91",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "worBSDraw#"
+          ]
+        },
+        {
+          "opa_e_id": "e104",
+          "opa_insts_names": [
+            "donCle#"
+          ]
+        },
+        {
+          "opa_e_id": "e82",
+          "opa_insts_names": [
+            "donMarResWor#"
+          ]
+        },
+        {
+          "opa_e_id": "e17",
+          "opa_insts_names": [
+            "donFinCle#"
+          ]
+        },
+        {
+          "opa_e_id": "e52",
+          "opa_insts_names": [
+            "worMedAss#"
+          ]
+        },
+        {
+          "opa_e_id": "e56",
+          "opa_insts_names": [
+            "worMedAssRes#"
+          ]
+        },
+        {
+          "opa_e_id": "e34",
+          "opa_insts_names": [
+            "worEx#"
+          ]
+        },
+        {
+          "opa_e_id": "e51",
+          "opa_insts_names": [
+            "worMarRel#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -519,7 +741,9 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e7",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donPerDef#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -529,7 +753,20 @@
     {
       "ev_id": "e23",
       "ev_name": "Collection Approval\nby the Transplant Centre",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e18",
+          "opa_insts_names": [
+            "donAcc#"
+          ]
+        },
+        {
+          "opa_e_id": "e106",
+          "opa_insts_names": [
+            "cleAcc#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
       "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
@@ -537,7 +774,26 @@
     {
       "ev_id": "e24",
       "ev_name": "Reasoning\nof Collection of Noneligible\nDonor",
-      "ev_add_ops": [],
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e18",
+          "opa_insts_names": [
+            "donAccRea#"
+          ]
+        },
+        {
+          "opa_e_id": "e106",
+          "opa_insts_names": [
+            "cleAccRea#"
+          ]
+        },
+        {
+          "opa_e_id": "e107",
+          "opa_insts_names": [
+            "colRea#"
+          ]
+        }
+      ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s22",
       "ev_wmda_text": "<p>The donor is selected for HSC collection in the case that he is eligible after donor clearance (no medical obstacles for collection). The donor can be also choose if he was not eligible but there is urgent medical need for transplantation and another donor do not come into consideration (is not available).</p>\n\n<h3>WMDA Standard:</h3>\n\n<ul>\n\t<li>6.03.1 If the donation/shipping date is not scheduled or is delayed, a maximum time limit and the procedures for granting exceptions for this status must be set in writing and be readily accessible to health care professionals involved in HSC transplantation.</li>\n\t<li>6.05 The registry must make their policy for the minimum criteria needed to allow a specific donor to be available for a specific patient readily accessible to the appropriate parties, such as national/international organisations authorised to provide haematopoietic stem cell treatment.</li>\n\t<li>6.06 Prior to transplantation, the registry must have a process for communicating the volunteer donor&rsquo;s preference to the appropriate transplant centre in a timely fashion to indicate the type of cells and to communicate any other donor-specific issues) that may impact the transplantation. Nevertheless, the volunteer donor must be free to change their mind at a later date.</li>\n\t<li>6.06.1 The registry must have a process to communicate issues related to donor health and the release of an increased risk product to the transplant centre.</li>\n\t<li>6.06.1.1 An increased risk product should be released by exception only when there is a documented clinical need for the product and when approved by the physician of the transplant centre.</li>\n</ul>\n"
@@ -568,28 +824,40 @@
       "ev_name": "BM\nDonation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e38",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e40",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e20",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e42",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donBM#"
+          ]
         },
         {
           "opa_e_id": "e44",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "colBM#"
+          ]
+        },
+        {
+          "opa_e_id": "e40",
+          "opa_insts_names": [
+            "donBM#"
+          ]
         },
         {
           "opa_e_id": "e71",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "colBM#"
+          ]
+        },
+        {
+          "opa_e_id": "e38",
+          "opa_insts_names": [
+            "donHSCBM#"
+          ]
+        },
+        {
+          "opa_e_id": "e42",
+          "opa_insts_names": [
+            "colBMRel#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -601,20 +869,28 @@
       "ev_name": "PBSC\nDonation\nPreparation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e39",
-          "opa_insts_names": []
+          "opa_e_id": "e19",
+          "opa_insts_names": [
+            "donPBSCPrep#"
+          ]
         },
         {
           "opa_e_id": "e38",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donHSCPBSC#"
+          ]
         },
         {
-          "opa_e_id": "e19",
-          "opa_insts_names": []
+          "opa_e_id": "e39",
+          "opa_insts_names": [
+            "donPBSCRel#"
+          ]
         },
         {
           "opa_e_id": "e108",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donPBSCPrepRel#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -626,20 +902,28 @@
       "ev_name": "PBSC\nCollection",
       "ev_add_ops": [
         {
-          "opa_e_id": "e21",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e43",
-          "opa_insts_names": []
+          "opa_e_id": "e69",
+          "opa_insts_names": [
+            "colPBSC#"
+          ]
         },
         {
           "opa_e_id": "e42",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "colGenPBSCRel#"
+          ]
         },
         {
-          "opa_e_id": "e69",
-          "opa_insts_names": []
+          "opa_e_id": "e43",
+          "opa_insts_names": [
+            "colPBSCRel#"
+          ]
+        },
+        {
+          "opa_e_id": "e21",
+          "opa_insts_names": [
+            "donPBSC#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -652,15 +936,21 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e3",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e72",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "couPBSC#"
+          ]
         },
         {
           "opa_e_id": "e118",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transpPBSC#"
+          ]
+        },
+        {
+          "opa_e_id": "e72",
+          "opa_insts_names": [
+            "delPBSC#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -673,15 +963,21 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e120",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e87",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "folRel#"
+          ]
         },
         {
           "opa_e_id": "e121",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "folRes#"
+          ]
+        },
+        {
+          "opa_e_id": "e87",
+          "opa_insts_names": [
+            "donFol#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -693,20 +989,22 @@
       "ev_name": "PBSC\nTransplantation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e2",
-          "opa_insts_names": []
+          "opa_e_id": "e47",
+          "opa_insts_names": [
+            "transPBSCRel#"
+          ]
         },
         {
           "opa_e_id": "e46",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e47",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transPBSCRelGen#"
+          ]
         },
         {
           "opa_e_id": "e74",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transPBSC#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -718,16 +1016,22 @@
       "ev_name": "BM\nTransportation",
       "ev_add_ops": [
         {
+          "opa_e_id": "e3",
+          "opa_insts_names": [
+            "couBM#"
+          ]
+        },
+        {
           "opa_e_id": "e118",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transpBM#"
+          ]
         },
         {
           "opa_e_id": "e73",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e3",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "delBM#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -739,20 +1043,22 @@
       "ev_name": "BM\nTransplantation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e2",
-          "opa_insts_names": []
+          "opa_e_id": "e48",
+          "opa_insts_names": [
+            "traBMRel#"
+          ]
         },
         {
           "opa_e_id": "e46",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e48",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "traBMRelGen#"
+          ]
         },
         {
           "opa_e_id": "e75",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "traBM#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -764,16 +1070,22 @@
       "ev_name": "Collection Dates Assessment\nfor Subsequent Donation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e113",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e114",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donCleSub#"
+          ]
         },
         {
           "opa_e_id": "e86",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donUnaSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e113",
+          "opa_insts_names": [
+            "scheSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -785,36 +1097,52 @@
       "ev_name": "Schedule\nand Specification\nof Donor Clearance",
       "ev_add_ops": [
         {
-          "opa_e_id": "e34",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e24",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e55",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e59",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e82",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e51",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e60",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "bsSub#"
+          ]
         },
         {
           "opa_e_id": "e91",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "bsDrawSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e82",
+          "opa_insts_names": [
+            "marResWorSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e24",
+          "opa_insts_names": [
+            "donCleaSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e51",
+          "opa_insts_names": [
+            "marWorTesSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e55",
+          "opa_insts_names": [
+            "worAssSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e59",
+          "opa_insts_names": [
+            "worAssResSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e34",
+          "opa_insts_names": [
+            "worExSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -827,11 +1155,15 @@
       "ev_add_ops": [
         {
           "opa_e_id": "e25",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donAccSub#"
+          ]
         },
         {
           "opa_e_id": "e115",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "donCleAccRelSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -843,20 +1175,28 @@
       "ev_name": "Subsequent HSC\nCollection",
       "ev_add_ops": [
         {
-          "opa_e_id": "e26",
-          "opa_insts_names": []
-        },
-        {
-          "opa_e_id": "e38",
-          "opa_insts_names": []
+          "opa_e_id": "e78",
+          "opa_insts_names": [
+            "colHSCSub#"
+          ]
         },
         {
           "opa_e_id": "e42",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "colRelSub#"
+          ]
         },
         {
-          "opa_e_id": "e78",
-          "opa_insts_names": []
+          "opa_e_id": "e26",
+          "opa_insts_names": [
+            "donSub#"
+          ]
+        },
+        {
+          "opa_e_id": "e38",
+          "opa_insts_names": [
+            "donHSCRelSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -868,16 +1208,22 @@
       "ev_name": "Subseqent HSC\nTransportation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e118",
-          "opa_insts_names": []
+          "opa_e_id": "e3",
+          "opa_insts_names": [
+            "couSub#"
+          ]
         },
         {
           "opa_e_id": "e79",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "delHSCSub#"
+          ]
         },
         {
-          "opa_e_id": "e3",
-          "opa_insts_names": []
+          "opa_e_id": "e118",
+          "opa_insts_names": [
+            "transpRelSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -889,16 +1235,16 @@
       "ev_name": "Subseqent HSC\nTransplantation",
       "ev_add_ops": [
         {
-          "opa_e_id": "e2",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e46",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transRelSub#"
+          ]
         },
         {
           "opa_e_id": "e80",
-          "opa_insts_names": []
+          "opa_insts_names": [
+            "transHSCSub#"
+          ]
         }
       ],
       "ev_remove_ops": [],
@@ -918,20 +1264,53 @@
           "opa_insts_names": []
         },
         {
-          "opa_e_id": "e97",
-          "opa_insts_names": []
-        },
-        {
           "opa_e_id": "e93",
           "opa_insts_names": []
         },
         {
           "opa_e_id": "e109",
           "opa_insts_names": []
+        },
+        {
+          "opa_e_id": "e97",
+          "opa_insts_names": []
         }
       ],
       "ev_remove_ops": [],
       "ev_to_situation_id": "s38",
+      "ev_wmda_text": ""
+    },
+    {
+      "ev_id": "ev41",
+      "ev_name": "Train Courier",
+      "ev_to_situation_id": "s39",
+      "ev_add_ops": [
+        {
+          "opa_e_id": "e3",
+          "opa_insts_names": [
+            "cou#"
+          ]
+        },
+        {
+          "opa_e_id": "e117",
+          "opa_insts_names": [
+            "CouTraRec#"
+          ]
+        },
+        {
+          "opa_e_id": "e116",
+          "opa_insts_names": [
+            "couTra#"
+          ]
+        },
+        {
+          "opa_e_id": "e0",
+          "opa_insts_names": [
+            "perCou#"
+          ]
+        }
+      ],
+      "ev_remove_ops": [],
       "ev_wmda_text": ""
     }
   ],
@@ -1486,18 +1865,31 @@
       "s_wmda_text": "",
       "s_dispositions": [
         {
-          "d_text": "A Person wants \nto become a Donor",
+          "d_text": "",
           "d_events_ids": [
-            "e1"
+            "ev41"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "s_id": "s39",
+      "s_name": "Courier Trained",
+      "s_dispositions": [
         {
           "d_text": "A Person Needs\nUnrelated\nDonor Transplanation",
           "d_events_ids": [
             "e2"
           ]
+        },
+        {
+          "d_text": "A Person wants\nto become a Donor",
+          "d_events_ids": [
+            "e1"
+          ]
         }
-      ]
+      ],
+      "s_wmda_text": ""
     }
   ]
 }

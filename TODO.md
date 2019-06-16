@@ -1,14 +1,6 @@
-- vyhodit zalozku Suitability Evaluation Model
 - Playground instance -- jen Simulation tab
-- Behaviour a Simulation: pri otevreni fit to size
-- bug: nevyzadovat wmda text pri vytvoreni nove situace
 
-- reset simulation button
 - remove operations
-
-Kontroly:
-- Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
-- GeneralisationSet: Kontrola, ze vsechny nadtypy jsou jedna entita.
 
 Scenarios?
 - V instance modelu bude tlacitko "Save simulation step".
@@ -19,11 +11,23 @@ Server DB API:
   - addStep(step: SimulationStep) (po Save)
 
 Fixes:
+- Behaviour a Simulation: pri otevreni fit to size
+- bug: nevyzadovat wmda text pri vytvoreni nove situace
+- bug: Edit WMDA -> Cancel: nejde potom ulozit event
 - UFO-A Entity Dialog: aktualizovat diagram pri update:
   - Entity: barvy
   - asociace: arrows (memberOf)
 - vyresit vicero instanci nadtyp-podtyp
 - Focus inputu newEntityInstModal
+
+Improvements:
+- "name is not unique" by melo rici, kde je pouzito
+- reset simulation button
+- kontrola pri prekliknuti dialogu na jiny element, ze nezustalo neco neulozeneho
+- simulation: event sourcing (undo)
+- Kontroly:
+  - Pri pridani instance entity zkontrolovat, ze v modelu nechybi supertype, tj. neexistuje takova generalizace, kde e je podtyp a v modelu neni instance teto generalizace.
+  - GeneralisationSet: Kontrola, ze vsechny nadtypy jsou jedna entita.
 
 Refactoring:
 - refactor to https://www.primefaces.org/primereact / Bootstrap 4 (react-boostrap umi jen Boostrap 3 -- zbavit se ho? je velky...)
