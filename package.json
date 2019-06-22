@@ -5,8 +5,8 @@
   "private": "true",
   "main": "index.js",
   "scripts": {
-    "server:watch": "rm -rf dist/*; nodemon --watch server --exec npm run server:build\\; npm run server:run",
-    "server:build": "rm -rf dist/*; babel -d dist server",
+    "server:watch": "rm -rf dist/*; cp -r server/views dist; nodemon --watch server --exec npm run server:build\\; npm run server:run",
+    "server:build": "rm -rf dist/*; cp -r server/views dist; babel -d dist server",
     "server:run": "cd dist; node server",
     "client:watch": "brunch watch --server",
     "client:build": "brunch build --production",
@@ -61,6 +61,7 @@
     "react-confirm-bootstrap": "^5.3.0",
     "react-dom": "^16.8.6",
     "react-split": "^2.0.5",
+    "squirrelly": "^7.1.1",
     "vis": "^4.21.0"
   }
 }

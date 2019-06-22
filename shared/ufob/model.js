@@ -15,6 +15,7 @@ export function getUfobEventById(model: UfobModel, ev_id: Id): ?UfobEvent {
 export function newEvent(model: UfobModel, ev_name: string, s_id: Id): UfobEvent {
   const lastIdNo = getLastIdNo(model.events.map((ev) => ev.ev_id));
   const newEvent = ufobMeta.newEvent(`ev${lastIdNo+1}`, "New Event", s_id);
+  newEvent.ev_wmda_text = "";
   model.events.push(newEvent);
   return newEvent;
 }
@@ -67,7 +68,8 @@ export function newSituation(model: UfobModel): Situation {
   const newSituation = {
     s_id: `s${lastIdNo+1}`,
     s_name: "New Situation",
-    s_dispositions: []
+    s_dispositions: [],
+    s_wmda_text: ""
   };
   model.situations.push(newSituation);
   return newSituation;
