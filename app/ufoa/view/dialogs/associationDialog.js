@@ -23,6 +23,7 @@ type State = {
   showMeta: boolean,
   saveDisabled: boolean
 };
+//}}}1
 
 function commitAssociation(edges: any, a: Association) {
   ufoaDB.updateAssociation(a).then(
@@ -33,6 +34,12 @@ function commitAssociation(edges: any, a: Association) {
         to: a.a_connection2.e_id,
         label: a.a_label,
         title: ufoaMeta.assocStr(a), 
+        arrows: {
+          from: {
+            enabled: a.a_type === "MemberOf",
+            type: "circle"
+          }
+        }
       });
       panels.disposeDialog();
       panels.displayInfo("Association saved.");

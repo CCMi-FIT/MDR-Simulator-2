@@ -250,9 +250,9 @@ footer {
 
 .message-box {
   display: none;
-  left: 50px;
+  left: 350px;
   position: fixed;
-  top: 150px;
+  top: 70px;
   z-index: 100;
 }
 

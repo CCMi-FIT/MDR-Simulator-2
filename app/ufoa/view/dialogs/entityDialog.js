@@ -30,7 +30,7 @@ type State = {
 function commitEntity(nodes: any, e: UfoaEntity) {
   ufoaDB.updateEntity(e).then(
     () => {
-      nodes.update({ id: e.e_id, label: ufoaMeta.entityStr(e) });
+      nodes.update({ id: e.e_id, label: ufoaMeta.entityStr(e), color: ufoaMeta.entityColor(e) });
       panels.disposeDialog();
       panels.displayInfo("Entity saved.");
     },

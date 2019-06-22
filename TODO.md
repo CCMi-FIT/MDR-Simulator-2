@@ -1,13 +1,9 @@
-- bug: nevyzadovat wmda text pri vytvoreni nove situace
-- bug: Edit WMDA -> Cancel: nejde potom ulozit event
-- UFO-A Entity Dialog: aktualizovat diagram pri update:
-  - Entity: barvy
-  - asociace: arrows (memberOf)
+Fixes:
 - vyresit vicero instanci nadtyp-podtyp
-- Focus inputu newEntityInstModal
 
 Problematic Fixes:
 - Behaviour a Simulation: pri otevreni fit to size -- ufoaNetwork.fit() nedela nic
+- Focus inputu newEntityInstModal
 
 Improvements:
 - "name is not unique" by melo rici, kde je pouzito
