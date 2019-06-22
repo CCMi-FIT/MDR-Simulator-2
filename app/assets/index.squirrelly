@@ -56,8 +56,10 @@ body {
 
       <!-- Nav tabs Model {{{2 -->
       <ul class="nav nav-tabs" role="tablist">
+        {{if(1===0)}}
         <li role="presentation" class="active"><a href="#ufoa-tab"      aria-controls="ufoa-tab"      role="tab" data-toggle="tab">Structure</a></li>
         <li role="presentation"               ><a href="#ufob-tab"      aria-controls="ufob-tab"      role="tab" data-toggle="tab">Behaviour</a></li>
+        {{/if}}
         <li role="presentation"               ><a href="#simulation-tab" aria-controls="simulation-tab" role="tab" data-toggle="tab">Simulation</a></li>
       </ul>
       <!-- Tab panes Model {{{2 -->
