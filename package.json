@@ -10,7 +10,10 @@
     "server:run": "cd dist; node server",
     "client:watch": "brunch watch --server",
     "client:build": "brunch build --production",
-    "clean": "npm cache clean --force"
+    "clean": "npm cache clean --force",
+    "bsb:build": "bsb -make-world",
+    "bsb:start": "bsb -make-world -w",
+    "bsb:clean": "bsb -clean-world"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
