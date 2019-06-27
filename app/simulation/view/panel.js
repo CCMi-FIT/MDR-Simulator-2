@@ -1,6 +1,6 @@
 // @flow
 
-import * as R from 'ramda';
+// Imports {{{1
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
@@ -9,7 +9,9 @@ import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import { dispatch } from './dispatch.js';
-import {Button} from "react-bootstrap";
+import { Button, Tabs, Tab } from "react-bootstrap";
+
+// Decls {{{1
 
 type Props = { };
 type State = {
@@ -17,6 +19,8 @@ type State = {
 };
 
 var ufoaInstNetwork = null;
+
+// Component {{{1
 
 class SimulationBox extends panels.PaneDialog<Props, State> {
 
@@ -27,59 +31,84 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     };
   }
 
+  // Rendering {{{2
 
+  // Simulation Pane {{{3
+  renderSimulationPane() {
+    return (
+      <div style={{float: "left", borderRight: "1px solid lightgray"}}>
+        <div id="simulation-diagram"></div>
+      </div>
+    );
+  }
+
+  // Details Pane {{{3
+  renderDetailsPane() {
+    return (
+      <div style={{float: "left", paddingRight: 0}}>
+        <Tabs defaultActiveKey="profile" id="simulation-details-tabs">
+          {this.renderInstancesTab()}
+          {this.renderWmdaTab()}
+        </Tabs>
+      </div>
+    );
+  }
+
+  // Instances Tab {{{4
+  renderInstancesTab() {
+    return (
+      <Tab eventKey="instances" title="Instances">
+        <div className="container-fluid">
+          <div className="row">
+            {this.renderInstToolbar()}
+            <div id="ufoa-inst-diagram"></div>
+          </div>
+        </div>
+      </Tab>
+    );
+  }
+  
   renderInstToolbar() {
     return (
-      <div>
+      <div style={{ paddingTop: "10px" }}>
         <Button
           className="btn-primary"
           onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
           Stop Layouting
         </Button>
       </div>
-    )
+    );
   }
+  // }}}4 
+  // WMDA Tab {{{4
+  renderWmdaTab() {
+    return (
+      <Tab eventKey="wmdaStandard" title="WMDA Standard">
+        <div className="container-fluid">
+          <div className="row">
+            <div id="wmda-panel" style={{ paddingTop: "10px" }}></div>
+          </div>
+        </div>
+      </Tab>
+    );
+  }
+  // }}}4
+
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-xs-offset-7 col-xs-2">
-            <input
-              type="radio"
-              name="sim-view"
-              checked={this.state.selectedView === "instances"}
-              onChange={() => this.setState({selectedView: "instances"})}
-            />
-            <label htmlFor="insts-view">Instances</label>
-          </div>
-          <div className="col-xs-2">
-            <input 
-              type="radio"
-              name="sim-view"
-              checked={this.state.selectedView === "wmda"}
-              onChange={() => this.setState({selectedView: "wmda"})}
-            />
-            <label htmlFor="wmda-view">WMDA standard</label>
-          </div>
-        </div>
-        <div className="row">
-          <Split direction="horizontal" sizes={[50, 50]}>
-            <div style={{float: "left", borderRight: "1px solid lightgray"}}>
-              <div id="simulation-diagram"></div>
-            </div>
-            <div style={{float: "left", paddingRight: 0}}>
-              <div style={{display: (this.state.selectedView === "instances" ? "block" : "none")}}>
-                {this.renderInstToolbar()}
-                <div id="ufoa-inst-diagram" ></div>
-              </div>
-                <div id="wmda-panel" style={{display: (this.state.selectedView === "wmda" ? "block" : "none"), overflowY: "auto"}}/>
-            </div>
-          </Split>
-        </div>
+        <Split direction="horizontal" sizes={[50, 50]}>
+          {this.renderSimulationPane()}
+          {this.renderDetailsPane()}
+        </Split>
       </div>
     );
   }
+
+  // }}}3
+  // }}}2
 }
+// }}}1
 
 export function render(machine: any, ufobVisModel: VisModel) {
   let panel = panels.getSimulationBox();
