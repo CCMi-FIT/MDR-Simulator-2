@@ -46,7 +46,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   renderDetailsPane() {
     return (
       <div style={{float: "left", paddingRight: 0}}>
-        <Tabs defaultActiveKey="profile" id="simulation-details-tabs">
+        <Tabs defaultActiveKey="instances" id="simulation-details-tabs">
           {this.renderInstancesTab()}
           {this.renderWmdaTab()}
         </Tabs>
@@ -86,7 +86,8 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       <Tab eventKey="wmdaStandard" title="WMDA Standard">
         <div className="container-fluid">
           <div className="row">
-            <div id="wmda-panel" style={{ paddingTop: "10px" }}></div>
+            <h2 id={panels.wmdaLabelId}></h2> {/*Populated by dispatch*/}
+            <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch*/}
           </div>
         </div>
       </Tab>
