@@ -13,7 +13,7 @@ const messageId = "message-box";
 const modalId = "modal-box";
 
 export const wmdaPanelId = "wmda-panel";
-export const wmdaLabelId = "wmda-panel-label";
+export const wmdaTitleId = "wmda-panel-label";
 
 export function getWindowHeight(): number {
   return $(window).innerHeight();

@@ -1,5 +1,7 @@
 //@flow
 
+import * as R from 'ramda';
+import * as vis from 'vis';
 import * as React from 'react';
 import type { Id } from './metamodel';
 import type { UfoaEntity } from './ufoa/metamodel';
@@ -44,5 +46,14 @@ export function renderEntity(e: UfoaEntity) {
       <br/>
       {e.e_name}
     </div>);
+}
+
+export function cloneVisModel(visModel: VisModel): VisModel {
+  const nodes2 = R.clone(visModel.nodes.get());
+  const edges2 = R.clone(visModel.edges.get());
+  return ({
+    nodes: new vis.DataSet(nodes2),
+    edges: new vis.DataSet(edges2)
+  });
 }
 

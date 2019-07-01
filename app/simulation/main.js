@@ -1,11 +1,10 @@
 // @flow
 
 import * as panel from './view/panel';
-import * as machine from './machine';
+import { cloneVisModel } from '../diagram'; 
 
 export function initialise(ufobVisModel: any) {
-  machine.initialize();
-  panel.render(machine, ufobVisModel);
+  panel.initialize(cloneVisModel(ufobVisModel));
 }
 
 

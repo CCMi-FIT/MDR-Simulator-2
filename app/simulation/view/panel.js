@@ -4,11 +4,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
+import { cloneVisModel } from '../../diagram';
+import * as machine from './../machine';
 import * as panels from '../../panels';
 import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
-import { dispatch } from './dispatch.js';
+import * as dispatch from './dispatch';
 import { Button, Tabs, Tab } from "react-bootstrap";
 
 // Decls {{{1
@@ -18,7 +20,10 @@ type State = {
   selectedView: "instances" | "wmda";
 };
 
-var ufoaInstNetwork = null;
+var ufobVisModel: any = null;
+var ufobVisModelOrig: any = null;
+var simUfobNetwork: any =null;
+var ufoaInstNetwork: any = null;
 
 // Component {{{1
 
@@ -34,10 +39,28 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   // Rendering {{{2
 
   // Simulation Pane {{{3
+  
+  renderSimulationToolbar() {
+    return (
+      <div style={{ paddingTop: "10px" }}>
+        <Button
+          className="btn-primary"
+          onClick={() => { initialize(ufobVisModelOrig); }}>
+          Reset
+        </Button>
+      </div>
+    );
+  }
+
   renderSimulationPane() {
     return (
       <div style={{float: "left", borderRight: "1px solid lightgray"}}>
-        <div id="simulation-diagram"></div>
+        <div className="container-fluid">
+          <div className="row">
+            {this.renderSimulationToolbar()}
+            <div id="simulation-diagram"></div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -86,7 +109,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       <Tab eventKey="wmdaStandard" title="WMDA Standard">
         <div className="container-fluid">
           <div className="row">
-            <h2 id={panels.wmdaLabelId}></h2> {/*Populated by dispatch*/}
+            <h2 id={panels.wmdaTitleId}></h2> {/*Populated by dispatch*/}
             <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch*/}
           </div>
         </div>
@@ -111,20 +134,20 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
 }
 // }}}1
 
-export function render(machine: any, ufobVisModel: VisModel) {
+export function initialize(ufobVisModel1: VisModel) {
+  machine.initialize();
+  ufobVisModelOrig = cloneVisModel(ufobVisModel1);
+  ufobVisModel = cloneVisModel(ufobVisModel1);
   let panel = panels.getSimulationBox();
   ReactDOM.render(<SimulationBox/>, panel);
   const ufoaInstDiagramContainer = panels.getInstDiagram();
   const simUfobDiagramContainer = panels.getUfobDiagram();
   let ufoaInstVisModel = ufoaInstDiagram.newVis();
   ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
-  let simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
+  simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
   simUfobNetwork.setOptions({ manipulation: false });
-  simUfobNetwork.on("click", params => dispatch(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, params));
+  simUfobNetwork.on("click", params => dispatch.dispatchClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
   simUfobNetwork.fit();
-  // simUfobNetwork.fit({
-  //   nodes: ["ev40"],
-  //   animation: false
-  // })
 }
+
 

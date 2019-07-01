@@ -185,7 +185,6 @@ export function addAInsts(ais: Array<AssocInst>): Array<string> {
 }
 
 export function removeEntityInst(ei: EntityInst) {
-  console.log(ei);
   simState.sim_eis = getEntityInsts().filter(ei1 => ufoaInstMeta.eiId(ei1) !== ufoaInstMeta.eiId(ei));
 }
 
