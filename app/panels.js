@@ -14,6 +14,7 @@ const modalId = "modal-box";
 
 export const wmdaPanelId = "wmda-panel";
 export const wmdaTitleId = "wmda-panel-label";
+export const eventsLogId = "events-log";
 
 export function getWindowHeight(): number {
   return $(window).innerHeight();
@@ -38,7 +39,8 @@ export function fitPanes() {
   $("#simulation-diagram").height(h);
   $(".gutter-horizontal").height(h);
   $("#ufoa-inst-diagram").height(h);
-  $("#wmda-panel").height(h);
+  $(`#${wmdaPanelId}`).height(h);
+  $(`#${eventsLogId}`).height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 

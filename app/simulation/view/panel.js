@@ -16,9 +16,6 @@ import { Button, Tabs, Tab } from "react-bootstrap";
 // Decls {{{1
 
 type Props = { };
-type State = {
-  selectedView: "instances" | "wmda";
-};
 
 var ufobVisModel: any = null;
 var ufobVisModelOrig: any = null;
@@ -27,16 +24,22 @@ var ufoaInstNetwork: any = null;
 
 // Component {{{1
 
-class SimulationBox extends panels.PaneDialog<Props, State> {
+class SimulationBox extends panels.PaneDialog<Props> {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedView: "instances"
-    };
   }
 
   // Rendering {{{2
+
+  //Events Log {{{3
+  
+  renderEventsLog() {
+    return (
+      <div id={panels.eventsLogId} className="events-log">
+      </div>
+    );
+  }
 
   // Simulation Pane {{{3
   
@@ -57,8 +60,13 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       <div style={{float: "left", borderRight: "1px solid lightgray"}}>
         <div className="container-fluid">
           <div className="row">
-            {this.renderSimulationToolbar()}
-            <div id="simulation-diagram"></div>
+            <div className="col-xs-2">
+              {this.renderEventsLog()}
+            </div>
+            <div className="col-xs-10">
+              {this.renderSimulationToolbar()}
+              <div id="simulation-diagram"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -116,7 +124,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       </Tab>
     );
   }
-  // }}}4
+  // }}}2
 
   render() {
     return (
@@ -129,8 +137,6 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     );
   }
 
-  // }}}3
-  // }}}2
 }
 // }}}1
 

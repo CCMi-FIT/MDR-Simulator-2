@@ -140,6 +140,8 @@ async function processAddOperations(machine: any, ufoaInstVisModel: VisModel, uf
     await addAssocsInsts(machine, ufoaInstVisModel, newEIs, []);
     await addAssocsInsts(machine, ufoaInstVisModel, machine.getEntityInsts(), machine.getAInsts());
     pruneDisjointGSs(machine, ufoaInstVisModel, newEIs);
+    machine.addEvent(eventB);
+    console.log(machine.getEvents());
     ufoaInstNetwork.fit({ 
       nodes: newEIs.map(ei => eiId(ei)),
       animation: true
@@ -186,6 +188,7 @@ function removeAIsOf(machine: any, ufoaInstVisModel: VisModel, ei: EntityInst) {
 
 function processRemoveOperations(machine: any, ufoaInstVisModel: VisModel, eventB: UfobEvent) {
   const removeOps = eventB.ev_remove_ops;
+  //TODO
 }
 
 function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
