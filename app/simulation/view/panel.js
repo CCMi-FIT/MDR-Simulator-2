@@ -13,6 +13,8 @@ import type { VisModel } from '../../diagram';
 import * as dispatch from './dispatch';
 import { Button, Tabs, Tab } from "react-bootstrap";
 
+//import { counter as Counter } from '../../purescript/Counter';
+
 // Decls {{{1
 
 type Props = { };
@@ -130,7 +132,8 @@ class SimulationBox extends panels.PaneDialog<Props> {
     return (
       <div className="container-fluid">
         <Split direction="horizontal" sizes={[50, 50]}>
-          {this.renderSimulationPane()}
+          {this.renderSimulationPane()
+          /* <Counter label="Counter"/> */}
           {this.renderDetailsPane()}
         </Split>
       </div>

@@ -36,11 +36,11 @@ export function fitPanes() {
   $(`#${ufoaBoxId}`).height(h);
   $(`#${ufobBoxId}`).height(h);
   $(`#${simulationBoxId}`).height(h);
+  $(`#${eventsLogId}`).height(h);
   $("#simulation-diagram").height(h);
   $(".gutter-horizontal").height(h);
   $("#ufoa-inst-diagram").height(h);
-  $(`#${wmdaPanelId}`).height(h);
-  $(`#${eventsLogId}`).height(h);
+  $("#wmda-panel").height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
