@@ -1,11 +1,18 @@
 //@flow
 
+import NanoEvents from 'nanoevents';
 import type { VisModel } from '../../diagram';
 import * as ufobDB from '../../ufob/db';
 import * as diagram from './diagram';
 import * as panels from '../../panels';
 
-export function dispatchClick(machine: any, ufobVisModel: VisModel, simUfobNetwork: any,  ufoaInstVisModel: VisModel, ufoaInstNetwork: any, params: any) {
+var ufoBDiagramEmmiter = new NanoEvents();
+
+export function addUfoBDiagramClickHandler(handler: any) {
+  ufoBDiagramEmmiter.on("ufobClick", handler);
+}
+
+export function dispatchUfoBDiagramClick(machine: any, ufobVisModel: VisModel, simUfobNetwork: any,  ufoaInstVisModel: VisModel, ufoaInstNetwork: any, params: any) {
   const nodeId = params.nodes[0];
   if (nodeId) {
     const node = ufobVisModel.nodes.get(nodeId);
@@ -31,6 +38,7 @@ export function dispatchClick(machine: any, ufobVisModel: VisModel, simUfobNetwo
         console.error("Unknown UFO-B diagram node type: " + node.type);
       }
     }
+    ufoBDiagramEmmiter.emit("ufobClick");
   }
 }
 

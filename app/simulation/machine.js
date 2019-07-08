@@ -37,6 +37,10 @@ export function initialize() {
 
 // Accessing {{{1
 
+export function getEvents(): Array<UfobEvent> {
+  return simState.sim_events;
+}
+
 export function getEntityInsts(): Array<EntityInst> {
   return simState.sim_eis;
 }
@@ -200,6 +204,9 @@ export function invalidate() {
   simError = true;
 }
 
+export function addEvent(ev: UfobEvent) {
+  simState.sim_events.push(ev);
+}
 
 
 

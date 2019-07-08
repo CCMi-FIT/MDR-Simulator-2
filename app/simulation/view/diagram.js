@@ -204,6 +204,7 @@ export function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: V
       processRemoveOperations(machine, ufoaInstVisModel, eventB);
       processAddOperations(machine, ufoaInstVisModel, ufoaInstNetwork, eventB);
       markVisited(ufobVisModel, eventB);
+      machine.addEvent(eventB);
     }
   }
 }

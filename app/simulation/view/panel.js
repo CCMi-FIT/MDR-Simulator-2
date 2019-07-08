@@ -1,9 +1,11 @@
 // @flow
 
 // Imports {{{1
+import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
+import type { UfobEvent } from '../../ufob/metamodel';
 import { cloneVisModel } from '../../diagram';
 import * as machine from './../machine';
 import * as panels from '../../panels';
@@ -11,13 +13,17 @@ import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import * as dispatch from './dispatch';
-import { Button, Tabs, Tab } from "react-bootstrap";
+import { Button, Panel, Tabs, Tab } from "react-bootstrap";
 
 //import { counter as Counter } from '../../purescript/Counter';
 
 // Decls {{{1
 
 type Props = { };
+type State = {
+  eventsLog: Array<UfobEvent>,
+  showEventsLog: bool
+};
 
 var ufobVisModel: any = null;
 var ufobVisModelOrig: any = null;
@@ -26,28 +32,53 @@ var ufoaInstNetwork: any = null;
 
 // Component {{{1
 
-class SimulationBox extends panels.PaneDialog<Props> {
+class SimulationBox extends panels.PaneDialog<Props, State> {
 
   constructor(props) {
     super(props);
+    this.state = {
+      eventsLog: [],
+      showEventsLog: false
+    };
+    dispatch.addUfoBDiagramClickHandler(this.ufobDiagramClicked);
+  }
+
+  // Events {{{2
+  ufobDiagramClicked = () => {
+    this.state.eventsLog = machine.getEvents();
+    this.forceUpdate();
   }
 
   // Rendering {{{2
 
-  //Events Log {{{3
+  // Simulation Pane {{{3
   
   renderEventsLog() {
     return (
-      <div id={panels.eventsLogId} className="events-log">
-      </div>
+      this.state.showEventsLog ? 
+        <div className="events-log-panel">
+          { this.state.eventsLog.map(ev => 
+            <div style={{display: "block"}} key={ev.ev_id}>
+              <Button>
+                {ev.ev_name}
+              </Button>
+            </div>
+          ) }
+        </div>
+      : <div className="events-log-panel"></div>
     );
   }
 
-  // Simulation Pane {{{3
-  
   renderSimulationToolbar() {
     return (
-      <div style={{ paddingTop: "10px" }}>
+      <div className="toolbar">
+        <Button 
+          className="btn-primary"
+          onClick={() => this.setState(
+            (state: State) => R.mergeDeepRight(state, { showEventsLog: !state.showEventsLog })
+          )}
+        ><i className={"glyphicon " + (this.state.showEventsLog ? "glyphicon-option-vertical" : "glyphicon-option-horizontal")}></i>
+        </Button>
         <Button
           className="btn-primary"
           onClick={() => { initialize(ufobVisModelOrig); }}>
@@ -62,13 +93,9 @@ class SimulationBox extends panels.PaneDialog<Props> {
       <div style={{float: "left", borderRight: "1px solid lightgray"}}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xs-2">
-              {this.renderEventsLog()}
-            </div>
-            <div className="col-xs-10">
-              {this.renderSimulationToolbar()}
-              <div id="simulation-diagram"></div>
-            </div>
+            {this.renderSimulationToolbar()}
+            {this.renderEventsLog()}
+            <div id="simulation-diagram"></div>
           </div>
         </div>
       </div>
@@ -103,7 +130,7 @@ class SimulationBox extends panels.PaneDialog<Props> {
   
   renderInstToolbar() {
     return (
-      <div style={{ paddingTop: "10px" }}>
+      <div className="toolbar">
         <Button
           className="btn-primary"
           onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
@@ -147,15 +174,15 @@ export function initialize(ufobVisModel1: VisModel) {
   machine.initialize();
   ufobVisModelOrig = cloneVisModel(ufobVisModel1);
   ufobVisModel = cloneVisModel(ufobVisModel1);
-  let panel = panels.getSimulationBox();
+  const panel = panels.getSimulationBox();
   ReactDOM.render(<SimulationBox/>, panel);
   const ufoaInstDiagramContainer = panels.getInstDiagram();
   const simUfobDiagramContainer = panels.getUfobDiagram();
-  let ufoaInstVisModel = ufoaInstDiagram.newVis();
+  const ufoaInstVisModel = ufoaInstDiagram.newVis();
   ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
   simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
   simUfobNetwork.setOptions({ manipulation: false });
-  simUfobNetwork.on("click", params => dispatch.dispatchClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
+  simUfobNetwork.on("click", params => dispatch.dispatchUfoBDiagramClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
   simUfobNetwork.fit();
 }
 

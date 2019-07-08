@@ -371,6 +371,19 @@ footer {
   padding: 0;
 }
 
+.toolbar {
+  display: inline-block;
+  padding-top: 10px;
+}
+
+.events-log-panel {
+  left: 30px;
+  position: absolute;
+  top: 145px;
+  z-index: 100;
+}
+
+
 /*  Loading spinner */
 
 .loader,
