@@ -30,7 +30,7 @@ export function fitPanes() {
   const fh = $("footer").height();
   const nh = $("nav").height();
   const th = $(".nav-tabs").height();
-  const h = wh - fh - nh - th;
+  const h = wh - fh - nh - th - 60;
 
   $("#ufoa-inst-box").height(h);
   $(`#${ufoaBoxId}`).height(h);

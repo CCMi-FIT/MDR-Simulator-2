@@ -8,8 +8,8 @@
     "server:watch": "rm -rf dist/*; cp -r server/views dist; nodemon --watch server --exec npm run server:build\\; npm run server:run",
     "server:build": "rm -rf dist/*; cp -r server/views dist; babel -d dist server",
     "server:run": "cd dist; node server",
-    "client:watch": "brunch watch --server",
-    "client:build": "brunch build --production",
+    "client:watch": "rm -rf public/*; brunch watch --server",
+    "client:build": "rm -rf public/*; brunch build --production",
     "clean": "npm cache clean --force"
   },
   "devDependencies": {

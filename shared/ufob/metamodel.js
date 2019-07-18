@@ -50,7 +50,6 @@ export function newEvent(ev_id: Id, ev_name: string, ev_to_situation_id: Id): Uf
   });
 }
 
-
 export function validateEvent(event: UfobEvent): ValidationResult {
   return validateElement(ajv, event, "ufob-meta#/definitions/event"); 
 }

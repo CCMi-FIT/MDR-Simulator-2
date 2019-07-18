@@ -5,7 +5,9 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
-import type { UfobEvent } from '../../ufob/metamodel';
+import type { UfobEventInst } from '../../ufob-inst/metamodel';
+import * as ufobDB from '../../ufob/db';
+import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import { cloneVisModel } from '../../diagram';
 import * as machine from './../machine';
 import * as panels from '../../panels';
@@ -13,7 +15,7 @@ import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import * as dispatch from './dispatch';
-import { Button, Panel, Tabs, Tab } from "react-bootstrap";
+import { Button, Tabs, Tab } from "react-bootstrap";
 
 //import { counter as Counter } from '../../purescript/Counter';
 
@@ -21,7 +23,7 @@ import { Button, Panel, Tabs, Tab } from "react-bootstrap";
 
 type Props = { };
 type State = {
-  eventsLog: Array<UfobEvent>,
+  eventsLog: Array<UfobEventInst>,
   showEventsLog: bool
 };
 
@@ -52,18 +54,36 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   // Rendering {{{2
 
   // Simulation Pane {{{3
-  
+
+  // Events Log {{{4
+
+  renderEvent(evi: UfobEventInst) {
+    const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
+    return (
+      <div style={{display: "block"}} key={evi.evi_id}>
+        <Button
+          onClick={() => { 
+            machine.switchCurrent(evi);
+            this.forceUpdate();
+          }}
+        >
+          {(() => {
+            const label = mev ? mev.ev_name : "invalid ev_id";
+            return (
+              machine.isCurrentEv(evi) ?
+              <strong>{label}</strong>
+              : label);
+          })()}
+        </Button>
+      </div>
+    );
+  }
+
   renderEventsLog() {
     return (
       this.state.showEventsLog ? 
         <div className="events-log-panel">
-          { this.state.eventsLog.map(ev => 
-            <div style={{display: "block"}} key={ev.ev_id}>
-              <Button>
-                {ev.ev_name}
-              </Button>
-            </div>
-          ) }
+          { this.state.eventsLog.map(this.renderEvent) }
         </div>
       : <div className="events-log-panel"></div>
     );

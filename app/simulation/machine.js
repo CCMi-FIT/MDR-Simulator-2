@@ -6,13 +6,16 @@ import type { Id } from "../metamodel";
 import type { UfoaEntity, Generalisation, Association } from '../ufoa/metamodel';
 import * as ufoaDB from '../ufoa/db';
 import type { UfobEvent } from "../ufob/metamodel";
+import type { UfobEventInst } from '../ufob-inst/metamodel';
 import type { EntityInst, GeneralisationInst, AssocInst } from "../ufoa-inst/metamodel";
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
+import * as ufobInstMeta from '../ufob-inst/metamodel';
 import * as ufoaInstModel from '../ufoa-inst/model';
 import * as rules from './rules';
 
 type SimulationState = {
-  sim_events: Array<UfobEvent>,
+  sim_eventsInsts: Array<UfobEventInst>,
+  sim_currentEventIdx: number;
   sim_instsIndexDict: { [key: string]: number },
   sim_eis: Array<EntityInst>,
   sim_gis: Array<GeneralisationInst>,
@@ -26,7 +29,8 @@ var simError: boolean;
 
 export function initialize() {
   simState = {
-    sim_events: [],
+    sim_eventsInsts: [],
+    sim_currentEventIdx: -1,
     sim_instsIndexDict: {},
     sim_eis: [],
     sim_gis: [],
@@ -37,8 +41,8 @@ export function initialize() {
 
 // Accessing {{{1
 
-export function getEvents(): Array<UfobEvent> {
-  return simState.sim_events;
+export function getEvents(): Array<UfobEventInst> {
+  return simState.sim_eventsInsts;
 }
 
 export function getEntityInsts(): Array<EntityInst> {
@@ -90,6 +94,10 @@ export function checkSingleDefault(entity: UfoaEntity): boolean {
 
 export function isValid(): boolean {
   return !simError;
+}
+
+export function isCurrentEv(evi: UfobEventInst): boolean {
+  return simState.sim_eventsInsts[simState.sim_currentEventIdx].evi_id === evi.evi_id;
 }
 
 export function getMissingGIs(insts: Array<EntityInst>, presentGIs: Array<GeneralisationInst>): Array<GeneralisationInst> {
@@ -205,8 +213,18 @@ export function invalidate() {
 }
 
 export function addEvent(ev: UfobEvent) {
-  simState.sim_events.push(ev);
+  const evi = ufobInstMeta.newEventInst("evi_" + simState.sim_eventsInsts.length.toString(), ev.ev_id);
+  simState.sim_eventsInsts.push(evi);
+  simState.sim_currentEventIdx = simState.sim_eventsInsts.length - 1;
 }
 
+export function switchCurrent(evi: UfobEventInst) {
+  const idx = simState.sim_eventsInsts.findIndex(evi1 => evi1.evi_id === evi.evi_id);
+  if (idx < 0) {
+    console.error(`switchCurrent: evi_id=${evi.evi_id} not present in events log`);
+  } else {
+    simState.sim_currentEventIdx = idx;
+  }
+}
 
 
