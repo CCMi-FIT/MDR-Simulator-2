@@ -7,7 +7,6 @@ import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
 import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import * as ufobDB from '../../ufob/db';
-import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import { cloneVisModel } from '../../diagram';
 import * as machine from './../machine';
 import * as panels from '../../panels';
