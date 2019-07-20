@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal,  Button } from 'react-bootstrap';
+import { Modal } from '../../../components';
 import * as panels from '../../../panels';
 
 type Props = {
@@ -35,22 +35,16 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
 
   render() {
     return ( 
-      <Modal.Dialog>
-        <Modal.Header>
-          <Modal.Title>Select new edge type:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="form-group"> 
-            <select className="form-control" value={this.state.selection} onChange={(ev) => this.selectionMade(ev)}>
-              <option key="generalisation" value="generalisation">Generalisation</option>
-              <option key="association" value="association">Association</option>
-            </select>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-primary" onClick={this.setEdgeType}>Select type</Button>
-        </Modal.Footer>
-      </Modal.Dialog>);
+      <Modal heading="Select new edge type:">
+        <div className="form-group"> 
+          <select className="form-control" value={this.state.selection} onChange={(ev) => this.selectionMade(ev)}>
+            <option key="generalisation" value="generalisation">Generalisation</option>
+            <option key="association" value="association">Association</option>
+          </select>
+        </div>
+        <button type="button" className="btn btn-primary" onClick={this.setEdgeType}>Select type</button>
+      </Modal>
+    );
   }
 }
 

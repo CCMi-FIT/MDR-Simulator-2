@@ -5,6 +5,7 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Split from 'react-split';
+import { Tabs, Tab } from '../../components';
 import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import * as ufobDB from '../../ufob/db';
 import { cloneVisModel } from '../../diagram';
@@ -14,7 +15,6 @@ import * as ufobDiagram from '../../ufob/view/diagram';
 import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import * as dispatch from './dispatch';
-import { Button, Tabs, Tab } from "react-bootstrap";
 
 //import { counter as Counter } from '../../purescript/Counter';
 
@@ -60,7 +60,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
     return (
       <div style={{display: "block"}} key={evi.evi_id}>
-        <Button
+        <button type="button" className="btn"
           onClick={() => { 
             machine.switchCurrent(evi);
             this.forceUpdate();
@@ -73,7 +73,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
               <strong>{label}</strong>
               : label);
           })()}
-        </Button>
+        </button>
       </div>
     );
   }
@@ -91,18 +91,20 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   renderSimulationToolbar() {
     return (
       <div className="toolbar">
-        <Button 
-          className="btn-primary"
+        <button 
+          type="button"
+          className="btn btn-primary"
           onClick={() => this.setState(
             (state: State) => R.mergeDeepRight(state, { showEventsLog: !state.showEventsLog })
           )}
         ><i className={"glyphicon " + (this.state.showEventsLog ? "glyphicon-option-vertical" : "glyphicon-option-horizontal")}></i>
-        </Button>
-        <Button
-          className="btn-primary"
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
           onClick={() => { initialize(ufobVisModelOrig); }}>
           Reset
-        </Button>
+        </button>
       </div>
     );
   }
@@ -150,11 +152,12 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   renderInstToolbar() {
     return (
       <div className="toolbar">
-        <Button
-          className="btn-primary"
+        <button
+          type="button"
+          className="btn btn-primary"
           onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
           Stop Layouting
-        </Button>
+        </button>
       </div>
     );
   }

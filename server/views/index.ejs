@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <%- include("blocks/head"); %>
+  <body class="d-flex flex-column">
+    <!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <%- include("blocks/navbar"); %>
+      <% if (page == "model") { %>
+	<div class="container-fluid flex-fill" style="margin-top: 70px;">
+	  <%- include("contents/model", { admin }); %>
+	</div>
+      <% } %>
+      <% if (page == "methodology") { %>
+	<div class="container flex-fill" style="margin-top: 70px;">
+	  <%- include("contents/methodology"); %>
+	</div>
+      <% } %>
+      <% if (page == "about") { %>
+	<div class="container flex-fill" style="margin-top: 70px;">
+	  <%- include("contents/about"); %>
+	</div>
+      <% } %>
+    <%- include("blocks/footer"); %>
+  </body>
+  <% if (page == "model") { %>
+    <%- include("blocks/scripts-app"); %>
+  <% } else { %>
+    <%- include("blocks/scripts"); %>
+  <% } %>
+</html>

@@ -4,7 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from '../../../components';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { UfoaEntity, Association, Connection } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
@@ -173,14 +173,10 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 
   renderAssocPane() {
     return ( 
-      <Panel>
-        <Panel.Heading>Associations</Panel.Heading>
-        <Panel.Body collapsible={false}>
-          <div className="container-fluid">
-            {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
-          </div>
-        </Panel.Body>
-      </Panel>);
+      <Panel heading="Associations">
+        {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
+      </Panel>
+    );
   }
   // }}}2
 
@@ -189,7 +185,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update entity</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update entity</button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}
@@ -204,7 +200,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         body={`Are you sure you want to delete "${ufoaMeta.entityNameLine(this.props.ufoaEntity)}"?`}
         confirmText="Confirm Delete"
         title="Deleting Entity">
-        <Button className="btn-danger">Delete entity</Button>
+        <button type="button" className="btn btn-danger">Delete entity</button>
       </Confirm>);
   }
 
@@ -212,14 +208,11 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>{this.props.ufoaEntity.e_name}</strong> ({this.props.ufoaEntity.e_id})</Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderEntityType()}
-          {this.renderEntityName()}
-          {this.renderAssocPane()}
-          {this.renderButtons()}
-        </Panel.Body>
+      <Panel heading={<span><strong>{this.props.ufoaEntity.e_name}</strong> ({this.props.ufoaEntity.e_id})</span>}>
+        {this.renderEntityType()}
+        {this.renderEntityName()}
+        {this.renderAssocPane()}
+        {this.renderButtons()}
       </Panel>);
   }
 

@@ -25,34 +25,25 @@ export function getWindowWidth(): number {
 }
 
 export function fitPanes() {
-  const wh = getWindowHeight();
+  //const wh = getWindowHeight();
   const ww = getWindowWidth();
-  const fh = $("footer").height();
-  const nh = $("nav").height();
-  const th = $(".nav-tabs").height();
-  const h = wh - fh - nh - th - 60;
+  //const fh = $("footer").height();
+  //const nh = $("nav").height();
+  //const th = $(".nav-tabs").height();
+  //const h = wh - fh - nh - th - 60;
 
-  $("#ufoa-inst-box").height(h);
-  $(`#${ufoaBoxId}`).height(h);
-  $(`#${ufobBoxId}`).height(h);
-  $(`#${simulationBoxId}`).height(h);
-  $(`#${eventsLogId}`).height(h);
-  $("#simulation-diagram").height(h);
-  $(".gutter-horizontal").height(h);
-  $("#ufoa-inst-diagram").height(h);
-  $("#wmda-panel").height(h);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
-  const dbox = $("#dialog-box");
-  const dboxh = dbox.height();
-  if (dboxh > h-20) {
-    dbox.css("height", `${h-10}px`);
-    dbox.css("overflow-y", "scroll");
-  } else {
-    dbox.css("height", "auto");
-    dbox.css("overflow-y", "hidden");
-  }
+  //const dbox = $("#dialog-box");
+  //const dboxh = dbox.height();
+  //if (dboxh > h-20) {
+    //dbox.css("height", `${h-10}px`);
+    //dbox.css("overflow-y", "scroll");
+  //} else {
+    //dbox.css("height", "auto");
+    //dbox.css("overflow-y", "hidden");
+  //}
 }
 
 // Getting

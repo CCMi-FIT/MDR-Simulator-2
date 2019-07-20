@@ -4,7 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from '../../../components';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { Association } from '../../../ufoa/metamodel';
 import * as ufoaMeta from '../../../ufoa/metamodel';
@@ -152,27 +152,24 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
       return (<span>Internal error: entity not found</span>);
     } else {
       return (
-        <Panel>
-          <Panel.Heading><strong>{ufoaMeta.entityNameLine(e)}</strong></Panel.Heading>
-          <Panel.Body collapsible={false}>
-            <div className="row">
-              <div className="col-sm-5">
-                <input className="form-control" 
-                  type="number"
-                  value={this.state.association2[connection].mult.lower}
-                  onChange={(e) => this.setAttr(`${connection}.mult.lower`, e.currentTarget.value)}
-                />
-              </div>
-              <div className="col-sm-1">..</div>
-              <div className="col-sm-5">
-                <input className="form-control"
-                  type="number"
-                  value={upper ? upper : ""}
-                  onChange={(e) => this.setAttr(`${connection}.mult.upper`, e.currentTarget.value)}
-                />
-              </div>
+        <Panel heading={<span><strong>{ufoaMeta.entityNameLine(e)}</strong></span>}>
+          <div className="row">
+            <div className="col-sm-5">
+              <input className="form-control" 
+                type="number"
+                value={this.state.association2[connection].mult.lower}
+                onChange={(e) => this.setAttr(`${connection}.mult.lower`, e.currentTarget.value)}
+              />
             </div>
-          </Panel.Body>
+            <div className="col-sm-1">..</div>
+            <div className="col-sm-5">
+              <input className="form-control"
+                type="number"
+                value={upper ? upper : ""}
+                onChange={(e) => this.setAttr(`${connection}.mult.upper`, e.currentTarget.value)}
+              />
+            </div>
+          </div>
         </Panel>);
     }
   }
@@ -203,7 +200,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6 text-center"> 
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}
@@ -218,22 +215,20 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
         body={`Are you sure you want to delete "${this.props.association.a_id}"?`}
         confirmText="Confirm Delete"
         title="Deleting Association">
-        <Button className="btn-danger">Delete Association</Button>
+        <button type="button" className="btn btn-danger">Delete Association</button>
       </Confirm>);
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>{`Association ${this.props.association.a_id}`}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderType()}
-          {this.state.showMeta ? this.renderMeta() : null }
-          {this.renderMultiplicities()}
-          {this.renderLabel()}
-          {this.renderButtons()}
-        </Panel.Body>
-      </Panel>);
+      <Panel heading={<span>Association <strong>{this.props.association.a_id}</strong></span>}>
+      {this.renderType()}
+      {this.state.showMeta ? this.renderMeta() : null }
+      {this.renderMultiplicities()}
+      {this.renderLabel()}
+      {this.renderButtons()}
+    </Panel>
+    );
   }
 }
 

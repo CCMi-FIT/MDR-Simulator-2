@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from '../../../components';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { Generalisation } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
@@ -190,7 +190,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6 text-center"> 
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}
@@ -205,22 +205,20 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
         body={`Are you sure you want to delete "${this.props.generalisation.g_id}"?`}
         confirmText="Confirm Delete"
         title="Deleting Generalisation">
-        <Button className="btn-danger">Delete Generalisation</Button>
+        <button type="button" className="btn btn-danger">Delete Generalisation</button>
       </Confirm>);
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>Generalisation {this.props.generalisation.g_id}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderGSet()}
-          {this.renderMeta()}
-          {this.renderSup()}
-          {this.renderSub()}
-          {this.renderButtons()}
-        </Panel.Body>
-      </Panel>);
+      <Panel heading={<span><strong>Generalisation {this.props.generalisation.g_id}</strong></span>}>
+        {this.renderGSet()}
+        {this.renderMeta()}
+        {this.renderSup()}
+        {this.renderSub()}
+        {this.renderButtons()}
+      </Panel>
+    );
   }
 }
 

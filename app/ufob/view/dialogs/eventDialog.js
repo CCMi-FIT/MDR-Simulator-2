@@ -4,7 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Panel } from '../../../components';
 import { Confirm } from 'react-confirm-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { Id } from '../../../metamodel';
@@ -183,32 +183,31 @@ class EventForm extends panels.PaneDialog<Props, State> {
   
   renderAddOpDelete = (op: AddEntityInstOp) => {
     return (
-      <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
+      <button type="button" className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
         <i className="glyphicon glyphicon-trash"/>
-      </Button>
+      </button>
     );
   }
 
   renderInstsNamesInput = (op: AddEntityInstOp) => {
     const instsTip = this.hasInstNameError(op) ?
-        <Tooltip id="tooltip">The name is not unique</Tooltip>
-      : <Tooltip id="tooltip">Unique instance names separated by a space</Tooltip>;
+        "The name is not unique"
+      : "Unique instance names separated by a space";
     return (
       <div>
-        <OverlayTrigger placement="right" overlay={instsTip}>
-          <input 
-            className={this.hasInstNameError(op) ? "form-control bg-error" : "form-control"}
-            value={this.state.instsNamesStrDict[op.opa_e_id]}
-            onChange={ev => {
-              const val = ev.currentTarget.value;
-              this.setState(
-                (state: State) => 
-                  R.mergeDeepRight(state,
-                    { instsNamesStrDict: R.assoc(op.opa_e_id, val, state.instsNamesStrDict) }));
-            }}
-            onBlur={() => this.updateInstsNamesFromStr(op)}
-          />
-        </OverlayTrigger>
+        <input 
+          className={this.hasInstNameError(op) ? "form-control bg-error" : "form-control"}
+          value={this.state.instsNamesStrDict[op.opa_e_id]}
+          data-toggle="tooltip" data-placement="right" title={instsTip}
+          onChange={ev => {
+            const val = ev.currentTarget.value;
+            this.setState(
+              (state: State) => 
+              R.mergeDeepRight(state,
+                { instsNamesStrDict: R.assoc(op.opa_e_id, val, state.instsNamesStrDict) }));
+          }}
+          onBlur={() => this.updateInstsNamesFromStr(op)}
+        />
       </div>
     );
   }
@@ -248,9 +247,9 @@ class EventForm extends panels.PaneDialog<Props, State> {
         <div className="col-xs-3">
         </div>
         <div className="col-xs-2" style={{paddingTop: "10px"}}>
-          <Button className="btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
+          <button type="button" className="btn btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
             <i className="glyphicon glyphicon-trash"/>
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -278,8 +277,9 @@ class EventForm extends panels.PaneDialog<Props, State> {
           />
         </div>
         <div className="col-xs-1 nopadding">
-          <Button 
-            className="btn-primary btn-sm" 
+          <button 
+            type="button"
+            className="btn btn-primary btn-sm" 
             disabled={!this.state.newOpEntity}
             onClick={() => { 
               if (this.state.newOpEntity) {
@@ -289,11 +289,12 @@ class EventForm extends panels.PaneDialog<Props, State> {
               }
             }}>
             <i className="glyphicon glyphicon-plus"/>
-          </Button>
+          </button>
         </div>
         <div className="col-xs-1 nopadding">
-          <Button 
-            className="btn-primary btn-sm" 
+          <button 
+            type="button"
+            className="btn btn-primary btn-sm" 
             disabled={!this.state.newOpEntity}
             onClick={() => { 
               if (this.state.newOpEntity) {
@@ -303,7 +304,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
               }
             }}>
             <i className="glyphicon glyphicon-minus"/>
-          </Button>
+          </button>
         </div>
       </div>
     );
@@ -332,15 +333,12 @@ class EventForm extends panels.PaneDialog<Props, State> {
     const removeOpsSorted = R.sort(this.removeOpComparator, this.state.eventB2.ev_remove_ops);
     return (
       <div className="form-group">
-        <Panel className="dialog">
-          <Panel.Heading>Operations</Panel.Heading>
-          <Panel.Body collapsible={false}>
-            <div className="container-fluid">
-              {addOpsSorted.map(this.renderAddOperation)}
-              {removeOpsSorted.map(this.renderRemoveOperation)}
-              {this.renderNewOp()}
-            </div>
-          </Panel.Body>
+        <Panel heading="Operations">
+          <div className="container-fluid">
+            {addOpsSorted.map(this.renderAddOperation)}
+            {removeOpsSorted.map(this.renderRemoveOperation)}
+            {this.renderNewOp()}
+          </div>
         </Panel>
       </div>
     );
@@ -371,7 +369,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   renderWMDAButton = () => {
     return (
       <div className="form-group row col-sm-12">
-        <Button className="col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</Button>
+        <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
       </div>);
   }
 
@@ -381,7 +379,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update event</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update event</button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}
@@ -396,7 +394,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
         body={`Are you sure you want to delete "${this.props.eventB.ev_name}"?`}
         confirmText="Confirm Delete"
         title="Deleting Event">
-        <Button className="btn-danger">Delete event</Button>
+        <button type="button" className="btn btn-danger">Delete event</button>
       </Confirm>);
   }
 
@@ -404,16 +402,14 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>Event {this.props.eventB.ev_id}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderEventName()}
-          {this.renderOperations()}
-          {this.renderToSituation()}
-          {this.renderWMDAButton()}
-          {this.renderButtons()}
-        </Panel.Body>
-      </Panel>);
+      <Panel heading={<span><strong>Event {this.props.eventB.ev_id}</strong></span>}>
+        {this.renderEventName()}
+        {this.renderOperations()}
+        {this.renderToSituation()}
+        {this.renderWMDAButton()}
+        {this.renderButtons()}
+      </Panel>
+    );
   }
 
 }

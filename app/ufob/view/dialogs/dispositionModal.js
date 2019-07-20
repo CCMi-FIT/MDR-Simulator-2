@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Panel, Button } from 'react-bootstrap';
+import { Modal, Panel } from '../../../components';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { Id } from '../../../metamodel';
 import type { Situation, Disposition } from '../../metamodel';
@@ -124,60 +124,55 @@ class DispositionForm extends React.Component<Props, State> {
   renderEvents() {
     const esIds = this.state.disposition2.d_events_ids;
     return ( 
-      <Panel>
-        <Panel.Heading>Events caused</Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {esIds.length === 0 ?
-              this.renderEventsEmpty()
-            : esIds.map(this.renderEvent)}
-          <Typeahead
-            id="eventsTA"
-            ref={(typeahead) => this.typeahead = typeahead}
-            options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
-            labelKey={"ev_name"}
-            onChange={evs => { 
-              if (evs.length > 0) { 
-                this.addEvent(evs[0].ev_id);
-                this.typeahead.getInstance().clear();
-              }
-            }}
-          />
-        </Panel.Body>
-      </Panel>);
+      <Panel heading="Events caused">
+        {esIds.length === 0 ?
+            this.renderEventsEmpty()
+          : esIds.map(this.renderEvent)}
+        <Typeahead
+          id="eventsTA"
+          ref={(typeahead) => this.typeahead = typeahead}
+          options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
+          labelKey={"ev_name"}
+          onChange={evs => { 
+            if (evs.length > 0) { 
+              this.addEvent(evs[0].ev_id);
+              this.typeahead.getInstance().clear();
+            }
+          }}
+        />
+      </Panel>
+    );
   }
   
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-4">
-          <Button 
-            className="btn-primary" 
+          <button 
+            type="button"
+            className="btn btn-primary" 
             onClick={this.save} 
             disabled={this.state.saveDisabled}>
             Update disposition
-          </Button>
+          </button>
         </div>
         <div className="col-sm-4">
-          <Button className="btn-danger" onClick={() => this.delete()}>Delete disposition</Button>
+          <button type="button" className="btn btn-danger" onClick={() => this.delete()}>Delete disposition</button>
         </div>
         <div className="col-sm-4">
-          <Button className="btn-warning" onClick={() => panels.disposeModal()}>Cancel</Button>
+          <button type="button" className="btn btn-warning" onClick={() => panels.disposeModal()}>Cancel</button>
         </div>
       </div>);
   }
 
   render() {
     return ( 
-      <Modal.Dialog>
-          <Panel className="dialog">
-            <Panel.Heading><strong>Disposition</strong></Panel.Heading>
-            <Panel.Body collapsible={false}>
-              {this.renderDispositionText()}
-              {this.renderEvents()}
-              {this.renderButtons()}
-            </Panel.Body>
-          </Panel>
-      </Modal.Dialog>);
+      <Modal heading={<strong>Disposition</strong>}>
+        {this.renderDispositionText()}
+        {this.renderEvents()}
+        {this.renderButtons()}
+      </Modal>
+    );
   }
 }
 

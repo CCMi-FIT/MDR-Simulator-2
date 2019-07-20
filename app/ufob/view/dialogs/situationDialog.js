@@ -3,7 +3,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel } from '../../../components';
 import { Confirm } from 'react-confirm-bootstrap';
 import type { Situation, Disposition } from '../../metamodel';
 import type { Id } from '../../../metamodel.js';
@@ -172,7 +172,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
           {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
           <tr>
             <td colSpan="2">
-              <Button className="btn-primary btn-sm" onClick={this.addDisposition}><i className="glyphicon glyphicon-plus"></i></Button>
+              <button type="button" className="btn btn-primary btn-sm" onClick={this.addDisposition}><i className="glyphicon glyphicon-plus"></i></button>
             </td>
           </tr>
         </tbody>
@@ -183,7 +183,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
   renderWMDAButton = () => {
     return (
       <div className="form-group row col-sm-12">
-        <Button className="col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</Button>
+        <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
       </div>);
   }
 
@@ -191,7 +191,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group row col-sm-12"> 
         <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update situation</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update situation</button>
         </div>
         <div className="col-sm-6 text-right">
           {this.renderButtonDelete()}
@@ -206,20 +206,17 @@ class SituationForm extends panels.PaneDialog<Props, State> {
         body={`Are you sure you want to delete "${this.props.situation.s_name}"?`}
         confirmText="Confirm Delete"
         title="Deleting Situation">
-        <Button className="btn-danger">Delete situation</Button>
+        <button type="button" className="btn btn-danger">Delete situation</button>
       </Confirm>);
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>Situation {this.props.situation.s_id}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderSituationName()}
-          {this.renderDispositions()}
-          {this.renderWMDAButton()}
-          {this.renderButtons()}
-        </Panel.Body>
+      <Panel heading={<span><strong>Situation {this.props.situation.s_id}</strong></span>}>
+        {this.renderSituationName()}
+        {this.renderDispositions()}
+        {this.renderWMDAButton()}
+        {this.renderButtons()}
       </Panel>);
   }
 

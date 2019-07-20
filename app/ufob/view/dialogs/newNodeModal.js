@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Id } from '../../../metamodel';
-import { Modal,  Button } from 'react-bootstrap';
+import { Modal } from '../../../components';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import * as ufobDB from '../../db';
 import * as panels from '../../../panels';
@@ -75,18 +75,12 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
 
   render() {
     return ( 
-      <Modal.Dialog>
-        <Modal.Header>
-          <Modal.Title>Select new node type:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {this.renderSelection()}
-          {this.state.selection === "event" ? this.renderToSituation() : ""}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn-primary" onClick={this.setNodeType}>Select type</Button>
-        </Modal.Footer>
-      </Modal.Dialog>);
+      <Modal heading="Select new node type:">
+        {this.renderSelection()}
+        {this.state.selection === "event" ? this.renderToSituation() : ""}
+        <button type="button" className="btn-primary" onClick={this.setNodeType}>Select type</button>
+      </Modal>
+    );
   }
 }
 
