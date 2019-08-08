@@ -23,7 +23,7 @@ export class FindElement extends React.Component<Props> {
 
   render() {
     return ( 
-      <div className="btn-group" role="group">
+      <div className="input-group" role="group">
         <div style={{float: "left", width: "300px"}}>
           <Typeahead
             id="findTA"
@@ -36,8 +36,10 @@ export class FindElement extends React.Component<Props> {
             }}
           />
         </div>
-        <div style={{float: "left"}}>
-          <i className="btn btn-default glyphicon glyphicon-search disabled"></i>
+        <div style={{float: "left", width: "38px", height: "38px", paddingTop: "10px", textAlign: "center"}}>
+          {/*<button type="button" className="btn btn-light">*/}
+            <i className="fas fa-search"></i>
+            {/*</button>*/}
         </div>
       </div>);
   }

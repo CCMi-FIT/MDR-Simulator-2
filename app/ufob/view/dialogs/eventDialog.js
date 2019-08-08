@@ -4,8 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel } from '../../../components';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import type { Id } from '../../../metamodel';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
@@ -389,13 +388,15 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   renderButtonDelete() {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.eventB.ev_name}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Event">
-        <button type="button" className="btn btn-danger">Delete event</button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Event",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.eventB.ev_name}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   // }}}2

@@ -45,10 +45,10 @@ class WMDAForm extends React.Component<Props, State> {
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
+        <div className="col-sm-6 text-center">
           <button type="button" className="btn btn-primary" onClick={this.save}>Update</button>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-6 text-center">
           <button type="button" className="btn btn-warning" onClick={this.cancel}>Cancel</button>
         </div>
       </div>

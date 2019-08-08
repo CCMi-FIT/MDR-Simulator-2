@@ -1,19 +1,19 @@
-<div class="row" id="model-page">
+<div class="row flex-column" id="model-page">
   <ul class="nav nav-tabs" id="nav-tab-main" role="tablist">
-  <% if (admin) { %>
+    <% if (admin) { %>
     <li class="nav-item">
       <a class="nav-link active" href="#ufoa-tab" id="nav-structure-tab" data-toggle="tab" role="tab" aria-controls="nav-structure" aria-selected="true">Structure</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#ufob-tab" id="nav-behaviour-tab" data-toggle="tab" role="tab" aria-controls="nav-behaviour" aria-selected="false">Behaviour</a>
     </li>
-  <% } %>
-  <li class="nav-item">
-    <a class="nav-link" href="#simulation-tab" id="nav-simulation-tab" data-toggle="tab" role="tab" aria-controls="nav-simulation" aria-selected="false">Simulation</a>
-  </li>
+    <% } %>
+    <li class="nav-item">
+      <a class="nav-link" href="#simulation-tab" id="nav-simulation-tab" data-toggle="tab" role="tab" aria-controls="nav-simulation" aria-selected="false">Simulation</a>
+    </li>
   </ul>
   <!-- Tab panes Model {{{2 -->
-  <div class="tab-content">
+  <div class="tab-content flex-fill">
     <!--Tab Structure {{{3 -->
     <div role="tabpanel" class="tab-pane show active" id="ufoa-tab" aria-labelledby="nav-structure-tab">
       <div id="ufoa-box" class="ufoa-box"></div>
@@ -22,113 +22,113 @@
     <!--Tab Behaviour {{{3 -->
     <div role="tabpanel" class="tab-pane" id="ufob-tab" aria-labelledby="nav-behaviour-tab">
       <div id="ufob-box" class="ufob-box"></div>
-      <div id="ufob-float-toolbar" class="float-toolbar"></div>
-      <div id="ufob-cover-toolbar" class="cover-toolbar"></div>
+      <!--<div id="ufob-float-toolbar" class="float-toolbar"></div>-->
+      <!--<div id="ufob-cover-toolbar" class="cover-toolbar"></div>-->
     </div>
     <!--Tab Simulation {{{3 -->
     <div role="tabpanel" class="tab-pane" id="simulation-tab" aria-labelledby="nav-simulation-tab">
       <div id="simulation-box" class="simulation-box"></div>
     </div>
   </div>
-</div>
-
-<!-- Message box {{{1 -->
+  <!-- Message box {{{1 -->
   <div id="message-box"></div>
 
   <!-- Dialogs {{{1 -->
-    <div id="dialog-box" class="dialog-box"></div>
-    <div id="modal-box"></div>
+  <div id="dialog-box" class="dialog-box"></div>
+  <div id="modal-box"></div>
 
-    <!-- Story modal {{{1 -->
-      <div id="story-ufob-modal" class="modal fade" role="dialog">
-	<div class="modal-dialog modal-lg">
-	  <!-- Modal content-->
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      <h1 class="modal-title">WMDA Standards</h1>
-	    </div>
-	    <div id="story-ufob" class="modal-body">
-	      Select a situation to display the applicable standards.
-	    </div>
-	    <div class="modal-footer">
-	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	    </div>
-	  </div>
-	</div>
+  <!-- Story modal {{{1 -->
+  <div id="story-ufob-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h1 class="modal-title">WMDA Standards</h1>
+        </div>
+        <div id="story-ufob" class="modal-body">
+          Select a situation to display the applicable standards.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Help modal {{{1 -->
-	<div id="help-modal" class="modal fade" role="dialog">
-	  <div class="modal-dialog modal-lg">
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		<h1 class="modal-title">Simulator Help</h1>
-	      </div>
-	      <div class="modal-body">
-		<h2>Model Elements</h2>
-		<p>
-		Model elements are rooted in the <a href="https://inf.ufes.br/~gguizzardi/Towards%20Ontological%20Foundations%20for%20the%20Conceptual%20modeling%20of%20events.pdf" target="_blank">UFO-B theory</a>.
-		</p>
-		<table class="table">
-		  <tbody>
-		    <tr>
-		      <td><img src="img/situation.png" class="img-help" alt="Situation"></td>
-		      <td>Situation represents a particular state-of-the affairs in the world. In the model, each situation represents a subset of instances of the UFO-A structural conceptual model.</td>
-		    </tr>
-		    <tr>
-		      <td><img src="img/event.png" class="img-help" alt="Event"></td>
-		      <td>Events (also called perdurants) are individuals composed of temporal parts. They represent a transformations from a portion of reality to another, i.e., they  change reality by changing the state of affairs from one situation to another.</td>
-		    </tr>
-		    <tr>
-		      <td><img src="img/disposition.png" class="img-help" alt="Disposition"></td>
-		      <td>
-			<p>
-			A situation triggers an event when this situation activates the disposition that is manifested by that event. Dispositions are properties that are only manifested in particular situations and that can also fail to be manifested. When manifested, they are manifested through the occurrence of events. Dispositions <em>inhere in objects</em> and thus transitively in situations, although the notation (trying to be aligned with common process-modelling notations) does not picture this.
-			</p>
-			<p>
-			Dispositions introduce a <em>conditional behavior</em>: they represent <em>decision criteria</em> of firing individual events. Generally, there are two variants:
-			</p>
-		      </td>
-		    </tr>
-		    <tr>
-		      <td><img src="img/singleDisposition.png" class="img-help2" alt="Single disposition"></td>
-		      <td><em>Single disposition inhering in a situation:</em> In this case, the disposition plays a role of a <em>guard</em>, i.e. it specifies a waiting condition (predicate) that is waited upon before the event starts happening. If the guard is not important in the model, it may be ommitted (technically, the guard is "the situation has ripened for the event to start unrolling"), which is the usual case.</td>
-		    </tr>
-		    <tr>
-		      <td><img src="img/doubleDisposition.png" class="img-help2" alt="Double disposition"></td>
-		      <td><em>Multiple dispositions inhering in a situation:</em> In this case, each event is triggered once the corresponding disposition condition predicate becomes true. As such, zero, one or more events may be triggered.</td>
-		    </tr>
-		    <tr>
-		      <td><img src="img/mergingEvent.png" class="img-help" alt="Merging event"></td>
-		      <td>The merging variant of an event does not unroll unless <strong>all dispositions that the event manifests occur</strong>, while the standard (non-merging) one starts unrolling once any of the dispositions that the event manifests occurs.</td>
-		    </tr>
-		  </tbody>
-		</table>
-		<h2>Simulation</h2>
-		<table class="table">
-		  <tbody>
-		    <tr>
-		      <td><img src="img/simulator.png" alt="Simulator"></td>
-		      <td>
-			<ul>
-			  <li>In the beginning, the simulator is in no specific state and the set of all instances is displayed in the right pane.</li>
-			  <li>By entering the situations (clicking them) in the process model in the left pane, the event leading to the situation is triggered and the corresponding state of affairs of UFO-A instances appears in the right pane and the situation description is displayed under it.</li>
-			  <li>By navigating through situations, the state of the world is gradually changed by the corresponding events: instances start to exist, cease to exist or change. The instances affected by the event preceding the situation and their respective relations are marked bold.</li>
-			  <li>You may need to scroll the right pane in both directions extensively to discover the affected instances, as they do not change their position during the simulation.</li>
-			  <li>The simulator does not contrain you in the order of exploring the situations. This enables exploring what-if scenarios. It is up to you to move through in a sensible way (or not).</li>
-			  <li>To reset the simulator to the initial state, reload the page (ctrl/cmd+R or the reload button).</li>
-			</ul>
-		      </td>
-		    </tr>
-		  </tbody>
-		</table>
-	      </div>
-	      <div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+  <!-- Help modal {{{1 -->
+  <div id="help-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h1 class="modal-title">Simulator Help</h1>
+        </div>
+        <div class="modal-body">
+          <h2>Model Elements</h2>
+          <p>
+          Model elements are rooted in the <a href="https://inf.ufes.br/~gguizzardi/Towards%20Ontological%20Foundations%20for%20the%20Conceptual%20modeling%20of%20events.pdf" target="_blank">UFO-B theory</a>.
+          </p>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><img src="img/situation.png" class="img-help" alt="Situation"></td>
+                <td>Situation represents a particular state-of-the affairs in the world. In the model, each situation represents a subset of instances of the UFO-A structural conceptual model.</td>
+              </tr>
+              <tr>
+                <td><img src="img/event.png" class="img-help" alt="Event"></td>
+                <td>Events (also called perdurants) are individuals composed of temporal parts. They represent a transformations from a portion of reality to another, i.e., they  change reality by changing the state of affairs from one situation to another.</td>
+              </tr>
+              <tr>
+                <td><img src="img/disposition.png" class="img-help" alt="Disposition"></td>
+                <td>
+                  <p>
+                  A situation triggers an event when this situation activates the disposition that is manifested by that event. Dispositions are properties that are only manifested in particular situations and that can also fail to be manifested. When manifested, they are manifested through the occurrence of events. Dispositions <em>inhere in objects</em> and thus transitively in situations, although the notation (trying to be aligned with common process-modelling notations) does not picture this.
+                  </p>
+                  <p>
+                  Dispositions introduce a <em>conditional behavior</em>: they represent <em>decision criteria</em> of firing individual events. Generally, there are two variants:
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="img/singleDisposition.png" class="img-help2" alt="Single disposition"></td>
+                <td><em>Single disposition inhering in a situation:</em> In this case, the disposition plays a role of a <em>guard</em>, i.e. it specifies a waiting condition (predicate) that is waited upon before the event starts happening. If the guard is not important in the model, it may be ommitted (technically, the guard is "the situation has ripened for the event to start unrolling"), which is the usual case.</td>
+              </tr>
+              <tr>
+                <td><img src="img/doubleDisposition.png" class="img-help2" alt="Double disposition"></td>
+                <td><em>Multiple dispositions inhering in a situation:</em> In this case, each event is triggered once the corresponding disposition condition predicate becomes true. As such, zero, one or more events may be triggered.</td>
+              </tr>
+              <tr>
+                <td><img src="img/mergingEvent.png" class="img-help" alt="Merging event"></td>
+                <td>The merging variant of an event does not unroll unless <strong>all dispositions that the event manifests occur</strong>, while the standard (non-merging) one starts unrolling once any of the dispositions that the event manifests occurs.</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Simulation</h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><img src="img/simulator.png" alt="Simulator"></td>
+                <td>
+                  <ul>
+                    <li>In the beginning, the simulator is in no specific state and the set of all instances is displayed in the right pane.</li>
+                    <li>By entering the situations (clicking them) in the process model in the left pane, the event leading to the situation is triggered and the corresponding state of affairs of UFO-A instances appears in the right pane and the situation description is displayed under it.</li>
+                    <li>By navigating through situations, the state of the world is gradually changed by the corresponding events: instances start to exist, cease to exist or change. The instances affected by the event preceding the situation and their respective relations are marked bold.</li>
+                    <li>You may need to scroll the right pane in both directions extensively to discover the affected instances, as they do not change their position during the simulation.</li>
+                    <li>The simulator does not contrain you in the order of exploring the situations. This enables exploring what-if scenarios. It is up to you to move through in a sensible way (or not).</li>
+                    <li>To reset the simulator to the initial state, reload the page (ctrl/cmd+R or the reload button).</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -21,29 +21,20 @@ export function getWindowHeight(): number {
 }
 
 export function getWindowWidth(): number {
-  return $(".tab-content").innerWidth();
+  return $(window).innerWidth();
 }
 
 export function fitPanes() {
-  //const wh = getWindowHeight();
   const ww = getWindowWidth();
-  //const fh = $("footer").height();
-  //const nh = $("nav").height();
-  //const th = $(".nav-tabs").height();
-  //const h = wh - fh - nh - th - 60;
+  const wh = getWindowHeight();
 
+  $(`#${ufoaBoxId}`).css("height", `${wh - 115}px`);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
-  $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
-  //const dbox = $("#dialog-box");
-  //const dboxh = dbox.height();
-  //if (dboxh > h-20) {
-    //dbox.css("height", `${h-10}px`);
-    //dbox.css("overflow-y", "scroll");
-  //} else {
-    //dbox.css("height", "auto");
-    //dbox.css("overflow-y", "hidden");
-  //}
+  const dbox = $("#dialog-box > div");
+  const dboxh = wh - 150;
+  dbox.css("height", `${dboxh}px`);
+  dbox.css("overflow-y", "scroll");
 }
 
 // Getting
@@ -115,6 +106,8 @@ export function disposeDialog(): void {
 }
 
 export function disposeModal(): void {
+  // $FlowFixMe
+  $("#exampleModal").modal("hide");
   disposePanel(modalId);
 }
 

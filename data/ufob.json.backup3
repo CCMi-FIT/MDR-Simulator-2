@@ -17,7 +17,7 @@
     },
     {
       "ev_id": "e4",
-      "ev_name": "<<merging>>\nDonors Search",
+      "ev_name": "«merging»\nDonors Search",
       "ev_to_situation_id": "s6"
     },
     {
@@ -72,7 +72,7 @@
     },
     {
       "ev_id": "e16",
-      "ev_name": "<<merging>>\nMaking Donor Verified",
+      "ev_name": "«merging»\nMaking Donor Verified",
       "ev_to_situation_id": "s15"
     },
     {

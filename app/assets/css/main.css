@@ -13,9 +13,9 @@ html, body {
 }
 
 .float-toolbar {
-  left: 100px;
+  left: 500px;
   position: fixed;
-  top: 91px;
+  top: 120px;
 }
 
 .cover-toolbar {
@@ -35,8 +35,8 @@ html, body {
 .dialog-box {
   left: 10px;
   position: fixed;
-  top: 100px;
-  width: 500px;
+  top: 115px;
+  width: 450px;
   z-index: 50;
 }
 

@@ -3,8 +3,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel } from '../../../components';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { Situation, Disposition } from '../../metamodel';
 import type { Id } from '../../../metamodel.js';
 import * as ufobMeta from '../../metamodel';
@@ -190,10 +189,10 @@ class SituationForm extends panels.PaneDialog<Props, State> {
   renderButtons = () => {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
+        <div className="col-sm-6 text-center">
           <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update situation</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6  text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
@@ -201,13 +200,15 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderButtonDelete = () => {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.situation.s_name}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Situation">
-        <button type="button" className="btn btn-danger">Delete situation</button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Situation",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.situation.s_name}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   render() {

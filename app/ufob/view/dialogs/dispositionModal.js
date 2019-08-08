@@ -147,7 +147,7 @@ class DispositionForm extends React.Component<Props, State> {
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-4">
+        <div className="col-sm-4 text-center">
           <button 
             type="button"
             className="btn btn-primary" 
@@ -156,10 +156,10 @@ class DispositionForm extends React.Component<Props, State> {
             Update disposition
           </button>
         </div>
-        <div className="col-sm-4">
+        <div className="col-sm-4 text-center">
           <button type="button" className="btn btn-danger" onClick={() => this.delete()}>Delete disposition</button>
         </div>
-        <div className="col-sm-4">
+        <div className="col-sm-4 text-center">
           <button type="button" className="btn btn-warning" onClick={() => panels.disposeModal()}>Cancel</button>
         </div>
       </div>);

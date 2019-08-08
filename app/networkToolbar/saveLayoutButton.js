@@ -20,8 +20,8 @@ export class SaveLayout extends React.Component<Props> {
 
   render() {
     return ( 
-      <button type="button" className="btn" title="Save diagram layout" onClick={this.save}>
-        <i className="glyphicon glyphicon-save"></i>
+      <button type="button" className="btn btn-light" title="Save diagram layout" onClick={this.save}>
+        <i className="fas fa-save"></i>
       </button>
     );
   }

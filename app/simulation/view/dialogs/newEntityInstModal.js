@@ -12,7 +12,7 @@ import * as panels from '../../../panels';
 type Props = {
   entity: UfoaEntity,
   insts: Array<EntityInst>,
-  resolve: any,
+  resolve: (any) => any,
   reject: () => void
 };
 

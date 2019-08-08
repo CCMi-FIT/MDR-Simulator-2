@@ -4,8 +4,7 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { Panel } from '../../../components';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { Generalisation } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
 import * as ufoaDB from '../../db';
@@ -115,9 +114,9 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderGSet() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Set</label>
-        <div className="col-sm-10">
+      <div className="form-group">
+        <label className="col-sm-12 col-form-label">Set</label>
+        <div className="col-sm-12">
           <Typeahead
             id="gsetTA"
             options={ufoaDB.getGeneralisationSets()}
@@ -136,9 +135,9 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderMeta() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Meta</label>
-        <div className="col-sm-10">
+      <div className="form-group">
+        <label className="col-sm-12 col-form-label">Meta</label>
+        <div className="col-sm-12">
           <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
             {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
           </select>
@@ -148,9 +147,9 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderSup() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Supertype</label>
-        <div className="col-sm-10">
+      <div className="form-group">
+        <label className="col-sm-12 col-form-label">Supertype</label>
+        <div className="col-sm-12">
           <Typeahead
             id="supTA"
             options={ufoaDB.getEntities()}
@@ -168,9 +167,9 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderSub() {
     return (
-      <div className="form-group row">
-          <label className="col-sm-2 col-form-label">Subtype</label>
-        <div className="col-sm-10">
+      <div className="form-group">
+          <label className="col-sm-12 col-form-label">Subtype</label>
+        <div className="col-sm-12">
           <Typeahead
             id="subTA"
             options={ufoaDB.getEntities()}
@@ -188,11 +187,11 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
   
   renderButtons() {
     return (
-      <div className="form-group row col-sm-12"> 
+      <div className="form-group row"> 
         <div className="col-sm-6 text-center"> 
           <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6 text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
@@ -200,13 +199,15 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderButtonDelete() {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.generalisation.g_id}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Generalisation">
-        <button type="button" className="btn btn-danger">Delete Generalisation</button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Generalisation",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.generalisation.g_id}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   render() {
