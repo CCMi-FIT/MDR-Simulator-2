@@ -115,73 +115,65 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
   renderGSet() {
     return (
       <div className="form-group">
-        <label className="col-sm-12 col-form-label">Set</label>
-        <div className="col-sm-12">
-          <Typeahead
-            id="gsetTA"
-            options={ufoaDB.getGeneralisationSets()}
-            labelKey={"g_set_id"}
-            onChange={gSets => { 
-              if (gSets.length) { 
-                this.setAttr("g_set.g_set_id", gSets[0].g_set_id); 
-              }
-            }}
-            selected={[this.state.generalisation2.g_set]}
-            allowNew={true}
-          />
-        </div>
+        <label>Set</label>
+        <Typeahead
+          id="gsetTA"
+          options={ufoaDB.getGeneralisationSets()}
+          labelKey={"g_set_id"}
+          onChange={gSets => { 
+            if (gSets.length) { 
+              this.setAttr("g_set.g_set_id", gSets[0].g_set_id); 
+            }
+          }}
+          selected={[this.state.generalisation2.g_set]}
+          allowNew={true}
+        />
       </div>);
   }
 
   renderMeta() {
     return (
       <div className="form-group">
-        <label className="col-sm-12 col-form-label">Meta</label>
-        <div className="col-sm-12">
-          <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
-            {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
-          </select>
-        </div>
+        <label>Meta</label>
+        <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
+          {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
+        </select>
       </div>);
   }
 
   renderSup() {
     return (
       <div className="form-group">
-        <label className="col-sm-12 col-form-label">Supertype</label>
-        <div className="col-sm-12">
-          <Typeahead
-            id="supTA"
-            options={ufoaDB.getEntities()}
-            labelKey={(e) => ufoaMeta.entityNameLine(e)}
-            selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
-            onChange={(entities) => {
-              if (entities.length) {
-                this.setAttr("g_sup_e_id", entities[0].e_id);
-              }
-            }}
-          />
-        </div>
+        <label>Supertype</label>
+        <Typeahead
+          id="supTA"
+          options={ufoaDB.getEntities()}
+          labelKey={(e) => ufoaMeta.entityNameLine(e)}
+          selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
+          onChange={(entities) => {
+            if (entities.length) {
+              this.setAttr("g_sup_e_id", entities[0].e_id);
+            }
+          }}
+        />
       </div>);
   }
 
   renderSub() {
     return (
       <div className="form-group">
-          <label className="col-sm-12 col-form-label">Subtype</label>
-        <div className="col-sm-12">
-          <Typeahead
-            id="subTA"
-            options={ufoaDB.getEntities()}
-            labelKey={(e) => ufoaMeta.entityNameLine(e)}
-            selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}
-            onChange={(entities) => {
-              if (entities.length) {
-                this.setAttr("g_sub_e_id", entities[0].e_id);
-              }
-            }}
-          />
-        </div>
+        <label>Subtype</label>
+        <Typeahead
+          id="subTA"
+          options={ufoaDB.getEntities()}
+          labelKey={(e) => ufoaMeta.entityNameLine(e)}
+          selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}
+          onChange={(entities) => {
+            if (entities.length) {
+              this.setAttr("g_sub_e_id", entities[0].e_id);
+            }
+          }}
+        />
       </div>);
   }
   

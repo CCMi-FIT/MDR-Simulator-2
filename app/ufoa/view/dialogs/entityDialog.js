@@ -154,18 +154,16 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         [c1, c2] = [c2, c1];
       }
       return (
-        <div className="container-fluid">
-          <div className="row clickable" style={{marginBottom: "15px"}} key={assoc.a_id}
-            onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
-            <div className="col-xs-4" style={{width: "33%"}}>
-              {e1 ? diagram.renderEntity(e1) : ""}
-            </div>
-            <div className="col-xs-4" style={{width: "33%"}}>
-              {this.renderAssocDetails(assoc, c1, c2)}
-            </div>
-            <div className="col-xs-4" style={{width: "33%"}}>
-              {e2 ? diagram.renderEntity(e2) : ""}
-            </div>
+        <div key={assoc.a_id} className="d-flex flex-row clickable" style={{marginBottom: "10px"}} 
+          onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
+          <div>
+            {e1 ? diagram.renderEntity(e1) : ""}
+          </div>
+          <div>
+            {this.renderAssocDetails(assoc, c1, c2)}
+          </div>
+          <div>
+            {e2 ? diagram.renderEntity(e2) : ""}
           </div>
         </div>
       );

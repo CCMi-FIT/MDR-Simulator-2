@@ -10,7 +10,8 @@ const instDiagramId = "ufoa-inst-diagram";
 const ufobDiagramId = "simulation-diagram";
 const dialogId = "dialog-box";
 const messageId = "message-box";
-const modalId = "modal-box";
+const modalBoxId = "modal-box";
+const modalId = "app-modal";
 
 export const wmdaPanelId = "wmda-panel";
 export const wmdaTitleId = "wmda-panel-label";
@@ -29,7 +30,9 @@ export function fitPanes() {
   const wh = getWindowHeight();
 
   $(`#${ufoaBoxId}`).css("height", `${wh - 115}px`);
+  $(`#${ufobBoxId}`).css("height", `${wh - 115}px`);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
+  $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
   const dbox = $("#dialog-box > div");
   const dboxh = wh - 150;
@@ -53,7 +56,8 @@ export function getDialog(): HTMLElement {
 }
 
 export function getModal(): HTMLElement {
-  return getPanel(modalId);
+  disposeModalComp(modalBoxId);
+  return getPanel(modalBoxId);
 }
 
 export function getSimulationBox(): HTMLElement {
@@ -88,7 +92,8 @@ export function showDialog(): void {
 }
 
 export function showModal(): void {
-  showPanel(modalId);
+  // $FlowFixMe
+  $(`#${modalId}`).modal("show"); 
 }
 
 // Hiding
@@ -101,14 +106,21 @@ function disposePanel(panelId: string): void {
   }
 }
 
+function disposeModalComp(panelId: string): void {
+  let panel = getPanel(panelId);
+  if (panel) {
+    ReactDOM.unmountComponentAtNode(panel);
+  }
+}
+
 export function disposeDialog(): void {
   disposePanel(dialogId);
 }
 
 export function disposeModal(): void {
   // $FlowFixMe
-  $("#exampleModal").modal("hide");
-  disposePanel(modalId);
+  $(`#${modalId}`).modal("hide");
+  disposeModalComp(modalBoxId);
 }
 
 // Messages

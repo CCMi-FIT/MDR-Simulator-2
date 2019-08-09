@@ -21,10 +21,10 @@ html, body {
 .cover-toolbar {
   background-color: white;
   height: 29px;
-  left: 125px;
+  left: 120px;
   position: fixed;
-  top: 93px;
-  width: 399px;
+  top: 115px;
+  width: 405px;
 }
 
 .close {
@@ -55,14 +55,14 @@ html, body {
   text-align: center;
 }
 
-.clickable:hover {
-  cursor: pointer;
-  opacity: 0.6;
+.clickable {
+  border: 1px solid white;
+  padding: 5px;
 }
 
-.nopadding {
-  margin: 0;
-  padding: 0;
+.clickable:hover {
+  border: 1px solid #007bff;
+  cursor: pointer;
 }
 
 .assoc-box {

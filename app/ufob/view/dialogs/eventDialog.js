@@ -183,7 +183,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   renderAddOpDelete = (op: AddEntityInstOp) => {
     return (
       <button type="button" className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
-        <i className="glyphicon glyphicon-trash"/>
+        <i className="fas fa-trash"/>
       </button>
     );
   }
@@ -214,96 +214,120 @@ class EventForm extends panels.PaneDialog<Props, State> {
   renderAddOperation = (op: AddEntityInstOp) => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
     return (
-      <div key={op.opa_e_id}>
-        <div className="row" style={{marginBottom: "10px"}}>
-          <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
-            <i className="glyphicon glyphicon-plus text-success" style={{fontSize: "20px"}}/>
+      <div key={op.opa_e_id} className="form-group">
+        <div className="row">
+          <div className="col-1 pl-0 my-auto">
+            <i className="fas fa-plus text-success" style={{fontSize: "20px"}}/>
           </div>
-          <div className="col-xs-10" style={{paddingLeft: 0}}>
-            {diagram.renderEntity(entity)}
-            {this.renderInstsNamesInput(op)}
+          <div className="col-9 pl-0">
+            {entity ? diagram.renderEntity(entity) : "This entity does not exist, this should not happen..."}
           </div>
-          <div className="col-xs-1 nopadding" style={{paddingTop: "10px"}}>
+          <div className="col-2 my-auto">
             {this.renderAddOpDelete(op)}
+          </div>
+        </div>
+        <div className="row">
+          <div className="offset-1 col-9 pl-0">
+            {this.renderInstsNamesInput(op)}
           </div>
         </div>
       </div>
     );
   }
-  // }}}3
-  // RemoveOperation {{{3
+  
+  // Remove Operation {{{3
+  renderRemoveOpDelete = (op: RemoveEntityInstOp) => {
+    return (
+      <button type="button" className="btn btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
+        <i className="fas fa-trash"/>
+      </button>
+    );
+  }
 
   renderRemoveOperation = (op: RemoveEntityInstOp) => {
     const entity = ufoaDB.getEntity(op.opr_e_id);
     return (
-      <div className="row" style={{marginBottom: "15px"}} key={op.opr_e_id}>
-        <div className="col-xs-1" style={{paddingTop: "10px"}}>
-          <i className="glyphicon glyphicon-minus text-danger" style={{fontSize: "20px"}}/>
+      <div key={op.opr_e_id} className="form-group row">
+        <div className="col-1 pl-0 my-auto">
+          <i className="fas fa-minus text-danger" style={{fontSize: "20px"}}/>
         </div>
-        <div className="col-xs-6">
+        <div className="col-9 pl-0">
           {entity ? diagram.renderEntity(entity) : "This entity does not exist, this should not happen..."}
         </div>
-        <div className="col-xs-3">
-        </div>
-        <div className="col-xs-2" style={{paddingTop: "10px"}}>
-          <button type="button" className="btn btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
-            <i className="glyphicon glyphicon-trash"/>
-          </button>
+        <div className="col-2 my-auto">
+          {this.renderRemoveOpDelete(op)}
         </div>
       </div>
     );
   }
 
-  // }}}3
+  // New Operation {{{3
   
-  renderNewOp = () => {
+  renderNameInput = () => {
     const addOps = this.state.eventB2.ev_add_ops;
     const removeOps = this.state.eventB2.ev_remove_ops;
     const opsEIds = R.concat(addOps.map(op => op.opa_e_id), removeOps.map(op => op.opr_e_id));
     return (
-      <div className="row" style={{marginBottom: "15px"}}>
-        <div className="col-xs-10 nopadding">
-          <Typeahead
-            id="situationTA"
-            ref={typeahead => this.newOpTypeahead = typeahead}
-            options={ufoaDB.getEntities().filter(e => opsEIds.indexOf(e.e_id) < 0)}
-            labelKey={"e_name"}
-            onChange={es => { 
-              if (es.length > 0) { 
-                this.setState({ newOpEntity: es[0] });
-              }
-            }}
-          />
+      <Typeahead
+        id="situationTA"
+        ref={typeahead => this.newOpTypeahead = typeahead}
+        options={ufoaDB.getEntities().filter(e => opsEIds.indexOf(e.e_id) < 0)}
+        labelKey={"e_name"}
+        onChange={es => { 
+          if (es.length > 0) { 
+            this.setState({ newOpEntity: es[0] });
+          }
+        }}
+      />
+    );
+  }
+
+  renderAddOpButton = () => {
+    return (
+			<button 
+				type="button"
+				className="btn btn-primary btn-sm" 
+        style={{marginBottom: "5px"}}
+				disabled={!this.state.newOpEntity}
+				onClick={() => { 
+					if (this.state.newOpEntity) {
+						this.setAttr("ev_add_ops.add", this.state.newOpEntity.e_id);
+						this.newOpTypeahead.getInstance().clear();
+						this.setState({ newOpEntity: null });
+					}
+				}}>
+				<i className="fas fa-plus"/>
+			</button>
+    );
+  }
+  
+  renderRemoveOpButton = () => {
+    return (
+      <button 
+        type="button"
+        className="btn btn-primary btn-sm" 
+        disabled={!this.state.newOpEntity}
+        onClick={() => { 
+          if (this.state.newOpEntity) {
+            this.setAttr("ev_remove_ops.add", this.state.newOpEntity.e_id);
+            this.newOpTypeahead.getInstance().clear();
+            this.setState({ newOpEntity: null });
+          }
+        }}>
+        <i className="fas fa-minus"/>
+      </button>
+    );
+  }
+  
+  renderNewOp = () => {
+    return (
+      <div className="form-group row">
+        <div className="offset-1 col-9 pl-0 my-auto">
+					{this.renderNameInput()}
         </div>
-        <div className="col-xs-1 nopadding">
-          <button 
-            type="button"
-            className="btn btn-primary btn-sm" 
-            disabled={!this.state.newOpEntity}
-            onClick={() => { 
-              if (this.state.newOpEntity) {
-                this.setAttr("ev_add_ops.add", this.state.newOpEntity.e_id);
-                this.newOpTypeahead.getInstance().clear();
-                this.setState({ newOpEntity: null });
-              }
-            }}>
-            <i className="glyphicon glyphicon-plus"/>
-          </button>
-        </div>
-        <div className="col-xs-1 nopadding">
-          <button 
-            type="button"
-            className="btn btn-primary btn-sm" 
-            disabled={!this.state.newOpEntity}
-            onClick={() => { 
-              if (this.state.newOpEntity) {
-                this.setAttr("ev_remove_ops.add", this.state.newOpEntity.e_id);
-                this.newOpTypeahead.getInstance().clear();
-                this.setState({ newOpEntity: null });
-              }
-            }}>
-            <i className="glyphicon glyphicon-minus"/>
-          </button>
+        <div className="col-2 my-auto">
+					{this.renderAddOpButton()}
+          {this.renderRemoveOpButton()}
         </div>
       </div>
     );

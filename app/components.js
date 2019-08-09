@@ -29,7 +29,7 @@ export function Panel(props: PanelProps) {
 
 export function Modal(props: PanelProps) {
   return ( 
-    <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade" id="app-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -85,31 +85,36 @@ type ConfirmProps = {
 export class Confirm extends React.Component<ConfirmProps> {
 
   componentDidMount() {
-    // $FlowFixMe
-    $("#exampleModal").modal("show"); 
+    panels.showModal();
   }
 
   render() {
     return (
       <Modal heading={this.props.heading}>
-        <div className="container">
-          <div className="row">
-            {this.props.body}
+        <div className="container-fluid">
+          <div className="row form-group">
+            <div className="col my-auto">
+              {this.props.body}
+            </div>
           </div>
-          <div className="row">
-            <button type="button" className="btn btn-danger" onClick={
-              () => {
-                panels.disposeModal();
-                this.props.resolve();
-              }}
-            >Confirm {this.props.subject}
-            </button>
-            <button type="button" className="btn btn-outline-danger" onClick={
-              () => {
-                panels.disposeModal();
-                this.props.reject();
-              }}
-            >Cancel {this.props.subject}</button>
+          <div className="row form-grouop">
+            <div className="col my-auto">
+              <button type="button" className="btn btn-danger" onClick={
+                () => {
+                  panels.disposeModal();
+                  this.props.resolve();
+                }}
+              >Confirm {this.props.subject}
+              </button>
+            </div>
+            <div className="col my-auto">
+              <button type="button" className="btn btn-outline-danger" onClick={
+                () => {
+                  panels.disposeModal();
+                  this.props.reject();
+                }}
+              >Cancel {this.props.subject}</button>
+            </div>
           </div>
         </div>
       </Modal>

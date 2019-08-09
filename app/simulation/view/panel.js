@@ -97,7 +97,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
           onClick={() => this.setState(
             (state: State) => R.mergeDeepRight(state, { showEventsLog: !state.showEventsLog })
           )}
-        ><i className={"glyphicon " + (this.state.showEventsLog ? "glyphicon-option-vertical" : "glyphicon-option-horizontal")}></i>
+        ><i className={"fas " + (this.state.showEventsLog ? "fa-ellipsis-v" : "fa-ellipsis-h")}></i>
         </button>
         <button
           type="button"

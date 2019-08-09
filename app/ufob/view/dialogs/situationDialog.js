@@ -119,7 +119,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     const ev = ufobDB.getUfobEventById(ev_id);
     return (
       <div key={ev_id}>
-        <i className="glyphicon glyphicon-arrow-right"></i>
+        <i className="fas fa-arrow-right"></i>
         <span>{ev ? ev.ev_name : ""}</span>
       </div>
     );
@@ -163,25 +163,22 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderDispositions = () => {
     return ( 
-      <table className="table table-striped">
-        <thead>
-          <tr><th colSpan="2">Dispositions</th></tr>
-        </thead>
-        <tbody>
-          {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
-          <tr>
-            <td colSpan="2">
-              <button type="button" className="btn btn-primary btn-sm" onClick={this.addDisposition}><i className="glyphicon glyphicon-plus"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="form-group">
+        <Panel heading="Dispositions" inner={true} >
+          <table className="table table-striped">
+            <tbody>
+              {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
+            </tbody>
+          </table>
+          <button type="button" className="btn btn-primary btn-sm" onClick={this.addDisposition}><i className="fas fa-plus"></i></button>
+        </Panel>
+      </div>
     );
   }
 
   renderWMDAButton = () => {
     return (
-      <div className="form-group row col-sm-12">
+      <div className="form-group">
         <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
       </div>);
   }

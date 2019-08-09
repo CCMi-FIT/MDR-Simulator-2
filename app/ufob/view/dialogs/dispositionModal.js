@@ -104,13 +104,17 @@ class DispositionForm extends React.Component<Props, State> {
   renderEvent = (ev_id: Id) => {
     const ev = ufobDB.getUfobEventById(ev_id);
     return (
-      <div key={ev_id} className="badge-item">
-        <span className="badge text-primary">{ev ? ev.ev_name : ""}
-          {" "}
-          <span 
-            className="badge badge-error clickable"
-            onClick={() => this.deleteEvent(ev_id)}>X</span>
-        </span>
+      <div key={ev_id} style={{marginBottom: "5px"}}>
+        <div className="badge badge-pill badge-primary d-flex flex-row" style={{fontSize: "100%", whiteSpace: "normal"}}>
+          <div className="mr-auto my-auto" style={{marginRight: "0.5em"}}>
+            {ev ? ev.ev_name : ""}
+          </div>
+          <div className="my-auto">
+            <a href="#" style={{fontSize: "16px"}} 
+              className="badge badge-pill badge-primary"
+              onClick={() => this.deleteEvent(ev_id)}>x</a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -124,44 +128,40 @@ class DispositionForm extends React.Component<Props, State> {
   renderEvents() {
     const esIds = this.state.disposition2.d_events_ids;
     return ( 
-      <Panel heading="Events caused">
-        {esIds.length === 0 ?
-            this.renderEventsEmpty()
-          : esIds.map(this.renderEvent)}
-        <Typeahead
-          id="eventsTA"
-          ref={(typeahead) => this.typeahead = typeahead}
-          options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
-          labelKey={"ev_name"}
-          onChange={evs => { 
-            if (evs.length > 0) { 
-              this.addEvent(evs[0].ev_id);
-              this.typeahead.getInstance().clear();
-            }
-          }}
-        />
-      </Panel>
+      <div className="form-group">
+        <Panel heading="Events caused" inner={true}>
+          {esIds.length === 0 ?
+              this.renderEventsEmpty()
+            : esIds.map(this.renderEvent)}
+          <Typeahead
+            id="eventsTA"
+            ref={(typeahead) => this.typeahead = typeahead}
+            options={ufobDB.getEvents().filter(ev => esIds.indexOf(ev.ev_id) < 0)}
+            labelKey={"ev_name"}
+            onChange={evs => { 
+              if (evs.length > 0) { 
+                this.addEvent(evs[0].ev_id);
+                this.typeahead.getInstance().clear();
+              }
+            }}
+          />
+        </Panel>
+      </div>
     );
   }
   
   renderButtons() {
     return (
-      <div className="form-group row col-sm-12"> 
-        <div className="col-sm-4 text-center">
+      <div className="form-group d-flex flex-row"> 
           <button 
             type="button"
-            className="btn btn-primary" 
+            className="btn btn-primary mr-auto" 
             onClick={this.save} 
             disabled={this.state.saveDisabled}>
             Update disposition
           </button>
-        </div>
-        <div className="col-sm-4 text-center">
-          <button type="button" className="btn btn-danger" onClick={() => this.delete()}>Delete disposition</button>
-        </div>
-        <div className="col-sm-4 text-center">
-          <button type="button" className="btn btn-warning" onClick={() => panels.disposeModal()}>Cancel</button>
-        </div>
+          <button type="button" className="btn btn-danger mr-auto" onClick={() => this.delete()}>Delete disposition</button>
+          <button type="button" className="btn btn-warning mr-auto" onClick={() => panels.disposeModal()}>Cancel</button>
       </div>);
   }
 
@@ -184,6 +184,8 @@ export function render(situation: Situation, disposition: Disposition): Promise<
     if (panel) {
       ReactDOM.render(<DispositionForm situation={situation} disposition={disposition} resolve={resolve} reject={reject}/>, panel);
       panels.showModal();
+    } else {
+      console.error("No modal panel");
     }
   });
 }
