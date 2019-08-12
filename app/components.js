@@ -49,26 +49,57 @@ export function Modal(props: PanelProps) {
 
 
 // Tabs {{{1
+//
 type TabsProps = {
-  defaultActiveKey: string,
-  children?: React.ChildrenArray<React.Element<typeof Tab>>,
+  activeTab: string,
+  id: string,
+  children?: any
+  //children?: React.ChildrenArray<React.Element<typeof Tab>>,
 };
+
+function activeCls(tab, props) {
+  const first: boolean = !props.children ? false : tab.props.tabId === props.children[0].props.tabId;
+  return first ? " active" : "";
+}
 
 export function Tabs(props: TabsProps) {
   return (
-    <div/>
+    <div>
+      <ul className="nav nav-tabs" id={props.id} role="tablist">
+        {!props.children ? "" : props.children.map(tab => 
+          <li key={tab.props.tabId} className="nav-item">
+            <a className={"nav-link" + activeCls(tab, props)} id={`${tab.props.tabId}-tab`} data-toggle="tab" href={`#${tab.props.tabId}`} role="tab">{tab.props.title}</a>
+          </li>
+        )}
+      </ul>
+      <div className="tab-content">
+      {!props.children ? "" : props.children.map(tab => 
+        <div 
+          key={tab.props.tabId}
+          id={tab.props.tabId}
+          className={"tab-pane" + activeCls(tab, props)}
+          role="tabpanel">
+          {tab.props.children}
+        </div>
+      )}
+    </div>
+  </div>
   );
 }
 
 // Tab {{{1
 
 type TabProps = {
-  eventKey: string
+  tabId: string,
+  title: string,
+  children?: React.ChildrenArray<React.Element<any>>,
 };
 
 export function Tab(props: TabProps) {
   return (
-    <div/>
+    <div>
+      {props.children}
+    </div>
   );
 }
 

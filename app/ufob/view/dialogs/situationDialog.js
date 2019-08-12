@@ -150,7 +150,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderDispositionRow = (d: Disposition) => {
     return (
-      <tr className="clickable" key={d.d_text} onClick={() => this.editDisposition(d)}>
+      <tr className="clickable-disposition" key={d.d_text} onClick={() => this.editDisposition(d)}>
         <td>
           {d.d_text ? d.d_text : "<Implicit>"}
           </td>

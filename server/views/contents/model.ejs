@@ -9,11 +9,12 @@
     </li>
     <% } %>
     <li class="nav-item">
-      <a class="nav-link" href="#simulation-tab" id="nav-simulation-tab" data-toggle="tab" role="tab" aria-controls="nav-simulation" aria-selected="false">Simulation</a>
+      <a class="nav-link <%if (!admin) { %> active <% } %>" href="#simulation-tab" id="nav-simulation-tab" data-toggle="tab" role="tab" aria-controls="nav-simulation" aria-selected="false">Simulation</a>
     </li>
   </ul>
   <!-- Tab panes Model {{{2 -->
   <div class="tab-content flex-fill">
+    <% if (admin) { %>
     <!--Tab Structure {{{3 -->
     <div role="tabpanel" class="tab-pane active" id="ufoa-tab" aria-labelledby="nav-structure-tab">
       <div id="ufoa-box" class="ufoa-box"></div>
@@ -25,9 +26,10 @@
       <div id="ufob-float-toolbar" class="float-toolbar"></div>
       <div id="ufob-cover-toolbar" class="cover-toolbar"></div>
     </div>
+    <% } %>
     <!--Tab Simulation {{{3 -->
-    <div role="tabpanel" class="tab-pane" id="simulation-tab" aria-labelledby="nav-simulation-tab">
-      <div id="simulation-box" class="simulation-box"></div>
+    <div role="tabpanel" class="tab-pane <%if (!admin) { %> active <% } %>" id="simulation-tab" aria-labelledby="nav-simulation-tab">
+      <div id="simulation-box"></div>
     </div>
   </div>
   <!-- Message box {{{1 -->

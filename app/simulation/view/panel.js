@@ -4,7 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Split from 'react-split';
+import SplitPane from 'react-split-pane';
 import { Tabs, Tab } from '../../components';
 import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import * as ufobDB from '../../ufob/db';
@@ -59,8 +59,8 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   renderEvent(evi: UfobEventInst) {
     const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
     return (
-      <div style={{display: "block"}} key={evi.evi_id}>
-        <button type="button" className="btn"
+      <ul key={evi.evi_id} className="list-group list-group-flush">
+        <li className="list-group-item clickable-log"
           onClick={() => { 
             machine.switchCurrent(evi);
             this.forceUpdate();
@@ -73,15 +73,15 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
               <strong>{label}</strong>
               : label);
           })()}
-        </button>
-      </div>
+        </li>
+      </ul>
     );
   }
 
   renderEventsLog() {
     return (
       this.state.showEventsLog ? 
-        <div className="events-log-panel">
+        <div className="events-log-panel card">
           { this.state.eventsLog.map(this.renderEvent) }
         </div>
       : <div className="events-log-panel"></div>
@@ -111,14 +111,10 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
 
   renderSimulationPane() {
     return (
-      <div style={{float: "left", borderRight: "1px solid lightgray"}}>
-        <div className="container-fluid">
-          <div className="row">
-            {this.renderSimulationToolbar()}
-            {this.renderEventsLog()}
-            <div id="simulation-diagram"></div>
-          </div>
-        </div>
+      <div>
+        {this.renderSimulationToolbar()}
+        {this.renderEventsLog()}
+        <div id={panels.simUfobDiagramId}></div>
       </div>
     );
   }
@@ -126,8 +122,8 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   // Details Pane {{{3
   renderDetailsPane() {
     return (
-      <div style={{float: "left", paddingRight: 0}}>
-        <Tabs defaultActiveKey="instances" id="simulation-details-tabs">
+      <div>
+        <Tabs activeTab="instances" id="simulation-details-tabs">
           {this.renderInstancesTab()}
           {this.renderWmdaTab()}
         </Tabs>
@@ -138,13 +134,9 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   // Instances Tab {{{4
   renderInstancesTab() {
     return (
-      <Tab eventKey="instances" title="Instances">
-        <div className="container-fluid">
-          <div className="row">
-            {this.renderInstToolbar()}
-            <div id="ufoa-inst-diagram"></div>
-          </div>
-        </div>
+      <Tab tabId="instances" title="Instances">
+        {this.renderInstToolbar()}
+        <div id={panels.simInstDiagramId}></div>
       </Tab>
     );
   }
@@ -165,11 +157,13 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   // WMDA Tab {{{4
   renderWmdaTab() {
     return (
-      <Tab eventKey="wmdaStandard" title="WMDA Standard">
+      <Tab tabId="wmdaStandard" title="WMDA Standard">
         <div className="container-fluid">
           <div className="row">
-            <h2 id={panels.wmdaTitleId}></h2> {/*Populated by dispatch*/}
-            <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch*/}
+            <div className="col">
+              <h2 id={panels.wmdaTitleId}></h2> {/*Populated by dispatch*/}
+              <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch*/}
+            </div>
           </div>
         </div>
       </Tab>
@@ -179,13 +173,10 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
 
   render() {
     return (
-      <div className="container-fluid">
-        <Split direction="horizontal" sizes={[50, 50]}>
-          {this.renderSimulationPane()
-          /* <Counter label="Counter"/> */}
-          {this.renderDetailsPane()}
-        </Split>
-      </div>
+      <SplitPane split="vertical" minSize={100} defaultSize={500}>
+        {this.renderSimulationPane()}
+        {this.renderDetailsPane()}
+      </SplitPane>
     );
   }
 
@@ -197,15 +188,19 @@ export function initialize(ufobVisModel1: VisModel) {
   ufobVisModelOrig = cloneVisModel(ufobVisModel1);
   ufobVisModel = cloneVisModel(ufobVisModel1);
   const panel = panels.getSimulationBox();
-  ReactDOM.render(<SimulationBox/>, panel);
-  const ufoaInstDiagramContainer = panels.getInstDiagram();
-  const simUfobDiagramContainer = panels.getUfobDiagram();
-  const ufoaInstVisModel = ufoaInstDiagram.newVis();
-  ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
-  simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
-  simUfobNetwork.setOptions({ manipulation: false });
-  simUfobNetwork.on("click", params => dispatch.dispatchUfoBDiagramClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
-  simUfobNetwork.fit();
+  if (panel) { 
+    ReactDOM.render(<SimulationBox/>, panel);
+    const simUfobDiagramContainer = panels.getSimUfobDiagram();
+    const ufoaInstDiagramContainer = panels.getSimInstDiagram();
+    if (simUfobDiagramContainer && ufoaInstDiagramContainer) {
+      const ufoaInstVisModel = ufoaInstDiagram.newVis();
+      simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
+      ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
+      simUfobNetwork.setOptions({ manipulation: false });
+      simUfobNetwork.on("click", params => dispatch.dispatchUfoBDiagramClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
+      simUfobNetwork.fit();
+    }
+  }
 }
 
 

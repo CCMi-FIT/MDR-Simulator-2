@@ -184,8 +184,6 @@ export function render(situation: Situation, disposition: Disposition): Promise<
     if (panel) {
       ReactDOM.render(<DispositionForm situation={situation} disposition={disposition} resolve={resolve} reject={reject}/>, panel);
       panels.showModal();
-    } else {
-      console.error("No modal panel");
     }
   });
 }

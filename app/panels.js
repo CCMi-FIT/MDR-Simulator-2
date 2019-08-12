@@ -6,8 +6,8 @@ import * as ReactDOM from 'react-dom';
 const ufoaBoxId = "ufoa-box";
 const ufobBoxId = "ufob-box";
 const simulationBoxId = "simulation-box";
-const instDiagramId = "ufoa-inst-diagram";
-const ufobDiagramId = "simulation-diagram";
+export const simUfobDiagramId = "simulation-diagram";
+export const simInstDiagramId = "ufoa-inst-diagram";
 const dialogId = "dialog-box";
 const messageId = "message-box";
 const modalBoxId = "modal-box";
@@ -31,6 +31,8 @@ export function fitPanes() {
 
   $(`#${ufoaBoxId}`).css("height", `${wh - 115}px`);
   $(`#${ufobBoxId}`).css("height", `${wh - 115}px`);
+  $(`#${simUfobDiagramId}`).css("height", `${wh - 115}px`);
+  $(`#${simInstDiagramId}`).css("height", `${wh - 115}px`);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
@@ -42,34 +44,37 @@ export function fitPanes() {
 
 // Getting
 
-export function getPanel(panelId: string): HTMLElement {
-  let panel = document.getElementById(panelId);
-  if (!panel) {
-    throw("panel #" + panelId + " does not exist");
-  } else {
-    return panel;
-  }
+export function getPanel(panelId: string): ?HTMLElement {
+  return document.getElementById(panelId);
 }
 
-export function getDialog(): HTMLElement {
+export function getDialog(): ?HTMLElement {
   return getPanel(dialogId);
 }
 
-export function getModal(): HTMLElement {
+export function getModal(): ?HTMLElement {
   disposeModalComp(modalBoxId);
   return getPanel(modalBoxId);
 }
 
-export function getSimulationBox(): HTMLElement {
+export function getUfoaBox(): ?HTMLElement {
+  return getPanel(ufoaBoxId);
+}
+
+export function getUfobBox(): ?HTMLElement {
+  return getPanel(ufobBoxId);
+}
+
+export function getSimulationBox(): ?HTMLElement {
   return getPanel(simulationBoxId);
 }
 
-export function getInstDiagram(): HTMLElement {
-  return getPanel(instDiagramId);
+export function getSimInstDiagram(): ?HTMLElement {
+  return getPanel(simInstDiagramId);
 }
 
-export function getUfobDiagram(): HTMLElement {
-  return getPanel(ufobDiagramId);
+export function getSimUfobDiagram(): ?HTMLElement {
+  return getPanel(simUfobDiagramId);
 }
 
 export function getToolbarTop(): number {
@@ -82,7 +87,10 @@ export function getToolbarTop(): number {
 function showPanel(panelId: string): void {
   let panel = getPanel(panelId);
   if (panel) {
-    $(panel).fadeIn();
+    $(panel).animate({
+      width: "toggle"
+    }, 100);
+    //$(panel).fadeIn(200);
   }
 }
 
