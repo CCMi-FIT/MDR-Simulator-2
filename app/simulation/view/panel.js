@@ -28,7 +28,8 @@ type State = {
 
 var ufobVisModel: any = null;
 var ufobVisModelOrig: any = null;
-var simUfobNetwork: any =null;
+var simUfobNetwork: any = null;
+var ufoaInstVisModel: any = null;
 var ufoaInstNetwork: any = null;
 
 // Component {{{1
@@ -50,19 +51,32 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     this.forceUpdate();
   }
 
+  // Actions {{{2
+  switchEvent = (evi: UfobEventInst) => {
+    ufoaInstVisModel = ufoaInstDiagram.newVis();
+    const ufoaInstDiagramContainer = panels.getSimInstDiagram();
+    if (ufoaInstDiagramContainer) {
+      ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
+    }
+    machine.switchCurrent(evi);
+    ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, machine.getEntityInsts());
+    ufoaInstDiagram.addAInsts(ufoaInstVisModel, machine.getAInsts());
+    ufoaInstDiagram.addGInsts(ufoaInstVisModel, machine.getGInsts());
+  }
+
   // Rendering {{{2
 
   // Simulation Pane {{{3
 
   // Events Log {{{4
 
-  renderEvent(evi: UfobEventInst) {
+  renderEvent = (evi: UfobEventInst) => {
     const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
     return (
       <ul key={evi.evi_id} className="list-group list-group-flush">
         <li className="list-group-item clickable-log"
           onClick={() => { 
-            machine.switchCurrent(evi);
+            this.switchEvent(evi);
             this.forceUpdate();
           }}
         >
@@ -81,30 +95,36 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   renderEventsLog() {
     return (
       this.state.showEventsLog ? 
-        <div className="events-log-panel card">
-          { this.state.eventsLog.map(this.renderEvent) }
+        <div className="events-log-panel">
+          <div className="card">
+            { this.state.eventsLog.map(this.renderEvent) }
+          </div>
         </div>
-      : <div className="events-log-panel"></div>
+      : "" 
     );
   }
 
   renderSimulationToolbar() {
     return (
       <div className="toolbar">
-        <button 
+        <div className="btn-group" role="group">
+          <button 
           type="button"
-          className="btn btn-primary"
+          className="btn btn-secondary"
+          data-toggle="tooltip" data-placement="bottom" title="Show/hide timeline"
           onClick={() => this.setState(
             (state: State) => R.mergeDeepRight(state, { showEventsLog: !state.showEventsLog })
-          )}
-        ><i className={"fas " + (this.state.showEventsLog ? "fa-ellipsis-v" : "fa-ellipsis-h")}></i>
-        </button>
-        <button
+          )}>
+            <i className="fas fa-history"></i>
+          </button>
+          <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-secondary"
+          data-toggle="tooltip" data-placement="bottom" title="Restart simulator"
           onClick={() => { initialize(ufobVisModelOrig); }}>
-          Reset
-        </button>
+            <i className="fas fa-power-off"></i>
+          </button>
+        </div>
       </div>
     );
   }
@@ -145,10 +165,11 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     return (
       <div className="toolbar">
         <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
-          Stop Layouting
+        type="button"
+        className="btn btn-secondary"
+        data-toggle="tooltip" data-placement="bottom" title="Stop Layouting"
+        onClick={() => ufoaInstNetwork ? ufoaInstNetwork.stopSimulation() : void 0}>
+          <i className="fas fa-stop-circle"></i>
         </button>
       </div>
     );
@@ -193,7 +214,7 @@ export function initialize(ufobVisModel1: VisModel) {
     const simUfobDiagramContainer = panels.getSimUfobDiagram();
     const ufoaInstDiagramContainer = panels.getSimInstDiagram();
     if (simUfobDiagramContainer && ufoaInstDiagramContainer) {
-      const ufoaInstVisModel = ufoaInstDiagram.newVis();
+      ufoaInstVisModel = ufoaInstDiagram.newVis();
       simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
       ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
       simUfobNetwork.setOptions({ manipulation: false });
@@ -202,5 +223,6 @@ export function initialize(ufobVisModel1: VisModel) {
     }
   }
 }
+
 
 

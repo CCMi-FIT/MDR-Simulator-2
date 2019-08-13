@@ -43,8 +43,12 @@ html, body {
 }
 
 .dialog-box {
-  left: 0px;
+  left: 0;
+  min-width: 250px;
+  overflow: auto;
+  padding: 0 5px 5px 0;
   position: fixed;
+  resize: horizontal;
   top: 111px;
   width: 450px;
   z-index: 50;
@@ -197,14 +201,17 @@ html, body {
 
 .toolbar {
   display: inline-block;
-  padding-top: 10px;
 }
 
 .events-log-panel {
-  left: 15px;
+  left: 0;
+  min-width: 100px;
+  overflow: auto;
+  padding: 5px 5px 5px 0;
   position: absolute;
+  resize: horizontal;
   top: 50px;
-  width: 300px;
+  width: 250px;
   z-index: 100;
 }
 

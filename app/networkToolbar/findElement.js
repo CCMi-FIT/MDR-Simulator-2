@@ -37,9 +37,7 @@ export class FindElement extends React.Component<Props> {
           />
         </div>
         <div style={{float: "left", width: "38px", height: "38px", paddingTop: "10px", textAlign: "center"}}>
-          {/*<button type="button" className="btn btn-light">*/}
-            <i className="fas fa-search"></i>
-            {/*</button>*/}
+          <i className="fas fa-search"></i>
         </div>
       </div>);
   }

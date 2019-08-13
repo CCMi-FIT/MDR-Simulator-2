@@ -193,7 +193,7 @@ function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
   ufobVisModel.nodes.update({ id: eventB.ev_to_situation_id, color: "#e6de17" });
 }
 
-export function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
+export async function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
   if (!machine.isValid()) {
     panels.displayError("Simulation crashed, please restart it");
   } else {
@@ -201,10 +201,10 @@ export function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: V
     if (!eventB) {
       console.error(`UFO-B model inconsistency: Event id=${evId} missing in DB, but present in the diagram`);
     } else {
-      processRemoveOperations(machine, ufoaInstVisModel, eventB);
-      processAddOperations(machine, ufoaInstVisModel, ufoaInstNetwork, eventB);
-      markVisited(ufobVisModel, eventB);
-      machine.addEvent(eventB);
+      await processRemoveOperations(machine, ufoaInstVisModel, eventB);
+      await processAddOperations(machine, ufoaInstVisModel, ufoaInstNetwork, eventB);
+      await markVisited(ufobVisModel, eventB);
+      await machine.commitEvent(eventB);
     }
   }
 }
