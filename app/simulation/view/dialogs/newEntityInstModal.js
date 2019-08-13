@@ -3,16 +3,16 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Panel, Button } from 'react-bootstrap';
+import { Modal } from '../../../components';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
 import type { EntityInst } from '../../../ufoa-inst/metamodel';
 import * as ufoaInstModel from '../../../ufoa-inst/model';
 import * as panels from '../../../panels';
-
+ 
 type Props = {
   entity: UfoaEntity,
   insts: Array<EntityInst>,
-  resolve: any,
+  resolve: (any) => any,
   reject: () => void
 };
 
@@ -91,27 +91,21 @@ class EntityInstNameForm extends React.Component<Props, State> {
   renderButtons() {
     return (
       <div className="form-group"> 
-        <Button 
-          className="btn-primary" 
-          onClick={this.save} 
-          disabled={this.state.saveDisabled}>
-          Set name
-        </Button>
+        <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Set name</button>
       </div>);
   }
 
   render() {
     return ( 
-      <Modal.Dialog>
-          <Panel className="dialog">
-            <Panel.Heading><strong>Enter instance name for {this.props.entity.e_name}</strong></Panel.Heading>
-            <Panel.Body collapsible={false}>
-              {this.renderInput()}
-              {this.state.duplicityError ? this.renderError() : ""}
-              {this.renderButtons()}
-            </Panel.Body>
-          </Panel>
-      </Modal.Dialog>);
+      <Modal
+        heading={<span><strong>Enter instance name for {this.props.entity.e_name}</strong></span>}
+        body={<div>
+          {this.renderInput()}
+          {this.state.duplicityError ? this.renderError() : ""}
+          {this.renderButtons()}
+        </div>}
+      />
+    );
   }
 
   componentDidMount() {

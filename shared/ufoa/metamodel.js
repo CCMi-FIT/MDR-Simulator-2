@@ -28,7 +28,7 @@ export function entityNameLine(e: UfoaEntity): string {
 }
 
 export function entityTypeStr(e: UfoaEntity): string {
-  return "<<" + e.e_type + ">>";
+  return "«" + e.e_type + "»";
 }
 
 export function entityStr(e: UfoaEntity): string {
@@ -123,7 +123,7 @@ export function isValidAssocType(s: string): boolean {
 }
 
 export function assocTypeStr(atype: AssocType): string {
-  return "<<" + atype + ">>";
+  return "«" + atype + "»";
 }
 
 export type AssocMeta = "" | "essential" | "inseparable" | "essential-inseparable"

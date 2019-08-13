@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Panel, Button } from 'react-bootstrap';
+import { Modal } from '../../../components';
 import type { UfoaEntity } from '../../../ufoa/metamodel';
 import type { EntityInst } from '../../../ufoa-inst/metamodel';
 import * as panels from '../../../panels';
@@ -58,24 +58,17 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
   renderButtons() {
     return (
       <div className="form-group"> 
-        <Button 
-          className="btn-primary" 
-          onClick={this.choose}
-        >Choose</Button>
+        <button type="button" className="btn btn-primary" onClick={this.choose}>Choose</button>
       </div>);
   }
 
   render() {
     return ( 
-      <Modal.Dialog>
-          <Panel className="dialog">
-            <Panel.Heading>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></Panel.Heading>
-            <Panel.Body collapsible={false}>
-              {this.renderSelection()}
-              {this.renderButtons()}
-            </Panel.Body>
-          </Panel>
-      </Modal.Dialog>);
+      <Modal heading={<span>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></span>}>
+          {this.renderSelection()}
+          {this.renderButtons()}
+      </Modal>
+    );
   }
 }
 

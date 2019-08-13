@@ -90,8 +90,7 @@ function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
   });
 }
 
-export function renderUfoa(ufoaVisModel: VisModel): any {
-  const container = document.getElementById("ufoa-box");
+export function renderUfoa(container: HTMLElement, ufoaVisModel: VisModel): any {
   let visNetwork;
   const options = {
     nodes: {
@@ -128,11 +127,6 @@ export function renderUfoa(ufoaVisModel: VisModel): any {
     }
   };
   
-  if (container == null) {
-    console.log("#ufoa-box missing");
-    return null;
-  } else {
-    visNetwork = new vis.Network(container, ufoaVisModel, options);
-    return visNetwork;
-  }
+  visNetwork = new vis.Network(container, ufoaVisModel, options);
+  return visNetwork;
 }

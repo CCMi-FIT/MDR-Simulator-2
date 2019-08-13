@@ -4,8 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { UfoaEntity, Association, Connection } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
 import * as ufoaDB from '../../db';
@@ -111,7 +110,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         : ""
       : "";
     return (
-      <div className="col-xs-6" style={{textAlign: align}}>
+      <div style={{float: align}}>
         <span style={{fontSize: "22px"}}>{align === "left" ? prefix : ""}</span>
         {c.mult.lower}..{c.mult.upper ? c.mult.upper : "*"}
         <span style={{fontSize: "22px"}}>{align === "right" ? prefix : ""}</span>
@@ -121,18 +120,18 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 
   renderAssocDetails(a: Association, c1: Connection, c2: Connection) {
     return (
-      <div className="container-fluid nopadding">
-        <div className="row" style={{textAlign: "center"}}>
+      <div className="container-fluid">
+        <div className="row" style={{textAlign: "center", display: "block"}}>
           {ufoaMeta.assocTypeStr(a.a_type)} 
         </div>
-        <div className="row" style={{textAlign: "center"}}>
+        <div className="row" style={{textAlign: "center", display: "block"}}>
           {a.a_label} 
         </div>
-        <div className="row nopadding" style={{borderTop: "1px solid gray"}}>
+        <div className="row" style={{borderTop: "1px solid gray", display: "block"}}>
         </div>
-        <div className="row">
-          <div className="container-fluid nopadding">
-            <div className="row nopadding">
+        <div className="row" style={{display: "block"}}>
+          <div className="container-fluid">
+            <div className="row" style={{display: "block"}}>
               {this.renderConnection(a, c1, "left")}
               {this.renderConnection(a, c2, "right")}
             </div>
@@ -155,15 +154,18 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         [c1, c2] = [c2, c1];
       }
       return (
-        <div className="row clickable" style={{marginBottom: "15px"}} key={assoc.a_id}
-          onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
-          <div className="col-xs-4 nopadding">
+        <div 
+        key={assoc.a_id}
+        className="d-flex flex-row clickable-assoc"
+        style={{marginBottom: "10px", padding: "5px"}} 
+        onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
+          <div>
             {e1 ? diagram.renderEntity(e1) : ""}
           </div>
-          <div className="col-xs-4 nopadding">
+          <div>
             {this.renderAssocDetails(assoc, c1, c2)}
           </div>
-          <div className="col-xs-4 nopadding">
+          <div>
             {e2 ? diagram.renderEntity(e2) : ""}
           </div>
         </div>
@@ -173,53 +175,49 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 
   renderAssocPane() {
     return ( 
-      <Panel>
-        <Panel.Heading>Associations</Panel.Heading>
-        <Panel.Body collapsible={false}>
-          <div className="container-fluid">
-            {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
-          </div>
-        </Panel.Body>
-      </Panel>);
+      <Panel heading="Associations" inner={true}>
+        {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
+      </Panel>
+    );
   }
   // }}}2
 
   // Buttons rendering {{{2
   renderButtons() {
     return (
-      <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update entity</Button>
+      <div className="form-group row col-sm-12" style={{paddingTop: "15px"}}> 
+        <div className="col-sm-6 text-center">
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update entity</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6  text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
   }
 
+
   renderButtonDelete() {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${ufoaMeta.entityNameLine(this.props.ufoaEntity)}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Entity">
-        <Button className="btn-danger">Delete entity</Button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Entity",
+          "delete",
+          <span>Are you sure you want to delete &quot;{ufoaMeta.entityNameLine(this.props.ufoaEntity)}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   // }}}2
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>{this.props.ufoaEntity.e_name}</strong> ({this.props.ufoaEntity.e_id})</Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderEntityType()}
-          {this.renderEntityName()}
-          {this.renderAssocPane()}
-          {this.renderButtons()}
-        </Panel.Body>
+      <Panel heading={<span>{this.props.ufoaEntity.e_name} ({this.props.ufoaEntity.e_id})</span>}>
+        {this.renderEntityType()}
+        {this.renderEntityName()}
+        {this.renderAssocPane()}
+        {this.renderButtons()}
       </Panel>);
   }
 

@@ -17,13 +17,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
-app.set('view engine', 'squirrelly');
+app.set('view engine', 'ejs');
+
+// Home = Models
 
 app.get('/' + secrets.adminURL, (req, res: any) => {
-  res.render('index.squirrelly', { admin: true });
+  res.render('index', { admin: true, page: "model" });
 });
+
 app.get('/', (req, res: any) => {
-  res.render('index.squirrelly', { admin: false });
+  res.render('index', { admin: false, page: "model" });
+});
+
+app.get('/methodology', (req, res: any) => {
+  res.render('index', { admin: false, page: "methodology" });
+});
+
+app.get('/about', (req, res: any) => {
+  res.render('index', { admin: false, page: "about" });
 });
 
 app.use('/', ufoaRouter);

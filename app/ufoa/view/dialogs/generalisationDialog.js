@@ -4,8 +4,7 @@ import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { Panel, Button } from 'react-bootstrap';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { Generalisation } from '../../metamodel';
 import * as ufoaMeta from '../../metamodel';
 import * as ufoaDB from '../../db';
@@ -115,84 +114,76 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderGSet() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Set</label>
-        <div className="col-sm-10">
-          <Typeahead
-            id="gsetTA"
-            options={ufoaDB.getGeneralisationSets()}
-            labelKey={"g_set_id"}
-            onChange={gSets => { 
-              if (gSets.length) { 
-                this.setAttr("g_set.g_set_id", gSets[0].g_set_id); 
-              }
-            }}
-            selected={[this.state.generalisation2.g_set]}
-            allowNew={true}
-          />
-        </div>
+      <div className="form-group">
+        <label>Set</label>
+        <Typeahead
+          id="gsetTA"
+          options={ufoaDB.getGeneralisationSets()}
+          labelKey={"g_set_id"}
+          onChange={gSets => { 
+            if (gSets.length) { 
+              this.setAttr("g_set.g_set_id", gSets[0].g_set_id); 
+            }
+          }}
+          selected={[this.state.generalisation2.g_set]}
+          allowNew={true}
+        />
       </div>);
   }
 
   renderMeta() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Meta</label>
-        <div className="col-sm-10">
-          <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
-            {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
-          </select>
-        </div>
+      <div className="form-group">
+        <label>Meta</label>
+        <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
+          {ufoaMeta.genMetas.map(meta => <option key={meta}>{meta}</option>)}
+        </select>
       </div>);
   }
 
   renderSup() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Supertype</label>
-        <div className="col-sm-10">
-          <Typeahead
-            id="supTA"
-            options={ufoaDB.getEntities()}
-            labelKey={(e) => ufoaMeta.entityNameLine(e)}
-            selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
-            onChange={(entities) => {
-              if (entities.length) {
-                this.setAttr("g_sup_e_id", entities[0].e_id);
-              }
-            }}
-          />
-        </div>
+      <div className="form-group">
+        <label>Supertype</label>
+        <Typeahead
+          id="supTA"
+          options={ufoaDB.getEntities()}
+          labelKey={(e) => ufoaMeta.entityNameLine(e)}
+          selected={[ufoaDB.getEntity(this.state.generalisation2.g_sup_e_id)]}
+          onChange={(entities) => {
+            if (entities.length) {
+              this.setAttr("g_sup_e_id", entities[0].e_id);
+            }
+          }}
+        />
       </div>);
   }
 
   renderSub() {
     return (
-      <div className="form-group row">
-          <label className="col-sm-2 col-form-label">Subtype</label>
-        <div className="col-sm-10">
-          <Typeahead
-            id="subTA"
-            options={ufoaDB.getEntities()}
-            labelKey={(e) => ufoaMeta.entityNameLine(e)}
-            selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}
-            onChange={(entities) => {
-              if (entities.length) {
-                this.setAttr("g_sub_e_id", entities[0].e_id);
-              }
-            }}
-          />
-        </div>
+      <div className="form-group">
+        <label>Subtype</label>
+        <Typeahead
+          id="subTA"
+          options={ufoaDB.getEntities()}
+          labelKey={(e) => ufoaMeta.entityNameLine(e)}
+          selected={[ufoaDB.getEntity(this.state.generalisation2.g_sub_e_id)]}
+          onChange={(entities) => {
+            if (entities.length) {
+              this.setAttr("g_sub_e_id", entities[0].e_id);
+            }
+          }}
+        />
       </div>);
   }
   
   renderButtons() {
     return (
-      <div className="form-group row col-sm-12"> 
+      <div className="form-group row"> 
         <div className="col-sm-6 text-center"> 
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6 text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
@@ -200,27 +191,27 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 
   renderButtonDelete() {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.generalisation.g_id}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Generalisation">
-        <Button className="btn-danger">Delete Generalisation</Button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Generalisation",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.generalisation.g_id}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>Generalisation {this.props.generalisation.g_id}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderGSet()}
-          {this.renderMeta()}
-          {this.renderSup()}
-          {this.renderSub()}
-          {this.renderButtons()}
-        </Panel.Body>
-      </Panel>);
+      <Panel heading={<span><strong>Generalisation {this.props.generalisation.g_id}</strong></span>}>
+        {this.renderGSet()}
+        {this.renderMeta()}
+        {this.renderSup()}
+        {this.renderSub()}
+        {this.renderButtons()}
+      </Panel>
+    );
   }
 }
 

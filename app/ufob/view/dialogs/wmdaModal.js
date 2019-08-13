@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from '../../../components';
 import CKEditor from "react-ckeditor-component";
 //import { Editor } from '@tinymce/tinymce-react';
 import * as panels from '../../../panels';
@@ -45,44 +45,27 @@ class WMDAForm extends React.Component<Props, State> {
   renderButtons() {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save}>Update</Button>
+        <div className="col-sm-6 text-center">
+          <button type="button" className="btn btn-primary" onClick={this.save}>Update</button>
         </div>
-        <div className="col-sm-6">
-          <Button className="btn-warning" onClick={this.cancel}>Cancel</Button>
+        <div className="col-sm-6 text-center">
+          <button type="button" className="btn btn-warning" onClick={this.cancel}>Cancel</button>
         </div>
-      </div>);
+      </div>
+    );
   }
 
   render() {
     return ( 
-      <Modal show={true} dialogClassName="modal-90w">
-        <Modal.Header>
-          <Modal.Title>{`WMDA Standard for "${this.props.title}"`}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/*<Editor
-            apiKey="3w4rqs3iwrm8co1p6sllgs42temdv4t0b748kfshv5yn6u8k"
-            init={{
-              height: (panels.getWindowHeight() - 350) + 'px',
-              selector: "textarea",
-              plugins: "code",
-              //toolbar: "code",
-              //menubar: "tools"
-            }}
-            value={this.state.wmdaText2}
-            onEditorChange={this.setText} />*/}
-          <CKEditor 
-              activeClass="p10" 
-              content={this.state.wmdaText2} 
-              events={{
-                "change": this.setText
-              }}
-             />
-        </Modal.Body>
-        <Modal.Footer>
-          {this.renderButtons()}
-        </Modal.Footer>
+      <Modal heading={<span>WMDA Standard for {this.props.title}</span>}>
+        <CKEditor 
+          activeClass="p10" 
+          content={this.state.wmdaText2} 
+          events={{
+            "change": this.setText
+          }}
+        />
+        {this.renderButtons()}
       </Modal>
     );
   }

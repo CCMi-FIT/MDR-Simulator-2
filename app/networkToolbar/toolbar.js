@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as panels from '../panels';
-import { FindElement } from './findButton';
+import { FindElement } from './findElement';
 import { SaveLayout } from './saveLayoutButton';
 
 type Props = {

@@ -4,8 +4,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { Association } from '../../../ufoa/metamodel';
 import * as ufoaMeta from '../../../ufoa/metamodel';
 import * as ufoaDB from '../../../ufoa/db';
@@ -123,25 +122,21 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
 
   renderType() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Type</label>
-        <div className="col-sm-10">
-          <select className="form-control" value={this.state.association2.a_type} onChange={(e) => this.setAttr("a_type", e.currentTarget.value)}>
-            {ufoaMeta.assocTypes.map(t => <option key={t}>{t}</option>)}
-          </select>
-        </div>
+      <div className="row form-group">
+        <label>Type</label>
+        <select className="form-control" value={this.state.association2.a_type} onChange={(e) => this.setAttr("a_type", e.currentTarget.value)}>
+          {ufoaMeta.assocTypes.map(t => <option key={t}>{t}</option>)}
+        </select>
       </div>);
   }
 
   renderMeta() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Meta</label>
-        <div className="col-sm-10">
-          <select className="form-control" value={this.state.association2.a_meta} onChange={(e) => this.setAttr("a_meta", e.currentTarget.value)}>
-            {ufoaMeta.assocMetas.map(meta => <option key={meta}>{meta}</option>)}
-          </select>
-        </div>
+      <div className="row form-group">
+        <label>Meta</label>
+        <select className="form-control" value={this.state.association2.a_meta} onChange={(e) => this.setAttr("a_meta", e.currentTarget.value)}>
+          {ufoaMeta.assocMetas.map(meta => <option key={meta}>{meta}</option>)}
+        </select>
       </div>);
   }
 
@@ -152,60 +147,58 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
       return (<span>Internal error: entity not found</span>);
     } else {
       return (
-        <Panel>
-          <Panel.Heading><strong>{ufoaMeta.entityNameLine(e)}</strong></Panel.Heading>
-          <Panel.Body collapsible={false}>
-            <div className="row">
-              <div className="col-sm-5">
-                <input className="form-control" 
-                  type="number"
-                  value={this.state.association2[connection].mult.lower}
-                  onChange={(e) => this.setAttr(`${connection}.mult.lower`, e.currentTarget.value)}
-                />
-              </div>
-              <div className="col-sm-1">..</div>
-              <div className="col-sm-5">
-                <input className="form-control"
-                  type="number"
-                  value={upper ? upper : ""}
-                  onChange={(e) => this.setAttr(`${connection}.mult.upper`, e.currentTarget.value)}
-                />
-              </div>
+        <Panel heading={ufoaMeta.entityNameLine(e)} inner={true}>
+          <div className="d-flex flex-row">
+            <div>
+              <input className="form-control"
+                type="number"
+                value={this.state.association2[connection].mult.lower}
+                onChange={(e) => this.setAttr(`${connection}.mult.lower`, e.currentTarget.value)}
+              />
             </div>
-          </Panel.Body>
+            <div style={{paddingLeft: "5px", paddingRight: "5px"}}>..</div>
+            <div>
+              <input className="form-control" 
+                type="number"
+                value={upper ? upper : ""}
+                onChange={(e) => this.setAttr(`${connection}.mult.upper`, e.currentTarget.value)}
+              />
+            </div>
+          </div>
         </Panel>);
     }
   }
 
   renderMultiplicities() {
     return (
-      <div className="form-group row">
-        <div className="col-sm-6">
-          {this.renderMultiplicity("a_connection1")}
-        </div>
-        <div className="col-sm-6">
-          {this.renderMultiplicity("a_connection2")}
+      <div className="row form-group">
+        <label>Multiplicities</label>
+        <div className="d-flex flex-row">
+          <div style={{paddingRight: "5px"}}>
+            {this.renderMultiplicity("a_connection1")}
+          </div>
+          <div style={{paddingLeft: "5px"}}>
+            {this.renderMultiplicity("a_connection2")}
+          </div>
         </div>
       </div>);
   }
     
   renderLabel() {
     return (
-      <div className="form-group row">
-        <label className="col-sm-2 col-form-label">Label</label>
-        <div className="col-sm-10">
-          <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows="2" cols="30"/>
-        </div>
+      <div className="row form-group">
+        <label>Label</label>
+        <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows="2" cols="30"/>
       </div>);
   }
 
   renderButtons() {
     return (
-      <div className="form-group row col-sm-12"> 
+      <div className="row form-group"> 
         <div className="col-sm-6 text-center"> 
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</Button>
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6 text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
@@ -213,27 +206,29 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
   
   renderButtonDelete() {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.association.a_id}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Association">
-        <Button className="btn-danger">Delete Association</Button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Association",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.association.a_id}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>{`Association ${this.props.association.a_id}`}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
+      <Panel heading={<span>Association {this.props.association.a_id}</span>}>
+        <div className="container-fluid">
           {this.renderType()}
           {this.state.showMeta ? this.renderMeta() : null }
           {this.renderMultiplicities()}
           {this.renderLabel()}
           {this.renderButtons()}
-        </Panel.Body>
-      </Panel>);
+      </div>
+    </Panel>
+    );
   }
 }
 

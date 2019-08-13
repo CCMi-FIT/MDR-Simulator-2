@@ -209,7 +209,7 @@
     },
     {
       "ev_id": "e4",
-      "ev_name": "<<merging>>\nDonor Matching",
+      "ev_name": "«merging»\nDonor Matching",
       "ev_add_ops": [
         {
           "opa_e_id": "e99",
@@ -564,7 +564,7 @@
     },
     {
       "ev_id": "e16",
-      "ev_name": "<<merging>>\nMaking Donor Verified",
+      "ev_name": "«merging»\nMaking Donor Verified",
       "ev_add_ops": [
         {
           "opa_e_id": "e13",

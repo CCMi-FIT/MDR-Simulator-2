@@ -3,8 +3,7 @@
 import * as R from 'ramda';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Panel, Button } from 'react-bootstrap';
-import { Confirm } from 'react-confirm-bootstrap';
+import { Panel, renderConfirmPm } from '../../../components';
 import type { Situation, Disposition } from '../../metamodel';
 import type { Id } from '../../../metamodel.js';
 import * as ufobMeta from '../../metamodel';
@@ -120,7 +119,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     const ev = ufobDB.getUfobEventById(ev_id);
     return (
       <div key={ev_id}>
-        <i className="glyphicon glyphicon-arrow-right"></i>
+        <i className="fas fa-arrow-right"></i>
         <span>{ev ? ev.ev_name : ""}</span>
       </div>
     );
@@ -151,7 +150,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderDispositionRow = (d: Disposition) => {
     return (
-      <tr className="clickable" key={d.d_text} onClick={() => this.editDisposition(d)}>
+      <tr className="clickable-disposition" key={d.d_text} onClick={() => this.editDisposition(d)}>
         <td>
           {d.d_text ? d.d_text : "<Implicit>"}
           </td>
@@ -164,36 +163,33 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderDispositions = () => {
     return ( 
-      <table className="table table-striped">
-        <thead>
-          <tr><th colSpan="2">Dispositions</th></tr>
-        </thead>
-        <tbody>
-          {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
-          <tr>
-            <td colSpan="2">
-              <Button className="btn-primary btn-sm" onClick={this.addDisposition}><i className="glyphicon glyphicon-plus"></i></Button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="form-group">
+        <Panel heading="Dispositions" inner={true} >
+          <table className="table table-striped">
+            <tbody>
+              {this.state.situation2.s_dispositions.map(this.renderDispositionRow)}
+            </tbody>
+          </table>
+          <button type="button" className="btn btn-primary btn-sm" onClick={this.addDisposition}><i className="fas fa-plus"></i></button>
+        </Panel>
+      </div>
     );
   }
 
   renderWMDAButton = () => {
     return (
-      <div className="form-group row col-sm-12">
-        <Button className="col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</Button>
+      <div className="form-group">
+        <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
       </div>);
   }
 
   renderButtons = () => {
     return (
       <div className="form-group row col-sm-12"> 
-        <div className="col-sm-6">
-          <Button className="btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update situation</Button>
+        <div className="col-sm-6 text-center">
+          <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Update situation</button>
         </div>
-        <div className="col-sm-6 text-right">
+        <div className="col-sm-6  text-center">
           {this.renderButtonDelete()}
         </div>
       </div>);
@@ -201,25 +197,24 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 
   renderButtonDelete = () => {
     return (
-      <Confirm
-        onConfirm={this.delete}
-        body={`Are you sure you want to delete "${this.props.situation.s_name}"?`}
-        confirmText="Confirm Delete"
-        title="Deleting Situation">
-        <Button className="btn-danger">Delete situation</Button>
-      </Confirm>);
+      <button type="button" className="btn btn-danger" onClick={() => {
+        renderConfirmPm(
+          "Deleting Situation",
+          "delete",
+          <span>Are you sure you want to delete &quot;{this.props.situation.s_name}&quot;?</span>
+        ).then(() => this.delete());
+      }}>Delete
+      </button>
+    );
   }
 
   render() {
     return ( 
-      <Panel className="dialog-panel">
-        <Panel.Heading><strong>Situation {this.props.situation.s_id}</strong></Panel.Heading>
-        <Panel.Body collapsible={false}>
-          {this.renderSituationName()}
-          {this.renderDispositions()}
-          {this.renderWMDAButton()}
-          {this.renderButtons()}
-        </Panel.Body>
+      <Panel heading={<span><strong>Situation {this.props.situation.s_id}</strong></span>}>
+        {this.renderSituationName()}
+        {this.renderDispositions()}
+        {this.renderWMDAButton()}
+        {this.renderButtons()}
       </Panel>);
   }
 

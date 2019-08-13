@@ -1,7 +1,6 @@
 //@flow
 
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
 import * as panels from '../panels';
 
 type Props = {
@@ -21,7 +20,10 @@ export class SaveLayout extends React.Component<Props> {
 
   render() {
     return ( 
-      <Button title="Save diagram layout" onClick={this.save}><i className="glyphicon glyphicon-save"></i></Button>);
+      <button type="button" className="btn btn-light" title="Save diagram layout" onClick={this.save}>
+        <i className="fas fa-save"></i>
+      </button>
+    );
   }
 }
 
