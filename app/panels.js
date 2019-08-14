@@ -8,7 +8,9 @@ const ufobBoxId = "ufob-box";
 const simulationBoxId = "simulation-box";
 export const simUfobDiagramId = "simulation-diagram";
 export const simInstDiagramId = "ufoa-inst-diagram";
-const dialogId = "dialog-box";
+const dialogUfoaId = "dialog-box-ufoa";
+const dialogUfobId = "dialog-box-ufob";
+const dialogSimId = "dialog-box-sim";
 const messageId = "message-box";
 const modalBoxId = "modal-box";
 const modalId = "app-modal";
@@ -31,15 +33,18 @@ export function fitPanes() {
 
   $(`#${ufoaBoxId}`).css("height", `${wh - 115}px`);
   $(`#${ufobBoxId}`).css("height", `${wh - 115}px`);
-  $(`#${simUfobDiagramId}`).css("height", `${wh - 115}px`);
-  $(`#${simInstDiagramId}`).css("height", `${wh - 115}px`);
+  $(`#${simUfobDiagramId}`).css("height", `${wh - 175}px`);
+  $(`#${simInstDiagramId}`).css("height", `${wh - 220}px`);
   $("#ufoa-float-toolbar").css("left", `${ww - 400}px`);
   $("#ufob-float-toolbar").css("left", `${ww - 400}px`);
 
-  const dbox = $("#dialog-box > div");
-  const dboxh = wh - 150;
-  dbox.css("height", `${dboxh}px`);
-  dbox.css("overflow-y", "scroll");
+  // Height of dialog boxes
+  [dialogUfoaId, dialogUfobId, dialogSimId].forEach(dialog => {
+    const dbox = $(`#${dialog} > div`);
+    const dboxh = wh - 150;
+    dbox.css("height", `${dboxh}px`);
+    dbox.css("overflow-y", "scroll");
+  });
 }
 
 // Getting
@@ -48,8 +53,16 @@ export function getPanel(panelId: string): ?HTMLElement {
   return document.getElementById(panelId);
 }
 
-export function getDialog(): ?HTMLElement {
-  return getPanel(dialogId);
+export function getDialogUfoa(): ?HTMLElement {
+  return getPanel(dialogUfoaId);
+}
+
+export function getDialogUfob(): ?HTMLElement {
+  return getPanel(dialogUfobId);
+}
+
+export function getDialogSim(): ?HTMLElement {
+  return getPanel(dialogSimId);
 }
 
 export function getModal(): ?HTMLElement {
@@ -86,19 +99,33 @@ export function getToolbarTop(): number {
 
 function showPanel(panelId: string): void {
   let panel = getPanel(panelId);
-  if (panel) {
-    $(panel).animate({
-      width: "toggle"
-    }, 100);
-    //$(panel).fadeIn(200);
-  }
+  //if (panel) {
+    //$(panel).animate({
+      //width: "toggle"
+    //}, 100);
+  //}
 }
 
-export function showDialog(): void {
-  showPanel(dialogId);
+export function showDialogUfoa(): void {
+  disposeDialogUfob();
+  disposeDialogSim();
+  showPanel(dialogUfoaId);
   fitPanes();
 }
 
+export function showDialogUfob(): void {
+  disposeDialogUfoa();
+  disposeDialogSim();
+  showPanel(dialogUfobId);
+  fitPanes();
+}
+
+export function showDialogSim(): void {
+  disposeDialogUfoa();
+  disposeDialogUfob();
+  showPanel(dialogSimId);
+  fitPanes();
+}
 export function showModal(): void {
   // $FlowFixMe
   $(`#${modalId}`).modal("show"); 
@@ -110,7 +137,6 @@ function disposePanel(panelId: string): void {
   let panel = getPanel(panelId);
   if (panel) {
     ReactDOM.unmountComponentAtNode(panel);
-    $(panel).fadeOut();
   }
 }
 
@@ -121,8 +147,16 @@ function disposeModalComp(panelId: string): void {
   }
 }
 
-export function disposeDialog(): void {
-  disposePanel(dialogId);
+export function disposeDialogUfoa(): void {
+  disposePanel(dialogUfoaId);
+}
+
+export function disposeDialogUfob(): void {
+  disposePanel(dialogUfobId);
+}
+
+export function disposeDialogSim(): void {
+  disposePanel(dialogSimId);
 }
 
 export function disposeModal(): void {

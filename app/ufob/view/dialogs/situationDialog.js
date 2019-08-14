@@ -60,7 +60,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
       () => {
         nodes.update({ id: s.s_id, label: s.s_name });
         this.updateEdges();
-        panels.disposeDialog();
+        panels.disposeDialogUfob();
         panels.displayInfo("Situation saved.");
       },
       error => panels.displayError("Situation save failed: " + error)
@@ -95,7 +95,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
         nodes.remove({ id: s_id });
         const edges2remove = edges.get().filter(e => e.from === s_id || e.to === s_id);
         edges.remove(edges2remove.map(e => e.id));
-        panels.disposeDialog();
+        panels.disposeDialogUfob();
         panels.displayInfo("Situation deleted.");
       },
       error => panels.displayError("Situation delete failed: " + error));
@@ -221,10 +221,10 @@ class SituationForm extends panels.PaneDialog<Props, State> {
 }
 
 export function render(situation: Situation, ufobVisModel: VisModel) {
-  let panel = panels.getDialog();
+  let panel = panels.getDialogUfob();
   if (panel) {
     ReactDOM.render(<SituationForm situation={situation} ufobVisModel={ufobVisModel}/>, panel);
-    panels.showDialog();
+    panels.showDialogUfob();
   }
 }
 

@@ -30,7 +30,7 @@ function commitEntity(nodes: any, e: UfoaEntity) {
   ufoaDB.updateEntity(e).then(
     () => {
       nodes.update({ id: e.e_id, label: ufoaMeta.entityStr(e), color: ufoaMeta.entityColor(e) });
-      panels.disposeDialog();
+      panels.disposeDialogUfoa();
       panels.displayInfo("Entity saved.");
     },
     error => panels.displayError("Entity save failed: " + error)
@@ -79,7 +79,7 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
         nodes.remove({ id: e_id });
         const edges2remove = edges.get().filter(e => e.from === e_id || e.to === e_id);
         edges.remove(edges2remove.map(e => e.id));
-        panels.disposeDialog();
+        panels.disposeDialogUfoa();
         panels.displayInfo("Entity deleted.");
       },
       error => panels.displayError("Entity delete failed: " + error));
@@ -225,10 +225,10 @@ class UfoaNodeForm extends panels.PaneDialog<Props, State> {
 //}}}1
 
 export function render(ufoaEntity: UfoaEntity, ufoaVisModel: VisModel) {
-  let panel = panels.getDialog();
+  let panel = panels.getDialogUfoa();
   if (panel) {
     ReactDOM.render(<UfoaNodeForm ufoaEntity={ufoaEntity} ufoaVisModel={ufoaVisModel}/>, panel);
-    panels.showDialog();
+    panels.showDialogUfoa();
   }
 }
 

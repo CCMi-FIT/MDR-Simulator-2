@@ -40,7 +40,7 @@ function commitAssociation(edges: any, a: Association) {
           }
         }
       });
-      panels.disposeDialog();
+      panels.disposeDialogUfoa();
       panels.displayInfo("Association saved.");
     },
     error => panels.displayError("Association save failed: " + error)
@@ -111,7 +111,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     ufoaDB.deleteAssociation(a_id).then(
       () => {
         edges.remove({ id: a_id });
-        panels.disposeDialog();
+        panels.disposeDialogUfoa();
         panels.displayInfo("Association deleted.");
       },
       error => panels.displayError("Association delete failed: " + error)
@@ -234,10 +234,10 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
 
 ///}}}1
 export function render(association: Association, ufoaVisModel: VisModel) {
-  let panel = panels.getDialog();
+  let panel = panels.getDialogUfoa();
   if (panel) {
     ReactDOM.render(<AssociationForm association={association} visModel={ufoaVisModel}/>, panel);
-    panels.showDialog();
+    panels.showDialogUfoa();
   }
 }
 

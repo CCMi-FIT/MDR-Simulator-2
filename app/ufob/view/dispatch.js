@@ -5,7 +5,6 @@ import * as ufobDB from '../db';
 import type { VisModel } from '../../diagram';
 import * as situationDialog from './dialogs/situationDialog';
 import * as eventDialog from './dialogs/eventDialog';
-import * as panels from '../../panels';
 
 function dispatchNode(nodeId: Id, ufobVisModel: VisModel) {
   let node = ufobVisModel.nodes.get(nodeId);
@@ -38,7 +37,6 @@ function dispatchEdge(edgeId: Id, ufobVisModel: VisModel) {
 export function handleClick(ufobVisModel: VisModel, params: any): void {
   let nodeId = params.nodes[0];
   let edgeId = params.edges[0];
-  panels.disposeDialog();
   if (nodeId) {
     dispatchNode(nodeId, ufobVisModel);
   } else if (edgeId) {

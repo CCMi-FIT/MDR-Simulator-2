@@ -108,7 +108,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       const edgesIds = edges.get().filter(e => e.from === ev.ev_id).map(e => e.id); //Effectively, there should be just one edge
       edges.remove(edgesIds);
       edges.add(ufobDiagram.mkEdge(ev.ev_id, ev.ev_to_situation_id));
-      panels.disposeDialog();
+      panels.disposeDialogUfob();
       panels.displayInfo("Event saved.");
     }, (error) => panels.displayError("Event save failed: " + error));
   }
@@ -130,7 +130,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
         nodes.remove({ id: ev_id });
         const edges2remove = edges.get().filter(e => e.from === ev_id || e.to === ev_id);
         edges.remove(edges2remove.map(e => e.id));
-        panels.disposeDialog();
+        panels.disposeDialogUfob();
         panels.displayInfo("Event deleted.");
       },
       error => panels.displayError("Event delete failed: " + error));
@@ -442,10 +442,10 @@ class EventForm extends panels.PaneDialog<Props, State> {
 ///}}}1
 
 export function render(eventB: UfobEvent, ufobVisModel: VisModel) {
-  let panel = panels.getDialog();
+  let panel = panels.getDialogUfob();
   if (panel) {
     ReactDOM.render(<EventForm eventB={eventB} ufobVisModel={ufobVisModel}/>, panel);
-    panels.showDialog();
+    panels.showDialogUfob();
   }
 }
 

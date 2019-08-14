@@ -30,7 +30,7 @@ function commitGeneralisation(edges: any, g: Generalisation) {
         from: g.g_sup_e_id,
         to: g.g_sub_e_id,
       });
-      panels.disposeDialog();
+      panels.disposeDialogUfoa();
       panels.displayInfo("Generalisation saved.");
     },
     error => panels.displayError("Generalisation save failed: " + error)
@@ -105,7 +105,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     ufoaDB.deleteGeneralisation(g_id).then(
       () => {
         edges.remove({ id: g_id });
-        panels.disposeDialog();
+        panels.disposeDialogUfoa();
         panels.displayInfo("Generalisation deleted.");
       },
       error => panels.displayError("Generalisation delete failed: " + error)
@@ -216,10 +216,10 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
 }
 
 export function render(generalisation: Generalisation, ufoaVisModel: VisModel) {
-  let panel = panels.getDialog();
+  let panel = panels.getDialogUfoa();
   if (panel) {
     ReactDOM.render(<GeneralisationsForm generalisation={generalisation} visModel={ufoaVisModel}/>, panel);
-    panels.showDialog();
+    panels.showDialogUfoa();
   }
 }
 

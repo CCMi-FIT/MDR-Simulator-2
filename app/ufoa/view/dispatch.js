@@ -4,7 +4,6 @@ import type { Id } from '../../metamodel';
 import * as ufoaDB from '../db';
 import type { VisModel } from '../../diagram';
 import * as entityDialog from './dialogs/entityDialog';
-import * as panels from '../../panels';
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
 
@@ -41,7 +40,6 @@ function dispatchEdge(edgeId: Id, ufoaVisModel: VisModel) {
 export function handleClick(ufoaVisModel: VisModel, params: any): void {
   let nodeId = params.nodes[0];
   let edgeId = params.edges[0];
-  panels.disposeDialog();
   if (nodeId) {
     dispatchNode(nodeId, ufoaVisModel);
   } else if (edgeId) {

@@ -1,6 +1,6 @@
-html, body {
-  height: 100%;
-}
+/*html, body {*/
+  /*height: 100%;*/
+/*}*/
 
 .wmda-color {
   background-color: #00ACC8;
@@ -204,6 +204,7 @@ html, body {
 }
 
 .events-log-panel {
+  max-height: calc(100% - 60px);
   left: 0;
   min-width: 100px;
   overflow: auto;
@@ -213,15 +214,6 @@ html, body {
   top: 50px;
   width: 250px;
   z-index: 100;
-}
-
-/* Split */
-.split, .gutter.gutter-horizontal {
-    float: left;
-}
-
-.gutter.gutter-horizontal {
-    cursor: ew-resize;
 }
 
 /* Resizer */
