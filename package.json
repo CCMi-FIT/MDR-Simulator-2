@@ -5,10 +5,10 @@
   "private": "true",
   "main": "index.js",
   "scripts": {
-    "server:watch": "rm -rf dist/*; cp -r server/views dist; nodemon --watch server --exec npm run server:build\\; npm run server:run",
+    "server:watch": "rm -rf dist/*; cp -r server/views dist; nodemon --watch server --ext js,ejs --exec npm run server:build\\; npm run server:run",
     "server:build": "rm -rf dist/*; cp -r server/views dist; babel -d dist server",
     "server:run": "cd dist; node server",
-    "client:watch": "rm -rf public/*; brunch watch --server",
+    "client:watch": "rm -rf public/*; brunch watch",
     "client:build": "rm -rf public/*; brunch build --production",
     "clean": "npm cache clean --force"
   },
