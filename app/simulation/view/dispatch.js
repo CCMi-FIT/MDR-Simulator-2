@@ -25,7 +25,7 @@ async function handleEvent(evId: Id, machine: any, ufobVisModel: VisModel, ufoaI
     await diagram.doStep(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, evId);
     ufoBDiagramEmmiter.emit("ufobClick");
   } else {
-    panels.displayError("Simulation must be in the last state to be able to make the transition");
+    panels.displayError("You are currently viewing a non-last state. Move to it first to make the transition.");
   }
 }
 

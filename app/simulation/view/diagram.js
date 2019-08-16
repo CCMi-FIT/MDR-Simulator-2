@@ -14,6 +14,10 @@ import * as ufobDB from '../../ufob/db';
 import * as panels from '../../panels';
 import * as chooseEntityInstModal from './dialogs/chooseEntityInstModal';
 
+const unvisitedCol = "#97C2FC";
+const visitedEvCol = "#f7ef4f";
+const visitedSCol = "#b5ec17";
+
 function addOp2EntityInsts(machine: any, eventB: UfobEvent, op: AddEntityInstOp): Array<EntityInst> {
   const entity = ufoaDB.getEntity(op.opa_e_id);
   if (op.opa_insts_names.length === 0) { // default instance
@@ -188,9 +192,27 @@ function processRemoveOperations(machine: any, ufoaInstVisModel: VisModel, event
   const removeOps = eventB.ev_remove_ops;
 }
 
-function markVisited(ufobVisModel: VisModel, eventB: UfobEvent) {
-  ufobVisModel.nodes.update({ id: eventB.ev_id, color: "#e6de17" });
-  ufobVisModel.nodes.update({ id: eventB.ev_to_situation_id, color: "#e6de17" });
+export function colorise(ufobVisModel: VisModel, machine: any) {
+  const nodes = ufobVisModel.nodes.get();
+  nodes.forEach(n => {
+    switch (n.type) {
+      case "event":
+        if (machine.getFiredEventsIds().includes(n.id)) {
+          ufobVisModel.nodes.update({ id: n.id, color: visitedEvCol });
+        } else {
+          ufobVisModel.nodes.update({ id: n.id, color: unvisitedCol });
+        }
+        break;
+      case "situation":
+        if (machine.getPastSituationsIds().includes(n.id)) {
+          ufobVisModel.nodes.update({ id: n.id, color: visitedSCol });
+        } else {
+          ufobVisModel.nodes.update({ id: n.id, color: unvisitedCol });
+        }
+        break;
+      default: throw("colorise: unknown node type " + n.type);
+    }
+  });
 }
 
 export async function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any, evId: Id) {
@@ -203,8 +225,8 @@ export async function doStep(machine: any, ufobVisModel: VisModel, ufoaInstVisMo
     } else {
       await processRemoveOperations(machine, ufoaInstVisModel, eventB);
       await processAddOperations(machine, ufoaInstVisModel, ufoaInstNetwork, eventB);
-      await markVisited(ufobVisModel, eventB);
       await machine.commitEvent(eventB);
+      await colorise(ufobVisModel, machine);
     }
   }
 }

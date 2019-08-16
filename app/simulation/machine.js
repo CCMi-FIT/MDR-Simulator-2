@@ -5,7 +5,8 @@ import product from 'cartesian-product';
 import type { Id } from "../metamodel";
 import type { UfoaEntity, Generalisation, Association } from '../ufoa/metamodel';
 import * as ufoaDB from '../ufoa/db';
-import type { UfobEvent } from "../ufob/metamodel";
+import * as ufobDB from '../ufob/db';
+import type { UfobEvent, Situation } from "../ufob/metamodel";
 import type { UfobEventInst } from '../ufob-inst/metamodel';
 import type { EntityInst, GeneralisationInst, AssocInst } from "../ufoa-inst/metamodel";
 import * as ufoaInstMeta from '../ufoa-inst/metamodel';
@@ -15,6 +16,7 @@ import * as rules from './rules';
 
 type Snapshot = {
   sn_evInst: UfobEventInst,
+  sn_situation: Situation,
   sn_eis: Array<EntityInst>,
   sn_gis: Array<GeneralisationInst>,
   sn_ais: Array<AssocInst>
@@ -48,8 +50,65 @@ export function initialize() {
 
 // Accessing {{{1
 
-export function getEvents(): Array<UfobEventInst> {
+export function getFiredEventsInsts(): Array<UfobEventInst> {
   return simState.sim_snapshots.map(sn => sn.sn_evInst);
+}
+
+export function getFiredEvents(): Array<UfobEvent> {
+  const firedEvs = getFiredEventsInsts().map(evi => ufobDB.getUfobEventById(evi.evi_ev_id));
+  if (firedEvs.includes(null)) {
+    console.error("getFiredEvents: non-existent event in an instance");
+    return [];
+  } else {
+    // $FlowFixMe
+    return firedEvs;
+  }
+}
+
+export function getFiredEventsIds(): Array<Id> {
+  return getFiredEvents().map(ev => ev.ev_id);
+}
+
+export function getPastSituations(): Array<Situation> {
+  return simState.sim_snapshots.map(sn => sn.sn_situation);
+
+ }
+
+export function getPastSituationsIds(): Array<Id> {
+  return getPastSituations().map(s => s.s_id);
+}
+
+export function getCurrentEvent(): UfobEvent {
+  const evId = simState.sim_snapshots[simState.sim_currentEventIdx].sn_evInst.evi_ev_id;
+  const ev = ufobDB.getUfobEventById(evId);
+  if (!ev) {
+    throw(`getCurrentEvent: event id=${evId} does not exist`);
+  } else {
+    return ev;
+  }
+}
+
+export function getLastEvent(): ?UfobEvent {
+  return R.last(getFiredEvents());
+}
+
+export function getLastSituation(): ?Situation {
+  const lEv = getLastEvent();
+  if (!lEv) {
+    return null;
+  } else {
+    const sId = lEv.ev_to_situation_id;
+    const s = ufobDB.getSituationById(sId);
+    if (!s) {
+      throw(`getLastSituation: situation id=${sId} does not exist`);
+    } else {
+      return s;
+    }
+  }
+}
+
+export function getCurrentSituation(): Situation {
+  return simState.sim_snapshots[simState.sim_currentEventIdx].sn_situation;
 }
 
 export function getEntityInsts(): Array<EntityInst> {
@@ -105,10 +164,6 @@ export function isValid(): boolean {
 
 export function isInPresent(): boolean {
   return simState.sim_currentEventIdx === simState.sim_snapshots.length - 1;
-}
-
-export function isCurrentEv(evi: UfobEventInst): boolean {
-  return simState.sim_snapshots[simState.sim_currentEventIdx].sn_evInst.evi_id === evi.evi_id;
 }
 
 export function getMissingGIs(insts: Array<EntityInst>, presentGIs: Array<GeneralisationInst>): Array<GeneralisationInst> {
@@ -225,26 +280,40 @@ export function invalidate() {
 
 export function commitEvent(ev: UfobEvent) {
   const evi = ufobInstMeta.newEventInst("evi_" + simState.sim_snapshots.length.toString(), ev.ev_id);
-  const snapshot: Snapshot = {
-    sn_evInst: evi,
-    sn_eis: simState.sim_eis,
-    sn_gis: simState.sim_gis,
-    sn_ais: simState.sim_ais
-  };
-  simState.sim_snapshots.push(snapshot);
-  simState.sim_currentEventIdx = simState.sim_snapshots.length - 1;
+  const s = ufobDB.getSituationById(ev.ev_to_situation_id);
+  if (!s) {
+    throw(`commitEvent: situation id=${ev.ev_to_situation_id} referenced from event id=${ev.ev_id} does not exist.`);
+  } else {
+    const snapshot: Snapshot = {
+      sn_evInst: evi,
+      sn_situation: s,
+      sn_eis: simState.sim_eis,
+      sn_gis: simState.sim_gis,
+      sn_ais: simState.sim_ais
+    };
+    simState.sim_snapshots.push(snapshot);
+    simState.sim_currentEventIdx = simState.sim_snapshots.length - 1;
+  }
 }
 
-export function switchCurrent(evi: UfobEventInst) {
-  const idx = simState.sim_snapshots.findIndex(sn => sn.sn_evInst.evi_id === evi.evi_id);
+// Switches currentEventIdx to the specified Snapshot based on the given Situation
+export function switchCurrentSituation(situation: Situation) {
+  const idx = simState.sim_snapshots.findIndex(sn => sn.sn_situation.s_id === situation.s_id);
   if (idx < 0) {
-    console.error(`switchCurrent: evi_id=${evi.evi_id} not present in events log`);
+    console.error(`switchCurrentSituation: s_id=${situation.s_id} not present in timeline`);
   } else {
     simState.sim_eis = R.clone(simState.sim_snapshots[idx].sn_eis);
     simState.sim_ais = R.clone(simState.sim_snapshots[idx].sn_ais);
     simState.sim_gis = R.clone(simState.sim_snapshots[idx].sn_gis);
     simState.sim_currentEventIdx = idx;
   }
+}
+
+// Cuts off all events after lastEventIdx and returnes the cut Event insts
+export function moveToCurrent(): Array<UfobEventInst> {
+  const splitted = R.splitAt(simState.sim_currentEventIdx + 1, simState.sim_snapshots);
+  simState.sim_snapshots = splitted[0];
+  return splitted[1].map(sn => sn.sn_evInst);
 }
 
 

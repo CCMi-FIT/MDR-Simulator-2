@@ -6,8 +6,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SplitPane from 'react-split-pane';
 import { Tabs, Tab } from '../../components';
+import type { Situation } from '../../ufob/metamodel';
 import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import * as ufobDB from '../../ufob/db';
+import * as diagram from './diagram';
 import { cloneVisModel } from '../../diagram';
 import * as machine from './../machine';
 import * as panels from '../../panels';
@@ -22,8 +24,7 @@ import * as dispatch from './dispatch';
 
 type Props = { };
 type State = {
-  eventsLog: Array<UfobEventInst>,
-  showEventsLog: bool
+  showTimeline: bool
 };
 
 var ufobVisModel: any = null;
@@ -39,65 +40,88 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      eventsLog: [],
-      showEventsLog: false
+      showTimeline: false
     };
     dispatch.addUfoBDiagramClickHandler(this.ufobDiagramClicked);
   }
 
   // Events {{{2
   ufobDiagramClicked = () => {
-    this.state.eventsLog = machine.getEvents();
     this.forceUpdate();
   }
 
   // Actions {{{2
-  switchEvent = (evi: UfobEventInst) => {
+  switchCurrentSituation = (s: Situation) => {
     ufoaInstVisModel = ufoaInstDiagram.newVis();
     const ufoaInstDiagramContainer = panels.getSimInstDiagram();
     if (ufoaInstDiagramContainer) {
       ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
     }
-    machine.switchCurrent(evi);
+    machine.switchCurrentSituation(s);
     ufoaInstDiagram.addEntityInsts(ufoaInstVisModel, machine.getEntityInsts());
     ufoaInstDiagram.addAInsts(ufoaInstVisModel, machine.getAInsts());
     ufoaInstDiagram.addGInsts(ufoaInstVisModel, machine.getGInsts());
   }
 
+  moveToCurrent = () => {
+    const removedEvis = machine.moveToCurrent();
+    const removedEvs = removedEvis.map(evi => ufobDB.getUfobEventById(evi.evi_ev_id));
+    if (removedEvs.includes(null)) {
+      console.error("moveToCurrent(): non-existent event instance found");
+    } else {
+      // $FlowFixMe
+      diagram.colorise(ufobVisModel, machine);
+    }
+    this.forceUpdate();
+  }
+
   // Rendering {{{2
-
   // Simulation Pane {{{3
-
-  // Events Log {{{4
-
-  renderEvent = (evi: UfobEventInst) => {
-    const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
+  // Timeline {{{4
+  renderSituation = (s: Situation) => {
+    const mLast = machine.getLastSituation();
+    const isLast = mLast ? mLast.s_id === s.s_id : false;
+    const isCurrent = machine.getCurrentSituation().s_id === s.s_id;
     return (
-      <ul key={evi.evi_id} className="list-group list-group-flush">
-        <li className="list-group-item clickable-log"
+      <ul key={s.s_id} className="list-group list-group-flush">
+        <li className={"list-group-item pr-0 pt-0 pb-0" + (!isCurrent ? " clickable-log" : "")}
           onClick={() => { 
-            this.switchEvent(evi);
+            this.switchCurrentSituation(s);
             this.forceUpdate();
           }}
         >
           {(() => {
-            const label = mev ? mev.ev_name : "invalid ev_id";
             return (
-              machine.isCurrentEv(evi) ?
-              <strong>{label}</strong>
-              : label);
+              <div className="d-flex flex-row align-items-center">
+                <div>
+                  {isCurrent ? <strong>{s.s_name}</strong> : s.s_name}
+                </div>
+                {isCurrent && !isLast ? 
+                  (<div className="ml-auto">
+                    <button 
+                    type="button"
+                    className="btn btn-light"
+                    data-toggle="tooltip" data-placement="right" title="Move to this state"
+                    onClick={() => this.moveToCurrent()}>
+                      <i className="fas fa-plane"></i>
+                    </button>
+                  </div>)
+                  : ""
+                }
+              </div>
+            );
           })()}
         </li>
       </ul>
     );
   }
 
-  renderEventsLog() {
+  renderTimeline() {
     return (
-      this.state.showEventsLog ? 
+      this.state.showTimeline ? 
         <div className="events-log-panel">
           <div className="card">
-            { this.state.eventsLog.map(this.renderEvent) }
+            { machine.getPastSituations().map(this.renderSituation) }
           </div>
         </div>
       : "" 
@@ -113,7 +137,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
           className="btn btn-secondary"
           data-toggle="tooltip" data-placement="bottom" title="Show/hide timeline"
           onClick={() => this.setState(
-            (state: State) => R.mergeDeepRight(state, { showEventsLog: !state.showEventsLog })
+            (state: State) => R.mergeDeepRight(state, { showTimeline: !state.showTimeline })
           )}>
             <i className="fas fa-history"></i>
           </button>
@@ -133,7 +157,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     return (
       <div>
         {this.renderSimulationToolbar()}
-        {this.renderEventsLog()}
+        {this.renderTimeline()}
         <div id={panels.simUfobDiagramId}></div>
       </div>
     );
