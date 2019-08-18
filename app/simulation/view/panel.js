@@ -6,10 +6,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SplitPane from 'react-split-pane';
 import { Tabs, Tab } from '../../components';
+import type { Id } from '../../metamodel.js';
 import type { Situation } from '../../ufob/metamodel';
-import type { UfobEventInst } from '../../ufob-inst/metamodel';
 import * as ufobDB from '../../ufob/db';
-import * as diagram from './diagram';
+import * as diagram from '../../diagram';
+import * as simDiagram from './diagram';
 import { cloneVisModel } from '../../diagram';
 import * as machine from './../machine';
 import * as panels from '../../panels';
@@ -18,13 +19,15 @@ import * as ufoaInstDiagram from '../../ufoa-inst/view/diagram';
 import type { VisModel } from '../../diagram';
 import * as dispatch from './dispatch';
 
-//import { counter as Counter } from '../../purescript/Counter';
 
 // Decls {{{1
 
 type Props = { };
 type State = {
-  showTimeline: bool
+  showTimeline: boolean,
+  fireButtonPos: {left: number, top: number},
+  fireButtonVisible: boolean,
+  eventToFire: ?Id
 };
 
 var ufobVisModel: any = null;
@@ -33,6 +36,13 @@ var simUfobNetwork: any = null;
 var ufoaInstVisModel: any = null;
 var ufoaInstNetwork: any = null;
 
+// Handling {{{1
+
+function setWmdaTab(heading: string, body: string) {
+  $(`#${panels.wmdaTitleId}`).html(heading);
+  $(`#${panels.wmdaPanelId}`).html(body);
+}
+
 // Component {{{1
 
 class SimulationBox extends panels.PaneDialog<Props, State> {
@@ -40,17 +50,66 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      showTimeline: false
+      showTimeline: false,
+      fireButtonPos: {left: 0, top: 0},
+      fireButtonVisible: false,
+      eventToFire: null
     };
-    dispatch.addUfoBDiagramClickHandler(this.ufobDiagramClicked);
+    dispatch.addEventClickHandler(this.clickEventEv);
+    dispatch.addSituationClickHandler(this.clickSituationEv);
+    dispatch.addUnselectHandler(this.hideFireButton);
+    dispatch.addDragStartHandler(this.hideFireButton);    
+    dispatch.addZoomHandler(this.hideFireButton);    
   }
 
+
   // Events {{{2
-  ufobDiagramClicked = () => {
-    this.forceUpdate();
+
+  showFireButton = (evId: Id) => {
+    const bb = diagram.getBoundingBox(simUfobNetwork, evId);
+    const height = bb.bottom - bb.top;
+    const fbPos = { left: bb.right, top: bb.top + (height / 2) + 20};
+    this.setState({ fireButtonPos: fbPos, fireButtonVisible: true, eventToFire: evId });
+  }
+
+  clickEventEv = (evId: Id) => {
+    this.showFireButton(evId);
+    let ev = ufobDB.getUfobEventById(evId);               
+    if (ev) {
+      setWmdaTab(ev.ev_name, ev.ev_wmda_text);
+    } else {
+      console.error(`Inconsistency: event ${evId} not present in the model`);
+    }
+  }
+
+  clickSituationEv = (sId: Id) => {
+    let s = ufobDB.getSituationById(sId);               
+    if (s) {
+      setWmdaTab(s.s_name, s.s_wmda_text);
+    } else {
+      throw(`Inconsistency: situation${sId} not present in the model`);
+    }
   }
 
   // Actions {{{2
+  hideFireButton = () => {
+    this.setState({ fireButtonVisible: false, eventToFire: null });
+    simUfobNetwork.unselectAll();
+  }
+
+  fireEvent = () => {
+    if (machine.isInPresent()) {
+      const evId = this.state.eventToFire;
+      if (evId) {
+        simDiagram.doStep(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, evId);
+      } else {
+        throw("eventToFire is null, this should not happen");
+      }
+    } else {
+      panels.displayError("You are currently viewing a non-last state. Move to it first to make the transition.");
+    }
+  }
+
   switchCurrentSituation = (s: Situation) => {
     ufoaInstVisModel = ufoaInstDiagram.newVis();
     const ufoaInstDiagramContainer = panels.getSimInstDiagram();
@@ -70,7 +129,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       console.error("moveToCurrent(): non-existent event instance found");
     } else {
       // $FlowFixMe
-      diagram.colorise(ufobVisModel, machine);
+      simDiagram.colorise(ufobVisModel, machine);
     }
     this.forceUpdate();
   }
@@ -86,6 +145,7 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
       <ul key={s.s_id} className="list-group list-group-flush">
         <li className={"list-group-item pr-0 pt-0 pb-0" + (!isCurrent ? " clickable-log" : "")}
           onClick={() => { 
+            //TODO
             this.switchCurrentSituation(s);
             this.forceUpdate();
           }}
@@ -153,12 +213,37 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
     );
   }
 
+  renderFireButton = () => {
+    return (
+      this.state.fireButtonVisible ? 
+      (<button 
+      id="fire-button"
+      type="button"
+      className="btn btn-danger"
+      data-toggle="tooltip" data-placement="right" title="Play event"
+      style={{
+        position: "absolute",
+        left: this.state.fireButtonPos.left,
+        top: this.state.fireButtonPos.top,
+        width: "40px",
+        height: "40px",
+        padding: "6px",
+        fontSize: "12px",
+        borderRadius: "50%"}}
+      onClick={this.fireEvent}>
+        <i className="fas fa-play"></i>
+      </button>)
+      : ""
+    );
+  }
+
   renderSimulationPane() {
     return (
       <div>
         {this.renderSimulationToolbar()}
         {this.renderTimeline()}
         <div id={panels.simUfobDiagramId}></div>
+        {this.renderFireButton()}
       </div>
     );
   }
@@ -206,8 +291,8 @@ class SimulationBox extends panels.PaneDialog<Props, State> {
         <div className="container-fluid">
           <div className="row">
             <div className="col">
-              <h2 id={panels.wmdaTitleId}></h2> {/*Populated by dispatch*/}
-              <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch*/}
+              <h2 id={panels.wmdaTitleId}></h2> {/*Populated by dispatch.setWmdaTab()*/}
+              <div id={panels.wmdaPanelId} style={{ paddingTop: "10px" }}></div> {/*Populated by dispatch.setWmdaTab()*/}
             </div>
           </div>
         </div>
@@ -242,7 +327,7 @@ export function initialize(ufobVisModel1: VisModel) {
       simUfobNetwork = ufobDiagram.renderUfob(ufobVisModel, simUfobDiagramContainer);
       ufoaInstNetwork = ufoaInstDiagram.renderUfoaInst(ufoaInstDiagramContainer, ufoaInstVisModel);
       simUfobNetwork.setOptions({ manipulation: false });
-      simUfobNetwork.on("click", params => dispatch.dispatchUfoBDiagramClick(machine, ufobVisModel, simUfobNetwork, ufoaInstVisModel, ufoaInstNetwork, params));
+      dispatch.registerHandlers(ufobVisModel, simUfobNetwork);
       simUfobNetwork.fit();
     }
   }

@@ -11,6 +11,18 @@ export type VisId = string;
 export type VisLabel = string;
 export type VisColor = string;
 
+export type Coords = {
+  x: number,
+  y: number
+};
+
+type BoundingBox = {
+  top: number,
+  left: number,
+  right: number,
+  bottom: number
+};
+
 export type VisNode = { 
   id: VisId,
   label: VisLabel,
@@ -37,6 +49,13 @@ export type VisModel = {
 
 export type Layout = {
   [key: Id]: { x: number, y: number}
+}
+
+export function getBoundingBox(network: any, nodeId: Id): BoundingBox {
+  const bb: BoundingBox = network.getBoundingBox(nodeId);
+  const topLeft = network.canvasToDOM({x: bb.left, y: bb.top});
+  const bottomRight = network.canvasToDOM({x: bb.right, y: bb.bottom});
+  return { left: topLeft.x, right: bottomRight.x, top: topLeft.y, bottom: bottomRight.y };
 }
 
 export function renderEntity(e: UfoaEntity) {

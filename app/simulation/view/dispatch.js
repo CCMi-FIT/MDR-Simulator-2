@@ -3,55 +3,58 @@
 import NanoEvents from 'nanoevents';
 import type { Id } from '../../metamodel';
 import type { VisModel } from '../../diagram';
-import * as ufobDB from '../../ufob/db';
-import * as diagram from './diagram';
-import * as panels from '../../panels';
 
 var ufoBDiagramEmmiter = new NanoEvents();
+const EVENT_CLICK = "eventClick";
+const SITUATION_CLICK = "situationClick";
+const UNSELECTED = "unselected";
+const DRAG_START = "dragStart";
+const ZOOM = "zoom";
 
-export function addUfoBDiagramClickHandler(handler: any) {
-  ufoBDiagramEmmiter.on("ufobClick", handler);
+// Event handlers {{{1
+export function addEventClickHandler(handler: (Id) => void) {
+  ufoBDiagramEmmiter.on(EVENT_CLICK, (evId: Id) => handler(evId));
 }
 
-async function handleEvent(evId: Id, machine: any, ufobVisModel: VisModel, ufoaInstVisModel: VisModel, ufoaInstNetwork: any) {
-  let ev = ufobDB.getUfobEventById(evId);               
-  if (ev) {
-    $(`#${panels.wmdaTitleId}`).html(ev.ev_name);
-    $(`#${panels.wmdaPanelId}`).html(ev.ev_wmda_text);
-  } else {
-    console.error(`Inconsistency: event ${evId} not present in the model`);
-  }
-  if (machine.isInPresent()) {
-    await diagram.doStep(machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork, evId);
-    ufoBDiagramEmmiter.emit("ufobClick");
-  } else {
-    panels.displayError("You are currently viewing a non-last state. Move to it first to make the transition.");
-  }
+export function addSituationClickHandler(handler: (Id) => void) {
+  ufoBDiagramEmmiter.on(SITUATION_CLICK, (sId: Id) => handler(sId));
 }
 
-function handleSituation(sId: Id) {
-  let s = ufobDB.getSituationById(sId);               
-  if (s) {
-    $(`#${panels.wmdaTitleId}`).html(s.s_name);
-    $(`#${panels.wmdaPanelId}`).html(s.s_wmda_text);
-  } else {
-    console.error(`Inconsistency: situation${sId} not present in the model`);
-  }
+export function addUnselectHandler(handler: () => void) {
+  ufoBDiagramEmmiter.on(UNSELECTED, handler);
 }
 
-export function dispatchUfoBDiagramClick(machine: any, ufobVisModel: VisModel, simUfobNetwork: any,  ufoaInstVisModel: VisModel, ufoaInstNetwork: any, params: any) {
+export function addDragStartHandler(handler: () => void) {
+  ufoBDiagramEmmiter.on(DRAG_START, handler);
+}
+
+export function addZoomHandler(handler: () => void) {
+  ufoBDiagramEmmiter.on(ZOOM, handler);
+}
+
+// Registering functions {{{1
+
+function dispatchUfoBDiagramClick(ufobVisModel: VisModel, params: any) {
   const nodeId = params.nodes[0];
   if (nodeId) {
     const node = ufobVisModel.nodes.get(nodeId);
     if (node.type === "event") {
-      handleEvent(nodeId, machine, ufobVisModel, ufoaInstVisModel, ufoaInstNetwork);
+      ufoBDiagramEmmiter.emit(EVENT_CLICK, nodeId);
     } else { // situation ... hopefully
       if (node.type === "situation") {
-        handleSituation(nodeId);
+        ufoBDiagramEmmiter.emit(SITUATION_CLICK, nodeId);
       } else {
         console.error("Unknown UFO-B diagram node type: " + node.type);
       }
     }
+  } else {
+    ufoBDiagramEmmiter.emit(UNSELECTED);
   }
 }
+export function registerHandlers(ufobVisModel: VisModel, simUfobNetwork: any) {
+  simUfobNetwork.on("click", params => dispatchUfoBDiagramClick(ufobVisModel, params));
+  simUfobNetwork.on("dragStart", () => ufoBDiagramEmmiter.emit(DRAG_START));
+  simUfobNetwork.on("zoom", () => ufoBDiagramEmmiter.emit(ZOOM));
+}
+
 

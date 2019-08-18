@@ -210,7 +210,6 @@ export function colorise(ufobVisModel: VisModel, machine: any) {
           ufobVisModel.nodes.update({ id: n.id, color: unvisitedCol });
         }
         break;
-      default: throw("colorise: unknown node type " + n.type);
     }
   });
 }
