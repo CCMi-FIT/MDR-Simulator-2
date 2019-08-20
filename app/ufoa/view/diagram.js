@@ -1,6 +1,7 @@
 //@flow
 
-import * as vis from 'vis';
+import * as visNetwork from "vis-network";
+import * as visData from "vis-data";
 import type { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
 import type { VisNode, VisEdge, VisModel } from '../../diagram';
 import * as ufoaMeta from "../metamodel";
@@ -54,8 +55,9 @@ export function assoc2vis(a: Association) :VisEdge {
 export function model2vis(model: UfoaModel, graphics: any): VisModel {
   const gEdges = model.generalisations.map(generalisation2vis);
   const aEdges = model.associations.map(assoc2vis);
-  let nodesDataSet = new vis.DataSet();
-  let edgesDataSet = new vis.DataSet();
+  let nodesDataSet = new visData.DataSet();
+  console.log(nodesDataSet);
+  let edgesDataSet = new visData.DataSet();
   nodesDataSet.add(model.entities.map(e => entity2vis(e, graphics[e.e_id])));
   edgesDataSet.add(gEdges.concat(aEdges));
   return {
@@ -91,7 +93,6 @@ function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
 }
 
 export function renderUfoa(container: HTMLElement, ufoaVisModel: VisModel): any {
-  let visNetwork;
   const options = {
     nodes: {
       shape: "box"
@@ -127,6 +128,5 @@ export function renderUfoa(container: HTMLElement, ufoaVisModel: VisModel): any 
     }
   };
   
-  visNetwork = new vis.Network(container, ufoaVisModel, options);
-  return visNetwork;
+  return new visNetwork.Network(container, ufoaVisModel, options);
 }

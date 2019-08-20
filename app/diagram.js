@@ -1,11 +1,11 @@
 //@flow
 
-import * as R from 'ramda';
-import * as vis from 'vis';
-import * as React from 'react';
-import type { Id } from './metamodel';
-import type { UfoaEntity } from './ufoa/metamodel';
-import * as ufoaMeta from './ufoa/metamodel';
+import * as R from "ramda";
+import * as visData from "vis-data";
+import * as React from "react";
+import type { Id } from "./metamodel";
+import type { UfoaEntity } from "./ufoa/metamodel";
+import * as ufoaMeta from "./ufoa/metamodel";
 
 export type VisId = string;
 export type VisLabel = string;
@@ -71,8 +71,8 @@ export function cloneVisModel(visModel: VisModel): VisModel {
   const nodes2 = R.clone(visModel.nodes.get());
   const edges2 = R.clone(visModel.edges.get());
   return ({
-    nodes: new vis.DataSet(nodes2),
-    edges: new vis.DataSet(edges2)
+    nodes: new visData.DataSet(nodes2),
+    edges: new visData.DataSet(edges2)
   });
 }
 

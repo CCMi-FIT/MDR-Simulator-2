@@ -1,7 +1,8 @@
 //@flow
 
 import * as R from 'ramda';
-import * as vis from 'vis';
+import * as visNetwork from 'vis-network';
+import * as visData from 'vis-data';
 import type { EntityInst, GeneralisationInst, AssocInst } from '../../ufoa-inst/metamodel';
 import * as ufoaDB from '../../ufoa/db';
 import * as ufoaMeta from '../../ufoa/metamodel';
@@ -11,8 +12,8 @@ import type { VisNode, VisEdge, VisModel } from '../../diagram';
 // Initialisation {{{1
 
 export function newVis(): VisModel {
-  let nodesDataSet = new vis.DataSet();
-  let edgesDataSet = new vis.DataSet();
+  let nodesDataSet = new visData.DataSet();
+  let edgesDataSet = new visData.DataSet();
   return {
     nodes: nodesDataSet,
     edges: edgesDataSet
@@ -121,7 +122,7 @@ export function addAInsts(visModel: VisModel, ais: Array<AssocInst>) {
 // Render {{{1
 
 export function renderUfoaInst(container: HTMLElement, visModel: VisModel): any {
-  let visNetwork;
+  let network;
   const options = {
     edges: {
       smooth: false
@@ -140,6 +141,6 @@ export function renderUfoaInst(container: HTMLElement, visModel: VisModel): any 
     },
   };
   
-  visNetwork = new vis.Network(container, visModel, options);
-  return visNetwork;
+  network = new visNetwork.Network(container, visModel, options);
+  return network;
 }

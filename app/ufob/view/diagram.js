@@ -1,16 +1,17 @@
 //@flow
 
-import * as R from 'ramda';
-import * as vis from 'vis';
-import type { Id } from '../../metamodel';
+import * as R from "ramda";
+import * as visNetwork from "vis-network";
+import * as visData from "vis-data";
+import type { Id } from "../../metamodel";
 import type { UfobEvent, Situation, Disposition, UfobModel } from "../metamodel";
-import type { VisNode, VisEdge, VisModel } from '../../diagram';
-import * as diagram from '../../diagram';
+import type { VisNode, VisEdge, VisModel } from "../../diagram";
+import * as diagram from "../../diagram";
 import * as ufobModel from "../model";
 import * as ufobDB from "../db";
 import * as newNodeModal from "./dialogs/newNodeModal";
-import * as situationDialog from './dialogs/situationDialog';
-import * as eventDialog from './dialogs/eventDialog';
+import * as situationDialog from "./dialogs/situationDialog";
+import * as eventDialog from "./dialogs/eventDialog";
 
 function situation2vis(s: Situation, coords: any): VisNode {
   return Object.assign({
@@ -45,8 +46,8 @@ function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, ev_id: 
 }
 
 export function model2vis(model: UfobModel, elementGraphics: any): VisModel {
-  let nodesDataSet = new vis.DataSet();
-  let edgesDataSet = new vis.DataSet();
+  let nodesDataSet = new visData.DataSet();
+  let edgesDataSet = new visData.DataSet();
   nodesDataSet.add(model.situations.map(s => situation2vis(s, elementGraphics[s.s_id])));
   nodesDataSet.add(model.events.map(ev => event2vis(ev, elementGraphics[ev.ev_id])));
   edgesDataSet.add(R.flatten(model.situations.map(s => s.s_dispositions.map(d => d.d_events_ids.map(ev_id => situation2eventEdge(model, s, d, ev_id))))));
@@ -83,7 +84,6 @@ function addNodeHandler(ufobVisModel: VisModel, visNetwork, nodeData, callback) 
 }
 
 export function renderUfob(ufobVisModel: VisModel, container: Element): any {
-  let visNetwork;
   const options = {
     edges: {
       smooth: false
@@ -116,6 +116,5 @@ export function renderUfob(ufobVisModel: VisModel, container: Element): any {
     }
   };
   
-  visNetwork = new vis.Network(container, ufobVisModel, options);
-  return visNetwork;
+  return new visNetwork.Network(container, ufobVisModel, options);
 }
