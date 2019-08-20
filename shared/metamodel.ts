@@ -1,5 +1,3 @@
-//@flow
-
 // Common types
 
 export type Id = string;

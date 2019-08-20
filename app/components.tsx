@@ -1,22 +1,20 @@
-// @flow
-
 // Imports {{{1
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as panels from './panels';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as panels from "./panels";
 
 // Panel {{{1
-type PanelProps = {
-  heading: React.Node,
-  inner?: boolean,
-  children?: React.Node
-};
+interface PanelProps {
+  heading: React.Node;
+  inner?: boolean;
+  children?: React.Node;
+}
 
 export function Panel(props: PanelProps) {
   return (
     <div className="card">
       <div className="card-body">
-        {props.inner ? 
+        {props.inner ?
           <h6 className="card-title">{props.heading}</h6>
         : <h5 className="card-title">{props.heading}</h5>}
         {props.children}
@@ -28,7 +26,7 @@ export function Panel(props: PanelProps) {
 // Modal {{{1
 
 export function Modal(props: PanelProps) {
-  return ( 
+  return (
     <div className="modal fade" id="app-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog" role="document">
         <div className="modal-content">

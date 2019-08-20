@@ -1,5 +1,7 @@
 // @flow
 
+import $ from "jquery";
+import { Promise } from 'es6-promise';
 import * as ufoa from "./ufoa/main";
 import * as ufob from "./ufob/main";
 import * as simulation from "./simulation/main";

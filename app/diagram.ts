@@ -1,11 +1,8 @@
 //@flow
 
-import * as R from 'ramda';
-import * as vis from 'vis';
-import * as React from 'react';
-import type { Id } from './metamodel';
-import type { UfoaEntity } from './ufoa/metamodel';
-import * as ufoaMeta from './ufoa/metamodel';
+import * as R from "ramda";
+import * as vis from "vis";
+import * as ufoaMeta from "./ufoa/metamodel";
 
 export type VisId = string;
 export type VisLabel = string;
