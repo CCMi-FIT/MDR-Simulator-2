@@ -12,7 +12,7 @@ function dispatchNode(nodeId: Id, ufobVisModel: VisModel) {
     case "situation":
       let s = ufobDB.getSituationById(nodeId);
       if (!s) {
-        console.error("Consistency error: situation s_id=" + nodeId + " not found in the UFO-B model"); 
+        console.error(new Error("Consistency error: situation s_id=" + nodeId + " not found in the UFO-B model"); 
       } else {
         situationDialog.render(s, ufobVisModel);
       }
@@ -20,13 +20,13 @@ function dispatchNode(nodeId: Id, ufobVisModel: VisModel) {
     case "event":
       let ev = ufobDB.getUfobEventById(nodeId);
       if (!ev) {
-        console.error("Consistency error: event ev_id=" + nodeId + " not found in the UFO-B model"); 
+        console.error(new Error("Consistency error: event ev_id=" + nodeId + " not found in the UFO-B model"); 
       } else {
         eventDialog.render(ev, ufobVisModel);
       }
       break;
     default:
-      console.error("Invalid node type " + node.type + " appeared in the UFO-B graph.");
+      console.error(new Error("Invalid node type " + node.type + " appeared in the UFO-B graph.");
   }
 }
 

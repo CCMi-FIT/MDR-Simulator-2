@@ -1,0 +1,1 @@
+../../shared/ufoa-inst/model.ts

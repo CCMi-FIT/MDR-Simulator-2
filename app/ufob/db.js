@@ -37,7 +37,7 @@ export function getEvents(): Array<UfobEvent> {
 export function getUfobEventById(ev_id: Id): ?UfobEvent {
   const res = ufobModel.getUfobEventById(model, ev_id);
   if (!res) {
-    console.error(`UFO-B database inconsistency: ev_id ${ev_id} not found.`);
+    console.error(new Error(`UFO-B database inconsistency: ev_id ${ev_id} not found.`);
   }
   return res; 
 }

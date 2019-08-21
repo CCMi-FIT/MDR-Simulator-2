@@ -1,75 +1,37 @@
-//@flow
-
 import * as R from "ramda";
-import * as vis from "vis";
-import * as ufoaMeta from "./ufoa/metamodel";
+import { Id } from "./metamodel";
+import * as visNetwork from "vis-network";
+import * as visData from "vis-data";
 
 export type VisId = string;
 export type VisLabel = string;
 export type VisColor = string;
 
-export type Coords = {
-  x: number,
-  y: number
-};
-
-type BoundingBox = {
-  top: number,
-  left: number,
-  right: number,
-  bottom: number
-};
-
-export type VisNode = { 
-  id: VisId,
-  label: VisLabel,
-  color?: VisColor,
-  x?: number,
-  y?: number
-};
-
-export type VisEdge = {
-  type?: "generalisation" | "association" | "genInst" | "assocInst",
-  from: VisId,
-  to: VisId,
-  label?: VisLabel,
-  width: number,
-  arrows?: any
-};
-
-export const emptyVisEdge = { from: "", to: "", label: "", width: 0 };
-
-export type VisModel = {
-  nodes: any,
-  edges: any
-};
-
-export type Layout = {
-  [key: Id]: { x: number, y: number}
+export interface BoundingBox {
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
 }
 
-export function getBoundingBox(network: any, nodeId: Id): BoundingBox {
+export const emptyVisEdge: visNetworktwork.Edge = { from: "", to: "", label: "", width: 0 };
+
+export interface Layout {
+  [key: Id]: { x: number, y: number};
+}
+
+export function getBoundingBox(network: visNetwork.Network, nodeId: Id): BoundingBox {
   const bb: BoundingBox = network.getBoundingBox(nodeId);
   const topLeft = network.canvasToDOM({x: bb.left, y: bb.top});
   const bottomRight = network.canvasToDOM({x: bb.right, y: bb.bottom});
   return { left: topLeft.x, right: bottomRight.x, top: topLeft.y, bottom: bottomRight.y };
 }
 
-export function renderEntity(e: UfoaEntity) {
-  return (
-    <div className="entity-box" style={{backgroundColor: ufoaMeta.entityColor(e)}}>
-      {ufoaMeta.entityTypeStr(e)}
-      <br/>
-      {e.e_name}
-    </div>);
-}
-
-export function cloneVisModel(visModel: VisModel): VisModel {
+export function cloneVisModel(visModel: visData.DataSet): DataSet {
   const nodes2 = R.clone(visModel.nodes.get());
   const edges2 = R.clone(visModel.edges.get());
   return ({
-    nodes: new vis.DataSet(nodes2),
-    edges: new vis.DataSet(edges2)
+    nodes: new visData.DataSet(nodes2),
+    edges: new visData.DataSet(edges2)
   });
 }
-

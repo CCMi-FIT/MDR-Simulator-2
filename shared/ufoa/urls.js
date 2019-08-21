@@ -1,6 +1,4 @@
-//@flow
-
-export { clientURL } from '../urls';
+export { clientURL } from "../urls";
 
 export const ufoaGetModel = "/ufoa/getModel";
 export const ufoaEntityUpdate = "/ufoa/entity/update";
@@ -13,4 +11,3 @@ export const ufoaAssociationDelete = "/ufoa/association/delete";
 export const ufoaGetGraphics = "/ufoa/getGraphics";
 export const ufoaGraphicsSave = "/ufoa/saveGraphics";
 export const ufoaGraphicsDelete = "/ufoa/deleteGraphics";
-

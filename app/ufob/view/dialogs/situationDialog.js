@@ -42,7 +42,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     const edges = this.props.ufobVisModel.edges;
     const sId = nodes.get().find(node => node.id === this.state.situation2.s_id).id;
     if (!sId) { 
-      console.error("Internal inconsistency in situationDialog/updateEdges");
+      console.error(new Error("Internal inconsistency in situationDialog/updateEdges");
     } else {
       const edgesIds = edges.get({ filter: edge => edge.from === sId }).map(edge => edge.id);
       edges.remove(edgesIds);

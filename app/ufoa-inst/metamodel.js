@@ -1,1 +1,0 @@
-../../shared/ufoa-inst/metamodel.js

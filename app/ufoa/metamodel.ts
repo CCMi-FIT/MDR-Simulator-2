@@ -1,0 +1,1 @@
+../../shared/ufoa/metamodel.ts
