@@ -1,13 +1,13 @@
-import * as R from "ramda";
+import * as _ from "lodash";
 import { Id, Name, Label, ValidationResult, validateElement } from "../metamodel";
 import { ufoaSchema } from "./schema";
-import { Ajv } from "ajv";
+import Ajv from "ajv";
 
+// Schema {{{1
 const ajv = new Ajv();
 ajv.addSchema(ufoaSchema);
 
 // Entity {{{1
-
 export type EntityType = "kind" | "subkind" | "role" | "phase" | "mode" | "relator" | "quantity" | "quality" | "collective";
 
 export const entityTypes: EntityType[] = ["kind", "subkind", "role", "phase", "mode", "relator", "quantity", "quality", "collective"];
@@ -174,7 +174,7 @@ export function isEmpty(model: UfoaModel) {
 
 export function getGeneralisationSets(model: UfoaModel): GSet[] {
   const gss = model.generalisations.map((g) => g.g_set);
-  return R.uniq(gss);
+  return _.uniq(gss);
 }
 
 export function validateModel(model: UfoaModel): ValidationResult {

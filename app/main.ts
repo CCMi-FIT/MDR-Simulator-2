@@ -1,7 +1,7 @@
-// @flow
-
-import * as $ from "jquery";
+import $ from "jquery";
 import { Promise } from "es6-promise";
+import { UfoaModel } from "./ufoa/metamodel";
+import { UfobModel } from "./ufob/metamodel";
 import * as ufoa from "./ufoa/main";
 import * as ufob from "./ufob/main";
 import * as simulation from "./simulation/main";
@@ -20,7 +20,7 @@ $(document).ready(() => {
     ufoaDB.loadGraphics(),
     ufobDB.loadModel(),
     ufobDB.loadGraphics()]).then(
-      ([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics]) => {
+      ([ufoaModel, ufoaEntityGraphics, ufobModel, ufobGraphics]: [UfoaModel, any, UfobModel, any]) => {
         panels.hideMsg();
         ufoa.initialise(ufoaModel, ufoaEntityGraphics);
         const ufobVisModel = ufob.initialise(ufobModel, ufobGraphics);

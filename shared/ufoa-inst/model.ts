@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import { Id } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association } from "../ufoa/metamodel";
 import { EntityInst, GeneralisationInst, AssocInst } from "./metamodel";
@@ -8,7 +7,7 @@ import { eiId } from "./metamodel";
 export function newEntityInst(entity: UfoaEntity, eiName: string = ""): EntityInst  {
   return({
     ei_e_id: entity.e_id,
-    eiName
+    ei_name: eiName
   });
 }
 
@@ -16,20 +15,20 @@ export function getEntityOfInst(inst: EntityInst, ufoaDB: any): UfoaEntity {
   return ufoaDB.getEntity(inst.ei_e_id);
 }
 
-export function getEntityInstById(insts: EntityInst[], eiId1: Id): EntityInst | null {
-  return insts.find((ei) => eiId(ei) === eiId1);
+export function getEntityInstById(insts: EntityInst[], eiId1: Id): EntityInst | undefined {
+  return insts.find((ei: EntityInst) => eiId(ei) === eiId1);
 }
 
 export function getInstsOfEntityId(insts: EntityInst[], eId: Id): EntityInst[] {
-  return insts.filter((ei) => ei.ei_e_id === eId);
+  return insts.filter((ei: EntityInst) => ei.ei_e_id === eId);
 }
 
 export function getInstsIdsOfGSet(allGInsts: GeneralisationInst[], generalisations: Generalisation[], gSetId: Id, supEiId: Id): Id[] {
-  const gsOfGSet: Generalisation[] = generalisations.filter((g) => g.g_set.g_set_id === gSetId);
-  const supId = gsOfGSet[0].g_sup_e_id;
-  console.assert(gsOfGSet.every((g) => g.g_sup_e_id === supId));
-  const gInsts = allGInsts.filter((gi1) => gi1.gi_sup_ei_id === supEiId);
-  return gInsts.map((gi1) => gi1.gi_sub_ei_id);
+  const gsOfGSet: Generalisation[] = generalisations.filter((g: Generalisation) => g.g_set.g_set_id === gSetId);
+  const supId: Id = gsOfGSet[0].g_sup_e_id;
+  console.assert(gsOfGSet.every((g: Generalisation) => g.g_sup_e_id === supId));
+  const gInsts = allGInsts.filter((gi1: GeneralisationInst) => gi1.gi_sup_ei_id === supEiId);
+  return gInsts.map((gi1: GeneralisationInst) => gi1.gi_sub_ei_id);
 }
 
 // Generalisation insts {{{1

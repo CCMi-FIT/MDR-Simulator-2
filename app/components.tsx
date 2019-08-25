@@ -1,13 +1,14 @@
 // Imports {{{1
+import { Promise } from "es6-promise";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as panels from "./panels";
 
 // Panel {{{1
 interface PanelProps {
-  heading: React.Node;
+  heading: React.ReactNode;
   inner?: boolean;
-  children?: React.Node;
+  children?: React.ReactNode;
 }
 
 export function Panel(props: PanelProps) {
@@ -24,10 +25,9 @@ export function Panel(props: PanelProps) {
 }
 
 // Modal {{{1
-
 export function Modal(props: PanelProps) {
   return (
-    <div className="modal fade" id="app-modal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade" id="app-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -45,34 +45,35 @@ export function Modal(props: PanelProps) {
   );
 }
 
-
 // Tabs {{{1
-//
-type TabsProps = {
-  activeTab: string,
-  id: string,
-  children?: any
-  //children?: React.ChildrenArray<React.Element<typeof Tab>>,
-};
+interface TabsProps {
+  activeTab: string;
+  id: string;
+  children?: any;
+}
 
-function activeCls(tab, props) {
-  const first: boolean = !props.children ? false : tab.props.tabId === props.children[0].props.tabId;
-  return first ? " active" : "";
+function activeCls(tab: React.ReactElement, props: TabsProps) {
+  if (tab) {
+    const first: boolean = !props.children ? false : tab.props.tabId === props.children[0].props.tabId;
+    return first ? " active" : "";
+  } else {
+    return "";
+  }
 }
 
 export function Tabs(props: TabsProps) {
   return (
     <div>
       <ul className="nav nav-tabs" id={props.id} role="tablist">
-        {!props.children ? "" : props.children.map(tab => 
+        {!props.children ? "" : props.children.map((tab: React.ReactElement) =>
           <li key={tab.props.tabId} className="nav-item">
             <a className={"nav-link" + activeCls(tab, props)} id={`${tab.props.tabId}-tab`} data-toggle="tab" href={`#${tab.props.tabId}`} role="tab">{tab.props.title}</a>
           </li>
         )}
       </ul>
       <div className="tab-content">
-      {!props.children ? "" : props.children.map(tab => 
-        <div 
+      {!props.children ? "" : props.children.map((tab: React.ReactElement) =>
+        <div
           key={tab.props.tabId}
           id={tab.props.tabId}
           className={"tab-pane" + activeCls(tab, props)}
@@ -86,12 +87,11 @@ export function Tabs(props: TabsProps) {
 }
 
 // Tab {{{1
-
-type TabProps = {
-  tabId: string,
-  title: string,
-  children?: React.ChildrenArray<React.Element<any>>,
-};
+interface TabProps {
+  tabId: string;
+  title: string;
+  children?: any;
+}
 
 export function Tab(props: TabProps) {
   return (
@@ -103,21 +103,21 @@ export function Tab(props: TabProps) {
 
 // Confirm {{{1
 
-type ConfirmProps = {
-  heading: React.Node,
-  subject: string,
-  body: React.Node,
-  resolve: (any) => any,
-  reject: () => void
-};
+interface ConfirmProps {
+  heading: React.ReactNode;
+  subject: string;
+  body: React.ReactNode;
+  resolve: () => any;
+  reject: () => void;
+}
 
 export class Confirm extends React.Component<ConfirmProps> {
 
-  componentDidMount() {
+  public componentDidMount() {
     panels.showModal();
   }
 
-  render() {
+  public render() {
     return (
       <Modal heading={this.props.heading}>
         <div className="container-fluid">
@@ -151,7 +151,7 @@ export class Confirm extends React.Component<ConfirmProps> {
   }
 }
 
-export function renderConfirmPm(heading: React.Node, subject: string, body: React.Node): Promise<any> {
+export function renderConfirmPm(heading: React.ReactNode, subject: string, body: React.ReactNode): Promise<any> {
   return new Promise((resolve, reject) => {
     const panel = panels.getModal();
     if (panel) {

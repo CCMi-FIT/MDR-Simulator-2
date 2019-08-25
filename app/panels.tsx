@@ -19,11 +19,11 @@ export const wmdaTitleId = "wmda-panel-label";
 export const eventsLogId = "events-log";
 
 export function getWindowHeight(): number {
-  return $(window).innerHeight();
+  return $(window).innerHeight() || 0;
 }
 
 export function getWindowWidth(): number {
-  return $(window).innerWidth();
+  return $(window).innerWidth() || 0;
 }
 
 export function fitPanes() {
@@ -50,49 +50,50 @@ export function fitPanes() {
 
 // Getting
 
-export function getPanel(panelId: string): ?HTMLElement {
+export function getPanel(panelId: string): HTMLElement | null {
   return document.getElementById(panelId);
 }
 
-export function getDialogUfoa(): ?HTMLElement {
+export function getDialogUfoa(): HTMLElement | null {
   return getPanel(dialogUfoaId);
 }
 
-export function getDialogUfob(): ?HTMLElement {
+export function getDialogUfob(): HTMLElement | null {
   return getPanel(dialogUfobId);
 }
 
-export function getDialogSim(): ?HTMLElement {
+export function getDialogSim(): HTMLElement | null {
   return getPanel(dialogSimId);
 }
 
-export function getModal(): ?HTMLElement {
+export function getModal(): HTMLElement | null {
   disposeModalComp(modalBoxId);
   return getPanel(modalBoxId);
 }
 
-export function getUfoaBox(): ?HTMLElement {
+export function getUfoaBox(): HTMLElement | null {
   return getPanel(ufoaBoxId);
 }
 
-export function getUfobBox(): ?HTMLElement {
+export function getUfobBox(): HTMLElement | null {
   return getPanel(ufobBoxId);
 }
 
-export function getSimulationBox(): ?HTMLElement {
+export function getSimulationBox(): HTMLElement | null {
   return getPanel(simulationBoxId);
 }
 
-export function getSimInstDiagram(): ?HTMLElement {
+export function getSimInstDiagram(): HTMLElement | null {
   return getPanel(simInstDiagramId);
 }
 
-export function getSimUfobDiagram(): ?HTMLElement {
+export function getSimUfobDiagram(): HTMLElement | null {
   return getPanel(simUfobDiagramId);
 }
 
 export function getToolbarTop(): number {
-  return $(`#${ufoaBoxId}`).offset().top;
+  const offset = $(`#${ufoaBoxId}`).offset()
+  return offset ? offset.top : 0;
 }
 
 // Showing
@@ -126,8 +127,8 @@ export function showDialogSim(): void {
   fitPanes();
 }
 export function showModal(): void {
-  // $FlowFixMe
-  $(`#${modalId}`).modal("show");
+  const m = $(`#${modalId}`) as any;
+  m.modal("show");
 }
 
 // Hiding
@@ -159,8 +160,8 @@ export function disposeDialogSim(): void {
 }
 
 export function disposeModal(): void {
-  // $FlowFixMe
-  $(`#${modalId}`).modal("hide");
+  const m = $(`#${modalId}`) as any;
+  m.modal("hide");
   disposeModalComp(modalBoxId);
 }
 
@@ -197,12 +198,11 @@ export function displayError(msg: string): void {
 }
 
 // Component
-
 export class PaneDialog<Props, State> extends React.Component<Props, State> {
-  protected componentDidMount() {
+  public componentDidMount() {
     fitPanes();
   }
-  protected componentDidUpdate() {
+  public componentDidUpdate() {
     fitPanes();
   }
 }

@@ -12,7 +12,7 @@ export function ajax(url: string, method: "POST" | "GET", data: any): Promise<an
 
   return new Promise((resolve, reject) => {
     fetch(url, params).then(
-      (response) => {
+      (response: any) => {
         if (response.status !== 200) {
           reject(response.statusText);
         } else {
@@ -23,7 +23,7 @@ export function ajax(url: string, method: "POST" | "GET", data: any): Promise<an
           }
         }
       },
-      (error) => reject(error.message)
+      (error: any) => reject(error.message)
     );
   });
 }

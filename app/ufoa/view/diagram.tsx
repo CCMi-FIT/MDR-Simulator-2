@@ -3,7 +3,6 @@ import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
 import { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
 import * as ufoaMeta from "../metamodel";
-import { UfoaVisNode, UfoaVisEdge, UfoaVisModel } from "../../diagram";
 import * as ufoaDB from "../db";
 import * as newEdgeDialog from "./dialogs/newEdgeDialog";
 import * as entityDialog from "./dialogs/entityDialog";
@@ -13,15 +12,26 @@ import * as associationDialog from "./dialogs/associationDialog";
 export type UfoaVisNode = visNetwork.Node;
 
 export interface UfoaVisEdge extends visNetwork.Edge {
-  type?: "generalisation" | "association" | "genInst" | "assocInst";
+  type: "generalisation" | "association" | "genInst" | "assocInst";
 }
+
+export type UfoaNodesDataSet = visData.DataSet<UfoaVisNode>;
+export type UfoaEdgesDataSet = visData.DataSet<UfoaVisEdge>;
 
 export interface UfoaVisModel {
-  nodes?: visData.DataSet<UfoaVisNode>;
-  edges?: visData.DataSet<UfoaVisEdge>;
+  nodes: UfoaNodesDataSet;
+  edges: UfoaEdgesDataSet;
 }
 
-export function entity2vis(e: UfoaEntity, coords: any): UfoaVisNode {
+export function newUfoaVisModel(visNodes: UfoaVisNode[], visEdges: UfoaVisEdge[]): UfoaVisModel {
+  return {
+    nodes: new visData.DataSet(visNodes),
+    edges: new visData.DataSet(visEdges)
+  }
+}
+
+export function entity2vis(e: UfoaEntity, coords?: Position): UfoaVisNode {
+  const pos = coords || {};
   return {
     ...coords,
     id: e.e_id,
@@ -64,22 +74,19 @@ export function assoc2vis(a: Association): UfoaVisEdge {
 }
 
 export function model2vis(model: UfoaModel, graphics: any): UfoaVisModel {
-  const gEdges = model.generalisations.map(generalisation2vis);
-  const aEdges = model.associations.map(assoc2vis);
-  const nodesDataSet = new visData.DataSet();
-  console.log(nodesDataSet);
-  const edgesDataSet = new visData.DataSet();
-  nodesDataSet.add(model.entities.map((e) => entity2vis(e, graphics[e.e_id])));
-  edgesDataSet.add(gEdges.concat(aEdges));
-  return {
-    nodes: nodesDataSet,
-    edges: edgesDataSet
-  };
+  const nodes: UfoaVisNode[] = model.entities.map((e) => entity2vis(e, graphics[e.e_id]));
+  const edges: UfoaVisEdge[] = [
+    ...(model.generalisations.map(generalisation2vis)),
+    ...(model.associations.map(assoc2vis))
+  ];
+  return newUfoaVisModel(nodes, edges);
 }
 
-function addNodeHandler(ufoaVisModel: VisModel, network, nodeData, callback) {
+type Callback = (properties: any) => void;
+
+function addNodeHandler(ufoaVisModel: UfoaVisModel, network: visNetwork.Network, callback: Callback) {
   const newEntity = ufoaDB.newEntity();
-  callback(entity2vis(newEntity, null));
+  callback(entity2vis(newEntity));
   network.fit({
     nodes: [newEntity.e_id],
     animation: true
@@ -87,7 +94,7 @@ function addNodeHandler(ufoaVisModel: VisModel, network, nodeData, callback) {
   entityDialog.render(newEntity, ufoaVisModel);
 }
 
-function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
+function addEdgeHandler(ufoaVisModel: UfoaVisModel, edgeData: any, callback: Callback) {
   newEdgeDialog.render(edgeData, (edgeType: string) => {
     if (edgeType === "generalisation") {
       const newGen: Generalisation = ufoaDB.newGeneralisation(edgeData.from, edgeData.to);
@@ -98,7 +105,7 @@ function addEdgeHandler(ufoaVisModel: VisModel, edgeData, callback) {
       callback(assoc2vis(newAssoc));
       associationDialog.render(newAssoc, ufoaVisModel);
     } else {
-      console.error(new Error("Attempt to add an unknown edge type: " + edgeType);
+      console.error(new Error("Attempt to add an unknown edge type: " + edgeType));
     }
   });
 }
@@ -113,7 +120,8 @@ export function renderEntity(e: ufoaMeta.UfoaEntity) {
   );
 }
 
-export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): VisNetwork {
+export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): visNetwork.Network {
+  const network = new visNetwork.Network(container, ufoaVisModel, {});
   const options = {
     nodes: {
       shape: "box"
@@ -144,10 +152,9 @@ export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): 
     },
     manipulation: {
       enabled: true,
-      addNode: (nodeData, callback) => addNodeHandler(ufoaVisModel, visNetwork, nodeData, callback),
-      addEdge: (edgeData, callback) => addEdgeHandler(ufoaVisModel, edgeData, callback)
+      addNode: (nodeData: any, callback: any) => addNodeHandler(ufoaVisModel, network, callback),
+      addEdge: (edgeData: any, callback: any) => addEdgeHandler(ufoaVisModel, edgeData, callback)
     }
   };
-
-  return new visNetwork.Network(container, ufoaVisModel, options);
+  return network;
 }

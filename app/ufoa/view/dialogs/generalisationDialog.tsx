@@ -1,6 +1,4 @@
-// @flow
-
-import * as R from "ramda";
+import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -50,43 +48,45 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
   }
 
   private setAttr(attr: string, val: any) {
-    this.setState((state, props) => {
+    this.setState((state: State, props: Props) => {
       const gOrig = props.generalisation;
       let stateNew;
       switch (attr) {
         case "g_set.g_set_id":
           const newGSet = ufoaDB.getGSet(val);
           if (newGSet) {
-            stateNew = R.mergeDeepRight(state, {
+            stateNew = {
+	      ...state,
               generalisation2: {
                 g_set: newGSet
               }
-            });
+            };
           } else { // new g_set_id
-            stateNew = R.mergeDeepRight(state, {
+	    stateNew = {
+	      ...state,
               generalisation2: {
                 g_set: {
                   g_set_id: val,
                   g_meta: ""
                 }
               }
-            });
+            };
           }
           break;
         case "g_set.g_meta":
-          stateNew = R.mergeDeepRight(state, { generalisation2: { g_set: { g_meta: val }}});
+          stateNew = { ...state, generalisation2: { g_set: { g_meta: val }}};
           break;
         case "g_sup_e_id":
-          stateNew = R.mergeDeepRight(state, { generalisation2: { g_sup_e_id: val}});
+          stateNew = { ...state, generalisation2: { g_sup_e_id: val}};
           break;
         case "g_sub_e_id":
-          stateNew = R.mergeDeepRight(state, { generalisation2: { g_sub_e_id: val}});
+          stateNew = { ...state, generalisation2: { g_sub_e_id: val}};
           break;
         default:
-          stateNew = R.mergeDeepRight(state, {});
+          stateNew = _.clone(state);
           console.error(new Error(`GeneralisationForm: setAttr of ${attr} not implemented`));
       }
-      return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(gOrig, stateNew.generalisation2) });
+      return { ...stateNew, saveDisabled: _.isEqual(gOrig, stateNew.generalisation2) };
     });
   }
 
@@ -94,7 +94,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     const gOriginal = this.props.generalisation;
     const gNew = this.state.generalisation2;
     const edges: any = this.props.visModel.edges;
-    if (!R.equals(gOriginal, gNew)) {
+    if (!_.isEqual(gOriginal, gNew)) {
       commitGeneralisation(edges, gNew);
     }
   }

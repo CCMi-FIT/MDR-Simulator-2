@@ -1,4 +1,3 @@
-import * as R from "ramda";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
 import { EntityInst, GeneralisationInst, AssocInst } from "../../ufoa-inst/metamodel";
@@ -7,28 +6,31 @@ import * as ufoaMeta from "../../ufoa/metamodel";
 import * as ufoaInstMeta from "../../ufoa-inst/metamodel";
 import { UfoaVisNode, UfoaVisEdge, UfoaVisModel } from "../../ufoa/view/diagram";
 
+export type UfoaInstVisNode = UfoaVisNode;
+export type UfoaInstVisEdge = UfoaVisEdge;
+
+export interface UfoaInstVisModel {
+  nodes: visData.DataSet<UfoaInstVisNode>;
+  edges: visData.DataSet<UfoaInstVisEdge>;
+}
+
 // Initialisation {{{1
 
-export function newVis(): UfoaVisModel {
-  const nodesDataSet = new visData.DataSet();
-  const edgesDataSet = new visData.DataSet();
+export function newUfoaInstVisModel(visNodes: UfoaInstVisNode[] = [], visEdges: UfoaInstVisEdge[] = []): UfoaInstVisModel {
   return {
-    nodes: nodesDataSet,
-    edges: edgesDataSet
-  };
+    nodes: new visData.DataSet(visNodes),
+    edges: new visData.DataSet(visEdges)
+  }
 }
 
 // General manipulation {{{1
 
-export function addEdge(visModel: UfoaVisModel, edge: any) {
-  const visEdges = visModel.edges;
-  if (!visEdges.get(edge.id)) {
-    visEdges.add(edge);
-  }
+export function addEdge(visModel: UfoaInstVisModel, edge: UfoaInstVisEdge) {
+  visModel.edges.add(edge);
 }
 
-export function addEdges(visModel: UfoaVisModel, edges: any[]) {
-  edges.map((edge) => addEdge(edge));
+export function addEdges(visModel: UfoaInstVisModel, edges: UfoaInstVisEdge[]) {
+  edges.map((edge) => addEdge(visModel, edge));
 }
 
 // Entity Inst {{{1
@@ -37,7 +39,7 @@ function eiColor(ei: EntityInst): string {
   return entity ? ufoaMeta.entityColor(entity) : "#FFFFFF";
 }
 
-function entityInst2vis(ei: EntityInst): UfoaVisNode {
+function entityInst2vis(ei: EntityInst): UfoaInstVisNode {
   return ({
     id: ufoaInstMeta.eiId(ei),
     label: ufoaInstMeta.eiLabel(ei, ufoaDB),
@@ -46,21 +48,24 @@ function entityInst2vis(ei: EntityInst): UfoaVisNode {
   });
 }
 
-export function addEntityInst(visModel: UfoaVisModel, ei: EntityInst) {
-  const newNode = R.assoc("borderWidth", 5, entityInst2vis(ei));
+export function addEntityInst(visModel: UfoaInstVisModel, ei: EntityInst) {
+  const newNode: UfoaInstVisNode = {
+    ...entityInst2vis(ei),
+    borderWidth: 5 
+  };
   visModel.nodes.add(newNode);
 }
 
-export function addEntityInsts(visModel: UfoaVisModel, eis: EntityInst[]) {
+export function addEntityInsts(visModel: UfoaInstVisModel, eis: EntityInst[]) {
   const nodesIds = visModel.nodes.getIds();
-  const updateArray = nodesIds.map((nid) => { id: nid, borderWidth: 1 });
+  const updateArray = nodesIds.map((nid) => ({ id: nid, borderWidth: 1 }));
   visModel.nodes.update(updateArray);
   eis.map((ei) => addEntityInst(visModel, ei));
 }
 
 // Generalisation Inst {{{1
 
-export function gInst2vis(gi: GeneralisationInst): UfoaVisEdge {
+export function gInst2vis(gi: GeneralisationInst): UfoaInstVisEdge {
   return ({
     id: gi.gi_id,
     type: "genInst",
@@ -72,17 +77,17 @@ export function gInst2vis(gi: GeneralisationInst): UfoaVisEdge {
   });
 }
 
-export function addGInst(visModel: UfoaVisModel, gi: GeneralisationInst) {
+export function addGInst(visModel: UfoaInstVisModel, gi: GeneralisationInst) {
   const newEdge = gInst2vis(gi);
   addEdge(visModel, newEdge);
 }
 
-export function addGInsts(visModel: UfoaVisModel, gis: GeneralisationInst[]) {
+export function addGInsts(visModel: UfoaInstVisModel, gis: GeneralisationInst[]) {
   gis.map((gi) => addGInst(visModel, gi));
 }
 
 // Association Inst {{{1
-export function assocInst2vis(ai: AssocInst): ?UfoaVisEdge {
+export function assocInst2vis(ai: AssocInst): UfoaInstVisEdge {
   const a = ufoaDB.getAssociation(ai.ai_a_id);
   if (a) {
     return ({
@@ -100,23 +105,22 @@ export function assocInst2vis(ai: AssocInst): ?UfoaVisEdge {
       smooth: false
     });
   } else {
-    console.error(new Error(`Model inconsistency: Association ${ai.ai_a_id} in AssocInst ${ai.ai_id} does not exist`);
-    return null;
+    throw(new Error(`Model inconsistency: Association ${ai.ai_a_id} in AssocInst ${ai.ai_id} does not exist`));
   }
 }
 
-export function addAInst(visModel: UfoaVisModel, ai: AssocInst) {
+export function addAInst(visModel: UfoaInstVisModel, ai: AssocInst) {
   const newEdge = assocInst2vis(ai);
   addEdge(visModel, newEdge);
 }
 
-export function addAInsts(visModel: UfoaVisModel, ais: AssocInst[]) {
+export function addAInsts(visModel: UfoaInstVisModel, ais: AssocInst[]) {
   ais.map((ai) => addAInst(visModel, ai));
 }
 
 // Render {{{1
 
-export function renderUfoaInst(container: HTMLElement, visModel: UfoaVisModel): any {
+export function renderUfoaInst(container: HTMLElement, visModel: UfoaInstVisModel): any {
   const options = {
     edges: {
       smooth: false
@@ -134,6 +138,5 @@ export function renderUfoaInst(container: HTMLElement, visModel: UfoaVisModel): 
       },
     },
   };
-
   return new visNetwork.Network(container, visModel, options);
 }

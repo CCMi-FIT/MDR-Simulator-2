@@ -1,12 +1,12 @@
 // Imports {{{1
-import * as R from "ramda";
+import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Panel, renderConfirmPm } from "../../../components";
 import { Association } from "../../../ufoa/metamodel";
 import * as ufoaMeta from "../../../ufoa/metamodel";
 import * as ufoaDB from "../../../ufoa/db";
-import { UfoaVisEdge, UfoaVisModel } from "../../../diagram";
+import { UfoaVisEdge, UfoaEdgesDataSet, UfoaVisModel } from "../diagram";
 import * as panels from "../../../panels";
 
 // Props & State {{{1
@@ -22,7 +22,7 @@ interface State {
 }
 //}}}1
 
-function commitAssociation(edges: UfoaVisEdge, a: Association) {
+function commitAssociation(edges: UfoaEdgesDataSet, a: Association) {
   ufoaDB.updateAssociation(a).then(
     () => {
       edges.update({
@@ -52,7 +52,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     super(props);
     this.state = {
       association2: props.association,
-      showMeta: props.association.a_type === "member of",
+      showMeta: props.association.a_type === "MemberOf",
       saveDisabled: true
     };
     //console.dir(this.props);
@@ -63,33 +63,59 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
   private setAttr(attr: string, val: any) {
     this.setState((state: State, props: Props) => {
       const aOrig = props.association;
-      const stateNew =
-          attr === "a_type" ?
-            R.mergeDeepRight(state, {
-              showMeta: val === "member of",
-              association2: { a_type: val }
-            })
-        : attr === "a_meta" ?
-          R.mergeDeepRight(state, { association2: { a_meta: val }})
-        : attr === "a_connection1.mult.lower" ?
-          R.mergeDeepRight(state, { association2: { a_connection1: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}}})
+      const stateNew: State = (
+        attr === "a_type" ? {
+          ...state,
+          showMeta: val === "MemberOf",
+          association2: { a_type: val }
+        }
+        : attr === "a_meta" ? {
+	  ...state,
+	  association2: { a_meta: val }
+	}
+        : attr === "a_connection1.mult.lower" ? {
+	  ...state,
+	  association2: { 
+	    a_connection1: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}
+	  }
+	}
         : attr === "a_connection1.mult.upper" ? (
-            val ? R.mergeDeepRight(state, { association2: { a_connection1: { mult: { upper: parseInt(val, 10)}}}})
-                : R.dissocPath(["association2", "a_connection1", "mult", "upper"], state)
-          )
-        : attr === "a_connection2.mult.lower" ?
-          R.mergeDeepRight(state, { association2: { a_connection2: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}}})
+	  val ? {
+	    ...state,
+	    association2: {
+	      a_connection1: { mult: { upper: parseInt(val, 10)}}
+	    }
+	  }
+	  : _.unset(state, ["association2", "a_connection1", "mult", "upper"])
+        )
+	: attr === "a_connection2.mult.lower" ? {
+	  ...state,
+	  association2: {
+	    a_connection2: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}
+	  }
+	}
         : attr === "a_connection2.mult.upper" ? (
-            val ? R.mergeDeepRight(state, { association2: { a_connection2: { mult: { upper: parseInt(val, 10)}}}})
-                : R.dissocPath(["association2", "a_connection2", "mult", "upper"], state)
-          )
-        : attr === "a_label" ?
-          R.mergeDeepRight(state, { association2: { a_label: val }})
+	  val ? {
+	    ...state, 
+	    association2: { 
+	      a_connection2: { mult: { upper: parseInt(val, 10)}}
+	    }
+	  }
+	  : _.unset(state, ["association2", "a_connection2", "mult", "upper"])
+        )
+        : attr === "a_label" ? {
+	  ...state,
+	  association2: { a_label: val }
+	}
         : (() => {
             console.error(new Error(`AssociationForm: setAttr of ${attr} not implemented`));
-            return R.mergeDeepRight(state, {});
-          })();
-      return R.mergeDeepRight(stateNew, { saveDisabled: R.equals(aOrig, stateNew.association2) });
+            return _.clone(state);
+          })()
+      );
+      return { 
+	...stateNew, 
+	saveDisabled: _.equals(aOrig, stateNew.association2) 
+      };
     });
   }
 
@@ -97,7 +123,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     const aOriginal = this.props.association;
     const aNew = this.state.association2;
     const edges: any = this.props.visModel.edges;
-    if (!R.equals(aOriginal, aNew)) {
+    if (!_.equals(aOriginal, aNew)) {
       commitAssociation(edges, aNew);
     }
   };
@@ -189,7 +215,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="row form-group">
         <label>Label</label>
-        <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows="2" cols="30"/>
+        <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows={2} cols={30}/>
       </div>
     );
   }

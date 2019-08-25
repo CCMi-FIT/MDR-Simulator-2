@@ -1,6 +1,4 @@
-// @flow
-
-import * as R from 'ramda';
+import * as _ from "lodash";
 import { Id, ValidationResult, validationResultOK, getLastIdNo } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association, UfoaModel, validateEntity, validateGeneralisation, validateAssociation } from "./metamodel";
 
@@ -17,7 +15,7 @@ export function newEntity(model: UfoaModel): UfoaEntity {
   return res;
 }
 
-export function getEntity(model: UfoaModel, eId: Id): UfoaEntity | null {
+export function getEntity(model: UfoaModel, eId: Id): UfoaEntity | undefined {
   return model.entities.find((e) => e.e_id === eId);
 }
 
@@ -58,14 +56,14 @@ export function newGeneralisation(model: UfoaModel, gSupEId: Id, gSubEId: Id): G
       g_set_id: `gs${lastGSIdNo + 1}`,
       g_meta: ""
     },
-    gSupEId,
-    gSubEId
+    g_sup_e_id: gSupEId,
+    g_sub_e_id: gSubEId
   };
   model.generalisations.push(res);
   return res;
 }
 
-export function getGeneralisation(model: UfoaModel, gId: Id): Generalisation | null {
+export function getGeneralisation(model: UfoaModel, gId: Id): Generalisation | undefined {
   return model.generalisations.find((g) => g.g_id === gId);
 }
 
@@ -73,14 +71,14 @@ export function getGeneralisationSets(model: UfoaModel): GSet[] {
   return getGeneralisationSets(model);
 }
 
-export function getGSet(model: UfoaModel, gSetId: Id): GSet | null {
+export function getGSet(model: UfoaModel, gSetId: Id): GSet | undefined {
   return getGeneralisationSets(model).find((gs) => gs.g_set_id === gSetId);
 }
 
 function updateGSet(model: UfoaModel, gSetId: Id, gSetNew: GSet): void {
   model.generalisations.forEach((g) => {
     if (g.g_set.g_set_id === gSetId) {
-      Object.assign(g.g_set, R.clone(gSetNew));
+      Object.assign(g.g_set, _.clone(gSetNew));
     }
   });
 }
@@ -98,7 +96,7 @@ export function updateGeneralisation(model: UfoaModel, updatedGeneralisation: Ge
     }
     const originalGSet = getGSet(model, updatedGeneralisation.g_set.g_set_id);
     if (originalGSet) {
-      if (!R.equals(originalGSet, updatedGeneralisation.g_set)) {
+      if (!_.isEqual(originalGSet, updatedGeneralisation.g_set)) {
         updateGSet(model, originalGSet.g_set_id, updatedGeneralisation.g_set);
       }
     }
@@ -133,25 +131,25 @@ export function newAssociation(model: UfoaModel, eId1: Id, eId2: Id): Associatio
   return res;
 }
 
-export function getAssociation(model: UfoaModel, aId: Id): Association | null {
+export function getAssociation(model: UfoaModel, aId: Id): Association | undefined {
   return model.associations.find((g) => g.a_id === aId);
 }
 
-export function getEntity1OfAssoc(model: UfoaModel, a: Association): UfoaEntity | null {
+export function getEntity1OfAssoc(model: UfoaModel, a: Association): UfoaEntity | undefined {
   const e = getEntity(model, a.a_connection1.e_id);
   if (!e) {
-    console.error(new Error(new Error("UFO-A model internal inconsistency: `connection1.e_id` refers to non-existent entity in association " + a.a_id);
-    return null;
+    console.error(new Error("UFO-A model internal inconsistency: `connection1.e_id` refers to non-existent entity in association " + a.a_id));
+    return undefined;
   } else {
     return e;
   }
 }
 
-export function getEntity2OfAssoc(model: UfoaModel, a: Association): UfoaEntity | null {
+export function getEntity2OfAssoc(model: UfoaModel, a: Association): UfoaEntity | undefined {
   const e = getEntity(model, a.a_connection2.e_id);
   if (!e) {
-    console.error(new Error(new Error("UFO-A model internal inconsistency: `connection2.e_id` refers to non-existent entity in association " + a.a_id);
-    return null;
+    console.error(new Error("UFO-A model internal inconsistency: `connection2.e_id` refers to non-existent entity in association " + a.a_id));
+    return undefined;
   } else {
     return e;
   }
@@ -178,7 +176,6 @@ export function deleteAssociation(model: UfoaModel, aId: Id): void {
 }
 
 // Querying
-
 export function isAssocOfEntity(a: Association, e: UfoaEntity): boolean {
   return a.a_connection1.e_id === e.e_id || a.a_connection2.e_id === e.e_id;
 }

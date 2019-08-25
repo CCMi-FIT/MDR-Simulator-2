@@ -1,5 +1,5 @@
 import { Id } from "../metamodel";
-import { Generalisation, Association } from "../../ufoa/metamodel";
+import { Generalisation, Association } from "../ufoa/metamodel";
 
 // Entity Inst {{{1
 

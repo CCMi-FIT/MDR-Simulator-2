@@ -1,8 +1,8 @@
 //@flow
 
 import * as db from '../db';
-import type { Id } from '../metamodel';
-import type { UfobModel } from './metamodel';
+import { Id } from '../metamodel';
+import { UfobModel } from './metamodel';
 import * as ufobMeta from './metamodel';
 import * as ufobModel from './model';
 import { error } from '../logging';

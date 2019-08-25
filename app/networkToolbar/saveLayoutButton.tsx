@@ -12,7 +12,7 @@ export class SaveLayout extends React.Component<Props> {
     const graphics = this.props.network.getPositions();
     this.props.db.saveGraphics(graphics).then(
       ()      => panels.displayInfo("Diagram layout saved."),
-      (error) => panels.displayError("Diagram layout saving failed: " + error)
+      (error: string) => panels.displayError("Diagram layout saving failed: " + error)
     );
   }
 

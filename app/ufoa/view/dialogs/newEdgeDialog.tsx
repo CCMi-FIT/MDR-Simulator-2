@@ -24,7 +24,8 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
   }
 
   private selectionMade(event: Event) {
-    const val: SelectedValue = event.currentTarget.value;
+    const ct = event.currentTarget as HTMLSelectElement;
+    const val: SelectedValue = ct.value;
     this.setState({ selection: val });
   }
 

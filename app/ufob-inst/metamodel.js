@@ -1,1 +1,0 @@
-../../shared/ufob-inst/metamodel.js

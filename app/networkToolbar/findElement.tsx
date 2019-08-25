@@ -26,7 +26,7 @@ export class FindElement extends React.Component<Props> {
             id="findTA"
             options={this.props.elements}
             labelKey={this.props.labelKey}
-            onChange={(elements) => {
+            onChange={(elements: any) => {
               if (elements.length) {
                 this.find(elements[0]);
               }

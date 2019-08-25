@@ -85,7 +85,7 @@ export function newGeneralisation(gSupEId: Id, gSubEId: Id): Generalisation {
   return ufoaModel.newGeneralisation(model, gSupEId, gSubEId);
 }
 
-export function getGeneralisation(gId: Id): Generalisation | null {
+export function getGeneralisation(gId: Id): Generalisation | undefined {
   return ufoaModel.getGeneralisation(model, gId);
 }
 
@@ -93,7 +93,7 @@ export function getGeneralisationSets(): GSet[] {
   return ufoaModel.getGeneralisationSets(model);
 }
 
-export function getGSet(gSetId: Id): GSet | null {
+export function getGSet(gSetId: Id): GSet | undefined {
   return ufoaModel.getGSet(model, gSetId);
 }
 
@@ -101,7 +101,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
   return new Promise((resolve, reject) => {
     const validity = ufoaModel.updateGeneralisation(model, updatedGeneralisation);
     if (validity.errors) {
-      console.error(new Error("Generalisation update failed: " + validity.errors);
+      console.error(new Error("Generalisation update failed: " + validity.errors));
     } else {
       postData(urls.clientURL(urls.ufoaGeneralisationUpdate), { generalisation: JSON.stringify(updatedGeneralisation) }).then(
         ()      => resolve(),
@@ -131,15 +131,15 @@ export function newAssociation(eId1: Id, eId2: Id): Association {
   return ufoaModel.newAssociation(model, eId1, eId2);
 }
 
-export function getAssociation(gId: Id): Association | null {
+export function getAssociation(gId: Id): Association | undefined {
   return ufoaModel.getAssociation(model, gId);
 }
 
-export function getEntity1OfAssoc(a: Association): UfoaEntity | null {
+export function getEntity1OfAssoc(a: Association): UfoaEntity | undefined {
   return ufoaModel.getEntity1OfAssoc(model, a);
 }
 
-export function getEntity2OfAssoc(a: Association): UfoaEntity | null {
+export function getEntity2OfAssoc(a: Association): UfoaEntity | undefined {
   return ufoaModel.getEntity2OfAssoc(model, a);
 }
 
@@ -147,7 +147,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
   return new Promise((resolve, reject) => {
     const validity = ufoaModel.updateAssociation(model, updatedAssociation);
     if (validity.errors) {
-      console.error(new Error("Association update failed: " + validity.errors);
+      console.error(new Error("Association update failed: " + validity.errors));
     } else {
       postData(urls.clientURL(urls.ufoaAssociationUpdate), { association: JSON.stringify(updatedAssociation) }).then(
         ()     => resolve(),

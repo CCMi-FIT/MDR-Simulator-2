@@ -1,1 +1,0 @@
-../../shared/ufob/model.js

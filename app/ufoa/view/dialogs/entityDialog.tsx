@@ -1,5 +1,5 @@
 // Imports {{{1
-import * as R from "ramda";
+import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Panel, renderConfirmPm } from "../../../components";
@@ -41,7 +41,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      ufoaEntity2: R.clone(props.ufoaEntity),
+      ufoaEntity2: _.clone(props.ufoaEntity),
       saveDisabled: true
     };
   }
@@ -53,7 +53,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
       ufoaEntityNew[attr] = val;
       return {
         ufoaEntity2: ufoaEntityNew,
-        saveDisabled: R.equals(ufoaEntityOriginal, ufoaEntityNew)
+        saveDisabled: _.isEqual(ufoaEntityOriginal, ufoaEntityNew)
       };
     });
   }
@@ -62,7 +62,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     const ufoaEntityOriginal = this.props.ufoaEntity;
     const ufoaEntityNew = this.state.ufoaEntity2;
     const nodes: any = this.props.ufoaVisModel.nodes;
-    if (!R.equals(ufoaEntityOriginal, ufoaEntityNew)) {
+    if (!_.isEqual(ufoaEntityOriginal, ufoaEntityNew)) {
       commitEntity(nodes, ufoaEntityNew);
     }
   }
@@ -104,7 +104,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
   // AssocPane {{{2
   private renderConnection(a: Association, c: Connection, align: string) {
     const prefix =
-      R.equals(a.a_connection1, c) ?
+      _.isEqual(a.a_connection1, c) ?
         a.a_type === "MemberOf" ?
           !a.a_connection1.mult.upper || a.a_connection1.mult.upper > 1 ? "\u2662" : "\u2666"
         : ""
@@ -147,7 +147,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     let e2 = ufoaDB.getEntity2OfAssoc(assoc);
     let c2 = assoc.a_connection2;
     if (e1 && e2) {
-      console.assert(R.equals(e, e1) || R.equals(e, e2));
+      console.assert(_.isEqual(e, e1) || _.isEqual(e, e2));
       if (e1.e_id !== e.e_id) {
         [e1, e2] = [e2, e1];
         [c1, c2] = [c2, c1];

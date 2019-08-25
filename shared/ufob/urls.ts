@@ -1,6 +1,4 @@
-//@flow
-
-export { clientURL } from '../urls';
+export { clientURL } from "../urls";
 
 export const ufobGetModel = "/ufob/getModel";
 export const ufobEventUpdate = "/ufob/event/update";
@@ -10,4 +8,3 @@ export const ufobSituationDelete = "/ufob/situation/delete";
 
 export const ufobGetGraphics = "/ufob/getGraphics";
 export const ufobGraphicsSave = "/ufob/saveGraphics";
-

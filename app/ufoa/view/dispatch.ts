@@ -1,6 +1,6 @@
 import { Id } from "../../metamodel";
 import * as ufoaDB from "../db";
-import { UfoaVisModel } from "../../diagram";
+import { UfoaVisModel } from "./diagram";
 import * as entityDialog from "./dialogs/entityDialog";
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";

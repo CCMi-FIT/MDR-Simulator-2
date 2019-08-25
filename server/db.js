@@ -2,7 +2,7 @@
 
 import * as fs from 'fs';
 import { lock } from 'proper-lockfile';
-import type { Id } from './metamodel';
+import { Id } from './metamodel';
 import { error } from './logging';
 
 export function fileOpWithLock(fname: string, opP: Promise<any>): Promise<any> {
