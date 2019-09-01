@@ -1,6 +1,7 @@
 import { Id } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from "./metamodel";
 import * as ufoaMeta from "./metamodel";
+import { Graphics } from "../api";
 import * as urls from "./urls";
 import * as ufoaModel from "./model";
 import * as ufobDB from "../ufob/db";
@@ -10,9 +11,9 @@ var model: UfoaModel = ufoaMeta.emptyModel;
 
 // Model {{{1
 
-export function loadModel(): Promise<any> {
+export function loadModel(): Promise<UfoaModel> {
   return new Promise((resolve, reject) => {
-    getData(urls.clientURL(urls.ufoaGetModel)).then(
+    getData<UfoaModel>(urls.clientURL(urls.ufoaGetModel)).then(
       (data) => {
         model = data;
         resolve(data);
@@ -21,12 +22,12 @@ export function loadModel(): Promise<any> {
   });
 }
 
-export function loadGraphics(): Promise<any> {
-  return getData(urls.clientURL(urls.ufoaGetGraphics));
+export function loadGraphics(): Promise<Graphics> {
+  return getData<Graphics>(urls.clientURL(urls.ufoaGetGraphics));
 }
 
-export function saveGraphics(graphics: any): Promise<any> {
-  return postData(urls.clientURL(urls.ufoaGraphicsSave), { graphics: JSON.stringify(graphics) });
+export function saveGraphics(graphics: Graphics): Promise<any> {
+  return postData<Graphics>(urls.clientURL(urls.ufoaGraphicsSave), graphics);
 }
 
 // Entities {{{1

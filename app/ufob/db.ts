@@ -1,5 +1,6 @@
 import { Id } from "../metamodel";
 import { Situation, UfobEvent, UfobModel } from "./metamodel";
+import { Graphics } from "../api";
 import * as ufobMeta from "./metamodel";
 import * as urls from "./urls";
 import * as ufobModel from "./model";
@@ -8,9 +9,9 @@ import { getData, postData } from "../db";
 // Model {{{1
 var model: UfobModel = ufobMeta.emptyModel;
 
-export function loadModel(): Promise<any> {
+export function loadModel(): Promise<UfobModel> {
   return new Promise((resolve, reject) => {
-    getData(urls.clientURL(urls.ufobGetModel)).then(
+    getData<UfobModel>(urls.clientURL(urls.ufobGetModel)).then(
       (data) => {
         model = data;
         resolve(data);
@@ -19,12 +20,12 @@ export function loadModel(): Promise<any> {
   });
 }
 
-export function loadGraphics(): Promise<any> {
-  return getData(urls.clientURL(urls.ufobGetGraphics));
+export function loadGraphics(): Promise<Graphics> {
+  return getData<Graphics>(urls.clientURL(urls.ufobGetGraphics));
 }
 
-export function saveGraphics(graphics: any): Promise<any> {
-  return postData(urls.clientURL(urls.ufobGraphicsSave), { graphics: JSON.stringify(graphics) });
+export function saveGraphics(graphics: Graphics): Promise<any> {
+  return postData<Graphics>(urls.clientURL(urls.ufobGraphicsSave), graphics);
 }
 
 // Events {{{1

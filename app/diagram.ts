@@ -18,10 +18,6 @@ export interface BoundingBox {
 
 export const emptyVisEdge: visNetwork.Edge = { from: "", to: "", label: "", width: 0 };
 
-export interface Layout {
-  [key: string]: { x: number, y: number};
-}
-
 export function getBoundingBox(network: visNetwork.Network, nodeId: Id): BoundingBox {
   const bb: BoundingBox = network.getBoundingBox(nodeId);
   const topLeft = network.canvasToDOM({x: bb.left, y: bb.top});

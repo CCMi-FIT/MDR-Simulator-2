@@ -3,7 +3,7 @@ import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Panel, renderConfirmPm } from "../../../components";
-import { Association } from "../../../ufoa/metamodel";
+import { Association, Connection, Mult } from "../../../ufoa/metamodel";
 import * as ufoaMeta from "../../../ufoa/metamodel";
 import * as ufoaDB from "../../../ufoa/db";
 import { UfoaVisEdge, UfoaEdgesDataSet, UfoaVisModel } from "../diagram";
@@ -60,80 +60,131 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
   }
 
 // Operations {{{1
-  private setAttr(attr: string, val: any) {
-    this.setState((state: State, props: Props) => {
-      const aOrig = props.association;
-      const stateNew: State = (
-        attr === "a_type" ? {
-          ...state,
-          showMeta: val === "MemberOf",
-          association2: { a_type: val }
-        }
-        : attr === "a_meta" ? {
-	  ...state,
-	  association2: { a_meta: val }
-	}
-        : attr === "a_connection1.mult.lower" ? {
-	  ...state,
-	  association2: { 
-	    a_connection1: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}
+  private setAttr(
+    target: EventTarget & HTMLSelectElement | EventTarget & HTMLInputElement | EventTarget & HTMLTextAreaElement,
+    assocAttr?: keyof Association,
+    multAttr?: keyof Mult) {
+    if (target) {
+      const val: any = target.value;
+      this.setState((state: State, props: Props) => {
+	const aOrig = props.association;
+	const stateNew: State = (
+	  assocAttr === "a_type" ? {
+	    ...state,
+	    showMeta: val === "MemberOf",
+	    association2: { 
+	      ...state.association2,
+	      a_type: val
+	    }
 	  }
-	}
-        : attr === "a_connection1.mult.upper" ? (
-	  val ? {
+	  : assocAttr === "a_meta" ? {
 	    ...state,
 	    association2: {
-	      a_connection1: { mult: { upper: parseInt(val, 10)}}
+	      ...state.association2,
+	      a_meta: val
 	    }
 	  }
-	  : _.unset(state, ["association2", "a_connection1", "mult", "upper"])
-        )
-	: attr === "a_connection2.mult.lower" ? {
-	  ...state,
-	  association2: {
-	    a_connection2: { mult: { lower: !val || val < 0 ? 0 : parseInt(val, 10)}}
-	  }
-	}
-        : attr === "a_connection2.mult.upper" ? (
-	  val ? {
-	    ...state, 
+	  : (assocAttr === "a_connection1" && multAttr === "lower") ? {
+	    ...state,
 	    association2: { 
-	      a_connection2: { mult: { upper: parseInt(val, 10)}}
+	      ...state.association2,
+	      a_connection1: {
+		...state.association2.a_connection1,
+		mult: {
+		  ...state.association2.a_connection1.mult,
+		  lower: !val || val < 0 ? 0 : parseInt(val, 10)
+		}
+	      }
 	    }
 	  }
-	  : _.unset(state, ["association2", "a_connection2", "mult", "upper"])
-        )
-        : attr === "a_label" ? {
-	  ...state,
-	  association2: { a_label: val }
-	}
-        : (() => {
-            console.error(new Error(`AssociationForm: setAttr of ${attr} not implemented`));
-            return _.clone(state);
-          })()
-      );
-      return { 
-	...stateNew, 
-	saveDisabled: _.equals(aOrig, stateNew.association2) 
-      };
-    });
+	  : (assocAttr === "a_connection1" && multAttr === "upper") ? (
+	    val ? {
+	      ...state,
+	      association2: { 
+		...state.association2,
+		a_connection1: {
+		  ...state.association2.a_connection1,
+		  mult: {
+		    ...state.association2.a_connection1.mult,
+		    upper: !val || val < 0 ? 0 : parseInt(val, 10)
+		  }
+		}
+	      }
+	    }
+	    : (() => {
+	      const s2: State = _.clone(state);
+	      _.unset(s2, ["association2", "a_connection1", "mult", "upper"]);
+	      return s2;
+	    })()
+	  )
+	  : (assocAttr === "a_connection2" && multAttr === "lower") ? {
+	    ...state,
+	    association2: { 
+	      ...state.association2,
+	      a_connection1: {
+		...state.association2.a_connection2,
+		mult: {
+		  ...state.association2.a_connection2.mult,
+		  lower: !val || val < 0 ? 0 : parseInt(val, 10)
+		}
+	      }
+	    }
+	  }
+	  : (assocAttr === "a_connection2" && multAttr === "upper") ? (
+	    val ? {
+	      ...state,
+	      association2: { 
+		...state.association2,
+		a_connection1: {
+		  ...state.association2.a_connection2,
+		  mult: {
+		    ...state.association2.a_connection2.mult,
+		    upper: !val || val < 0 ? 0 : parseInt(val, 10)
+		  }
+		}
+	      }
+	    }
+	    : (() => {
+	      const s2: State = _.clone(state);
+	      _.unset(s2, ["association2", "a_connection2", "mult", "upper"]);
+	      return s2;
+	    })()
+	  )
+	  : assocAttr === "a_label" ? {
+	    ...state,
+	    association2: {
+	      ...state.association2,
+	      a_label: val
+	    }
+	  }
+	  : (() => {
+	      console.error(new Error(`AssociationForm: setAttr not matched`));
+	      return _.clone(state);
+	    })()
+	);
+	return { 
+	  ...stateNew, 
+	  saveDisabled: _.isEqual(aOrig, stateNew.association2) 
+	};
+      });
+    }
   }
 
   private save() {
     const aOriginal = this.props.association;
     const aNew = this.state.association2;
     const edges: any = this.props.visModel.edges;
-    if (!_.equals(aOriginal, aNew)) {
+    if (!_.isEqual(aOriginal, aNew)) {
       commitAssociation(edges, aNew);
     }
   };
 
   private delete() {
-    const edges: UfoaVisEdge[] = this.props.visModel.edges;
+    const edges  = this.props.visModel.edges;
     const a_id = this.props.association.a_id;
     ufoaDB.deleteAssociation(a_id).then(
       () => {
-        edges.remove({ id: a_id });
+        edges.remove(a_id);
         panels.disposeDialogUfoa();
         panels.displayInfo("Association deleted.");
       },
@@ -147,7 +198,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="row form-group">
         <label>Type</label>
-        <select className="form-control" value={this.state.association2.a_type} onChange={(e) => this.setAttr("a_type", e.currentTarget.value)}>
+        <select className="form-control" value={this.state.association2.a_type} onChange={(e) => this.setAttr(e.currentTarget, "a_type")}>
           {ufoaMeta.assocTypes.map(t => <option key={t}>{t}</option>)}
         </select>
       </div>);
@@ -157,13 +208,13 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="row form-group">
         <label>Meta</label>
-        <select className="form-control" value={this.state.association2.a_meta} onChange={(e) => this.setAttr("a_meta", e.currentTarget.value)}>
+        <select className="form-control" value={this.state.association2.a_meta} onChange={(e) => this.setAttr(e.currentTarget, "a_meta")}>
           {ufoaMeta.assocMetas.map((meta) => <option key={meta}>{meta}</option>)}
         </select>
       </div>);
   }
 
-  private renderMultiplicity(connection: string) {
+  private renderMultiplicity(connection: "a_connection1" | "a_connection2") {
     const e = ufoaDB.getEntity(this.state.association2[connection].e_id);
     const upper = this.state.association2[connection].mult.upper;
     if (!e) { 
@@ -177,7 +228,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
               className="form-control"
               type="number"
               value={this.state.association2[connection].mult.lower}
-              onChange={(e2) => this.setAttr(`${connection}.mult.lower`, e2.currentTarget.value)}
+              onChange={(e2) => this.setAttr(e2.currentTarget, connection, "lower")}
               />
             </div>
             <div style={{paddingLeft: "5px", paddingRight: "5px"}}>..</div>
@@ -186,7 +237,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
               className="form-control"
               type="number"
               value={upper ? upper : ""}
-              onChange={(e2) => this.setAttr(`${connection}.mult.upper`, e2.currentTarget.value)}
+              onChange={(e2) => this.setAttr(e2.currentTarget, connection, "upper")}
               />
             </div>
           </div>
@@ -215,7 +266,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="row form-group">
         <label>Label</label>
-        <textarea className="form-control" type="text" value={this.state.association2.a_label} onChange={(e) => this.setAttr("a_label", e.currentTarget.value)} rows={2} cols={30}/>
+        <textarea className="form-control" value={this.state.association2.a_label} onChange={(e) => this.setAttr(e.currentTarget, "a_label")} rows={2} cols={30}/>
       </div>
     );
   }

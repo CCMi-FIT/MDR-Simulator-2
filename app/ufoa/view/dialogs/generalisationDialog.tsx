@@ -3,15 +3,15 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { Panel, renderConfirmPm } from "../../../components";
-import { UfoaEntity, Generalisation, GeneralisationSet } from "../../metamodel";
+import { UfoaEntity, Generalisation, GSet } from "../../metamodel";
 import * as ufoaMeta from "../../metamodel";
 import * as ufoaDB from "../../db";
-import { UfoaVisModel } from "../../../diagram";
+import { UfoaVisModel } from "../diagram";
 import * as panels from "../../../panels";
 
 interface Props {
   generalisation: Generalisation;
-  visModel: VisModel;
+  visModel: UfoaVisModel;
 }
 
 interface State {
@@ -43,49 +43,61 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
       generalisation2: props.generalisation,
       saveDisabled: true
     };
-    //console.dir(this.props);
-    //console.dir(this.state);
   }
 
-  private setAttr(attr: string, val: any) {
+  private setAttr(attr: keyof Generalisation | keyof GSet, val: any) {
     this.setState((state: State, props: Props) => {
       const gOrig = props.generalisation;
-      let stateNew;
-      switch (attr) {
-        case "g_set.g_set_id":
-          const newGSet = ufoaDB.getGSet(val);
-          if (newGSet) {
-            stateNew = {
-	      ...state,
-              generalisation2: {
-                g_set: newGSet
-              }
-            };
-          } else { // new g_set_id
-	    stateNew = {
-	      ...state,
-              generalisation2: {
-                g_set: {
-                  g_set_id: val,
-                  g_meta: ""
-                }
-              }
-            };
-          }
-          break;
-        case "g_set.g_meta":
-          stateNew = { ...state, generalisation2: { g_set: { g_meta: val }}};
-          break;
-        case "g_sup_e_id":
-          stateNew = { ...state, generalisation2: { g_sup_e_id: val}};
-          break;
-        case "g_sub_e_id":
-          stateNew = { ...state, generalisation2: { g_sub_e_id: val}};
-          break;
-        default:
-          stateNew = _.clone(state);
-          console.error(new Error(`GeneralisationForm: setAttr of ${attr} not implemented`));
-      }
+      const stateNew: State = (
+        attr === "g_set_id" ? (
+          ufoaDB.getGSet(val) ? {
+	    ...state,
+	    generalisation2: {
+	      ...state.generalisation2,
+	      g_set: ufoaDB.getGSet(val) || state.generalisation2.g_set // || Just to satisfy the compiler
+	    } 
+	  }
+        : {
+	    ...state,
+	    generalisation2: {
+	      ...state.generalisation2,
+	      g_set: {
+		g_set_id: val,
+		g_meta: ""
+	      }
+	    }
+	  }
+	)
+        : attr === "g_meta" ? { 
+	  ...state,
+	  generalisation2: { 
+	    ...state.generalisation2,
+	    g_set: {
+	      ...state.generalisation2.g_set,
+	      g_meta: val
+	    }
+	  }
+	}
+	: attr === "g_sup_e_id" ? { 
+	  ...state,
+	  generalisation2: {
+	    ...state.generalisation2,
+	    g_sup_e_id: val
+	  }
+	}
+	: attr === "g_sub_e_id" ? { 
+	  ...state,
+	  generalisation2: {
+	    ...state.generalisation2,
+	    g_sub_e_id: val
+	  }
+	}
+	: (() => {
+	    const res: State = _.clone(state);
+            console.error(new Error(`GeneralisationForm: setAttr of ${attr} not implemented`));
+	    return res;
+	})()
+      );
       return { ...stateNew, saveDisabled: _.isEqual(gOrig, stateNew.generalisation2) };
     });
   }
@@ -120,9 +132,9 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
           id="gsetTA"
           options={ufoaDB.getGeneralisationSets()}
           labelKey={"g_set_id"}
-          onChange={(gSets: GeneralisationSet[]) => {
+          onChange={(gSets: GSet[]) => {
             if (gSets.length) {
-              this.setAttr("g_set.g_set_id", gSets[0].g_set_id);
+              this.setAttr("g_set_id", gSets[0].g_set_id);
             }
           }}
           selected={[this.state.generalisation2.g_set]}
@@ -136,7 +148,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     return (
       <div className="form-group">
         <label>Meta</label>
-        <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_set.g_meta", e.currentTarget.value)}>
+        <select className="form-control" value={this.state.generalisation2.g_set.g_meta} onChange={(e) => this.setAttr("g_meta", e.currentTarget.value)}>
           {ufoaMeta.genMetas.map((meta) => <option key={meta}>{meta}</option>)}
         </select>
       </div>

@@ -3,11 +3,11 @@ import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Panel, renderConfirmPm } from "../../../components";
-import { UfoaEntity, Association, Connection } from "../../metamodel";
+import { EntityType, UfoaEntity, Association, Connection } from "../../metamodel";
 import * as ufoaMeta from "../../metamodel";
 import * as ufoaDB from "../../db";
-import { UfoaVisModel } from "../../../diagram";
-import * as diagram from "../../../diagram";
+import { UfoaVisModel, UfoaVisNode, UfoaVisEdge } from "../diagram";
+import * as ufoaDiagram from "../diagram";
 import * as panels from "../../../panels";
 import * as associationDialog from "./associationDialog";
 
@@ -46,11 +46,20 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     };
   }
   // Operations {{{1
-  private setAttr(attr: string, val: any) {
-    const ufoaEntityOriginal = this.props.ufoaEntity;
-    this.setState((state) => {
-      const ufoaEntityNew = state.ufoaEntity2;
-      ufoaEntityNew[attr] = val;
+  private setAttr(attr: keyof UfoaEntity, val: string) {
+    this.setState((state: State, props: Props) => {
+      const ufoaEntityOriginal = props.ufoaEntity;
+      const ufoaEntityNew: UfoaEntity = (
+	attr === "e_type" ? {
+	  ...state.ufoaEntity2,
+	  e_type: val as EntityType
+	}
+        : attr === "e_name" ? {
+	  ...state.ufoaEntity2,
+	  e_name: val
+	}
+	: ufoaEntityOriginal
+      );
       return {
         ufoaEntity2: ufoaEntityNew,
         saveDisabled: _.isEqual(ufoaEntityOriginal, ufoaEntityNew)
@@ -68,12 +77,12 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
   }
 
   private delete() {
-    const nodes: any = this.props.ufoaVisModel.nodes;
-    const edges: any = this.props.ufoaVisModel.edges;
+    const nodes = this.props.ufoaVisModel.nodes;
+    const edges = this.props.ufoaVisModel.edges;
     const e_id = this.props.ufoaEntity.e_id;
     ufoaDB.deleteEntity(e_id).then(
       () => {
-        nodes.remove({ id: e_id });
+        nodes.remove(e_id);
         const edges2remove = edges.get().filter((e) => e.from === e_id || e.to === e_id);
         edges.remove(edges2remove.map((e) => e.id));
         panels.disposeDialogUfoa();
@@ -96,7 +105,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
   private renderEntityName() {
     return (
       <div className="form-group">
-        <textarea className="form-control" type="text" value={this.state.ufoaEntity2.e_name} onChange={(e) => this.setAttr("e_name", e.currentTarget.value)} rows="5" cols="30"/>
+        <textarea className="form-control" value={this.state.ufoaEntity2.e_name} onChange={(e) => this.setAttr("e_name", e.currentTarget.value)} rows={5} cols={30}/>
       </div>
     );
   }
@@ -110,7 +119,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
         : ""
       : "";
     return (
-      <div style={{float: align}}>
+      <div>
         <span style={{fontSize: "22px"}}>{align === "left" ? prefix : ""}</span>
         {c.mult.lower}..{c.mult.upper ? c.mult.upper : "*"}
         <span style={{fontSize: "22px"}}>{align === "right" ? prefix : ""}</span>
@@ -159,13 +168,13 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
         style={{marginBottom: "10px", padding: "5px"}}
         onClick={() => associationDialog.render(assoc, this.props.ufoaVisModel)}>
           <div>
-            {e1 ? diagram.renderEntity(e1) : ""}
+            {e1 ? ufoaDiagram.renderEntity(e1) : ""}
           </div>
           <div>
             {this.renderAssocDetails(assoc, c1, c2)}
           </div>
           <div>
-            {e2 ? diagram.renderEntity(e2) : ""}
+            {e2 ? ufoaDiagram.renderEntity(e2) : ""}
           </div>
         </div>
       );

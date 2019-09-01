@@ -1,11 +1,12 @@
 import { UfoaModel } from "./metamodel";
+import { Graphics } from "../api";
 import * as ufoaDiagram from "./view/diagram";
 import * as dispatchA from "./view/dispatch";
 import * as networkToolbar from "../networkToolbar/toolbar";
 import * as panels from "../panels";
 import * as ufoaDB from "./db";
 
-export function initialise(ufoaModel: UfoaModel, ufoaEntityGraphics: any) {
+export function initialise(ufoaModel: UfoaModel, ufoaEntityGraphics: Graphics) {
   const container = panels.getUfoaBox();
   if (container) {
     const ufoaVisModel = ufoaDiagram.model2vis(ufoaModel, ufoaEntityGraphics);

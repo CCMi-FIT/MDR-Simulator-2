@@ -1,4 +1,5 @@
 import * as _ from "lodash";
+import { Graphics } from "../../api";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
 import { Id } from "../../metamodel";
@@ -21,7 +22,7 @@ export type UfobVisEdge = visNetwork.Edge;
 export type UfobNodesDataSet = visData.DataSet<UfobVisNode>;
 export type UfobEdgesDataSet = visData.DataSet<UfobVisEdge>;
 
-export interface UfobVisModel extends visNetwork.Data {
+export interface UfobVisModel {
   nodes: UfobNodesDataSet;
   edges: UfobEdgesDataSet;
 }
@@ -75,7 +76,7 @@ function situation2eventEdge(m: UfobModel, s: Situation, d: Disposition, evId: I
   }
 }
 
-export function model2vis(model: UfobModel, elementGraphics: any): UfobVisModel {
+export function model2vis(model: UfobModel, elementGraphics: Graphics): UfobVisModel {
   const nodes: UfobVisNode[] = [
     ...(model.situations.map((s) => situation2vis(s, elementGraphics[s.s_id]))),
     ...(model.events.map((ev) => event2vis(ev, elementGraphics[ev.ev_id])))
@@ -116,7 +117,7 @@ function addNodeHandler(ufobVisModel: UfobVisModel, visNetwork1: visNetwork.Netw
 
 export function renderUfob(ufobVisModel: UfobVisModel, container: HTMLElement): any {
   const dataSet: any = ufobVisModel;
-  const network = new visNetwork.Network( container, ufobVisModel);
+  const network = new visNetwork.Network(container, ufobVisModel as any);
   const options = {
     edges: {
       smooth: false
@@ -148,6 +149,6 @@ export function renderUfob(ufobVisModel: UfobVisModel, container: HTMLElement): 
       addNode: (nodeData: any, callback: Callback) => addNodeHandler(ufobVisModel, network, callback),
     }
   };
-  network.setOption(options);
+  network.setOptions(options);
   return network;
 }

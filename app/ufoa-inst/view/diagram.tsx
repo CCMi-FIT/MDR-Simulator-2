@@ -120,7 +120,11 @@ export function addAInsts(visModel: UfoaInstVisModel, ais: AssocInst[]) {
 
 // Render {{{1
 
-export function renderUfoaInst(container: HTMLElement, visModel: UfoaInstVisModel): any {
+export function renderUfoaInst(container: HTMLElement, visModel: UfoaInstVisModel): visNetwork.Network {
+  const data = {
+    nodes: visModel.nodes.get(),
+    edges: visModel.edges.get()
+  };
   const options = {
     edges: {
       smooth: false
@@ -138,5 +142,5 @@ export function renderUfoaInst(container: HTMLElement, visModel: UfoaInstVisMode
       },
     },
   };
-  return new visNetwork.Network(container, visModel, options);
+  return new visNetwork.Network(container, data, options);
 }

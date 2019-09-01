@@ -23,10 +23,14 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
     };
   }
 
-  private selectionMade(event: Event) {
+  private selectionMade(event: React.ChangeEvent) {
     const ct = event.currentTarget as HTMLSelectElement;
-    const val: SelectedValue = ct.value;
-    this.setState({ selection: val });
+    const val: string = ct.value;
+    if (!(val in ["generalisation", "association"])) {
+      throw(new Error("invalid value in selection"));
+    } else {
+      this.setState({ selection: val as SelectedValue });
+    }
   }
 
   private setEdgeType() {

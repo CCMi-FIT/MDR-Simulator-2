@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Graphics } from "../../api";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
 import { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
@@ -30,7 +31,7 @@ export function newUfoaVisModel(visNodes: UfoaVisNode[], visEdges: UfoaVisEdge[]
   }
 }
 
-export function entity2vis(e: UfoaEntity, coords?: Position): UfoaVisNode {
+export function entity2vis(e: UfoaEntity, coords?: visNetwork.Position): UfoaVisNode {
   const pos = coords || {};
   return {
     ...coords,
@@ -73,7 +74,7 @@ export function assoc2vis(a: Association): UfoaVisEdge {
   });
 }
 
-export function model2vis(model: UfoaModel, graphics: any): UfoaVisModel {
+export function model2vis(model: UfoaModel, graphics: Graphics): UfoaVisModel {
   const nodes: UfoaVisNode[] = model.entities.map((e) => entity2vis(e, graphics[e.e_id]));
   const edges: UfoaVisEdge[] = [
     ...(model.generalisations.map(generalisation2vis)),
@@ -121,7 +122,11 @@ export function renderEntity(e: ufoaMeta.UfoaEntity) {
 }
 
 export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): visNetwork.Network {
-  const network = new visNetwork.Network(container, ufoaVisModel, {});
+  const data: visNetwork.Data = {
+    nodes: ufoaVisModel.nodes.get(),
+    edges: ufoaVisModel.edges.get()
+  };
+  const network = new visNetwork.Network(container, data);
   const options = {
     nodes: {
       shape: "box"
