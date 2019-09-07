@@ -113,11 +113,11 @@ interface ConfirmProps {
 
 export class Confirm extends React.Component<ConfirmProps> {
 
-  public componentDidMount() {
+  public componentDidMount = () => {
     panels.showModal();
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading={this.props.heading}>
         <div className="container-fluid">

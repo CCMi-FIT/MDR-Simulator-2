@@ -23,7 +23,7 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
     };
   }
 
-  private selectionMade(event: React.ChangeEvent) {
+  private selectionMade = (event: React.ChangeEvent) => {
     const ct = event.currentTarget as HTMLSelectElement;
     const val: string = ct.value;
     if (!(val in ["generalisation", "association"])) {
@@ -33,12 +33,12 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private setEdgeType() {
+  private setEdgeType = () => {
     panels.disposeModal();
     this.props.nextFn(this.state.selection);
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading="Select new edge type:">
         <div className="form-group">

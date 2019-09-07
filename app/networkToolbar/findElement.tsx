@@ -9,7 +9,7 @@ interface Props {
 }
 
 export class FindElement extends React.Component<Props> {
-  private find(element: any) {
+  private find = (element: any) => {
     if (element) {
       this.props.network.fit({
         nodes: [element[this.props.identifier]],
@@ -18,7 +18,7 @@ export class FindElement extends React.Component<Props> {
     }
   }
 
-  public render() {
+  public render = () => {
     return (
       <div className="input-group" role="group">
         <div style={{float: "left", width: "300px"}}>

@@ -25,7 +25,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
     };
   }
 
-  private selectionMade(event: React.ChangeEvent) {
+  private selectionMade = (event: React.ChangeEvent) => {
     const ct = event.currentTarget as HTMLSelectElement;
     if (ct) {
       const val = ct.value;
@@ -37,7 +37,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private setNodeType() {
+  private setNodeType = () => {
     const sel = this.state.selection;
     panels.disposeModal();
     this.props.next(
@@ -46,7 +46,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
       : { selection: sel });
   }
 
-  private renderSelection() {
+  private renderSelection = () => {
     return (
       <div className="form-group">
         <select className="form-control" value={this.state.selection} onChange={(ev) => this.selectionMade(ev)}>
@@ -57,7 +57,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderToSituation() {
+  private renderToSituation = () => {
     const ets = this.state.ev_to_situation_id;
     const toSituation = ets ? [ufobDB.getSituationById(ets)] : [];
     return (
@@ -77,7 +77,7 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading="Select new node type:">
         {this.renderSelection()}

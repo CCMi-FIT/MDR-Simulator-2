@@ -14,7 +14,7 @@ interface Props {
 
 class NetworkToolbar extends React.Component<Props> {
 
-  public render() {
+  public render = () => {
     return (
       <div className="btn-toolbar" role="toolbar">
         <FindElement network={this.props.network} elements={this.props.elements} labelKey={this.props.labelKey} identifier={this.props.identifier}/>

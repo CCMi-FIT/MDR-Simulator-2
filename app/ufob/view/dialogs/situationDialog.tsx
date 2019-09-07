@@ -35,7 +35,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     //console.dir(this.state);
   }
 
-  private updateEdges() {
+  private updateEdges = () => {
     const nodes = this.props.ufobVisModel.nodes;
     const edges = this.props.ufobVisModel.edges;
     const mn = nodes.get().find((node) => node.id === this.state.situation2.s_id);
@@ -56,7 +56,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private commitSituation(nodes: any, s: Situation) {
+  private commitSituation = (nodes: any, s: Situation) => {
     ufobDB.updateSituation(s).then(
       () => {
         nodes.update({ id: s.s_id, label: s.s_name });
@@ -68,7 +68,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private setAttr(attr: string, val: any) {
+  private setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
       const sOrig = props.situation;
       const stateNew = { ...state, situation2: { [attr]: val }};
@@ -79,7 +79,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     });
   }
 
-  private save() {
+  private save = () => {
     const situationOriginal = this.props.situation;
     const situationNew = this.state.situation2;
     const nodes: any = this.props.ufobVisModel.nodes;
@@ -88,7 +88,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private delete() {
+  private delete = () => {
     const nodes: any = this.props.ufobVisModel.nodes;
     const edges: any = this.props.ufobVisModel.edges;
     const s_id = this.props.situation.s_id;
@@ -103,14 +103,14 @@ class SituationForm extends panels.PaneDialog<Props, State> {
       (error) => panels.displayError("Situation delete failed: " + error));
   }
 
-  private editWMDA() {
+  private editWMDA = () => {
     const situation2 = this.state.situation2;
     wmdaModal.render(situation2.s_name, situation2.s_wmda_text).then(
       (wmdaText2) => this.setAttr("s_wmda_text", wmdaText2)
     );
   }
 
-  private renderSituationName() {
+  private renderSituationName = () => {
     return (
       <div className="form-group">
         <textarea className="form-control" value={this.state.situation2.s_name} onChange={(e) => this.setAttr("s_name", e.currentTarget.value)} rows={3} cols={30}/>
@@ -118,7 +118,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderEvent(evId: Id) {
+  private renderEvent = (evId: Id) => {
     const ev = ufobDB.getUfobEventById(evId);
     return (
       <div key={evId}>
@@ -128,7 +128,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private editDisposition(d: Disposition) {
+  private editDisposition = (d: Disposition) => {
     dispositionModal.render(this.state.situation2, d).then(
       (dNew) => {
         if (!dNew) {
@@ -142,7 +142,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private addDisposition() {
+  private addDisposition = () => {
     dispositionModal.render(this.state.situation2, ufobMeta.emptyDisposition).then(
       (dNew) => {
         const newS = ufobModel.addDisposition(this.state.situation2, dNew);
@@ -151,7 +151,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderDispositionRow(d: Disposition) {
+  private renderDispositionRow = (d: Disposition) => {
     return (
       <tr className="clickable-disposition" key={d.d_text} onClick={() => this.editDisposition(d)}>
         <td>
@@ -164,7 +164,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderDispositions() {
+  private renderDispositions = () => {
     return (
       <div className="form-group">
         <Panel heading="Dispositions" inner={true} >
@@ -179,7 +179,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderWMDAButton() {
+  private renderWMDAButton = () => {
     return (
       <div className="form-group">
         <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
@@ -187,7 +187,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group row col-sm-12">
         <div className="col-sm-6 text-center">
@@ -200,7 +200,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtonDelete() {
+  private renderButtonDelete = () => {
     return (
       <button type="button" className="btn btn-danger" onClick={() => {
         renderConfirmPm(
@@ -213,7 +213,7 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Panel heading={<span><strong>Situation {this.props.situation.s_id}</strong></span>}>
         {this.renderSituationName()}

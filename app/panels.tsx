@@ -55,14 +55,17 @@ export function getPanel(panelId: string): HTMLElement | null {
 }
 
 export function getDialogUfoa(): HTMLElement | null {
+  disposeDialogUfoa();
   return getPanel(dialogUfoaId);
 }
 
 export function getDialogUfob(): HTMLElement | null {
+  disposeDialogUfob();
   return getPanel(dialogUfobId);
 }
 
 export function getDialogSim(): HTMLElement | null {
+  disposeDialogSim();
   return getPanel(dialogSimId);
 }
 
@@ -199,10 +202,10 @@ export function displayError(msg: string): void {
 
 // Component
 export class PaneDialog<Props, State> extends React.Component<Props, State> {
-  public componentDidMount() {
+  public componentDidMount = () => {
     fitPanes();
   }
-  public componentDidUpdate() {
+  public componentDidUpdate = () => {
     fitPanes();
   }
 }

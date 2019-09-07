@@ -24,22 +24,22 @@ class WMDAForm extends React.Component<Props, State> {
     };
   }
 
-  private setText(evt: any) {
+  private setText = (evt: any) => {
     const val = evt.editor.getData();
     this.setState({ wmdaText2: val });
   }
 
-  private save() {
+  private save = () => {
     panels.disposeModal();
     this.props.resolve(this.state.wmdaText2);
   }
 
-  private cancel() {
+  private cancel = () => {
     panels.disposeModal();
     this.props.reject();
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group row col-sm-12">
         <div className="col-sm-6 text-center">
@@ -52,7 +52,7 @@ class WMDAForm extends React.Component<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading={<span>WMDA Standard for {this.props.title}</span>}>
         <CKEditor

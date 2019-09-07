@@ -60,10 +60,10 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
   }
 
 // Operations {{{1
-  private setAttr(
+  private setAttr = (
     target: EventTarget & HTMLSelectElement | EventTarget & HTMLInputElement | EventTarget & HTMLTextAreaElement,
     assocAttr?: keyof Association,
-    multAttr?: keyof Mult) {
+    multAttr?: keyof Mult) => {
     if (target) {
       const val: any = target.value;
       this.setState((state: State, props: Props) => {
@@ -170,7 +170,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private save() {
+  private save = () => {
     const aOriginal = this.props.association;
     const aNew = this.state.association2;
     const edges: any = this.props.visModel.edges;
@@ -179,7 +179,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     }
   };
 
-  private delete() {
+  private delete = () => {
     const edges  = this.props.visModel.edges;
     const a_id = this.props.association.a_id;
     ufoaDB.deleteAssociation(a_id).then(
@@ -194,7 +194,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
 
   // Rendering {{{1
 
-  private renderType() {
+  private renderType = () => {
     return (
       <div className="row form-group">
         <label>Type</label>
@@ -204,7 +204,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
       </div>);
   }
 
-  private renderMeta() {
+  private renderMeta = () => {
     return (
       <div className="row form-group">
         <label>Meta</label>
@@ -214,7 +214,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
       </div>);
   }
 
-  private renderMultiplicity(connection: "a_connection1" | "a_connection2") {
+  private renderMultiplicity = (connection: "a_connection1" | "a_connection2") => {
     const e = ufoaDB.getEntity(this.state.association2[connection].e_id);
     const upper = this.state.association2[connection].mult.upper;
     if (!e) { 
@@ -246,7 +246,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private renderMultiplicities() {
+  private renderMultiplicities = () => {
     return (
       <div className="row form-group">
         <label>Multiplicities</label>
@@ -262,7 +262,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderLabel() {
+  private renderLabel = () => {
     return (
       <div className="row form-group">
         <label>Label</label>
@@ -271,7 +271,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="row form-group"> 
         <div className="col-sm-6 text-center"> 
@@ -284,7 +284,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtonDelete() {
+  private renderButtonDelete = () => {
     return (
       <button type="button" className="btn btn-danger" onClick={() => {
         renderConfirmPm(
@@ -297,7 +297,7 @@ class AssociationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Panel heading={<span>Association {this.props.association.a_id}</span>}>
         <div className="container-fluid">

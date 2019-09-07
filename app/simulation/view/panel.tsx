@@ -59,14 +59,14 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
 
   // Events {{{2
-  private showFireButton(evId: Id) {
+  private showFireButton = (evId: Id) => {
     const bb = diagram.getBoundingBox(simUfobNetwork, evId);
     const height = bb.bottom - bb.top;
     const fbPos = { left: bb.right, top: bb.top + (height / 2) + 20};
     this.setState({ fireButtonPos: fbPos, fireButtonVisible: true, eventToFire: evId });
   }
 
-  private clickEventEv(evId: Id) {
+  private clickEventEv = (evId: Id) => {
     this.showFireButton(evId);
     const ev = ufobDB.getUfobEventById(evId);
     if (ev) {
@@ -76,7 +76,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     }
   }
 
-  private clickSituationEv(sId: Id) {
+  private clickSituationEv = (sId: Id) => {
     const s = ufobDB.getSituationById(sId);
     if (s) {
       setWmdaTab(s.s_name, s.s_wmda_text);
@@ -86,12 +86,12 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
 
   // Actions {{{2
-  private hideFireButton() {
+  private hideFireButton = () => {
     this.setState({ fireButtonVisible: false, eventToFire: null });
     simUfobNetwork.unselectAll();
   }
 
-  private fireEvent() {
+  private fireEvent = () => {
     if (machine.isInPresent()) {
       const evId = this.state.eventToFire;
       if (evId) {
@@ -104,7 +104,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     }
   }
 
-  private switchCurrentSituation(s: Situation) {
+  private switchCurrentSituation = (s: Situation) => {
     ufoaInstVisModel = ufoaInstDiagram.newUfoaInstVisModel();
     const ufoaInstDiagramContainer = panels.getSimInstDiagram();
     if (ufoaInstDiagramContainer) {
@@ -116,7 +116,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     ufoaInstDiagram.addGInsts(ufoaInstVisModel, machine.getGInsts());
   }
 
-  private moveToCurrent() {
+  private moveToCurrent = () => {
     machine.moveToCurrent();
     simDiagram.colorise(ufobVisModel, machine);
     this.forceUpdate(); // timeline has changed
@@ -125,7 +125,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   // Rendering {{{2
   // Simulation Pane {{{3
   // Timeline {{{4
-  private renderSituation(s: Situation) {
+  private renderSituation = (s: Situation) => {
     const mLast = machine.getLastSituation();
     const isLast = mLast ? mLast.s_id === s.s_id : false;
     const isCurrent = machine.getCurrentSituation().s_id === s.s_id;
@@ -164,7 +164,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     );
   }
 
-  private renderTimeline() {
+  private renderTimeline = () => {
     return (
       this.state.showTimeline ? (
         <div className="events-log-panel">
@@ -176,7 +176,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     );
   }
 
-  private renderSimulationToolbar() {
+  private renderSimulationToolbar = () => {
     return (
       <div className="toolbar">
         <div className="btn-group" role="group">
@@ -201,7 +201,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     );
   }
 
-  private renderFireButton() {
+  private renderFireButton = () => {
     return (
       this.state.fireButtonVisible ? (
         <button
@@ -225,7 +225,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     );
   }
 
-  private renderSimulationPane() {
+  private renderSimulationPane = () => {
     return (
       <div>
         {this.renderSimulationToolbar()}
@@ -237,7 +237,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
 
   // Details Pane {{{3
-  private renderDetailsPane() {
+  private renderDetailsPane = () => {
     return (
       <div>
         <Tabs activeTab="instances" id="simulation-details-tabs">
@@ -249,7 +249,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
 
   // Instances Tab {{{4
-  private renderInstancesTab() {
+  private renderInstancesTab = () => {
     return (
       <Tab tabId="instances" title="Instances">
         {this.renderInstToolbar()}
@@ -258,7 +258,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
     );
   }
 
-  private renderInstToolbar() {
+  private renderInstToolbar = () => {
     return (
       <div className="toolbar">
         <button
@@ -273,7 +273,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
   // }}}4
   // WMDA Tab {{{4
-  private renderWmdaTab() {
+  private renderWmdaTab = () => {
     return (
       <Tab tabId="wmdaStandard" title="WMDA Standard">
         <div className="container-fluid">
@@ -289,7 +289,7 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
   }
   // }}}2
 
-  public render() {
+  public render = () => {
     return (
       <SplitPane split="vertical" minSize={100} defaultSize={500}>
         {this.renderSimulationPane()}

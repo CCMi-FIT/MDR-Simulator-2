@@ -116,8 +116,11 @@ function addNodeHandler(ufobVisModel: UfobVisModel, visNetwork1: visNetwork.Netw
 }
 
 export function renderUfob(ufobVisModel: UfobVisModel, container: HTMLElement): any {
-  const dataSet: any = ufobVisModel;
-  const network = new visNetwork.Network(container, ufobVisModel as any);
+  const data: visNetwork.Data = {
+    nodes: ufobVisModel.nodes.get(),
+    edges: ufobVisModel.edges.get()
+  };
+  const network = new visNetwork.Network(container, data, {});
   const options = {
     edges: {
       smooth: false

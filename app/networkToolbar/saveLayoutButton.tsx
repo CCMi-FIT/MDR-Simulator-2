@@ -8,7 +8,7 @@ interface Props {
 
 export class SaveLayout extends React.Component<Props> {
 
-  private save() {
+  private save = () => {
     const graphics = this.props.network.getPositions();
     this.props.db.saveGraphics(graphics).then(
       ()      => panels.displayInfo("Diagram layout saved."),
@@ -16,7 +16,7 @@ export class SaveLayout extends React.Component<Props> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <button type="button" className="btn btn-light" title="Save diagram layout" onClick={this.save}>
         <i className="fas fa-save"/>

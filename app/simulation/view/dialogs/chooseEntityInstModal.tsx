@@ -27,7 +27,7 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
   }
 
   // Operations {{{1
-  private choose() {
+  private choose = () => {
     panels.disposeModal();
     const chosenInst = this.props.insts.find((ei) => ei.ei_name === this.state.chosenInstName);
     if (!chosenInst) {
@@ -39,7 +39,7 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
   }
 
   // Rendering {{{1
-  private renderSelection() {
+  private renderSelection = () => {
     return (
       <div className="form-group">
         <label>Available instances</label>
@@ -51,7 +51,7 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group">
         <button type="button" className="btn btn-primary" onClick={this.choose}>Choose</button>
@@ -59,7 +59,7 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading={<span>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></span>}>
           {this.renderSelection()}

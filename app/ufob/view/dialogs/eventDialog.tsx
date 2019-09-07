@@ -62,7 +62,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   // Actions {{{1
-  private setAttr(attr: string, val: any) {
+  private setAttr = (attr: string, val: any) => {
     this.setState((state: State, props: Props) => {
       const evOrig = props.eventB;
       const stateNew: State = (
@@ -126,7 +126,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     });
   }
 
-  private commit() {
+  private commit = () => {
     const ev = this.state.eventB2;
     const nodes = this.props.ufobVisModel.nodes;
     const edges = this.props.ufobVisModel.edges;
@@ -140,7 +140,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     }, (error) => panels.displayError("Event save failed: " + error));
   }
 
-  private save() {
+  private save = () => {
     const eventBOriginal = this.props.eventB;
     const eventBNew = this.state.eventB2;
     if (!_.isEqual(eventBOriginal, eventBNew)) {
@@ -148,7 +148,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private delete() {
+  private delete = () => {
     const nodes: any = this.props.ufobVisModel.nodes;
     const edges: any = this.props.ufobVisModel.edges;
     const ev_id = this.props.eventB.ev_id;
@@ -163,24 +163,24 @@ class EventForm extends panels.PaneDialog<Props, State> {
       (error) => panels.displayError("Event delete failed: " + error));
   }
 
-  private editWMDA() {
+  private editWMDA = () => {
     const eventB2 = this.state.eventB2;
     wmdaModal.render(eventB2.ev_name, eventB2.ev_wmda_text).then(
       (wmdaText2) => this.setAttr("ev_wmda_text", wmdaText2)
     );
   }
 
-  private hasInstNameError(op: AddEntityInstOp): boolean {
+  private hasInstNameError = (op: AddEntityInstOp): boolean => {
     return this.state.instsNamesViolations.includes(op.opa_e_id);
   }
 
-  private checkInstsNamesUnique(op: AddEntityInstOp, instsNames: string[]): string[] {
+  private checkInstsNamesUnique = (op: AddEntityInstOp, instsNames: string[]): string[] => {
     const oldInstsNames = op.opa_insts_names;
     const allInstsNames = _.difference(ufobDB.getInstsNames(), oldInstsNames);
     return instsNames.filter((instName) => allInstsNames.includes(instName));
   }
 
-  private updateInstsNamesFromStr(op: AddEntityInstOp) {
+  private updateInstsNamesFromStr = (op: AddEntityInstOp) => {
     const str = this.state.instsNamesStrDict[op.opa_e_id];
     const newInstsNames = str.split(" ").filter((i) => i.length > 0);
     const violations = this.checkInstsNamesUnique(op, newInstsNames);
@@ -198,7 +198,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   // Operations actions {{{2
   // Rendering {{{1
-  private renderEventName() {
+  private renderEventName = () => {
     return (
       <div className="form-group">
         <textarea className="form-control" value={this.state.eventB2.ev_name} onChange={(ev) => this.setAttr("ev_name", ev.currentTarget.value)} rows={3} cols={30}/>
@@ -208,7 +208,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
 
   // Operations Rendering {{{2
   // AddOperation {{{3
-  private renderAddOpDelete(op: AddEntityInstOp) {
+  private renderAddOpDelete = (op: AddEntityInstOp) => {
     return (
       <button type="button" className="btn-danger btn-sm" onClick={() => this.setAttr("ev_add_ops.delete", op)}>
         <i className="fas fa-trash"/>
@@ -216,7 +216,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderInstsNamesInput(op: AddEntityInstOp) {
+  private renderInstsNamesInput = (op: AddEntityInstOp) => {
     const instsTip = this.hasInstNameError(op) ?
         "The name is not unique"
       : "Unique instance names separated by a space";
@@ -244,7 +244,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderAddOperation(op: AddEntityInstOp) {
+  private renderAddOperation = (op: AddEntityInstOp) => {
     const entity = ufoaDB.getEntity(op.opa_e_id);
     return (
       <div key={op.opa_e_id} className="form-group">
@@ -269,7 +269,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   // Remove Operation {{{3
-  private renderRemoveOpDelete(op: RemoveEntityInstOp) {
+  private renderRemoveOpDelete = (op: RemoveEntityInstOp) => {
     return (
       <button type="button" className="btn btn-danger btn-sm" onClick={() => this.setAttr("ev_remove_ops.delete", op)}>
         <i className="fas fa-trash"/>
@@ -277,7 +277,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderRemoveOperation(op: RemoveEntityInstOp) {
+  private renderRemoveOperation = (op: RemoveEntityInstOp) => {
     const entity = ufoaDB.getEntity(op.opr_e_id);
     return (
       <div key={op.opr_e_id} className="form-group row">
@@ -295,7 +295,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   // New Operation {{{3
-  private renderNameInput() {
+  private renderNameInput = () => {
     const addOps = this.state.eventB2.ev_add_ops;
     const removeOps = this.state.eventB2.ev_remove_ops;
     const opsEIds = [ ...removeOps.map((op) => op.opr_e_id), addOps.map((op) => op.opa_e_id) ];
@@ -314,7 +314,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderAddOpButton() {
+  private renderAddOpButton = () => {
     return (
       <button
       type="button"
@@ -333,7 +333,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
   
-  private renderRemoveOpButton() {
+  private renderRemoveOpButton = () => {
     return (
       <button
       type="button"
@@ -351,7 +351,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderNewOp() {
+  private renderNewOp = () => {
     return (
       <div className="form-group row">
         <div className="offset-1 col-9 pl-0 my-auto">
@@ -365,15 +365,15 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private addOpComparator(op1: AddEntityInstOp, op2: AddEntityInstOp) {
+  private addOpComparator = (op1: AddEntityInstOp, op2: AddEntityInstOp) => {
     return this.compareEntities(ufoaDB.getEntity(op1.opa_e_id), ufoaDB.getEntity(op2.opa_e_id));
   }
 
-  private removeOpComparator(op1: RemoveEntityInstOp, op2: RemoveEntityInstOp) {
+  private removeOpComparator = (op1: RemoveEntityInstOp, op2: RemoveEntityInstOp) => {
     return this.compareEntities(ufoaDB.getEntity(op1.opr_e_id), ufoaDB.getEntity(op2.opr_e_id));
   }
 
-  private compareEntities(e1: UfoaEntity | null, e2: UfoaEntity | null) {
+  private compareEntities = (e1: UfoaEntity | null, e2: UfoaEntity | null) => {
     const name1 = e1 ? e1.e_name : "";
     const name2 = e2 ? e2.e_name : "";
     return (
@@ -383,7 +383,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderOperations() {
+  private renderOperations = () => {
     const addOpsSorted: AddEntityInstOp[] = this.state.eventB2.ev_add_ops;
     //const addOpsSorted: AddEntityInstOp[] = _.sortBy(this.state.eventB2.ev_add_ops, [this.addOpComparator]);
     const removeOpsSorted: RemoveEntityInstOp[] = this.state.eventB2.ev_remove_ops;
@@ -402,7 +402,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   //}}}2
-  private renderToSituation() {
+  private renderToSituation = () => {
     const toSituation = ufobDB.getSituationById(this.state.eventB2.ev_to_situation_id);
     return (
       <div className="form-group">
@@ -421,7 +421,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderWMDAButton() {
+  private renderWMDAButton = () => {
     return (
       <div className="form-group row col-sm-12">
         <button type="button" className="btn col-sm-12 btn-primary" onClick={this.editWMDA}>Edit WMDA Standard</button>
@@ -430,7 +430,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   // Buttons rendering {{{2
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group row col-sm-12">
         <div className="col-sm-6">
@@ -443,7 +443,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtonDelete() {
+  private renderButtonDelete = () => {
     return (
       <button 
       type="button"
@@ -461,7 +461,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
   }
 
   // }}}2
-  public render() {
+  public render = () => {
     return (
       <Panel heading={<span><strong>Event {this.props.eventB.ev_id}</strong></span>}>
         {this.renderEventName()}

@@ -8,8 +8,8 @@
     "server:watch": "rm -rf dist/*; cp -r server/views dist; nodemon --watch server --ext js,ejs --exec npm run server:build\\; npm run server:run",
     "server:build": "rm -rf dist/*; cp -r server/views dist; babel -d dist server",
     "server:run": "cd dist; node server",
-    "client:watch": "rm -rf public/*; brunch watch",
-    "client:build": "rm -rf public/*; brunch build --production",
+    "client:watch": "rm -rf public/*; webpack  --watch --progress",
+    "client:build": "rm -rf public/*; webpack --progress",
     "clean": "npm cache clean --force"
   },
   "devDependencies": {
@@ -17,6 +17,7 @@
     "@types/jquery": "^3.3.31",
     "@types/lodash": "^4.14.137",
     "@types/ramda": "^0.26.19",
+    "copy-webpack-plugin": "^5.0.4",
     "ts-loader": "^6.0.4",
     "typescript": "^3.6.2"
   },

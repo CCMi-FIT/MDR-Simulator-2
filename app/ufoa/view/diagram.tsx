@@ -126,7 +126,7 @@ export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): 
     nodes: ufoaVisModel.nodes.get(),
     edges: ufoaVisModel.edges.get()
   };
-  const network = new visNetwork.Network(container, data);
+  const network = new visNetwork.Network(container, data, {});
   const options = {
     nodes: {
       shape: "box"
@@ -161,5 +161,6 @@ export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): 
       addEdge: (edgeData: any, callback: any) => addEdgeHandler(ufoaVisModel, edgeData, callback)
     }
   };
+  network.setOptions(options);
   return network;
 }

@@ -45,7 +45,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     };
   }
 
-  private setAttr(attr: keyof Generalisation | keyof GSet, val: any) {
+  private setAttr = (attr: keyof Generalisation | keyof GSet, val: any) => {
     this.setState((state: State, props: Props) => {
       const gOrig = props.generalisation;
       const stateNew: State = (
@@ -102,7 +102,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     });
   }
 
-  private save() {
+  private save = () => {
     const gOriginal = this.props.generalisation;
     const gNew = this.state.generalisation2;
     const edges: any = this.props.visModel.edges;
@@ -111,7 +111,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private delete() {
+  private delete = () => {
     const edges: any = this.props.visModel.edges;
     const g_id = this.props.generalisation.g_id;
     ufoaDB.deleteGeneralisation(g_id).then(
@@ -124,7 +124,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderGSet() {
+  private renderGSet = () => {
     return (
       <div className="form-group">
         <label>Set</label>
@@ -144,7 +144,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderMeta() {
+  private renderMeta = () => {
     return (
       <div className="form-group">
         <label>Meta</label>
@@ -155,7 +155,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderSup() {
+  private renderSup = () => {
     return (
       <div className="form-group">
         <label>Supertype</label>
@@ -174,7 +174,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderSub() {
+  private renderSub = () => {
     return (
       <div className="form-group">
         <label>Subtype</label>
@@ -193,7 +193,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group row">
         <div className="col-sm-6 text-center">
@@ -206,7 +206,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtonDelete() {
+  private renderButtonDelete = () => {
     return (
       <button type="button" className="btn btn-danger" onClick={() => {
         renderConfirmPm(
@@ -219,7 +219,7 @@ class GeneralisationsForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Panel heading={<span><strong>Generalisation {this.props.generalisation.g_id}</strong></span>}>
         {this.renderGSet()}

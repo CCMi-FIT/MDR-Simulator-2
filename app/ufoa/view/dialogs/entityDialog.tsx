@@ -45,8 +45,8 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
       saveDisabled: true
     };
   }
-  // Operations {{{1
-  private setAttr(attr: keyof UfoaEntity, val: string) {
+  // Operations {{{2
+  private setAttr = (attr: keyof UfoaEntity, val: string) => {
     this.setState((state: State, props: Props) => {
       const ufoaEntityOriginal = props.ufoaEntity;
       const ufoaEntityNew: UfoaEntity = (
@@ -67,7 +67,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     });
   }
 
-  private save() {
+  private save = () => {
     const ufoaEntityOriginal = this.props.ufoaEntity;
     const ufoaEntityNew = this.state.ufoaEntity2;
     const nodes: any = this.props.ufoaVisModel.nodes;
@@ -76,7 +76,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private delete() {
+  private delete = () => {
     const nodes = this.props.ufoaVisModel.nodes;
     const edges = this.props.ufoaVisModel.edges;
     const e_id = this.props.ufoaEntity.e_id;
@@ -91,8 +91,8 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
       (error) => panels.displayError("Entity delete failed: " + error));
   }
 
-  // Rendering {{{1
-  private renderEntityType() {
+  // Rendering {{{2
+  private renderEntityType = () => {
     return (
       <div className="form-group">
         <select className="form-control" value={this.state.ufoaEntity2.e_type} onChange={(e) => this.setAttr("e_type", e.currentTarget.value)}>
@@ -102,7 +102,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderEntityName() {
+  private renderEntityName = () => {
     return (
       <div className="form-group">
         <textarea className="form-control" value={this.state.ufoaEntity2.e_name} onChange={(e) => this.setAttr("e_name", e.currentTarget.value)} rows={5} cols={30}/>
@@ -110,8 +110,8 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  // AssocPane {{{2
-  private renderConnection(a: Association, c: Connection, align: string) {
+  // AssocPane {{{3
+  private renderConnection = (a: Association, c: Connection, align: string) => {
     const prefix =
       _.isEqual(a.a_connection1, c) ?
         a.a_type === "MemberOf" ?
@@ -127,7 +127,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderAssocDetails(a: Association, c1: Connection, c2: Connection) {
+  private renderAssocDetails = (a: Association, c1: Connection, c2: Connection) => {
     return (
       <div className="container-fluid">
         <div className="row" style={{textAlign: "center", display: "block"}}>
@@ -149,7 +149,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderAssoc(assoc: Association) {
+  private renderAssoc = (assoc: Association) => {
     const e = this.props.ufoaEntity;
     let e1 = ufoaDB.getEntity1OfAssoc(assoc);
     let c1 = assoc.a_connection1;
@@ -181,17 +181,17 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private renderAssocPane() {
+  private renderAssocPane = () => {
     return (
       <Panel heading="Associations" inner={true}>
         {ufoaDB.getAssocsOfEntity(this.props.ufoaEntity).map(this.renderAssoc)}
       </Panel>
     );
   }
-  // }}}2
+  // }}}3
 
-  // Buttons rendering {{{2
-  private renderButtons() {
+  // Buttons rendering {{{3
+  private renderButtons = () => {
     return (
       <div className="form-group row col-sm-12" style={{paddingTop: "15px"}}>
         <div className="col-sm-6 text-center">
@@ -204,7 +204,7 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private renderButtonDelete() {
+  private renderButtonDelete = () => {
     return (
       <button type="button" className="btn btn-danger" onClick={() => {
         renderConfirmPm(
@@ -217,9 +217,9 @@ class UfoaVisNodeForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  // }}}2
+  // }}}3
 
-  public render() {
+  public render = () => {
     return (
       <Panel heading={<span>{this.props.ufoaEntity.e_name} ({this.props.ufoaEntity.e_id})</span>}>
         {this.renderEntityType()}

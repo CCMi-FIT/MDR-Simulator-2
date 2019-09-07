@@ -34,7 +34,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
 
   // Operations {{{1
 
-  private setInstName(val: string) {
+  private setInstName = (val: string) => {
     this.setState((state: State, props: Props) => {
       return (props.insts.find((ei) => ei.ei_name === val)) ? {
 	instName: val,
@@ -49,20 +49,20 @@ class EntityInstNameForm extends React.Component<Props, State> {
     });
   }
 
-  private handleKeyPress(event: React.KeyboardEvent) {
+  private handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       this.save();
     }
   }
 
-  private save() {
+  private save = () => {
     panels.disposeModal();
     const res = ufoaInstModel.newEntityInst(this.props.entity, this.state.instName);
     this.props.resolve(res);
   }
 
   // Rendering {{{1
-  private renderInput() {
+  private renderInput = () => {
     return (
       <div className="form-group">
         <label>Name</label>
@@ -76,7 +76,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
     );
   }
 
-  private renderError() {
+  private renderError = () => {
     return (
       <div>
         This name is already present.
@@ -84,7 +84,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group"> 
         <button type="button" className="btn btn-primary" onClick={this.save} disabled={this.state.saveDisabled}>Set name</button>
@@ -92,7 +92,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading={<span><strong>Enter instance name for {this.props.entity.e_name}</strong></span>}>
         <div>
@@ -104,7 +104,7 @@ class EntityInstNameForm extends React.Component<Props, State> {
     );
   }
 
-  public componentDidMount() {
+  public componentDidMount = () => {
     if (this.nameInput) {
       this.nameInput.focus();
     }

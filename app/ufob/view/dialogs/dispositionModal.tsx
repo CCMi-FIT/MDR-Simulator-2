@@ -36,13 +36,13 @@ class DispositionForm extends React.Component<Props, State> {
 
   // Events {{{1
 
-  private dispositionTextChanged(e: React.ChangeEvent) {
+  private dispositionTextChanged = (e: React.ChangeEvent) => {
     const t = e.currentTarget as HTMLTextAreaElement;
     this.setText(t.value);
   }
 
   // Operations {{{1
-  private setText(val: string) {
+  private setText = (val: string) => {
     this.setState((state: State, props: Props) => {
       const newD: Disposition = {
 	...state.disposition2,
@@ -66,7 +66,7 @@ class DispositionForm extends React.Component<Props, State> {
     });
   }
 
-  private save() {
+  private save = () => {
     const dOrig = this.props.disposition;
     const dNew = this.state.disposition2;
     panels.disposeModal();
@@ -77,7 +77,7 @@ class DispositionForm extends React.Component<Props, State> {
     }
   }
 
-  private deleteEvent(evId: Id) {
+  private deleteEvent = (evId: Id) => {
     this.setState((state: State, props: Props) => {
       const newIds = state.disposition2.d_events_ids.filter((eId) => eId !== evId);
       const newDisposition = {
@@ -92,7 +92,7 @@ class DispositionForm extends React.Component<Props, State> {
     });
   }
 
-  private addEvent(evId: Id) {
+  private addEvent = (evId: Id) => {
     this.setState((state: State, props: Props) => {
       const newIds = [ ...state.disposition2.d_events_ids, evId ];
       const newDisposition = {
@@ -106,13 +106,13 @@ class DispositionForm extends React.Component<Props, State> {
     });
   }
 
-  private delete() {
+  private delete = () => {
     this.props.resolve(null);
     panels.disposeModal();
   }
 
   // Rendering {{{1
-  private renderDispositionText() {
+  private renderDispositionText = () => {
     return (
       <div className="form-group">
         <textarea className="form-control" value={this.state.disposition2.d_text} onChange={this.dispositionTextChanged} rows={5} cols={30}/>
@@ -123,7 +123,7 @@ class DispositionForm extends React.Component<Props, State> {
     );
   }
 
-  private renderEvent(evId: Id) {
+  private renderEvent = (evId: Id) => {
     const ev = ufobDB.getUfobEventById(evId);
     return (
       <div key={evId} style={{marginBottom: "5px"}}>
@@ -141,13 +141,13 @@ class DispositionForm extends React.Component<Props, State> {
     );
   }
 
-  private renderEventsEmpty() {
+  private renderEventsEmpty = () => {
     return (
       <span className="error-hint">There must be at least one caused event.</span>
     );
   }
 
-  private renderEvents() {
+  private renderEvents = () => {
     const esIds = this.state.disposition2.d_events_ids;
     return (
       <div className="form-group">
@@ -172,7 +172,7 @@ class DispositionForm extends React.Component<Props, State> {
     );
   }
 
-  private renderButtons() {
+  private renderButtons = () => {
     return (
       <div className="form-group d-flex flex-row">
         <button
@@ -188,7 +188,7 @@ class DispositionForm extends React.Component<Props, State> {
     );
   }
 
-  public render() {
+  public render = () => {
     return (
       <Modal heading={<strong>Disposition</strong>}>
         {this.renderDispositionText()}
