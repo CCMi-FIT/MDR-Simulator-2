@@ -1,5 +1,5 @@
+import { Graphics } from "../metamodel";
 import { UfoaModel } from "./metamodel";
-import { Graphics } from "../api";
 import * as ufoaDiagram from "./view/diagram";
 import * as dispatchA from "./view/dispatch";
 import * as networkToolbar from "../networkToolbar/toolbar";

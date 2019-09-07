@@ -1,6 +1,6 @@
+import { Graphics } from "../metamodel";
 import { UfobVisModel } from "./view/diagram";
 import { UfobModel } from "./metamodel";
-import { Graphics } from "../api";
 import * as ufobDiagram from "./view/diagram";
 import * as dispatchB from "./view/dispatch";
 import * as networkToolbar from "../networkToolbar/toolbar";

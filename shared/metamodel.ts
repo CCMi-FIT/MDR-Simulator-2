@@ -4,6 +4,10 @@ export type Id = string;
 export type Name = string;
 export type Label = string;
 
+export interface Graphics {
+  [key: string]: { x: number, y: number}
+}
+
 // Validation
 export interface ValidationResult {
   errors?: string;

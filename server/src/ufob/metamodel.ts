@@ -1,0 +1,1 @@
+../../../shared/ufob/metamodel.ts

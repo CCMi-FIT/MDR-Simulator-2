@@ -1,16 +1,15 @@
-//@flow 
-
-const express = require('express');
-import * as ufoaMeta from './metamodel';
-import { clientErrRes, serverErrRes, okRes } from '../router';
-import * as ufoaDB from './db';
-import * as urls from './urls';
+import { Request, Response } from "express";
+import * as express from "express";
+import { UfoaEntity } from "./metamodel";
+import * as ufoaMeta from "./metamodel";
+import { clientErrRes, serverErrRes, okRes } from "../router";
+import * as ufoaDB from "./db";
+import * as urls from "./urls";
 
 var ufoaRouter = express.Router();
-//
 // Model {{{1
 
-ufoaRouter.get(urls.ufoaGetModel, (req, res: any) => {
+ufoaRouter.get(urls.ufoaGetModel, (req: Request, res: Response) => {
   ufoaDB.getModel().then(
     model => okRes(res, model),
     error => serverErrRes(res, `Error in loading UFO-A model: ${error}`)
@@ -19,9 +18,12 @@ ufoaRouter.get(urls.ufoaGetModel, (req, res: any) => {
 
 // Entities {{{1
 
-ufoaRouter.post(urls.ufoaEntityUpdate, (req, res: any) => {
+ufoaRouter.post(urls.ufoaEntityUpdate, (req: Request, res: Response) => {
   try {
-    const entity = JSON.parse(req.body.entity);
+    const entity: UfoaEntity | null = JSON.parse(req.body.entity);
+    if (!entity) {
+      throw(new SyntaxError("Missing entity in request body"));
+    }
     const validity = ufoaMeta.validateEntity(entity);
     if (validity.errors) {
       serverErrRes(res, "Error in entity update (validity violation)");
@@ -31,12 +33,12 @@ ufoaRouter.post(urls.ufoaEntityUpdate, (req, res: any) => {
         error  => serverErrRes(res, `Error in updating entity: ${error}`)
       );
     }
-  } catch (SyntaxError) { 
-    clientErrRes(res, "Unable to parse `entity` object");
+  } catch (error) { 
+    clientErrRes(res, error);
   }
 });
 
-ufoaRouter.post(urls.ufoaEntityDelete, (req, res: any) => {
+ufoaRouter.post(urls.ufoaEntityDelete, (req: Request, res: Response) => {
   let e_id = req.body.e_id;
   if (!e_id) {
     clientErrRes(res, "Missing `e_id`");
@@ -50,7 +52,7 @@ ufoaRouter.post(urls.ufoaEntityDelete, (req, res: any) => {
 
 // Generalisations {{{1
 
-ufoaRouter.post(urls.ufoaGeneralisationUpdate, (req, res: any) => {
+ufoaRouter.post(urls.ufoaGeneralisationUpdate, (req: Request, res: Response) => {
   try {
     const generalisation = JSON.parse(req.body.generalisation);
     const validity = ufoaMeta.validateGeneralisation(generalisation);
@@ -67,7 +69,7 @@ ufoaRouter.post(urls.ufoaGeneralisationUpdate, (req, res: any) => {
   }
 });
 
-ufoaRouter.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
+ufoaRouter.post(urls.ufoaGeneralisationDelete, (req: Request, res: Response) => {
   const g_id = req.body.g_id;
   if (!g_id) {
     clientErrRes(res, "Missing `g_id`");
@@ -81,7 +83,7 @@ ufoaRouter.post(urls.ufoaGeneralisationDelete, (req, res: any) => {
 
 // Associations {{{1
 
-ufoaRouter.post(urls.ufoaAssociationUpdate, (req, res: any) => {
+ufoaRouter.post(urls.ufoaAssociationUpdate, (req: Request, res: Response) => {
   try {
     const assoc = JSON.parse(req.body.association);
     const validity = ufoaMeta.validateAssociation(assoc);
@@ -98,7 +100,7 @@ ufoaRouter.post(urls.ufoaAssociationUpdate, (req, res: any) => {
   }
 });
 
-ufoaRouter.post(urls.ufoaAssociationDelete, (req, res: any) => {
+ufoaRouter.post(urls.ufoaAssociationDelete, (req: Request, res: Response) => {
   const a_id = req.body.a_id;
   if (!a_id) {
     clientErrRes(res, "Missing `a_id`");
@@ -112,14 +114,14 @@ ufoaRouter.post(urls.ufoaAssociationDelete, (req, res: any) => {
 
 // Graphics {{{1
 
-ufoaRouter.get(urls.ufoaGetGraphics, (req, res: any) => {
+ufoaRouter.get(urls.ufoaGetGraphics, (req: Request, res: Response) => {
   ufoaDB.getGraphics().then(
     graphics => okRes(res, graphics),
     error    => serverErrRes(res, `Error in loading UFO-A model layout: ${error}`)
   );
 });
 
-ufoaRouter.post(urls.ufoaGraphicsSave, (req, res: any) => {
+ufoaRouter.post(urls.ufoaGraphicsSave, (req: Request, res: Response) => {
   try {
     const graphics = JSON.parse(req.body.graphics);
     ufoaDB.saveGraphics(graphics).then(
@@ -131,12 +133,11 @@ ufoaRouter.post(urls.ufoaGraphicsSave, (req, res: any) => {
   }
 });
 
-ufoaRouter.post(urls.ufoaGraphicsDelete, (req, res: any) => {
+ufoaRouter.post(urls.ufoaGraphicsDelete, (req: Request, res: Response) => {
   ufoaDB.graphicsDelete().then(
     result => okRes(res, result),
     error  => serverErrRes(res, `Error in deleting UFO-A model layout: ${error}`)
   );
 });
 
-
-module.exports = ufoaRouter;
+export default ufoaRouter;

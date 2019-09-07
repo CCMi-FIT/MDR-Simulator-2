@@ -1,1 +1,1 @@
-../../shared/ufob/schema.js
+../../../shared/ufob/schema.js

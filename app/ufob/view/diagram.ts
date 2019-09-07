@@ -1,8 +1,7 @@
 import * as _ from "lodash";
-import { Graphics } from "../../api";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
-import { Id } from "../../metamodel";
+import { Id, Graphics } from "../../metamodel";
 import { UfobEvent, Situation, Disposition, UfobModel } from "../metamodel";
 import { UfobVisNode, UfobVisEdge, UfobVisModel } from "./diagram";
 import { Position } from "../../diagram";

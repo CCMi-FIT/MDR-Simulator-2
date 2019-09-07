@@ -1,1 +1,1 @@
-../../shared/ufoa/schema.js
+../../../shared/ufoa/schema.js

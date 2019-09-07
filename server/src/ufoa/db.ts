@@ -1,27 +1,25 @@
-//@flow
-
-import * as db from '../db';
-import { Id } from '../metamodel';
-import { UfoaModel } from '../ufoa/metamodel';
-import * as ufoaMeta from '../ufoa/metamodel';
-import * as ufoaModel from '../ufoa/model';
-import * as ufobDB from '../ufob/db';
-import { error } from '../logging';
+import * as db from "../db";
+import { Id, Graphics } from "../metamodel";
+import { UfoaModel } from "../ufoa/metamodel";
+import * as ufoaMeta from "../ufoa/metamodel";
+import * as ufoaModel from "../ufoa/model";
+import * as ufobDB from "../ufob/db";
+import { error } from "../logging";
 
 const ufoaFname = "../data/ufoa.json";
 const ufoaGraphicsFname = "../data/ufoa-graphics.json";
 
-// Model
+// Model {{{1
 
-export function getModel(): Promise<any> {
-  return db.getModel(ufoaFname, ufoaMeta);
+export function getModel(): Promise<UfoaModel> {
+  return db.getModel<UfoaModel>(ufoaFname, ufoaMeta.validateModel);
 }
 
 export function writeModel(model: UfoaModel): Promise<any> {
   return db.writeModel(ufoaFname, model);
 }
 
-// Entities
+// Entities {{{1
 
 export function updateEntity(updatedEntity: any): Promise<any> {
   return db.fileOpWithLock(ufoaFname, new Promise((resolve, reject) => {
@@ -63,7 +61,7 @@ export function deleteEntity(e_id: Id): Promise<any> {
   }));
 }
 
-// Generalisations
+// Generalisations {{{1
 
 export function updateGeneralisation(updatedGeneralisation: any): Promise<any> {
   return db.fileOpWithLock(ufoaFname, new Promise((resolve, reject) => {
@@ -101,7 +99,7 @@ export function deleteGeneralisation(g_id: Id): Promise<any> {
   }));
 }
 
-// Associations
+// Associations {{{1
 
 export function updateAssociation(updatedAssociation: any): Promise<any> {
   return db.fileOpWithLock(ufoaFname, new Promise((resolve, reject) => {
@@ -139,9 +137,9 @@ export function deleteAssociation(a_id: Id): Promise<any> {
   }));
 }
 
-// Graphics
+// Graphics {{{1
 
-export function getGraphics(): Promise<any> {
+export function getGraphics(): Promise<Graphics> {
   return db.getGraphics(ufoaGraphicsFname);
 }
 

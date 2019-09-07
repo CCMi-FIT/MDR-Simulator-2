@@ -1,7 +1,6 @@
-import { Id } from "../metamodel";
+import { Id, Graphics } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from "./metamodel";
 import * as ufoaMeta from "./metamodel";
-import { Graphics } from "../api";
 import * as urls from "./urls";
 import * as ufoaModel from "./model";
 import * as ufobDB from "../ufob/db";

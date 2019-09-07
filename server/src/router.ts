@@ -1,5 +1,3 @@
-//@flow
-
 import { error } from './logging';
 
 export function clientErrRes(res: any, msg: string): void {

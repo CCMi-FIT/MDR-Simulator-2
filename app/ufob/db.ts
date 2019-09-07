@@ -1,6 +1,5 @@
-import { Id } from "../metamodel";
+import { Id, Graphics } from "../metamodel";
 import { Situation, UfobEvent, UfobModel } from "./metamodel";
-import { Graphics } from "../api";
 import * as ufobMeta from "./metamodel";
 import * as urls from "./urls";
 import * as ufobModel from "./model";

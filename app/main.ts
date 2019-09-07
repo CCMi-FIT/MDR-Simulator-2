@@ -1,7 +1,7 @@
 import $ from "jquery";
+import { Graphics } from "./metamodel";
 import { UfoaModel } from "./ufoa/metamodel";
 import { UfobModel } from "./ufob/metamodel";
-import { Graphics } from "./api";
 import * as ufoa from "./ufoa/main";
 import * as ufob from "./ufob/main";
 import * as simulation from "./simulation/main";

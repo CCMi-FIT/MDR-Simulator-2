@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Graphics } from "../../api";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
+import { Graphics } from "../../metamodel";
 import { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
 import * as ufoaMeta from "../metamodel";
 import * as ufoaDB from "../db";

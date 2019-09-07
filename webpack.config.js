@@ -7,7 +7,7 @@ module.exports = {
   devtool: "inline-source-map",
   entry: "./app/main.ts",
   output: {
-    path: "/home/rob/FIT/ELIXIR/30-Projects/50-Working/2018 Darci/30-Working/MDR-Simulator-2/public",
+    path: __dirname + "/server/public",
     filename: "js/app.js"
   },
   resolve: {

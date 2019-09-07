@@ -1,0 +1,1 @@
+../../../shared/ufob/model.ts

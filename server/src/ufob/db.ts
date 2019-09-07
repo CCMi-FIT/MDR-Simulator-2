@@ -1,19 +1,17 @@
-//@flow
-
-import * as db from '../db';
-import { Id } from '../metamodel';
-import { UfobModel } from './metamodel';
-import * as ufobMeta from './metamodel';
-import * as ufobModel from './model';
-import { error } from '../logging';
+import * as db from "../db";
+import { Id } from "../metamodel";
+import { UfobModel } from "./metamodel";
+import * as ufobMeta from "./metamodel";
+import * as ufobModel from "./model";
+import { error } from "../logging";
 
 const ufobFname = "../data/ufob.json";
 const ufobGraphicsFname = "../data/ufob-graphics.json";
 
 // Model {{{1
 
-export function getModel(): Promise<any> {
-  return db.getModel(ufobFname, ufobMeta);
+export function getModel(): Promise<UfobModel> {
+  return db.getModel<UfobModel>(ufobFname, ufobMeta.validateModel);
 }
 
 export function getGraphics(): Promise<any> {
