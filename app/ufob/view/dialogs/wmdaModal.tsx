@@ -17,6 +17,8 @@ interface State {
 
 class WMDAForm extends React.Component<Props, State> {
 
+  private modalRef: any;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -30,12 +32,12 @@ class WMDAForm extends React.Component<Props, State> {
   }
 
   private save = () => {
-    panels.disposeModal();
+    this.modalRef.hide();
     this.props.resolve(this.state.wmdaText2);
   }
 
   private cancel = () => {
-    panels.disposeModal();
+    this.modalRef.hide();
     this.props.reject();
   }
 
@@ -54,7 +56,7 @@ class WMDAForm extends React.Component<Props, State> {
 
   public render = () => {
     return (
-      <Modal heading={<span>WMDA Standard for {this.props.title}</span>}>
+      <Modal heading={<span>WMDA Standard for {this.props.title}</span>} ref={(mRef) => this.modalRef = mRef}>
         <CKEditor
         activeClass="p10"
         content={this.state.wmdaText2}
@@ -72,7 +74,6 @@ export function render(title: string, wmdaText: string): Promise<string> {
     const panel = panels.getModal();
     if (panel) {
       ReactDOM.render(<WMDAForm title={title} wmdaText={wmdaText} resolve={resolve} reject={reject}/>, panel);
-      panels.showModal();
     }
   });
 }

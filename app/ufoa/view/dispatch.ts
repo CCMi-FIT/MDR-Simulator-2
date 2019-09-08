@@ -1,6 +1,7 @@
 import { Id } from "../../metamodel";
 import * as ufoaDB from "../db";
 import { UfoaVisModel } from "./diagram";
+import * as panels from "../../panels";
 import * as entityDialog from "./dialogs/entityDialog";
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
@@ -39,6 +40,10 @@ function dispatchEdge(edgeId: Id, ufoaVisModel: UfoaVisModel) {
   }
 }
 
+function dispatchNone() {
+  panels.disposeDialogUfoa();
+}
+
 export function handleClick(ufoaVisModel: UfoaVisModel, params: any): void {
   const nodeId = params.nodes[0];
   const edgeId = params.edges[0];
@@ -46,5 +51,7 @@ export function handleClick(ufoaVisModel: UfoaVisModel, params: any): void {
     dispatchNode(nodeId, ufoaVisModel);
   } else if (edgeId) {
     dispatchEdge(edgeId, ufoaVisModel);
+  } else {
+    dispatchNone();
   }
 }

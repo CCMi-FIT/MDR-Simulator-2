@@ -3,13 +3,13 @@ import * as express from "express";
 import * as ufobMeta from "./metamodel";
 import { clientErrRes, serverErrRes, okRes } from "../router";
 import * as ufobDB from "./db";
-import * as urls from "./urls";
+import * as api from "./api";
 
 var ufobRouter = express.Router();
 
 // Model {{{1
 
-ufobRouter.get(urls.ufobGetModel, (req: Request, res: Response) => {
+ufobRouter.get(api.getModelURL, (req: Request, res: Response) => {
   ufobDB.getModel().then(
     model => okRes(res, model),
     error => serverErrRes(res, `Error in loading UFO-B model: ${error}`)
@@ -18,7 +18,7 @@ ufobRouter.get(urls.ufobGetModel, (req: Request, res: Response) => {
 
 // Event {{{1
 
-ufobRouter.post(urls.ufobEventUpdate, (req: Request, res: Response) => {
+ufobRouter.post(api.eventUpdateURL, (req: Request, res: Response) => {
   try {
     const event = JSON.parse(req.body.event);
     const validity = ufobMeta.validateEvent(event);
@@ -35,7 +35,7 @@ ufobRouter.post(urls.ufobEventUpdate, (req: Request, res: Response) => {
   }
 });
 
-ufobRouter.post(urls.ufobEventDelete, (req: Request, res: Response) => {
+ufobRouter.post(api.eventDeleteURL, (req: Request, res: Response) => {
   let ev_id = req.body.ev_id;
   if (!ev_id) {
     res.json({error: "Missing `ev_id`"});
@@ -49,7 +49,7 @@ ufobRouter.post(urls.ufobEventDelete, (req: Request, res: Response) => {
 
 // Situation {{{1
 
-ufobRouter.post(urls.ufobSituationUpdate, (req: Request, res: Response) => {
+ufobRouter.post(api.situationUpdateURL, (req: Request, res: Response) => {
   try {
     const situation = JSON.parse(req.body.situation);
     const validity = ufobMeta.validateSituation(situation);
@@ -66,7 +66,7 @@ ufobRouter.post(urls.ufobSituationUpdate, (req: Request, res: Response) => {
   }
 });
 
-ufobRouter.post(urls.ufobSituationDelete, (req: Request, res: Response) => {
+ufobRouter.post(api.situationDeleteURL, (req: Request, res: Response) => {
   let s_id = req.body.s_id;
   if (!s_id) {
     res.json({error: "Missing `s_id`"});
@@ -80,14 +80,14 @@ ufobRouter.post(urls.ufobSituationDelete, (req: Request, res: Response) => {
 
 // Graphics {{{1
 
-ufobRouter.get(urls.ufobGetGraphics, (req: Request, res: Response) => {
+ufobRouter.get(api.getGraphicsURL, (req: Request, res: Response) => {
   ufobDB.getGraphics().then(
     graphics => res.json(graphics),
     error => res.json( {error: `Server error in loading UFO-B model layout: ${error}` })
   );
 });
 
-ufobRouter.post(urls.ufobGraphicsSave, (req: Request, res: Response) => {
+ufobRouter.post(api.graphicsSaveURL, (req: Request, res: Response) => {
   try {
     const graphics = JSON.parse(req.body.graphics);
     ufobDB.saveGraphics(graphics).then(

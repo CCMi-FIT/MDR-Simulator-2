@@ -21,6 +21,7 @@ interface State {
 
 class EntityInstNameForm extends React.Component<Props, State> {
 
+  private modalRef: any;
   private nameInput: HTMLInputElement | null = null;
 
   constructor(props: Props) {
@@ -56,8 +57,8 @@ class EntityInstNameForm extends React.Component<Props, State> {
   }
 
   private save = () => {
-    panels.disposeModal();
     const res = ufoaInstModel.newEntityInst(this.props.entity, this.state.instName);
+    this.modalRef.hide();
     this.props.resolve(res);
   }
 
@@ -94,7 +95,9 @@ class EntityInstNameForm extends React.Component<Props, State> {
 
   public render = () => {
     return (
-      <Modal heading={<span><strong>Enter instance name for {this.props.entity.e_name}</strong></span>}>
+      <Modal 
+        heading={<span><strong>Enter instance name for {this.props.entity.e_name}</strong></span>}
+         ref={(mRef) => this.modalRef = mRef}>
         <div>
           {this.renderInput()}
           {this.state.duplicityError ? this.renderError() : ""}
@@ -117,7 +120,6 @@ export function renderPm(insts: EntityInst[], entity: UfoaEntity): Promise<any> 
     const panel = panels.getModal();
     if (panel) {
       ReactDOM.render(<EntityInstNameForm insts={insts} entity={entity} resolve={resolve} reject={reject}/>, panel);
-      panels.showModal();
     }
   });
 }

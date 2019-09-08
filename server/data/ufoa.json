@@ -3,7 +3,7 @@
     {
       "e_id": "e0",
       "e_type": "kind",
-      "e_name": "Person"
+      "e_name": "Person2"
     },
     {
       "e_id": "e1",
@@ -579,6 +579,11 @@
       "e_id": "e121",
       "e_type": "mode",
       "e_name": "Follow-up Results"
+    },
+    {
+      "e_id": "e122",
+      "e_type": "kind",
+      "e_name": "New Entity5"
     }
   ],
   "generalisations": [
@@ -1220,6 +1225,15 @@
       },
       "g_sup_e_id": "e115",
       "g_sub_e_id": "e34"
+    },
+    {
+      "g_id": "g80",
+      "g_set": {
+        "g_set_id": "gs165",
+        "g_meta": ""
+      },
+      "g_sup_e_id": "e103",
+      "g_sub_e_id": "e122"
     }
   ],
   "associations": [
@@ -3303,6 +3317,24 @@
       },
       "a_connection2": {
         "e_id": "e77",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_label": ""
+    },
+    {
+      "a_id": "a112",
+      "a_type": "Mediation",
+      "a_meta": "",
+      "a_connection1": {
+        "e_id": "e103",
+        "mult": {
+          "lower": 1
+        }
+      },
+      "a_connection2": {
+        "e_id": "e122",
         "mult": {
           "lower": 1
         }

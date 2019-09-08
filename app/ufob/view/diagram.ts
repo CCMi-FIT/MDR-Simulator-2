@@ -28,8 +28,8 @@ export interface UfobVisModel {
 
 export function newUfobVisModel(visNodes: UfobVisNode[], visEdges: UfobVisEdge[]): UfobVisModel {
   return {
-    nodes: new visData.DataSet(visNodes),
-    edges: new visData.DataSet(visEdges)
+    nodes: new visNetwork.DataSet(visNodes),
+    edges: new visNetwork.DataSet(visEdges)
   }
 }
 
@@ -114,12 +114,8 @@ function addNodeHandler(ufobVisModel: UfobVisModel, visNetwork1: visNetwork.Netw
 
 }
 
-export function renderUfob(ufobVisModel: UfobVisModel, container: HTMLElement): any {
-  const data: visNetwork.Data = {
-    nodes: ufobVisModel.nodes.get(),
-    edges: ufobVisModel.edges.get()
-  };
-  const network = new visNetwork.Network(container, data, {});
+export function renderUfob(ufobVisModel: any, container: HTMLElement): any {
+  const network = new visNetwork.Network(container, ufobVisModel, {});
   const options = {
     edges: {
       smooth: false

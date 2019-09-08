@@ -25,24 +25,49 @@ export function Panel(props: PanelProps) {
 }
 
 // Modal {{{1
-export function Modal(props: PanelProps) {
-  return (
-    <div className="modal fade" id="app-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">{props.heading}</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            {props.children}
+interface ModalProps {
+  heading: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+export class Modal extends React.Component<ModalProps> {
+  private myRef: any;
+
+  private getJQ = (): any => { 
+    return $(this.myRef) as any;
+  }
+
+  public hide = () => {
+    this.getJQ().modal("hide");
+  }
+
+  public render = () => {
+    return (
+      <div className="modal fade" id="app-modal" ref={(mRef) => this.myRef = mRef} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{this.props.heading}</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              {this.props.children}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  public componentDidMount = () => {
+    this.getJQ().modal("show");
+  }
+
+  //public componentWillUnmount = () => {
+    //this.hide();
+  //}
 }
 
 // Tabs {{{1
@@ -113,13 +138,21 @@ interface ConfirmProps {
 
 export class Confirm extends React.Component<ConfirmProps> {
 
-  public componentDidMount = () => {
-    panels.showModal();
+  private modalRef: any;
+
+  private confirm = () => {
+    this.modalRef.hide();
+    this.props.resolve();
+  }
+
+  private cancel = () => {
+    this.modalRef.hide();
+    this.props.reject();
   }
 
   public render = () => {
     return (
-      <Modal heading={this.props.heading}>
+      <Modal heading={this.props.heading} ref={(mRef) => this.modalRef = mRef}>
         <div className="container-fluid">
           <div className="row form-group">
             <div className="col my-auto">
@@ -128,21 +161,14 @@ export class Confirm extends React.Component<ConfirmProps> {
           </div>
           <div className="row form-grouop">
             <div className="col my-auto">
-              <button type="button" className="btn btn-danger" onClick={
-                () => {
-                  panels.disposeModal();
-                  this.props.resolve();
-                }}
-              >Confirm {this.props.subject}
+              <button type="button" className="btn btn-danger" onClick={this.confirm}>
+                Confirm {this.props.subject}
               </button>
             </div>
             <div className="col my-auto">
-              <button type="button" className="btn btn-outline-danger" onClick={
-                () => {
-                  panels.disposeModal();
-                  this.props.reject();
-                }}
-              >Cancel {this.props.subject}</button>
+              <button type="button" className="btn btn-outline-danger" onClick={this.cancel}>
+                Cancel {this.props.subject}
+              </button>
             </div>
           </div>
         </div>
@@ -156,7 +182,6 @@ export function renderConfirmPm(heading: React.ReactNode, subject: string, body:
     const panel = panels.getModal();
     if (panel) {
       ReactDOM.render(<Confirm heading={heading} subject={subject} body={body} resolve={resolve} reject={reject}/>, panel);
-      panels.showModal();
     }
   });
 }

@@ -48,50 +48,62 @@ export function fitPanes() {
   );
 }
 
-// Getting
-
 export function getPanel(panelId: string): HTMLElement | null {
-  return document.getElementById(panelId);
+  const dom = document.getElementById(panelId);
+  if (dom) {
+    return dom;
+  } else {
+    console.error(`Panel id=${panelId} does not exist in DOM`);
+    return null;
+  }
+}
+
+function disposePanel(panelId: string): void {
+  const panel = getPanel(panelId);
+  if (panel) {
+    ReactDOM.unmountComponentAtNode(panel);
+  }
+}
+
+export function getCleanPanel(panelId: string): HTMLElement | null {
+  disposePanel(panelId);
+  return getPanel(panelId);
 }
 
 export function getDialogUfoa(): HTMLElement | null {
-  disposeDialogUfoa();
-  return getPanel(dialogUfoaId);
+  return getCleanPanel(dialogUfoaId);
 }
 
 export function getDialogUfob(): HTMLElement | null {
-  disposeDialogUfob();
-  return getPanel(dialogUfobId);
+  return getCleanPanel(dialogUfobId);
 }
 
 export function getDialogSim(): HTMLElement | null {
-  disposeDialogSim();
-  return getPanel(dialogSimId);
+  return getCleanPanel(dialogSimId);
 }
 
 export function getModal(): HTMLElement | null {
-  disposeModalComp(modalBoxId);
-  return getPanel(modalBoxId);
+  return getCleanPanel(modalBoxId);
 }
 
 export function getUfoaBox(): HTMLElement | null {
-  return getPanel(ufoaBoxId);
+  return getCleanPanel(ufoaBoxId);
 }
 
 export function getUfobBox(): HTMLElement | null {
-  return getPanel(ufobBoxId);
+  return getCleanPanel(ufobBoxId);
 }
 
 export function getSimulationBox(): HTMLElement | null {
-  return getPanel(simulationBoxId);
+  return getCleanPanel(simulationBoxId);
 }
 
 export function getSimInstDiagram(): HTMLElement | null {
-  return getPanel(simInstDiagramId);
+  return getCleanPanel(simInstDiagramId);
 }
 
 export function getSimUfobDiagram(): HTMLElement | null {
-  return getPanel(simUfobDiagramId);
+  return getCleanPanel(simUfobDiagramId);
 }
 
 export function getToolbarTop(): number {
@@ -101,12 +113,10 @@ export function getToolbarTop(): number {
 
 // Showing
 function showPanel(panelId: string): void {
-  //const panel = getPanel(panelId);
-  //if (panel) {
-    //$(panel).animate({
-      //width: "toggle"
-    //}, 100);
-  //}
+  const panel = getPanel(panelId);
+  if (panel) {
+    $(panel).show();
+  }
 }
 
 export function showDialogUfoa(): void {
@@ -129,26 +139,8 @@ export function showDialogSim(): void {
   showPanel(dialogSimId);
   fitPanes();
 }
-export function showModal(): void {
-  const m = $(`#${modalId}`) as any;
-  m.modal("show");
-}
 
 // Hiding
-
-function disposePanel(panelId: string): void {
-  const panel = getPanel(panelId);
-  if (panel) {
-    ReactDOM.unmountComponentAtNode(panel);
-  }
-}
-
-function disposeModalComp(panelId: string): void {
-  const panel = getPanel(panelId);
-  if (panel) {
-    ReactDOM.unmountComponentAtNode(panel);
-  }
-}
 
 export function disposeDialogUfoa(): void {
   disposePanel(dialogUfoaId);
@@ -160,12 +152,6 @@ export function disposeDialogUfob(): void {
 
 export function disposeDialogSim(): void {
   disposePanel(dialogSimId);
-}
-
-export function disposeModal(): void {
-  const m = $(`#${modalId}`) as any;
-  m.modal("hide");
-  disposeModalComp(modalBoxId);
 }
 
 // Messages
@@ -200,7 +186,7 @@ export function displayError(msg: string): void {
   displayMsg(msg, "alert-danger", false);
 }
 
-// Component
+// Components
 export class PaneDialog<Props, State> extends React.Component<Props, State> {
   public componentDidMount = () => {
     fitPanes();

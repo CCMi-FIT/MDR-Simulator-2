@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import { Id, ValidationResult, validationResultOK, getLastIdNo } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association, UfoaModel, validateEntity, validateGeneralisation, validateAssociation } from "./metamodel";
+import * as ufoaMeta from "./metamodel";
 
 // Entities
 
@@ -49,7 +50,7 @@ export function deleteEntity(model: UfoaModel, eId: Id): UfoaModel {
 
 export function newGeneralisation(model: UfoaModel, gSupEId: Id, gSubEId: Id): Generalisation {
   const lastGIdNo = getLastIdNo(model.generalisations.map((g) => g.g_id));
-  const lastGSIdNo = getLastIdNo(getGeneralisationSets(model).map((gs) => gs.g_set_id));
+  const lastGSIdNo = getLastIdNo(ufoaMeta.getGeneralisationSets(model).map((gs) => gs.g_set_id));
   const res: Generalisation = {
     g_id: `g${lastGIdNo + 1}`,
     g_set: {
@@ -67,12 +68,8 @@ export function getGeneralisation(model: UfoaModel, gId: Id): Generalisation | u
   return model.generalisations.find((g) => g.g_id === gId);
 }
 
-export function getGeneralisationSets(model: UfoaModel): GSet[] {
-  return getGeneralisationSets(model);
-}
-
 export function getGSet(model: UfoaModel, gSetId: Id): GSet | undefined {
-  return getGeneralisationSets(model).find((gs) => gs.g_set_id === gSetId);
+  return ufoaMeta.getGeneralisationSets(model).find((gs) => gs.g_set_id === gSetId);
 }
 
 function updateGSet(model: UfoaModel, gSetId: Id, gSetNew: GSet): void {

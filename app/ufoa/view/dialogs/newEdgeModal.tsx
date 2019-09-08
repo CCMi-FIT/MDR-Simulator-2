@@ -14,7 +14,9 @@ interface State {
   selection: SelectedValue;
 }
 
-class NewEdgeForm extends panels.PaneDialog<Props, State> {
+class NewEdgeForm extends React.Component<Props, State> {
+
+  private modalRef: any;
 
   constructor(props: Props) {
     super(props);
@@ -26,21 +28,21 @@ class NewEdgeForm extends panels.PaneDialog<Props, State> {
   private selectionMade = (event: React.ChangeEvent) => {
     const ct = event.currentTarget as HTMLSelectElement;
     const val: string = ct.value;
-    if (!(val in ["generalisation", "association"])) {
-      throw(new Error("invalid value in selection"));
+    if (!["generalisation", "association"].includes(val)) {
+      throw(new Error("invalid value in selection: " + val));
     } else {
       this.setState({ selection: val as SelectedValue });
     }
   }
 
   private setEdgeType = () => {
-    panels.disposeModal();
+    this.modalRef.hide();
     this.props.nextFn(this.state.selection);
   }
 
   public render = () => {
     return (
-      <Modal heading="Select new edge type:">
+      <Modal heading="Select new edge type:" ref={(mRef) => this.modalRef = mRef}>
         <div className="form-group">
           <select className="form-control" value={this.state.selection} onChange={this.selectionMade}>
             <option key="generalisation" value="generalisation">Generalisation</option>
@@ -57,6 +59,5 @@ export function render(edgeData: any, nextFn: (name: string) => void) {
   const panel = panels.getModal();
   if (panel) {
     ReactDOM.render(<NewEdgeForm edgeData={edgeData} nextFn={nextFn}/>, panel);
-    panels.showModal();
   }
 }

@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import axios from "axios";
 
 export async function getData<T>(url: string): Promise<T> {
@@ -10,7 +11,9 @@ export async function getData<T>(url: string): Promise<T> {
 }
 
 export async function postData<T>(url: string, data: T): Promise<any> {
-  return axios.post(url, data);
+  const params: any = _.clone(data);
+  _.keys(params).forEach((key: string) => params[key] = JSON.stringify(params[key]));
+  return axios.post(url, params);
 }
 
 

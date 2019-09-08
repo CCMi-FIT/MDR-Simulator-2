@@ -1,7 +1,8 @@
+import { clientURL } from "../api";
+import * as api from "./api";
 import { Id, Graphics } from "../metamodel";
 import { UfoaEntity, Generalisation, GSet, Association, UfoaModel } from "./metamodel";
 import * as ufoaMeta from "./metamodel";
-import * as urls from "./urls";
 import * as ufoaModel from "./model";
 import * as ufobDB from "../ufob/db";
 import { getData, postData } from "../db";
@@ -12,7 +13,7 @@ var model: UfoaModel = ufoaMeta.emptyModel;
 
 export function loadModel(): Promise<UfoaModel> {
   return new Promise((resolve, reject) => {
-    getData<UfoaModel>(urls.clientURL(urls.ufoaGetModel)).then(
+    getData<UfoaModel>(clientURL(api.getModelURL)).then(
       (data) => {
         model = data;
         resolve(data);
@@ -22,11 +23,11 @@ export function loadModel(): Promise<UfoaModel> {
 }
 
 export function loadGraphics(): Promise<Graphics> {
-  return getData<Graphics>(urls.clientURL(urls.ufoaGetGraphics));
+  return getData<Graphics>(clientURL(api.getGraphicsURL));
 }
 
 export function saveGraphics(graphics: Graphics): Promise<any> {
-  return postData<Graphics>(urls.clientURL(urls.ufoaGraphicsSave), graphics);
+  return postData<api.Graphics>(clientURL(api.graphicsSaveURL), { graphics });
 }
 
 // Entities {{{1
@@ -54,7 +55,7 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
     if (validity.errors) {
       reject("Entity update failed: " + validity.errors);
     } else {
-      postData(urls.clientURL(urls.ufoaEntityUpdate), { entity: JSON.stringify(updatedEntity) }).then(
+      postData<api.UpdateEntity>(clientURL(api.entityUpdateURL), { entity: updatedEntity }).then(
         ()     => resolve(),
         (error) => reject(error)
       );
@@ -64,7 +65,7 @@ export function updateEntity(updatedEntity: UfoaEntity): Promise<any> {
 
 export function deleteEntity(eId: Id): Promise<any> {
   return new Promise((resolve, reject) => {
-    postData(urls.clientURL(urls.ufoaEntityDelete), { eId }).then(
+    postData<api.DeleteEntity>(clientURL(api.entityDeleteURL), { e_id: eId }).then(
       () => {
         model = ufoaModel.deleteEntity(model, eId);
         ufobDB.entityDeletionHook(eId);
@@ -90,7 +91,7 @@ export function getGeneralisation(gId: Id): Generalisation | undefined {
 }
 
 export function getGeneralisationSets(): GSet[] {
-  return ufoaModel.getGeneralisationSets(model);
+  return ufoaMeta.getGeneralisationSets(model);
 }
 
 export function getGSet(gSetId: Id): GSet | undefined {
@@ -103,7 +104,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
     if (validity.errors) {
       console.error(new Error("Generalisation update failed: " + validity.errors));
     } else {
-      postData(urls.clientURL(urls.ufoaGeneralisationUpdate), { generalisation: JSON.stringify(updatedGeneralisation) }).then(
+      postData<api.UpdateGeneralisation>(clientURL(api.generalisationUpdateURL), { generalisation: updatedGeneralisation }).then(
         ()      => resolve(),
         (error) => reject(error)
       );
@@ -114,7 +115,7 @@ export function updateGeneralisation(updatedGeneralisation: Generalisation): Pro
 export function deleteGeneralisation(gId: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteGeneralisation(model, gId);
-    postData(urls.clientURL(urls.ufoaGeneralisationDelete), { gId }).then(
+    postData<api.DeleteGeneralisation>(clientURL(api.generalisationDeleteURL), { g_id: gId }).then(
       ()      => resolve(),
       (error) => reject(error)
     );
@@ -149,7 +150,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
     if (validity.errors) {
       console.error(new Error("Association update failed: " + validity.errors));
     } else {
-      postData(urls.clientURL(urls.ufoaAssociationUpdate), { association: JSON.stringify(updatedAssociation) }).then(
+      postData<api.UpdateAssociation>(clientURL(api.associationUpdateURL), { association: updatedAssociation }).then(
         ()     => resolve(),
         (error) => reject(error)
       );
@@ -160,7 +161,7 @@ export function updateAssociation(updatedAssociation: Association): Promise<any>
 export function deleteAssociation(aId: Id): Promise<any> {
   return new Promise((resolve, reject) => {
     ufoaModel.deleteAssociation(model, aId);
-    postData(urls.clientURL(urls.ufoaAssociationDelete), { aId }).then(
+    postData<api.DeleteAssociation>(clientURL(api.associationDeleteURL), { a_id: aId }).then(
       ()      => resolve(),
       (error) => reject(error)
     );

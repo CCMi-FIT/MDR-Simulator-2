@@ -23,6 +23,7 @@ interface State {
 
 class DispositionForm extends React.Component<Props, State> {
 
+  private modalRef: any;
   private typeahead: any = null;
 
   constructor(props: Props) {
@@ -69,7 +70,6 @@ class DispositionForm extends React.Component<Props, State> {
   private save = () => {
     const dOrig = this.props.disposition;
     const dNew = this.state.disposition2;
-    panels.disposeModal();
     if (!_.isEqual(dNew, dOrig)) {
       this.props.resolve(dNew);
     } else {
@@ -107,8 +107,13 @@ class DispositionForm extends React.Component<Props, State> {
   }
 
   private delete = () => {
+    this.modalRef.hide();
     this.props.resolve(null);
-    panels.disposeModal();
+  }
+
+  private cancel = () => {
+    this.modalRef.hide();
+    this.props.reject();
   }
 
   // Rendering {{{1
@@ -183,14 +188,14 @@ class DispositionForm extends React.Component<Props, State> {
           Update disposition
         </button>
         <button type="button" className="btn btn-danger mr-auto" onClick={() => this.delete()}>Delete disposition</button>
-        <button type="button" className="btn btn-warning mr-auto" onClick={() => panels.disposeModal()}>Cancel</button>
+        <button type="button" className="btn btn-warning mr-auto" onClick={() => this.cancel()}>Cancel</button>
       </div>
     );
   }
 
   public render = () => {
     return (
-      <Modal heading={<strong>Disposition</strong>}>
+      <Modal heading={<strong>Disposition</strong>} ref={(mRef) => this.modalRef = mRef}>
         {this.renderDispositionText()}
         {this.renderEvents()}
         {this.renderButtons()}
@@ -205,7 +210,6 @@ export function render(situation: Situation, disposition: Disposition): Promise<
     const panel = panels.getModal();
     if (panel) {
       ReactDOM.render(<DispositionForm situation={situation} disposition={disposition} resolve={resolve} reject={reject}/>, panel);
-      panels.showModal();
     }
   });
 }

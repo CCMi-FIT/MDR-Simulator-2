@@ -1,6 +1,6 @@
 import * as http  from "http";
 import app from "./app";
-import * as urls from "./urls";
+import * as api from "./api";
 
 //import { convertModel } from "./convert";
 //console.log("converting model");
@@ -21,7 +21,7 @@ function onListening() {
 
 // Setup and go
 
-var port = urls.port;
+var port = api.port;
 app.set("port", port);
 
 var server = http.createServer(app);

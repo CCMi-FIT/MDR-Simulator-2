@@ -5,7 +5,7 @@ import { Graphics } from "../../metamodel";
 import { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
 import * as ufoaMeta from "../metamodel";
 import * as ufoaDB from "../db";
-import * as newEdgeDialog from "./dialogs/newEdgeDialog";
+import * as newEdgeModal from "./dialogs/newEdgeModal";
 import * as entityDialog from "./dialogs/entityDialog";
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
@@ -26,8 +26,8 @@ export interface UfoaVisModel {
 
 export function newUfoaVisModel(visNodes: UfoaVisNode[], visEdges: UfoaVisEdge[]): UfoaVisModel {
   return {
-    nodes: new visData.DataSet(visNodes),
-    edges: new visData.DataSet(visEdges)
+    nodes: new visNetwork.DataSet(visNodes),
+    edges: new visNetwork.DataSet(visEdges)
   }
 }
 
@@ -96,11 +96,11 @@ function addNodeHandler(ufoaVisModel: UfoaVisModel, network: visNetwork.Network,
 }
 
 function addEdgeHandler(ufoaVisModel: UfoaVisModel, edgeData: any, callback: Callback) {
-  newEdgeDialog.render(edgeData, (edgeType: string) => {
+  newEdgeModal.render(edgeData, (edgeType: string) => {
     if (edgeType === "generalisation") {
       const newGen: Generalisation = ufoaDB.newGeneralisation(edgeData.from, edgeData.to);
       callback(generalisation2vis(newGen));
-      generalisationDialog.render(newGen, ufoaVisModel);
+      ufoaDB.updateGeneralisation(newGen);
     } else if (edgeType === "association") {
       const newAssoc: Association = ufoaDB.newAssociation(edgeData.from, edgeData.to);
       callback(assoc2vis(newAssoc));
@@ -121,12 +121,8 @@ export function renderEntity(e: ufoaMeta.UfoaEntity) {
   );
 }
 
-export function renderUfoa(container: HTMLElement, ufoaVisModel: UfoaVisModel): visNetwork.Network {
-  const data: visNetwork.Data = {
-    nodes: ufoaVisModel.nodes.get(),
-    edges: ufoaVisModel.edges.get()
-  };
-  const network = new visNetwork.Network(container, data, {});
+export function renderUfoa(container: HTMLElement, ufoaVisModel: any): visNetwork.Network {
+  const network = new visNetwork.Network(container, ufoaVisModel, {});
   const options = {
     nodes: {
       shape: "box"

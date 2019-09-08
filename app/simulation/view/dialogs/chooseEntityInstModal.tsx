@@ -19,6 +19,8 @@ interface State {
 
 class ChooseEntityInstForm extends React.Component<Props, State> {
 
+  private modalRef: any;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -28,8 +30,8 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
 
   // Operations {{{1
   private choose = () => {
-    panels.disposeModal();
     const chosenInst = this.props.insts.find((ei) => ei.ei_name === this.state.chosenInstName);
+    this.modalRef.hide();
     if (!chosenInst) {
       console.error(new Error(`Something is very wrong in ChooseEntityInstForm: ${this.state.chosenInstName} disappeared from props.insts`));
       this.props.reject();
@@ -61,7 +63,7 @@ class ChooseEntityInstForm extends React.Component<Props, State> {
 
   public render = () => {
     return (
-      <Modal heading={<span>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></span>}>
+      <Modal heading={<span>Choose instance of <strong>{this.props.entity.e_name}</strong> as <strong>{this.props.choiceType}</strong></span>} ref={(mRef) => this.modalRef = mRef}>
           {this.renderSelection()}
           {this.renderButtons()}
       </Modal>
@@ -76,7 +78,6 @@ export function renderPm(insts: EntityInst[], entity: UfoaEntity, choiceType: st
     const panel = panels.getModal();
     if (panel) {
       ReactDOM.render(<ChooseEntityInstForm insts={insts} choiceType={choiceType} entity={entity} resolve={resolve} reject={reject}/>, panel);
-      panels.showModal();
     }
   });
 }

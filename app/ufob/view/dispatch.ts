@@ -1,6 +1,7 @@
 import { Id } from "../../metamodel";
 import * as ufobDB from "../db";
 import { UfobVisModel } from "../../ufob/view/diagram";
+import * as panels from "../../panels";
 import * as situationDialog from "./dialogs/situationDialog";
 import * as eventDialog from "./dialogs/eventDialog";
 
@@ -36,6 +37,10 @@ function dispatchEdge(edgeId: Id, ufobVisModel: UfobVisModel) {
   // currently ignore
 }
 
+function dispatchNone() {
+  panels.disposeDialogUfob();
+}
+
 export function handleClick(ufobVisModel: UfobVisModel, params: any): void {
   const nodeId = params.nodes[0];
   const edgeId = params.edges[0];
@@ -43,5 +48,7 @@ export function handleClick(ufobVisModel: UfobVisModel, params: any): void {
     dispatchNode(nodeId, ufobVisModel);
   } else if (edgeId) {
     dispatchEdge(edgeId, ufobVisModel);
+  } else {
+    dispatchNone();
   }
 }

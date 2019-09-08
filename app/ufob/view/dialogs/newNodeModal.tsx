@@ -16,7 +16,9 @@ interface State {
   ev_to_situation_id?: Id;
 }
 
-class NewNodeForm extends panels.PaneDialog<Props, State> {
+class NewNodeForm extends React.Component<Props, State> {
+
+  private modalRef: any;
 
   constructor(props: Props) {
     super(props);
@@ -37,9 +39,9 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
     }
   }
 
-  private setNodeType = () => {
+  private commit = () => {
     const sel = this.state.selection;
-    panels.disposeModal();
+    this.modalRef.hide();
     this.props.next(
       sel === "event" ?
         { selection: sel, ev_to_situation_id: this.state.ev_to_situation_id }
@@ -79,10 +81,10 @@ class NewNodeForm extends panels.PaneDialog<Props, State> {
 
   public render = () => {
     return (
-      <Modal heading="Select new node type:">
+      <Modal heading="Select new node type:" ref={(mRef) => this.modalRef = mRef}>
         {this.renderSelection()}
         {this.state.selection === "event" ? this.renderToSituation() : ""}
-        <button type="button" className="btn-primary" onClick={this.setNodeType}>Select type</button>
+        <button type="button" className="btn-primary" onClick={this.commit}>Select type</button>
       </Modal>
     );
   }
@@ -92,6 +94,5 @@ export function render(next: (s: State) => void) {
   const panel = panels.getModal();
   if (panel) {
     ReactDOM.render(<NewNodeForm next={next}/>, panel);
-    panels.showModal();
   }
 }
