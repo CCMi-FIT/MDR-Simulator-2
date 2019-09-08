@@ -224,7 +224,7 @@ class EventForm extends panels.PaneDialog<Props, State> {
       <div>
         <input
           className={this.hasInstNameError(op) ? "form-control bg-error" : "form-control"}
-          value={this.state.instsNamesStrDict[op.opa_e_id]}
+          value={this.state.instsNamesStrDict[op.opa_e_id] || ""}
           data-toggle="tooltip" data-placement="right" title={instsTip}
           onChange={(ev) => {
             const val = ev.currentTarget.value;

@@ -70,6 +70,7 @@ class DispositionForm extends React.Component<Props, State> {
   private save = () => {
     const dOrig = this.props.disposition;
     const dNew = this.state.disposition2;
+    this.modalRef.hide();
     if (!_.isEqual(dNew, dOrig)) {
       this.props.resolve(dNew);
     } else {

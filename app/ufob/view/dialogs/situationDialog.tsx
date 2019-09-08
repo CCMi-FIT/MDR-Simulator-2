@@ -68,13 +68,23 @@ class SituationForm extends panels.PaneDialog<Props, State> {
     );
   }
 
-  private setAttr = (attr: string, val: any) => {
+  private setAttr = (attr: keyof Situation, val: any) => {
     this.setState((state: State, props: Props) => {
       const sOrig = props.situation;
-      const stateNew = { ...state, situation2: { [attr]: val }};
+      const sNew: Situation = (
+	attr === "s_name" ? {
+	  ...state.situation2,
+	  s_name: val as string
+	}
+        : attr === "s_wmda_text" ? {
+	  ...state.situation2,
+	  s_wmda_text: val as string
+	}
+	: sOrig
+      );
       return {
-	...state, 
-	saveDisabled: _.isEqual(sOrig, stateNew.situation2)
+        situation2: sNew,
+        saveDisabled: _.isEqual(sOrig, sNew)
       };
     });
   }
