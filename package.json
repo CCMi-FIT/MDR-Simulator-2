@@ -8,8 +8,8 @@
     "server:watch": "nodemon --watch shared --watch server/app --ext ts,js,ejs --exec npm run server:build\\;npm run server:run",
     "server:build": "cd server; rm -rf dist/*; tsc; cp -r app/views dist/",
     "server:run": "cd server/dist; node server",
-    "client:watch": "rm -rf server/public/*; webpack  --watch --progress",
-    "client:build": "rm -rf server/public/*; webpack --progress",
+    "client:watch": "rm -rf server/public/*; webpack  --watch --progress --config webpack.dev.js",
+    "client:build": "rm -rf server/public/*; webpack --progress --config webpack.prod.js",
     "clean": "npm cache clean --force"
   },
   "devDependencies": {
@@ -23,7 +23,8 @@
     "@types/proper-lockfile": "^4.1.1",
     "copy-webpack-plugin": "^5.0.4",
     "ts-loader": "^6.0.4",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.2",
+    "webpack-merge": "^4.2.2"
   },
   "repository": {
     "type": "git",
