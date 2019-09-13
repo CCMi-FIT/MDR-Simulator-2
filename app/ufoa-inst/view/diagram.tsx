@@ -18,8 +18,8 @@ export interface UfoaInstVisModel {
 
 export function newUfoaInstVisModel(visNodes: UfoaInstVisNode[] = [], visEdges: UfoaInstVisEdge[] = []): UfoaInstVisModel {
   return {
-    nodes: new visData.DataSet(visNodes),
-    edges: new visData.DataSet(visEdges)
+    nodes: new visNetwork.DataSet(visNodes),
+    edges: new visNetwork.DataSet(visEdges)
   }
 }
 
@@ -120,11 +120,7 @@ export function addAInsts(visModel: UfoaInstVisModel, ais: AssocInst[]) {
 
 // Render {{{1
 
-export function renderUfoaInst(container: HTMLElement, visModel: UfoaInstVisModel): visNetwork.Network {
-  const data = {
-    nodes: visModel.nodes.get(),
-    edges: visModel.edges.get()
-  };
+export function renderUfoaInst(container: HTMLElement, data: UfoaInstVisModel): visNetwork.Network {
   const options = {
     edges: {
       smooth: false

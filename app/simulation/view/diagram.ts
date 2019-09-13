@@ -17,12 +17,13 @@ const visitedEvCol = "#f7ef4f";
 const visitedSCol = "#b5ec17";
 
 function addOp2EntityInsts(machine: any, eventB: UfobEvent, op: AddEntityInstOp): EntityInst[] {
+  let res: EntityInst[];
   const entity = ufoaDB.getEntity(op.opa_e_id);
   if (op.opa_insts_names.length === 0) { // default instance
     if (!machine.checkSingleDefault(entity)) {
       throw(new Error(`Simulation error: There is already a default instance of entity "${entity.e_name}", please correct the Behaviour Model.`));
     } else {
-      return [ufoaInstModel.newEntityInst(entity, "")];
+      res =  [ufoaInstModel.newEntityInst(entity, "")];
     }
   } else { // explicit names present
     const names = op.opa_insts_names;
@@ -34,9 +35,10 @@ function addOp2EntityInsts(machine: any, eventB: UfobEvent, op: AddEntityInstOp)
       const allNames = [ ...remainingNames, nameWithIndex ];
       return allNames.map((name1) => ufoaInstModel.newEntityInst(entity, name1));
     } else {
-      return names.map((name1) => ufoaInstModel.newEntityInst(entity, name1));
+      res = names.map((name1) => ufoaInstModel.newEntityInst(entity, name1));
     }
   }
+  return res;
 }
 
 function sequence(tasks: (() => Promise<any>)[], parameters = [], context = null) {
