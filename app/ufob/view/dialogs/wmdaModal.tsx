@@ -56,7 +56,7 @@ class WMDAForm extends React.Component<Props, State> {
 
   public render = () => {
     return (
-      <Modal heading={<span>WMDA Standard for {this.props.title}</span>} ref={(mRef) => this.modalRef = mRef}>
+      <Modal heading={<span>WMDA Standard for {this.props.title}</span>} ref={(mRef) => this.modalRef = mRef} width="1000px">
         <CKEditor
         activeClass="p10"
         content={this.state.wmdaText2}

@@ -27,6 +27,7 @@ export function Panel(props: PanelProps) {
 // Modal {{{1
 interface ModalProps {
   heading: React.ReactNode;
+  width?: string;
   children?: React.ReactNode;
 }
 
@@ -42,10 +43,11 @@ export class Modal extends React.Component<ModalProps> {
   }
 
   public render = () => {
+    const w = this.props.width ? this.props.width : "auto"; 
     return (
       <div className="modal fade" id="app-modal" ref={(mRef) => this.myRef = mRef} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
-          <div className="modal-content">
+          <div className="modal-content" style={{width: w}}>
             <div className="modal-header">
               <h5 className="modal-title">{this.props.heading}</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
