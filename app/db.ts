@@ -12,7 +12,9 @@ export async function getData<T>(url: string): Promise<T> {
 
 export async function postData<T>(url: string, data: T): Promise<any> {
   const params: any = _.clone(data);
-  _.keys(params).forEach((key: string) => params[key] = JSON.stringify(params[key]));
+  _.keys(params).forEach((key: string) => {
+    params[key] = typeof params[key] === "object" ? JSON.stringify(params[key]) : params[key];
+  });
   return axios.post(url, params);
 }
 

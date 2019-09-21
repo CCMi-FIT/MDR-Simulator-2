@@ -101,11 +101,12 @@ class SituationForm extends panels.PaneDialog<Props, State> {
   private delete = () => {
     const nodes: any = this.props.ufobVisModel.nodes;
     const edges: any = this.props.ufobVisModel.edges;
-    const s_id = this.props.situation.s_id;
-    ufobDB.deleteSituation(s_id).then(
+    const sId = this.props.situation.s_id;
+    const eventsDeleted = ufobDB.getEventsToSituation(sId).map(ev => ev.ev_id);
+    ufobDB.deleteSituation(sId).then(
       () => {
-        nodes.remove({ id: s_id });
-        const edges2remove = edges.get().filter((e: UfobVisEdge) => e.from === s_id || e.to === s_id);
+        nodes.remove([ sId, ...eventsDeleted ]);
+        const edges2remove = edges.get().filter((e: UfobVisEdge) => e.from === sId || e.to === sId);
         edges.remove(edges2remove.map((e: UfobVisEdge) => e.id));
         panels.disposeDialogUfob();
         panels.displayInfo("Situation deleted.");
@@ -216,7 +217,10 @@ class SituationForm extends panels.PaneDialog<Props, State> {
         renderConfirmPm(
           "Deleting Situation",
           "delete",
-          <span>Are you sure you want to delete &quot;{this.props.situation.s_name}&quot;?</span>
+	  (<div>
+	    <p>Are you sure you want to delete &quot;{this.props.situation.s_name}&quot;?</p>
+	    <p>Events leading to this situation will be deleted as well.</p>
+	   </div>)
         ).then(() => this.delete());
       }}>Delete
       </button>

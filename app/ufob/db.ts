@@ -84,6 +84,10 @@ export function getSituationById(sId: Id): Situation | undefined {
   return ufobModel.getSituationById(model, sId);
 }
 
+export function getEventsToSituation(sId: Id) : UfobEvent[] {
+  return getEvents().filter(ev => ev.ev_to_situation_id === sId);
+}
+
 export function newSituation(): Situation {
   return ufobModel.newSituation(model);
 }
@@ -103,11 +107,18 @@ export function updateSituation(updatedSituation: Situation): Promise<any> {
 }
 
 export function deleteSituation(sId: Id): Promise<any> {
+  const events = getEventsToSituation(sId);
   return new Promise((resolve, reject) => {
-    ufobModel.deleteSituation(model, sId);
-    postData<api.DeleteSituation>(clientURL(api.situationDeleteURL), { s_id: sId }).then(
-      (result) => resolve(result),
-      (error)  => reject(error)
+    const deletePms = events.map(ev => deleteEvent(ev.ev_id));
+    Promise.all(deletePms).then(
+      (results) => {
+	ufobModel.deleteSituation(model, sId);
+	postData<api.DeleteSituation>(clientURL(api.situationDeleteURL), { s_id: sId }).then(
+	  (result) => resolve(result),
+	  (error)  => reject(error)
+	);
+      },
+      (error) => reject(error)
     );
   });
 }
