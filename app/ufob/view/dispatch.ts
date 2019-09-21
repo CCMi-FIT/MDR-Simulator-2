@@ -1,9 +1,16 @@
 import { Id } from "../../metamodel";
 import * as ufobDB from "../db";
+import { Position } from "../../diagram";
 import { UfobVisModel } from "../../ufob/view/diagram";
 import * as panels from "../../panels";
 import * as situationDialog from "./dialogs/situationDialog";
 import * as eventDialog from "./dialogs/eventDialog";
+
+var clickPos: Position | undefined;
+
+export function getClickPos(): Position | undefined {
+  return clickPos;
+}
 
 function dispatchNode(nodeId: Id, ufobVisModel: UfobVisModel) {
   const node = ufobVisModel.nodes.get(nodeId);
@@ -42,6 +49,7 @@ function dispatchNone() {
 }
 
 export function handleClick(ufobVisModel: UfobVisModel, params: any): void {
+  clickPos = params.pointer.canvas;
   const nodeId = params.nodes[0];
   const edgeId = params.edges[0];
   if (nodeId) {

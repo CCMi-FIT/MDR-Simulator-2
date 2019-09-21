@@ -1,10 +1,17 @@
 import { Id } from "../../metamodel";
+import { Position } from "../../diagram";
 import * as ufoaDB from "../db";
 import { UfoaVisModel } from "./diagram";
 import * as panels from "../../panels";
 import * as entityDialog from "./dialogs/entityDialog";
 import * as generalisationDialog from "./dialogs/generalisationDialog";
 import * as associationDialog from "./dialogs/associationDialog";
+
+var clickPos: Position | undefined;
+
+export function getClickPos(): Position | undefined {
+  return clickPos;
+}
 
 function dispatchNode(nodeId: Id, ufoaVisModel: UfoaVisModel) {
   const ufoaEntity = ufoaDB.getEntity(nodeId);
@@ -45,6 +52,7 @@ function dispatchNone() {
 }
 
 export function handleClick(ufoaVisModel: UfoaVisModel, params: any): void {
+  clickPos = params.pointer.canvas;
   const nodeId = params.nodes[0];
   const edgeId = params.edges[0];
   if (nodeId) {

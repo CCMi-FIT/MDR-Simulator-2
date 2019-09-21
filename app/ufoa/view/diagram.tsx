@@ -1,8 +1,11 @@
+import * as _ from "lodash";
 import * as React from "react";
 import * as visNetwork from "vis-network";
 import * as visData from "vis-data";
 import { Graphics } from "../../metamodel";
 import { UfoaEntity, Generalisation, Association, UfoaModel } from "../metamodel";
+import * as dispatch from "./dispatch";
+import { Position } from "../../diagram";
 import * as ufoaMeta from "../metamodel";
 import * as ufoaDB from "../db";
 import * as newEdgeModal from "./dialogs/newEdgeModal";
@@ -31,7 +34,7 @@ export function newUfoaVisModel(visNodes: UfoaVisNode[], visEdges: UfoaVisEdge[]
   }
 }
 
-export function entity2vis(e: UfoaEntity, coords?: visNetwork.Position): UfoaVisNode {
+export function entity2vis(e: UfoaEntity, coords?: Position): UfoaVisNode {
   const pos = coords || {};
   return {
     ...coords,
@@ -87,7 +90,7 @@ type Callback = (properties: any) => void;
 
 function addNodeHandler(ufoaVisModel: UfoaVisModel, network: visNetwork.Network, callback: Callback) {
   const newEntity = ufoaDB.newEntity();
-  callback(entity2vis(newEntity));
+  callback(entity2vis(newEntity, dispatch.getClickPos()));
   network.fit({
     nodes: [newEntity.e_id],
     animation: true

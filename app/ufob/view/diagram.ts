@@ -4,6 +4,7 @@ import * as visData from "vis-data";
 import { Id, Graphics } from "../../metamodel";
 import { UfobEvent, Situation, Disposition, UfobModel } from "../metamodel";
 import { UfobVisNode, UfobVisEdge, UfobVisModel } from "./diagram";
+import * as dispatch from "./dispatch";
 import { Position } from "../../diagram";
 import * as diagram from "../../diagram";
 import * as ufobModel from "../model";
@@ -93,7 +94,7 @@ function addNodeHandler(ufobVisModel: UfobVisModel, visNetwork1: visNetwork.Netw
   newNodeModal.render((res: any) => {
     if (res.selection === "situation") {
       const newS: Situation = ufobDB.newSituation();
-      callback(situation2vis(newS));
+      callback(situation2vis(newS, dispatch.getClickPos()));
       visNetwork1.fit({
         nodes: [newS.s_id],
         animation: true
@@ -101,7 +102,7 @@ function addNodeHandler(ufobVisModel: UfobVisModel, visNetwork1: visNetwork.Netw
       situationDialog.render(newS, ufobVisModel);
     } else if (res.selection === "event") {
       const newEv: UfobEvent = ufobDB.newEvent("New event", res.ev_to_situation_id);
-      callback(event2vis(newEv));
+      callback(event2vis(newEv, dispatch.getClickPos()));
       visNetwork1.fit({
         nodes: [newEv.ev_id],
         animation: true
