@@ -62,10 +62,10 @@ export function getFiredEvents(): UfobEvent[] {
     (res: UfobEvent[], evi: UfobEventInst) => {
       const mev = ufobDB.getUfobEventById(evi.evi_ev_id);
       if (mev) {
-	return [ ...res, mev ];
+        return [ ...res, mev ];
       } else {
-	console.error(new Error("getFiredEvents: non-existent event in an instance"));
-	return res;
+        console.error(new Error("getFiredEvents: non-existent event in an instance"));
+        return res;
       }
     },
     []
@@ -194,7 +194,7 @@ export function getMissingAIs(insts: EntityInst[], presentAIs: AssocInst[]): Ass
       const e2Insts = insts.filter((ei) => ei.ei_e_id === a.a_connection2.e_id);
       const cartesian = product(e1Insts, e2Insts);
       const aisPossible: AssocInst[] = cartesian.map(
-	([e1Inst, e2Inst]: [EntityInst, EntityInst]) => ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst)
+        ([e1Inst, e2Inst]: [EntityInst, EntityInst]) => ufoaInstMeta.newAssocInst(a, e1Inst, e2Inst)
       );
       const ais = aisPossible.filter((ai: AssocInst) => rules.checkAIrules(insts, presentAIs, ai));
       return resAIs.concat(ais);
@@ -323,6 +323,6 @@ export function moveToCurrent(): UfobEventInst[] {
   const l = simState.sim_snapshots.length;
   const i = simState.sim_currentEventIdx;
   const dropped = _.takeRight(simState.sim_snapshots, l - i);
-  simState.sim_snapshots = _.dropRight(simState.sim_snapshots, l - i);
+  simState.sim_snapshots = _.dropRight(simState.sim_snapshots, l - i - 1);
   return dropped.map((sn) => sn.sn_evInst);
 }

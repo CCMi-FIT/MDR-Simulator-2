@@ -133,9 +133,10 @@ class SimulationBox extends panels.PaneDialog<{}, State> {
       <ul key={s.s_id} className="list-group list-group-flush">
         <li className={"list-group-item pr-0 pt-0 pb-0" + (!isCurrent ? " clickable-log" : "")}
           onClick={() => {
-            //TODO
-            this.switchCurrentSituation(s);
-            this.forceUpdate();
+            if (!isCurrent) { // Prevent event propagation from MoveTo button below
+              this.switchCurrentSituation(s);
+              this.forceUpdate();
+            }
           }}
         >
           {(() => {

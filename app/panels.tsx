@@ -157,7 +157,7 @@ export function disposeDialogSim(): void {
 // Messages
 
 const closeButton = `
-  <button type="button" class="close" aria-label="Close" onclick="$("#${messageId}").hide()"}>
+  <button type="button" class="close" aria-label="Close" onclick="$('#${messageId}').hide()"}>
     <span aria-hidden="true">&times;</span>
   </button>`;
 
